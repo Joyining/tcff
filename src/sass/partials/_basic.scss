@@ -1,0 +1,152 @@
+/* -------------------------------------------- reset ----------------------------------------------*/
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+a{
+	text-decoration: none;
+}
+
+/* -------------------------------------------- path ----------------------------------------------*/
+
+$images: "../images/";
+
+
+/* -------------------------------------------- breakpiont ----------------------------------------------*/
+
+ @mixin breakpoint($point) {
+   @if $point == desktop {
+     @media (min-width: 70em) { @content ; } // 1120px
+  }
+   @else if $point == tablet {
+     @media (max-width: 64em) { @content ; } //1024px
+  }
+  	@else if $point == mobileonly {
+     @media (max-width: 37.5em)  { @content ; } //600px
+
+  }
+}
+
+/* -------------------------------------------- color ----------------------------------------------*/
+
+$colorDarker: #631a1c;
+$colorDark: rgb(142,95,89);
+$colorMedium: #cbab9e;
+$colorLight: #e3e0d9;
+
+body{
+	background-color: $colorDark;
+}
+
+/* -------------------------------------------- font ----------------------------------------------*/
+
+$fontFamily: '微軟正黑體';
+
+body{
+    font-family: $fontFamily;
+}
+
+$fontSizeBase: 1rem;
+h1{font-size: $fontSizeBase * 2;}
+h2{font-size: $fontSizeBase * 1.8;}
+h3{font-size: $fontSizeBase * 1.6;}
+h4{font-size: $fontSizeBase * 1.4;}
+h5{font-size: $fontSizeBase * 1.2;}
+h6{font-size: $fontSizeBase; }
+
+
+
+/* -------------------------------------------- text rec ----------------------------------------------*/
+
+@mixin text-rec($width, $fontSize, $backgroundColor, $textColor, $borderColor){
+    font-size: $fontSize;
+    line-height: $fontSize * 2;
+	text-align: center;
+	background-color: $backgroundColor;
+    color: $textColor;
+	border: 2px solid $borderColor;
+	width: $width;
+	height: $fontSize * 2;
+}
+
+// $logoRadius: 12vw;
+$headerHeight: 100px; 
+// $footerHeight: 120px;
+
+
+/* -------------------------------------------- container ----------------------------------------------*/
+
+
+.container{
+	margin: ($headerHeight * 2.2) auto;
+	padding: 100px;
+	width: 80vw;
+	box-sizing: border-box;
+	@include breakpoint("tablet") {
+		width: 90vw;
+		padding: 50px;
+	}
+	@include breakpoint("mobileonly") {
+		width: 90vw;
+		padding: 30px;
+    }
+}
+
+/* -------------------------------------------- paragraph ----------------------------------------------*/
+
+@mixin paragraph($textColor){
+	color: $textColor;
+	font-size: $fontSizeBase;
+	line-height: 2rem;
+	margin: 1.5rem auto;
+}
+
+.transition{
+	transition: all .3s;
+}
+
