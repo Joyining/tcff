@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import './index.css';
-// import App from './App';
-import Logo from './components/logo';
+import './index.css';
+import InfoPage from './components/info-page';
 
-ReactDOM.render(<Logo />, document.getElementById('root'));
+ReactDOM.render(<InfoPage />, document.getElementById('root'));

@@ -251,21 +251,18 @@ header{
 
 footer{
     background-color: $colorMedium;
-    // height: $footerHeight;
     width: 100%;
-    // position: relative;
-    // bottom: 0;
     display: flex;
     justify-content: center;
     font-size: .8rem;
     @include breakpoint("desktop"){
-        position: relative;
-        bottom: 0;
+        // position: absolute;
+        // bottom: 0;
     }
     @include breakpoint("tablet"){
         display: block;
-        position: relative;
-        bottom: 0;
+        // position: absolute;
+        // bottom: 0;
         margin-bottom: $headerHeight;
         padding-top: 15px;
     }
@@ -276,7 +273,7 @@ footer{
        padding-bottom: 15px;
        justify-content: center;
        &.contact, &.superviser{
-            @include breakpoint('mobileonly'){
+            @include breakpoint('tablet'){
                     display: block;
             }
        }
@@ -285,14 +282,11 @@ footer{
            text-align: justify;
            line-height: 1.6rem;
            margin: 15px;
-        //    width: 100px;
-        //    @include breakpoint("mobileonly"){
-        //        float: left;
-        //    }
+
        }
        .content{
            color: $colorDark;
-            @include breakpoint('mobileonly'){
+            @include breakpoint('tablet'){
                     padding: 0;
             }
        }
@@ -300,7 +294,7 @@ footer{
             color: $colorDarker;
             font-size: 2rem;
             margin: 10px;
-            @include breakpoint('mobileonly'){
+            @include breakpoint('tablet'){
                 font-size: 1.5rem;
             }
        }
