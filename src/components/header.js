@@ -6,15 +6,9 @@ import ticket from '../images/ticket2.svg';
 import member from '../images/member2.svg';
 import calendar from '../images/calendar.svg';
 import fastTicket from '../images/fast-ticket.svg';
+import Menu from "./menu";
 
 class Header extends Component {
-
-    // constructor(props){
-    //     super(props);
-    //     this.state ={
-    //         header: "big"
-    //     }
-    // }
 
     componentDidMount(){
         document.addEventListener("DOMContentLoaded", function scrollDetection (event) {
@@ -23,29 +17,50 @@ class Header extends Component {
                 let scrollTop = document.documentElement.scrollTop;
                 const header = document.querySelector('header');
                 const logoImg = document.querySelector('.logo').children;
-                // let logo = "logo1";
                 
                 if (scrollTop > lastScrollTop) {
                     header.classList.add('small-header');
-                    // logo = "logo2";
-                    logoImg[0].setAttribute('src', '{logo1}');
+                    logoImg[0].setAttribute('src', logo2);
                 } else {
                     header.classList.remove('small-header');
-                    // logo = "logo1";
-                    logoImg[0].setAttribute('src', '{logo2}');
+                    logoImg[0].setAttribute('src', logo1);
                 }
                 lastScrollTop = scrollTop;
             })
         });
+
+        let menuClick = ()=>{
+            const menuIcons = document.querySelectorAll(".menu-icon");
+            Array.from(menuIcons).forEach(menuIcon => {
+                menuIcon.addEventListener("click", function(event) {
+                    this.classList.toggle('active');
+                });
+            });
+        }
+        menuClick();
+        // $('.menu-icon').click(function () {
+        //     $(this).toggleClass('active');
+        //     $(this).find('div').removeClass('no-animation');
+        //     $('.nav').toggleClass('active');
+        // });
+        // $('.nav li').click(function () {
+        //     $('.nav').toggleClass('active');
+        //     $('.menu-icon').toggleClass('active');
+        // })
+        // $('.nav li ul li').click(function () {
+        //     $('.nav').toggleClass('active');
+        //     $('.menu-icon').toggleClass('active');
+        // })
     }
     
     render() {
         return(
-        <header className="logo">
-            <div class="logo">
+        <header>
+            {/* <Menu /> */}
+            <div className="logo">
                 <img src={logo1} alt="" className="" />
             </div>
-            <ul className="menu-text transition">
+            <ul className="nav-text transition">
                 <li><a href="">節目資訊</a></li>
                 <li><a href="">影展資訊</a></li>
                 <li><a href="">最新消息</a></li>

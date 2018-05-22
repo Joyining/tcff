@@ -29,9 +29,6 @@ header{
         border-radius: 50%;
         width: 12vw;
         height: 12vw;
-        // margin-left: $headerHeight * 0.5;
-        // margin-top: $headerHeight * 0.1;
-        // border: ($headerHeight * .1) solid $colorDark;
         box-sizing: border-box;
         position: fixed;
         left: $headerHeight * 0.5;
@@ -55,7 +52,7 @@ header{
             }
         }
     }
-    .menu-text{
+    .nav-text{
         display: flex;
         justify-content: space-between;
         width: 50%;
@@ -166,15 +163,15 @@ header{
 
         .menu-icon.active .line-1 {
         animation: animate-line-1 0.7s cubic-bezier(0.3, 1, 0.7, 1) forwards;
-        background-color: $colorDark;
+        background-color: $colorLight;
         }
         .menu-icon.active .line-2 {
         animation: animate-line-2 0.7s cubic-bezier(0.3, 1, 0.7, 1) forwards;
-        background-color: $colorDark;
+        background-color: $colorLight;
         }
         .menu-icon.active .line-3 {
         animation: animate-line-3 0.7s cubic-bezier(0.3, 1, 0.7, 1) forwards;
-        background-color: $colorDark;
+        background-color: $colorLight;
         }
         .no-animation {
         animation: none;
@@ -182,8 +179,8 @@ header{
 
         @keyframes animate-line-1 {
             0% {transform: translate3d(0, 0, 0) rotate(0deg);}
-            50% {transform: translate3d(0, 15px, 0) rotate(0);}
-            100% {transform: translate3d(0, 15px, 0) rotate(45deg);}
+            50% {transform: translate3d(0, 10px, 0) rotate(0);}
+            100% {transform: translate3d(0, 10px, 0) rotate(45deg);}
         }
         @keyframes animate-line-2 {
             0% {
@@ -197,13 +194,13 @@ header{
         }
         @keyframes animate-line-3 {
             0% {transform: translate3d(0, 0, 0) rotate(0deg);}
-            50% {transform: translate3d(0, -15px, 0) rotate(0);}
-            100% {transform: translate3d(0, -15px, 0) rotate(135deg);}
+            50% {transform: translate3d(0, -9.5px, 0) rotate(0);}
+            100% {transform: translate3d(0, -9.5px, 0) rotate(135deg);}
         }
 
         @keyframes animate-line-1-rev {
-            0% {transform: translate3d(0, 15px, 0) rotate(45deg);}
-            50% {transform: translate3d(0, 15px, 0) rotate(0);}
+            0% {transform: translate3d(0, 10px, 0) rotate(45deg);}
+            50% {transform: translate3d(0, 10px, 0) rotate(0);}
             100% {transform: translate3d(0, 0, 0) rotate(0deg);}
             }
         @keyframes animate-line-2-rev {
@@ -217,8 +214,8 @@ header{
             }
         }
         @keyframes animate-line-3-rev {
-            0% {transform: translate3d(0, -15px, 0) rotate(135deg);}
-            50% {transform: translate3d(0, -15px, 0) rotate(0);}
+            0% {transform: translate3d(0, -10px, 0) rotate(135deg);}
+            50% {transform: translate3d(0, -10px, 0) rotate(0);}
             100% {transform: translate3d(0, 0, 0) rotate(0deg);}
         }
 
@@ -226,7 +223,7 @@ header{
 
     &.small-header{
         height: $headerHeight*.6;
-        .menu-text{
+        .nav-text{
             opacity: 0;
         }
         .nav-icon.web .menu-icon, .nav-icon.mobile .menu-icon{
