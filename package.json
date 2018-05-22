@@ -92,6 +92,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
+    "jquery": "^3.3.1",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1"
   }
