@@ -4,20 +4,23 @@ body{
     // overflow: hidden;
 }
 .menu-wrap{
-    // overflow: hidden;
+    overflow: hidden;
     width: 100vw;
     height: 100vh;
     box-sizing: border-box;
-    // opacity: 0;
-    display: none;
-    margin-top: $headerHeight*0.6;
+    opacity: 0;
+    // display: none;
+    // margin-top: $headerHeight*0.6;
+    z-index: 100;
+    position: relative;
+    &.active{
+        opacity: 1;
+    }
 }
 .menu-bg{
     position: absolute;
     top:0;
     left: 0;
-    // top: -500px;
-    // left: -900px;
     transform: rotate(40deg);
     transform-origin: center;
     // overflow: hidden;
@@ -63,7 +66,7 @@ body{
     width: 100vw;
     height: 100vh;
     background-color: $colorDarker;
-    opacity: .7;
+    opacity: .9;
     padding: 20vh 0;
     box-sizing: border-box;
     position: absolute;
@@ -75,14 +78,17 @@ body{
     // margin: 20vh 0;
     li{
         width: 40%;
+        &.active{
+            a{
+                color: $colorLight;
+            }
+        }
+        
         a{
             @include text-rec(100%, 2rem, $colorDark, $colorMedium, transparent);
             display: block;
             margin: 20px 0;
             font-size: bold;
-            &.active{
-                color: $colorLight;
-            }
         }
     }
 

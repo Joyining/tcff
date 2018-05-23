@@ -6,7 +6,14 @@ import ticket from '../images/ticket2.svg';
 import member from '../images/member2.svg';
 import calendar from '../images/calendar.svg';
 import fastTicket from '../images/fast-ticket.svg';
-import Menu from "./menu";
+
+import '../sass/menu.scss';
+import menuBgImg01 from "../images/2001_a_space_odyssey_01.jpg";
+import menuBgImg02 from "../images/2001_a_space_odyssey_02.jpg";
+import menuBgImg03 from "../images/2001_a_space_odyssey_03.jpg";
+import menuBgImg04 from "../images/2001_a_space_odyssey_04.jpg";
+import menuBgImg05 from "../images/breakfast_at_tiffany's_01.jpg";
+import menuBgImg06 from "../images/breakfast_at_tiffany's_02.jpg";
 
 class Header extends Component {
 
@@ -31,32 +38,69 @@ class Header extends Component {
 
         let menuClick = ()=>{
             const menuIcons = document.querySelectorAll(".menu-icon");
+            const menuWrap = document.querySelector(".menu-wrap");
             Array.from(menuIcons).forEach(menuIcon => {
                 menuIcon.addEventListener("click", function(event) {
                     this.classList.toggle('active');
+                    menuWrap.classList.toggle('active');
                 });
             });
         }
         menuClick();
-        // $('.menu-icon').click(function () {
-        //     $(this).toggleClass('active');
-        //     $(this).find('div').removeClass('no-animation');
-        //     $('.nav').toggleClass('active');
-        // });
-        // $('.nav li').click(function () {
-        //     $('.nav').toggleClass('active');
-        //     $('.menu-icon').toggleClass('active');
-        // })
-        // $('.nav li ul li').click(function () {
-        //     $('.nav').toggleClass('active');
-        //     $('.menu-icon').toggleClass('active');
-        // })
+
+        let menuDetect = () => {
+            const menuBtn = document.querySelector('.menu-btn').children;
+            let lastPosition = -1;
+            const menuBgRow1 = document.querySelector('.menu-bg-row1');
+            const menuBgRow2 = document.querySelector('.menu-bg-row2');
+            const menuBgRow3 = document.querySelector('.menu-bg-row3');
+
+            const slideWidth = 900;
+
+
+            var initLeftRow1 = parseInt(window.getComputedStyle(menuBgRow1, null).getPropertyValue("left").replace("px", ""));
+            var initTopRow1 = parseInt(window.getComputedStyle(menuBgRow1, null).getPropertyValue("top").replace("px", ""));
+
+            var initLeftRow2 = parseInt(window.getComputedStyle(menuBgRow2, null).getPropertyValue("left").replace("px", ""));
+            var initTopRow2 = parseInt(window.getComputedStyle(menuBgRow2, null).getPropertyValue("top").replace("px", ""));
+
+            var initLeftRow3 = parseInt(window.getComputedStyle(menuBgRow3, null).getPropertyValue("left").replace("px", ""));
+            var initTopRow3 = parseInt(window.getComputedStyle(menuBgRow3, null).getPropertyValue("top").replace("px", ""));
+
+            for (let i = 0; i < menuBtn.length; i++) {
+                menuBtn[i].addEventListener('mouseover', function () {
+                    let positionDiff = lastPosition - i;
+                    lastPosition = i;
+
+                    let newLeftRow1 = initLeftRow1 - positionDiff * slideWidth;
+                    let newLeftRow2 = initLeftRow2 + positionDiff * slideWidth;
+                    let newLeftRow3 = initLeftRow3 - positionDiff * slideWidth;
+
+                    menuBgRow2.style.left = `${newLeftRow2}px`;
+                    initLeftRow2 = newLeftRow2;
+
+                    menuBgRow1.style.left = `${newLeftRow1}px`;
+                    initLeftRow1 = newLeftRow1;
+
+                    menuBgRow3.style.left = `${newLeftRow3}px`;
+                    initLeftRow3 = newLeftRow3;
+
+                    let menuSiblings = this.parentNode.children;
+                    for(let i=0; i< menuSiblings.length; i++){
+                        menuSiblings[i].classList.remove('active');
+                    }
+                    this.classList.add('active');
+                })
+            }
+
+
+        }
+        menuDetect();
     }
     
     render() {
         return(
         <header>
-            {/* <Menu /> */}
             <div className="logo">
                 <img src={logo1} alt="" className="" />
             </div>
@@ -94,6 +138,86 @@ class Header extends Component {
                     <li><a href="">會員登入</a></li>
                     <li><a href="">主選單</a></li>
                 </ul>
+            </div>
+            <div className="menu-wrap transition">
+                <div className="menu-bg transition">
+                    <div className="menu-bg-row1 transition">
+                        <figure>
+                            <img src={menuBgImg01} alt="" />
+                        </figure>
+                        <figure>
+                            <img src={menuBgImg02} alt="" />
+                        </figure>
+                        <figure>
+                            <img src={menuBgImg03} alt="" />
+                        </figure>
+                        <figure>
+                            <img src={menuBgImg04} alt="" />
+                        </figure>
+                        <figure>
+                            <img src={menuBgImg05} alt="" />
+                        </figure>
+                        <figure>
+                            <img src={menuBgImg06} alt="" />
+                        </figure>
+                    </div>
+                    <div className="menu-bg-row2 transition">
+                        <figure>
+                            <img src={menuBgImg01} alt="" />
+                        </figure>
+                        <figure>
+                            <img src={menuBgImg02} alt="" />
+                        </figure>
+                        <figure>
+                            <img src={menuBgImg03} alt="" />
+                        </figure>
+                        <figure>
+                            <img src={menuBgImg04} alt="" />
+                        </figure>
+                        <figure>
+                            <img src={menuBgImg05} alt="" />
+                        </figure>
+                        <figure>
+                            <img src={menuBgImg06} alt="" />
+                        </figure>
+                    </div>
+                    <div className="menu-bg-row3 transition">
+                        <figure>
+                            <img src={menuBgImg01} alt="" />
+                        </figure>
+                        <figure>
+                            <img src={menuBgImg02} alt="" />
+                        </figure>
+                        <figure>
+                            <img src={menuBgImg03} alt="" />
+                        </figure>
+                        <figure>
+                            <img src={menuBgImg04} alt="" />
+                        </figure>
+                        <figure>
+                            <img src={menuBgImg05} alt="" />
+                        </figure>
+                        <figure>
+                            <img src={menuBgImg06} alt="" />
+                        </figure>
+                    </div>
+                </div>
+                <div className="menu">
+                    <ul className="menu-btn">
+                        <li className="active">
+                            <a href="" className="transition">最新消息</a>
+                        </li>
+                        <li>
+                            <a href="" className="transition">影展資訊</a>
+                        </li>
+                        <li>
+                            <a href="" className="transition">節目介紹</a>
+                        </li>
+                        <li>
+                            <a href="" className="transition">電影賞析</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </header>
         );

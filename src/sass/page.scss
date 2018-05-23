@@ -76,6 +76,7 @@ header{
         justify-content: space-around;
         height: $headerHeight;
         position: fixed;
+        z-index: 101;
         right: $headerHeight * 0.5;
         @include breakpoint('tablet'){
             display: none;
@@ -134,6 +135,7 @@ header{
         box-sizing: border-box;
         opacity: 0;
         margin: (($headerHeight - ($headerHeight * .75))/2) ($headerHeight * .1);
+
         @include breakpoint('tablet'){
             opacity: 1;
         }
@@ -228,6 +230,10 @@ header{
         }
         .nav-icon.web .menu-icon, .nav-icon.mobile .menu-icon{
             opacity: 1;
+        }
+        .menu-icon{
+            position: relative;
+            z-index: 200;
         }
         .logo{
             border-radius: 0%;
