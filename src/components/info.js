@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../sass/page.scss';
+import '../sass/info.scss';
 
 class Info extends Component {
   render() {

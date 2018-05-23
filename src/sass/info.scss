@@ -1,0 +1,11 @@
+@import "partials/basic";
+
+.container{
+    background-color: $colorMedium;
+    .title{
+    @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
+    }
+    .about{
+    @include paragraph($colorDarker);
+    }
+}
