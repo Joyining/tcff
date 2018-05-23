@@ -1,0 +1,110 @@
+#container{
+	background-color: #eee;
+	box-shadow: 2px 2px 5px #aaa;
+	max-width: 1600px;
+	// height: 500px;
+	margin: 150px auto;
+	overflow: hidden;
+	// padding-top: 45px;
+    position: relative;
+    .buttons{
+        display: flex;
+        width: 500px;
+        margin: 50px auto;
+        justify-content: space-between;
+        align-items: center;
+    }
+    #books{
+        width: 100%;
+        height: 500px;
+        overflow: hidden;
+        // background-color: darken(lightblue,40%);
+        // margin-bottom: 50px;
+        .book{
+            height: 450px;
+            transform-style: preserve-3d;
+            position: absolute;
+            display: flex;
+            transition: all 1s;
+            perspective: 300;
+            text-align: center;
+            // line-height: 450px;
+            color: white;
+            font-size: 20px;
+            font-weight: 900;
+            
+            // border: 1px solid white;
+            // width: 50px;
+            // height: 450px;
+            // float:left;
+            // margin: 20px;
+            // transition: all 1s;
+            opacity: 0;
+            transform: translateY(-20px);
+            overflow: hidden;
+            // padding: 10px;
+            box-sizing: border-box;        
+            &.show{
+                opacity: 1;
+                transform: translateY(0px);
+            }
+            &.fadeOut{
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            &.opened{
+                transform: rotateY(-90deg);
+            }
+            .side{
+                background-color: rgba(0, 0, 0, .8);
+                transform-origin: 100% 50%;
+                width: 50px;
+                height: 100%;
+                transition: all 1s;
+                cursor: pointer;
+            }
+            .front{
+                background-color: rgba(0, 0, 0, .8);
+                width: 250px;
+                transform-origin: 0 50%;
+                transition: all 1s;
+                img{
+                    object-fit: contain;
+                    width: 100%;
+                    height: 100%;
+                    transition: all 1.5s;
+                    &.hide{
+                        filter: grayscale(100%);
+                        opacity: .3;                        
+                    }
+                }
+            }
+        }
+    }
+}
+h1{
+	color: #ccc;
+	// word-wrap:break-word;
+	white-space: nowrap;
+	transform: rotate(90deg);
+	// word-wrap: normal;
+	margin: 0;
+}
+h1 span{
+	color: darken(yellow, 15%);
+	margin-right: 5px;
+}
+h3{
+    // position: absolute;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	color: lightyellow;
+    bottom: 30px;    
+	text-align: center;
+	// margin: 0 auto;
+	// transform: rotate(90deg);
+	text-transform: capitalize;
+}
+
+
+				
+	
