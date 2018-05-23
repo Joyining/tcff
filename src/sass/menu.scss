@@ -1,0 +1,96 @@
+@import "partials/basic";
+
+body{
+    // overflow: hidden;
+}
+.menu-wrap{
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    opacity: 0;
+    // display: none;
+    // margin-top: $headerHeight*0.6;
+    z-index: 100;
+    position: relative;
+    &.active{
+        opacity: 1;
+    }
+}
+.menu-bg{
+    position: absolute;
+    top:0;
+    left: 0;
+    transform: rotate(40deg);
+    transform-origin: center;
+    // overflow: hidden;
+    width: 200vw;
+    height: 200vh;
+    box-sizing: border-box;
+    &.transition{
+        transition: all 1s;
+    }
+
+    &-row1, &-row2, &-row3{
+        position: absolute;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow: hidden;
+        box-sizing: border-box;
+        &.transition{
+            transition: all 1s;
+        }
+        figure{
+            height: 90vh;
+            object-fit: cover;
+            img{
+                height: 100%;
+            }
+        }
+    }
+    &-row1{
+        top: -10vh;
+        left: -600vh;
+    }
+    &-row2{
+        top: 90vh;
+        left: -160vh;
+    }
+    &-row3{
+        top: 190vh;
+        left: -700vh;
+    }
+}
+
+.menu{
+    width: 100vw;
+    height: 100vh;
+    background-color: $colorDarker;
+    opacity: .9;
+    padding: 20vh 0;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.menu-btn{
+    width: 80vw;
+    // margin: 20vh 0;
+    li{
+        width: 40%;
+        &.active{
+            a{
+                color: $colorLight;
+            }
+        }
+        
+        a{
+            @include text-rec(100%, 2rem, $colorDark, $colorMedium, transparent);
+            display: block;
+            margin: 20px 0;
+            font-size: bold;
+        }
+    }
+
+}
+
