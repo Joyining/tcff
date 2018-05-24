@@ -63,9 +63,6 @@ class Header extends Component {
 
             const slideWidth = 900;
 
-            // const panel = document.querySelector(".panel");
-
-
             let initLeftRow1 = parseInt(window
                 .getComputedStyle(menuBgRow1, null)
                 .getPropertyValue("left")
@@ -120,6 +117,10 @@ class Header extends Component {
                     this.classList.add('active');
                     this.lastChild.classList.add('active');
                     // console.log(this.children);
+                })
+                menuBtn[i].addEventListener('mouseout', function (){
+                    this.classList.remove("active");
+                    this.lastChild.classList.remove("active");
                 })
             }
         }
@@ -178,9 +179,9 @@ class Header extends Component {
                 <li className="nav-text-li transition">
                     <a href="">節目資訊</a>
                     <ul className="panel transition">
-                        <li><a className="transition" href="">確認放映</a></li>
-                        <li><a className="transition" href="">募資影片</a></li>
-                        <li><a className="transition" href="">場次表</a></li>
+                        <li><a href="" className="transition" href="">確認放映</a></li>
+                        <li><a href="" className="transition" href="">募資影片</a></li>
+                        <li><a href="" className="transition" href="">場次表</a></li>
                     </ul>
                 </li>
                 <li className="nav-text-li transition">
@@ -291,7 +292,7 @@ class Header extends Component {
                     <ul className="menu-btn">
                         <li className="active">
                             <a className="transition">節目資訊</a>
-                                <ul className="panel transition" data-device='tablet'>
+                            <ul className="panel transition" data-device='tablet'>
                                 <li><a className="transition" href="">確認放映</a></li>
                                 <li><a className="transition" href="">募資影片</a></li>
                                 <li><a className="transition" href="">場次表</a></li>
