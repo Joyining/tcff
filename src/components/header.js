@@ -7,7 +7,6 @@ import member from '../images/member2.svg';
 import calendar from '../images/calendar.svg';
 import fastTicket from '../images/fast-ticket.svg';
 
-import '../sass/menu.scss';
 import menuBgImg01 from "../images/2001_a_space_odyssey_01.jpg";
 import menuBgImg02 from "../images/2001_a_space_odyssey_02.jpg";
 import menuBgImg03 from "../images/2001_a_space_odyssey_03.jpg";
@@ -38,11 +37,18 @@ class Header extends Component {
 
         let menuClick = ()=>{
             const menuIcons = document.querySelectorAll(".menu-icon");
+            // console.log(menuIcons);
             const menuWrap = document.querySelector(".menu-wrap");
+            const body = document.querySelector("body");
+            
             Array.from(menuIcons).forEach(menuIcon => {
                 menuIcon.addEventListener("click", function(event) {
-                    this.classList.toggle('active');
+                    // console.log(this);
                     menuWrap.classList.toggle('active');
+                    body.classList.toggle('overflow-hidden');
+                    Array.from(menuIcons).forEach(menuIcon => {
+                        menuIcon.classList.toggle("active");
+                    });
                 });
             });
         }
@@ -57,15 +63,36 @@ class Header extends Component {
 
             const slideWidth = 900;
 
+            // const panel = document.querySelector(".panel");
 
-            var initLeftRow1 = parseInt(window.getComputedStyle(menuBgRow1, null).getPropertyValue("left").replace("px", ""));
-            var initTopRow1 = parseInt(window.getComputedStyle(menuBgRow1, null).getPropertyValue("top").replace("px", ""));
 
-            var initLeftRow2 = parseInt(window.getComputedStyle(menuBgRow2, null).getPropertyValue("left").replace("px", ""));
-            var initTopRow2 = parseInt(window.getComputedStyle(menuBgRow2, null).getPropertyValue("top").replace("px", ""));
+            let initLeftRow1 = parseInt(window
+                .getComputedStyle(menuBgRow1, null)
+                .getPropertyValue("left")
+                .replace("px", ""));
+            let initTopRow1 = parseInt(window
+                .getComputedStyle(menuBgRow1, null)
+                .getPropertyValue("top")
+                .replace("px", ""));
 
-            var initLeftRow3 = parseInt(window.getComputedStyle(menuBgRow3, null).getPropertyValue("left").replace("px", ""));
-            var initTopRow3 = parseInt(window.getComputedStyle(menuBgRow3, null).getPropertyValue("top").replace("px", ""));
+            let initLeftRow2 = parseInt(window
+                .getComputedStyle(menuBgRow2, null)
+                .getPropertyValue("left")
+                .replace("px", ""));
+            let initTopRow2 = parseInt(window
+                .getComputedStyle(menuBgRow2, null)
+                .getPropertyValue("top")
+                .replace("px", ""));
+
+            let initLeftRow3 = parseInt(window
+                .getComputedStyle(menuBgRow3, null)
+                .getPropertyValue("left")
+                .replace("px", ""));
+
+            let initTopRow3 = parseInt(window
+                .getComputedStyle(menuBgRow3, null)
+                .getPropertyValue("top")
+                .replace("px", ""));
 
             for (let i = 0; i < menuBtn.length; i++) {
                 menuBtn[i].addEventListener('mouseover', function () {
@@ -88,14 +115,57 @@ class Header extends Component {
                     let menuSiblings = this.parentNode.children;
                     for(let i=0; i< menuSiblings.length; i++){
                         menuSiblings[i].classList.remove('active');
+                        menuSiblings[i].lastChild.classList.remove("active");
                     }
                     this.classList.add('active');
+                    this.lastChild.classList.add('active');
+                    // console.log(this.children);
                 })
             }
-
-
         }
         menuDetect();
+
+        let menuExpand = ()=>{
+            const menuBtn = document.querySelector(".menu-btn").children;
+            for (let i = 0; i < menuBtn.length; i++){
+                menuBtn[i].addEventListener(
+                  "click",
+                  function() {  
+                    let menuSiblings = this.parentNode.children;
+                    for (let i = 0; i < menuSiblings.length; i++) {
+                        menuSiblings[i].classList.remove('active');
+                    }
+                    this.classList.add('active');
+
+                    if (this.lastChild.style.maxHeight) {
+                        this.lastChild.style.maxHeight = null;
+                    } else {
+                        this.lastChild.style.maxHeight = this.lastChild.scrollHeight + "px";
+                    }
+                    }
+                );
+            }
+        }
+        menuExpand();
+
+        let navTextExpand=()=>{
+            const navTexts = document.querySelectorAll(".nav-text-li");
+            Array.from(navTexts).forEach(navText => {
+                navText.addEventListener("mouseover", function(event) {
+                    let navTextSiblings = this.parentNode.children;
+                    for (let i = 0; i < navTextSiblings.length; i++) {
+                        navTextSiblings[i].lastChild.classList.remove("active");
+                    }
+                    navText.lastChild.classList.add('active');
+                });
+              });
+            Array.from(navTexts).forEach(navText => {
+                navText.addEventListener("mouseout", function (event) {
+                    navText.lastChild.classList.remove('active');
+                });
+            });
+        }
+        navTextExpand();
     }
     
     render() {
@@ -105,10 +175,25 @@ class Header extends Component {
                 <img src={logo1} alt="" className="" />
             </div>
             <ul className="nav-text transition">
-                <li><a href="">節目資訊</a></li>
-                <li><a href="">影展資訊</a></li>
-                <li><a href="">最新消息</a></li>
-                <li><a href="">電影賞析</a></li>
+                <li className="nav-text-li transition">
+                    <a href="">節目資訊</a>
+                    <ul className="panel transition">
+                        <li><a className="transition" href="">確認放映</a></li>
+                        <li><a className="transition" href="">募資影片</a></li>
+                        <li><a className="transition" href="">場次表</a></li>
+                    </ul>
+                </li>
+                <li className="nav-text-li transition">
+                    <a href="">影展資訊</a>
+                    <ul className="panel transition">
+                        <li><a className="transition" href="">關於影展</a></li>
+                        <li><a className="transition" href="">場地資訊</a></li>
+                        <li><a className="transition" href="">售票資訊</a></li>
+                        <li><a className="transition" href="">購票Q&A</a></li>
+                    </ul>
+                </li>
+                <li className="nav-text-li transition"><a href="">最新消息</a></li>
+                <li className="nav-text-li transition"><a href="">電影賞析</a></li>
             </ul>
             <div className="nav-icon web">
                 <img className="transition" src={ticket} alt="" />
@@ -205,13 +290,25 @@ class Header extends Component {
                 <div className="menu">
                     <ul className="menu-btn">
                         <li className="active">
+                            <a className="transition">節目資訊</a>
+                                <ul className="panel transition" data-device='tablet'>
+                                <li><a className="transition" href="">確認放映</a></li>
+                                <li><a className="transition" href="">募資影片</a></li>
+                                <li><a className="transition" href="">場次表</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a className="transition">影展資訊</a>
+                            <ul className="panel transition" data-device='tablet'>
+                                <li><a className="transition" href="">關於影展</a></li>
+                                <li><a className="transition" href="">場地資訊</a></li>
+                                <li><a className="transition" href="">售票資訊</a></li>
+                                <li><a className="transition" href="">購票Q&A</a></li>
+                            </ul>
+                        </li>
+                        <li>
                             <a href="" className="transition">最新消息</a>
-                        </li>
-                        <li>
-                            <a href="" className="transition">影展資訊</a>
-                        </li>
-                        <li>
-                            <a href="" className="transition">節目介紹</a>
+
                         </li>
                         <li>
                             <a href="" className="transition">電影賞析</a>

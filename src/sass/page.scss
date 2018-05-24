@@ -2,11 +2,11 @@
 
 .container{
     background-color: $colorMedium;
-    .title{
-    @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
-    }
-    .about{
-    @include paragraph($colorDarker);
+}
+
+body{
+    &.overflow-hidden{
+        overflow: hidden;
     }
 }
 
@@ -54,20 +54,42 @@ header{
     }
     .nav-text{
         display: flex;
-        justify-content: space-between;
+        justify-content: space-evenly;
         width: 50%;
         margin: (($headerHeight - ($headerHeight * .5))/2) auto;
         opacity: 1;
+        box-sizing: border-box;
         @include breakpoint('tablet'){
             display: none;
         }
-        li{
+        li.nav-text-li{
             @include text-rec(100%, 1.2rem, transparent, $colorDarker, transparent);
+            &:hover{
+                background-color: $colorDark;
+            }
             a{
                 font-weight: bold;
+                display: block;
+                width: 100%;
             }
             a:link, a:visited{
                 color: $colorLight;
+            }
+            .panel{
+                border: 2px solid transparent;
+                box-sizing: border-box;
+                opacity: 0;
+                &.active{
+                    opacity: 1;
+                    li{
+                        a{
+                            &:hover{
+                                background-color: $colorMedium;
+                                color: $colorDarker;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -93,6 +115,7 @@ header{
         @include breakpoint('tablet'){
             display: block;
             position: fixed;
+            z-index: 101;
             bottom: 0;
             background-color: $colorDarker;
             width: 100vw;
@@ -248,6 +271,165 @@ header{
             height: $headerHeight*.6;
         }
     }
+
+    /* --------------------------- menu ------------------------------------ */
+
+    .menu-wrap{
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+        box-sizing: border-box;
+        // opacity: 0;
+        display: none;
+        z-index: 100;
+        position: absolute;
+        &.active{
+            // opacity: 1;
+            display: block;
+        }
+    }
+    .menu-bg{
+        position: absolute;
+        top:0;
+        left: 0;
+        transform: rotate(40deg);
+        transform-origin: center;
+        // overflow: hidden;
+        width: 200vw;
+        height: 200vh;
+        box-sizing: border-box;
+        &.transition{
+            transition: all 1s;
+        }
+
+        &-row1, &-row2, &-row3{
+            position: absolute;
+            display: flex;
+            flex-wrap: nowrap;
+            overflow: hidden;
+            box-sizing: border-box;
+            &.transition{
+                transition: all 1s;
+            }
+            figure{
+                height: 90vh;
+                @include breakpoint('mobileonly'){
+                    height: 50vh;
+                }
+                object-fit: cover;
+                img{
+                    height: 100%;
+                }
+            }
+        }
+        &-row1{
+            top: -10vh;
+            left: -600vh;
+            @include breakpoint('mobileonly'){
+                top: -10vh;
+                left: -600vh;
+            }
+        }
+        &-row2{
+            top: 90vh;
+            left: -160vh;
+            @include breakpoint('mobileonly'){
+                top: 45vh;
+                left: -160vh;
+            }
+        }
+        &-row3{
+            top: 190vh;
+            left: -700vh;
+            @include breakpoint('mobileonly'){
+                top: 100vh;
+                left: -700vh;
+            }
+        }
+    }
+
+    .menu{
+        width: 100vw;
+        height: 100vh;
+        background-color: $colorDarker;
+        opacity: .9;
+        padding: 20vh 0;
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include breakpoint('tablet'){
+            padding: 2vh 0;
+        }
+    }
+    .menu-btn{
+        @include breakpoint('tablet'){
+            width: 100vw;
+        }
+        li{
+            display: flex;
+            @include breakpoint('tablet'){
+                width: 100%;
+                display: block;
+            }
+            &.active{
+                a{
+                    color: $colorLight;
+                    }
+                }
+            a{
+                @include text-rec(100%, 2rem, $colorDark, $colorMedium, transparent);
+                width: 25vw;
+                display: block;
+                margin: 20px 0;
+                margin-bottom:0; 
+                font-size: bold;
+                cursor: pointer;
+                font-weight: 500;
+                @include breakpoint('tablet'){
+                    @include text-rec(100%, 1.5rem, $colorDark, $colorMedium, transparent);
+                }
+                }
+        }
+        .panel{
+            display: flex;
+            position: absolute;
+            left: -2000px;
+            &.transition{
+                transition: all .5s ease-in;
+            }
+            &.active{
+                left: 25vw;
+            }
+            li{
+                width: 15vw;
+                a{
+                    background-color: $colorLight;
+                    color: $colorDark;
+                    font-weight: 500;
+                    margin-right: 3px;
+                    &:hover{
+                        color: $colorDarker;
+                        background-color: $colorMedium;
+                        }
+                    }
+            }
+            @include breakpoint('tablet'){
+                display: block;
+                position: initial;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.2s ease-out;
+                li{
+                    margin-bottom: 2px;
+                    a{
+                        width: 100vw;
+                        margin: 0;
+                        }
+                    }
+                }
+            }
+    }
 }
 
 /* --------------------------- footer ------------------------------------ */
@@ -316,6 +498,8 @@ footer{
 
 }
 
+/* --------------------------- fast-ticket ------------------------------------ */
+
 .fast-ticket{
     transform: rotate(-30deg);
     width: $headerHeight*1.5;
@@ -332,6 +516,8 @@ footer{
         width: 100%;
     }
 }
+
+/* --------------------------- bread-crumb ------------------------------------ */
 
 .bread-crumb{
     margin: 0 auto;
@@ -365,4 +551,6 @@ footer{
         text-align: center;
     }
 }
+
+
 
