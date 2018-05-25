@@ -5,3 +5,6 @@ import "./sass/reset.scss";
 import HomePage from "./components/home-page";
 
 ReactDOM.render(<HomePage />, document.getElementById("root"));
+// import MemberPage from './components/member-page';
+
+// ReactDOM.render(<MemberPage />, document.getElementById("root"));
