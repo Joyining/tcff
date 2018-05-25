@@ -1,0 +1,81 @@
+@import "partials/basic";
+
+.container{
+    // background-color:$colorLight ;
+    padding: 10px 0 ;
+    .login_f{
+        width: 30%;
+        height:600px ;
+        margin:100px 0 0 30% ;
+        position: relative ;
+        background-color: $colorLight ; 
+            .login_word{
+                margin: 0 auto ;
+                padding: 20px 0 10px 0 ;
+                height: 50px ;           
+                @include text-rec(80% , 24px , none , $colorDark ,transparent) ;
+                border-bottom: 3px solid $colorDark ;
+                font-weight: bold ;
+            }
+            .account_box{
+                display: flex ;
+                flex-direction: row ;
+                padding: 50px 50px 0 10px ;
+            }
+            .account_1{
+                width: 80%;
+                height: 35px;
+                margin:  0;
+                @include text-rec(30% , 18px , none , $colorDark ,transparent) ;
+                text-align: right ;
+                // background-color: aliceblue ;
+            }
+            .account_2{
+                height: 25px;
+                width: 80%;
+                // margin: 55px auto 0;
+                border: 2px solid $colorMedium ;
+            }
+            .password_box{
+                display: flex ;
+                flex-direction: row ;
+                padding: 50px 50px 0 10px  ;
+            }
+            .password_1{
+                width: 80%;
+                height: 35px;
+                margin:  0;
+                @include text-rec(30% , 18px , none , $colorDark ,transparent) ;
+                text-align: right ;
+                // background-color: aliceblue ;
+            }
+            .password_2{
+                height: 25px;
+                width: 80%;
+                // margin: 55px auto 0;
+                border: 2px solid $colorMedium ;
+            }
+            .login_btn{
+                width: 100px;
+                height: 30px;
+                margin: 50px auto ;
+                @include text-rec(30% , 18px , $colorDark , $colorLight ,transparent) ;                
+            }
+            .btn_box{
+                display: flex ;
+                flex-direction: row ;
+                justify-content: center ;
+                padding: 30px 0 ;
+            }
+            .registered{
+                margin: 0 20px 0 20px  ;
+                @include text-rec(100px , 18px , transparent , $colorDark ,$colorDark) ;
+            }
+    }
+    .login_b{
+        background-color: $colorDarker ; 
+        width: 30%;
+        height:600px ;
+        margin:-710px 0 0 40% ;
+    }
+}
