@@ -7,7 +7,9 @@ import act02 from '../images/1997_Good_Will_Hunting_act02.jpg';
 import act03 from '../images/1997_Good_Will_Hunting_act03.jpg';
 
 class All extends Component {
+    
   render() {
+      
     return (
         <div>
             <div className="box3">
@@ -46,7 +48,7 @@ class All extends Component {
                     數學教授在無計可施的情況下，只好求助他的大學同學及好友（羅賓威廉斯飾），希望他來開導這個前途汲汲可危的年輕人。到底最後他能不能打開心胸擁抱生命？會不會把他之前所遭遇的困境拋諸腦後？ 
                 </div>                    
             </section>
-            <section className="container">
+            <section className="box2">
             <div className="mycontain">
                 <h2>導<br /><br />演</h2>
                 <div className="mycontent cover">                
@@ -56,7 +58,7 @@ class All extends Component {
                         <h3 className="mycontent-title">葛斯·范·桑</h3>
                         <h4 className="mycontent-title">Gus Van Sant</h4>
                         <hr />
-                        <p className="mycontent-text">拍攝廣告出身的葛斯范桑，第一部作品電影長片作品《追流雲的少年》獲選為洛杉磯影評人協會最佳獨立電影。葛斯范桑作品大多關注於同志議題、次文化和邊緣少年問題等等，像是比較為台灣觀眾所知的，《迷幻公園》和《自由大道》的主題皆是如此。</p>
+                        <p className="mycontent-text">拍攝廣告出身的葛斯范桑，第一部作品電影長片作品《追流雲的少年》獲選為洛杉磯影評人協會最佳獨立電影。作品大多關注於同志議題、次文化和邊緣少年問題等等，像是比較為台灣觀眾所知的，《迷幻公園》和《自由大道》的主題皆是如此。</p>
                     </div>
                 </div>
                 <h2>主要演員</h2>
