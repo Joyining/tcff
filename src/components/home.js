@@ -72,15 +72,32 @@ class Home extends Component {
     }
     // mousePosition();
 
-    let slideMove =()=>{
-      let slideMove = 100;
-      setInterval(function () {
-        const slide = document.querySelector('.slide');
-        slide.style.left = `${-slideMove}px`;
-        slideMove += 100;
-      }, 500)
+    // let slideMove =()=>{
+    //   let slideMove = 100;
+    //   setInterval(function () {
+    //     const slide = document.querySelector('.slide');
+    //     slide.style.left = `${-slideMove}px`;
+    //     slideMove += 100;
+    //   }, 500)
+    // }
+    // slideMove();
+
+    let titleText = ()=>{
+      const movies = [
+        { title: "title 01", quote: "quote 01" },
+        { title: "title 02", quote: "quote 01" },
+        { title: "title 03", quote: "quote 03" },
+      ];
+      const titleText = document.querySelector('.title');
+      const quote = document.querySelector(".quote");
+      // console.log(movies.length);
+      let i=0;
+      setInterval(function(){
+        titleText.innerHTML = movies[i].title;
+        i++;
+      },2000)
     }
-    slideMove();
+    titleText();
 
 
   }
@@ -111,25 +128,39 @@ class Home extends Component {
             </div>
           </div>
           <div className="home02-screen-wrap">
-          <div className="bg-image">
-            <img src={Home02Img01} alt="" />
-            <img src={Home02Img02} alt="" />
-            <img src={Home02Img03} alt="" />
-            <img src={Home02Img04} alt="" />
-            <img src={Home02Img05} alt="" />
+            <div className="bg-image">
+              <img src={Home02Img01} alt="" />
+              <img src={Home02Img02} alt="" />
+              <img src={Home02Img03} alt="" />
+              <img src={Home02Img04} alt="" />
+              <img src={Home02Img05} alt="" />
             </div>
             <div className="inside">
               <div className="image">
-               <div className="slide transition">
-                <img src={Home02Img01} alt="" />
-                <img src={Home02Img02} alt="" />
-                <img src={Home02Img03} alt="" />
-                <img src={Home02Img04} alt="" />
-                <img src={Home02Img05} alt="" />
-               </div>
+                <div className="slide transition">
+                  <img src={Home02Img01} alt="" />
+                  <img src={Home02Img02} alt="" />
+                  <img src={Home02Img03} alt="" />
+                  <img src={Home02Img04} alt="" />
+                  <img src={Home02Img05} alt="" />
+                </div>
               </div>
-              <div className="title">第凡內早餐</div>
-              <div className="quote">"天空更適合仰望，而不是居住"</div>
+              <div className="title-wrap">
+                <div className="inner">
+                  <div className="title bg-1 title-text transition">
+                    title title
+                  </div>
+                  <div className="title bg-2 transition" />
+                </div>
+              </div>
+              <div className="quote-wrap">
+                <div className="inner">
+                <div className="quote bg-1 quote-text transition">
+                    "quote quote"
+                  </div>
+                  <div className="quote bg-2 transition" />
+                </div>
+              </div>
             </div>
           </div>
         </div>

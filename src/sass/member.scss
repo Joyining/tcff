@@ -69,6 +69,7 @@
             }
             .registered{
                 margin: 0 20px 0 20px  ;
+                box-sizing: border-box;
                 @include text-rec(100px , 18px , transparent , $colorDark ,$colorDark) ;
             }
     }

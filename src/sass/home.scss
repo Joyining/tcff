@@ -16,10 +16,16 @@
             .title{
                 display: flex;
                 justify-content: center;
+                @include breakpoint('mobileonly'){
+                    display: block;
+                }
                 div{
                     transform: translateX(-50%) rotate(-10deg);
                     margin: 10px;
                     display: block;
+                    @include breakpoint('mobileonly'){
+                        transform: translateX(0%) rotate(-10deg)
+                    }
                 }
                 span{
                     font-size: 50px;
@@ -58,6 +64,9 @@
                     font-weight: 500;
                     line-height: 1.2rem;
                     text-align: center;
+                    @include breakpoint('mobileonly'){
+                        text-align: initial;
+                    }
                 }
             }
         }
@@ -68,6 +77,11 @@
             position: relative;
             perspective-origin: center center;
             perspective: 500px;
+            @include breakpoint('tablet'){
+                width: 85vw;
+                height: 50vw;
+                margin: 0 auto;
+            }
             .bg-image{
                 width: 100%;
                 height: 100%;
@@ -99,38 +113,62 @@
                     width: 100%;
                     left: 0;
                     display: flex;
+                    object-fit: cover;
                     // overflow: hidden;
+                    animation: slideMoveDesktop 15s linear infinite forwards;
+                    @include breakpoint('tablet'){
+                        animation: slideMoveTablet 15s linear infinite forwards;
+                    }
                     img{
                         width: 100%;
                         height: 100%;
                     }
                 }
-                .title, .quote{
+                .title-wrap, .quote-wrap{
+                    width: 20vw;
+                    height: 6vh;
+                    // border: 2px solid red;
                     position: absolute;
-                    opacity: .6;
-                    text-align: center;
-                    // transform: translateZ(-10deg); 
-                }
-                .title{
                     top: 10%;
                     left: 5%;
-                    width: 60%;
-                    background-color: $colorLight;
-                    color: $colorDarker;
-                    font-size: 1.5vw;
-                    line-height: 3vw;
-                    font-weight: bold;
+                    overflow: hidden;
+                    .inner{
+                        display:flex;
+                        position: absolute;
+                        left: 0px;
+                        top: 0px;
+                        animation: titleQuoteMove 1.5s;
+                        animation-delay: 2s;
+                        border: 2px solid red;
+                        .title, .quote{
+                            width: 20vw;
+                            height: 6vh;
+                            text-align: center;
+                            font-size: 2rem;
+                            line-height: 4rem;
+                            font-family: 'arial';
+                            &.bg-1{
+                                background-color: yellow;
+                            }
+                            &.bg-2{
+                                background-color: blue;
+                            }
+                        }
+
+                    }
                 }
-                .quote{
-                    top: 96%;
-                    left: 30%;
-                    width: 70%;
-                    background-color: $colorDarker;
-                    color: $colorLight;
-                    font-size: 1.4vw;
-                    line-height: 2.8vw;
-                    font-weight: bold;
+                .quote-wrap{
+                    width: 40vw;
+                    height: 8vh;
+                    position: absolute;
+                    top: 75%;
+                    left: 50%;
+                    .inner .quote{
+                        width: 40vw;
+                        height: 8vh;  
+                    }
                 }
+
             }
             }
     }
@@ -159,12 +197,30 @@
 	}
 }
 
-@keyframes slideMove{
+@keyframes slideMoveDesktop{
     from{
         left: 0;
     }
     to{
+        left: -190vw;
+    }
+}
+
+@keyframes slideMoveTablet{
+    from{
         left: 0;
     }
+    to{
+        left: -304vw;
+    }
+}
+
+@keyframes titleQuoteMove {
+  50% {
+    left: -600px;
+  }
+  100% {
+    left: 0px;
+  }
 }
 
