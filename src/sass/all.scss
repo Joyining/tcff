@@ -21,12 +21,16 @@
     margin-bottom: 20px;
     text-align: center;
     color: white;
-    margin-top: 300px;
+    margin-top: 50px;
+}
+.box{    
+    margin-top: 200px;
 }
 .box2{
     width: 80vw;
     margin: 0 auto;
     // padding: 100px;
+    background: $colorMedium;
 }
 .myfilename{
     width:300px;
@@ -79,14 +83,25 @@ a{
 .mycontain{
     display: flex;
     padding: 1em 0;
-    float: left;
-    width: 100%;
+    // float: left;
+    width: 90%;
     margin: 0 auto;
     justify-content: space-between;
     background: $colorMedium;
     margin-bottom: 10px;
+    
 }
-
+.flex{
+    display: flex;
+}
+.dir{
+    width: 75%;
+    // padding-left: 100px;
+}
+.act{
+    width: 90%;
+    
+}
 .mycontain h2{
     width: 30px;
     background-color: #602926;
@@ -177,3 +192,8 @@ a{
 .fadeIn-bottom{
   top: 80%;
 }
+.post{
+    width: 60%;
+}
+
+
