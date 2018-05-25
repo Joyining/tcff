@@ -1,14 +1,36 @@
 @import "partials/basic";
 
 .container{
-    // background-color:$colorLight ;
+    background-color:$colorLight ;
     padding: 10px 0 ;
+    position: relative ;
+
+    @keyframes slide_f{
+        0%{
+            margin: 0 auto ;
+        }
+
+        100%{
+            margin-left: 30% ;
+            margin-top: 100px ;
+        }
+    }
+
     .login_f{
         width: 30%;
         height:600px ;
-        margin:100px 0 0 30% ;
+        // margin:100px 0 0 30% ;
+        margin: 0 auto ;
         position: relative ;
-        background-color: $colorLight ; 
+        background-color: $colorMedium ; 
+        z-index: 2;
+
+        animation-name: slide_f;
+        animation-delay: .1s ;
+        animation-timing-function: ease-in ;
+        animation-duration: 1s ;
+        animation-fill-mode: forwards;
+
             .login_word{
                 margin: 0 auto ;
                 padding: 20px 0 10px 0 ;
@@ -28,7 +50,6 @@
                 margin:  0;
                 @include text-rec(30% , 18px , none , $colorDark ,transparent) ;
                 text-align: right ;
-                // background-color: aliceblue ;
             }
             .account_2{
                 height: 25px;
@@ -72,10 +93,132 @@
                 @include text-rec(100px , 18px , transparent , $colorDark ,$colorDark) ;
             }
     }
+
+    // --------------**忘記密碼**--------------*
+
+    @keyframes slide_f_p{
+        0%{
+            margin-top: -600px ;
+            margin-left: 35% ;
+        }
+
+        100%{
+            margin-left: 30% ;
+            margin-top: -600px ;
+        }
+    }
+
+    .login_f_p{
+        width: 30%;
+        height:600px ;
+        // margin:100px 0 0 30% ;
+        margin: -600px 35% ;
+        position: absolute ;
+        background-color: #ad9dec ; 
+        z-index: 1;
+
+        animation-name: slide_f_p;
+        animation-delay: .1s ;
+        animation-timing-function: ease-in ;
+        animation-duration: 1s ;
+        animation-fill-mode: forwards;
+
+            .login_word_p{
+                margin: 0 auto ;
+                padding: 20px 0 10px 0 ;
+                height: 50px ;           
+                @include text-rec(80% , 24px , none , $colorDark ,transparent) ;
+                border-bottom: 3px solid $colorDark ;
+                font-weight: bold ;
+            }
+            .account_box_p{
+                display: flex ;
+                flex-direction: row ;
+                padding: 50px 50px 0 10px ;
+            }
+            .account_1_p{
+                width: 80%;
+                height: 35px;
+                margin:  0;
+                @include text-rec(30% , 18px , none , $colorDark ,transparent) ;
+                text-align: right ;
+            }
+            .account_2_p{
+                height: 25px;
+                width: 80%;
+                // margin: 55px auto 0;
+                border: 2px solid $colorMedium ;
+            }
+            .password_box_p{
+                display: flex ;
+                flex-direction: row ;
+                padding: 50px 50px 0 10px  ;
+            }
+            .password_1_p{
+                width: 80%;
+                height: 35px;
+                margin:  0;
+                @include text-rec(30% , 18px , none , $colorDark ,transparent) ;
+                text-align: right ;
+                // background-color: aliceblue ;
+            }
+            .password_2_p{
+                height: 25px;
+                width: 80%;
+                // margin: 55px auto 0;
+                border: 2px solid $colorMedium ;
+            }
+            .login_btn_p{
+                width: 100px;
+                height: 30px;
+                margin: 50px auto ;
+                @include text-rec(30% , 18px , $colorDark , $colorLight ,transparent) ;                
+            }
+            .btn_box_p{
+                display: flex ;
+                flex-direction: row ;
+                justify-content: center ;
+                padding: 30px 0 ;
+            }
+            .registered_p{
+                margin: 0 20px 0 20px  ;
+                @include text-rec(100px , 18px , transparent , $colorDark ,$colorDark) ;
+            }
+    }
+   // ----------------------------*
+
+
+    @keyframes slide_b{
+        0%{
+            margin-left: 35% ;
+            margin-top: -600px ;
+        }
+
+        100%{
+            margin-left: 40% ;
+            margin-top: -700px ;
+        }
+    }
+
     .login_b{
+        background-color: $colorDarker ; 
+        width: 30%;
+        height:600px ;
+        margin:-600px 0 0 35% ;
+        // transform: translate(110px,-15%) ;
+        // transition: .5s all ;
+        animation-name: slide_b;
+        animation-delay: .1s ;
+        animation-timing-function: ease-in ;
+        animation-duration: 1s ;
+        animation-fill-mode: forwards;
+    }
+
+    .login_b_move{
         background-color: $colorDarker ; 
         width: 30%;
         height:600px ;
         margin:-710px 0 0 40% ;
     }
+
 }
