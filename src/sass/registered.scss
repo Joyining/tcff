@@ -6,7 +6,7 @@
         width: 30%;
         height:600px ;
         margin:100px 0 0 30% ;
-        position: relative ;
+        position: absolute ;
         background-color: $colorLight ; 
             .login_word{
                 margin: 0 auto ;
@@ -38,7 +38,7 @@
             .password_box{
                 display: flex ;
                 flex-direction: row ;
-                padding: 30px 50px 0 10px  ;
+                padding: 10px 50px 0 10px  ;
             }
             .password_1{
                 width: 80%;
@@ -73,6 +73,19 @@
             .word{
                 padding: 0 10% ;
                 @include text-rec(80% , 12px , transparent , $colorDark ,transparent) ;
+            }
+            .worring_box{
+                margin: 0 60% ;
+                height: 24px;
+                width: 100%;
+                // overflow: hidden ;
+            }
+            .worring{
+                @include text-rec(30% , 12px , transparent , red ,transparent) ;
+                text-align: right ;
+            }
+            .display{
+                display: none ;
             }
     }
     .login_b{
