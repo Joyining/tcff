@@ -384,6 +384,8 @@ header{
                 font-size: bold;
                 cursor: pointer;
                 font-weight: 500;
+                position: relative;
+                z-index: 250;
                 @include breakpoint('tablet'){
                     @include text-rec(100%, 1.5rem, $colorDark, $colorMedium, transparent);
                 }
@@ -393,8 +395,9 @@ header{
             display: flex;
             position: absolute;
             left: -2000px;
+            z-index: 200;
             &.transition{
-                transition: all .5s ease-in;
+                transition: all .5s;
             }
             &.active{
                 left: 25vw;
@@ -406,6 +409,10 @@ header{
                     color: $colorDark;
                     font-weight: 500;
                     margin-right: 3px;
+                    &:visited, &:link{
+                        background-color: $colorLight;
+                        color: $colorDark;
+                    }
                     &:hover{
                         color: $colorDarker;
                         background-color: $colorMedium;
@@ -438,6 +445,7 @@ footer{
     display: flex;
     justify-content: center;
     font-size: .8rem;
+    margin-bottom: 0;
     @include breakpoint("desktop"){
         // position: absolute;
         // bottom: 0;

@@ -1,0 +1,174 @@
+@import "partials/basic";
+
+.container{
+    background-color: $colorMedium;
+    .title{
+    @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
+    }
+    .about{
+    @include paragraph($colorDarker);
+    }
+    height: 600px;
+    margin: 10px auto;
+}
+
+.box3{
+    width: 80%;
+    margin: 10px auto;
+    /* height: 1000px; */
+    /* background: #DAB5A2; */
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    text-align: center;
+    color: white;
+    margin-top: 300px;
+}
+.myfilename{
+    width:300px;
+    display: flex;
+    text-align: center;
+    margin: 0 auto;
+}
+#h01{
+    border-right: 5px solid white;
+}
+.box3 h1{
+    padding: 20px;
+
+}
+.box2 p{
+    color: #8e5f59;
+}
+
+.test{
+    width: 100%;
+    height: 250px;
+}
+.myfont{
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+.myfont a{
+    color: white;
+}
+.fpg{
+    display: flex;
+}
+.l_font{
+    width: 130px;
+    background-color: white;
+    padding: 10px;
+    color: #8e5f59;    
+}
+a{
+    text-decoration: none;
+}
+.r_font{
+    width: 130px;
+    border: 1px solid white;
+    padding: 10px;
+    /* margin-right: 15px; */
+}
+.mycontain{
+    display: flex;
+    padding: 1em 1em;
+    float: left;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: space-between;
+    background: $colorMedium;
+    margin-bottom: 10px;
+}
+
+.mycontain h2{
+    width: 30px;
+    background-color: #602926;
+    color: white;
+    padding: 10px;
+    height: 120px;
+    text-align: center;
+}
+
+.mycontent {
+  position: relative;
+  width: 50%;
+  max-width: 200px;
+  margin: auto;
+  overflow: hidden;
+  margin-left: 10px;
+}
+.cover{
+    width: 400px;
+    height: 240px;
+    overflow: hidden;
+}
+.mycontent .mycontent-overlay {
+  background: rgba(96, 41, 38,.6);
+  position: absolute;
+  height: 99%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  -moz-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
+}
+
+.mycontent:hover .mycontent-overlay{
+  opacity: 1;
+}
+
+.mycontent-image{
+  width: 100%;
+  
+}
+
+.mycontent-details {
+  position: absolute;
+  text-align: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.mycontent:hover .mycontent-details{
+  top: 50%;
+  left: 50%;
+  opacity: 1;
+}
+
+.mycontent-details h3{
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+}
+
+.mycontent-details h4{
+    color: #fff;
+    font-size: 1em;
+  }
+.mycontent-details p{
+  color: #fff;
+  font-size: 0.8em;
+    line-height: 20px;  
+}
+
+.fadeIn-bottom{
+  top: 80%;
+}

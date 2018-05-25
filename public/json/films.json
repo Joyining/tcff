@@ -1,0 +1,377 @@
+[
+    {
+        "name": "Psycho",
+        "year": 1960,
+        "type": "thirll"
+    },
+    {
+        "name": "The Graduate",
+        "year": 1967,
+        "type": "romance"
+    },
+    {
+        "name": "Bonnie and Clyde",
+        "year": 1967,
+        "type": "family"
+    },
+    {
+        "name": "The Sound of Music",
+        "year": 1965,
+        "type": "comedy"
+    },
+    {
+        "name": "Mary Poppins",
+        "year": 1964,
+        "type": "crime"
+    },
+    {
+        "name": "Breakfast at Tiffany's",
+        "year": 1961,
+        "type": "adventure"
+    },
+    {
+        "name": "101 Dalmations",
+        "year": 1961,
+        "type": "war"
+    },
+    {
+        "name": "My Fair Lady",
+        "year": 1964,
+        "type": "sci-fi"
+    },
+    {
+        "name": "Yellow Submarine",
+        "year": 1968,
+        "type": "thirll"
+    },
+    {
+        "name": "Dragon Inn",
+        "year": 1967,
+        "type": "romance"
+    },
+    {
+        "name": "A Fistful of Dollars",
+        "year": 1964,
+        "type": "family"
+    },
+    {
+        "name": "Goldfinger",
+        "year": 1964,
+        "type": "comedy"
+    },
+    {
+        "name": "2001 A Space Odyssey",
+        "year": 1968,
+        "type": "crime"
+    },
+    {
+        "name": "Guess Who's Coming to Dinner",
+        "year": 1967,
+        "type": "adventure"
+    },
+    {
+        "name": "The Longest Day",
+        "year": 1962,
+        "type": "war"
+    },
+    {
+        "name": "The Godfather",
+        "year": 1972,
+        "type": "sci-fi"
+    },
+    {
+        "name": "One Flew Over the Cuckoo's Nest",
+        "year": 1971,
+        "type": "thirll"
+    },
+    {
+        "name": "Star Wars",
+        "year": 1973,
+        "type": "romance"
+    },
+    {
+        "name": "Alien",
+        "year": 1974,
+        "type": "family"
+    },
+    {
+        "name": "A Clockwork Orange",
+        "year": 1974,
+        "type": "comedy"
+    },
+    {
+        "name": "Taxi Driver",
+        "year": 1975,
+        "type": "crime"
+    },
+    {
+        "name": "Rocky",
+        "year": 1975,
+        "type": "adventure"
+    },
+    {
+        "name": "Jaws",
+        "year": 1975,
+        "type": "war"
+    },
+    {
+        "name": "Annie Hall",
+        "year": 1977,
+        "type": "sci-fi"
+    },
+    {
+        "name": "The Godfather Part 2",
+        "year": 1974,
+        "type": "thirll"
+    },
+    {
+        "name": "Apocalypse Now",
+        "year": 1979,
+        "type": "romance"
+    },
+    {
+        "name": "The Sting",
+        "year": 1973,
+        "type": "family"
+    },
+    {
+        "name": "Chinatown",
+        "year": 1974,
+        "type": "comedy"
+    },
+    {
+        "name": "The Deer Hunter",
+        "year": 1978,
+        "type": "crime"
+    },
+    {
+        "name": "Kramer vs. Kramer",
+        "year": 1979,
+        "type": "adventure"
+    },
+    {
+        "name": "The Elephant Man",
+        "year": 1980,
+        "type": "war"
+    },
+    {
+        "name": "Raiders of the Lost Ark",
+        "year": 1981,
+        "type": "sci-fi"
+    },
+    {
+        "name": "Mad Max 2",
+        "year": 1981,
+        "type": "thirll"
+    },
+    {
+        "name": "Blade Runner",
+        "year": 1982,
+        "type": "romance"
+    },
+    {
+        "name": "E.T.",
+        "year": 1982,
+        "type": "family"
+    },
+    {
+        "name": "First Blood",
+        "year": 1982,
+        "type": "comedy"
+    },
+    {
+        "name": "Rocky 4",
+        "year": 1985,
+        "type": "crime"
+    },
+    {
+        "name": "Star Wars Episode 6: Return of the Jedi",
+        "year": 1983,
+        "type": "adventure"
+    },
+    {
+        "name": "A Nightmare on Elm Street",
+        "year": 1984,
+        "type": "war"
+    },
+    {
+        "name": "Ghostbusters",
+        "year": 1984,
+        "type": "sci-fi"
+    },
+    {
+        "name": "The Karate Kid",
+        "year": 1984,
+        "type": "thirll"
+    },
+    {
+        "name": "Back to the Future",
+        "year": 1985,
+        "type": "romance"
+    },
+    {
+        "name": "Back to the Future Part 2",
+        "year": 1989,
+        "type": "family"
+    },
+    {
+        "name": "Rain Man",
+        "year": 1988,
+        "type": "comedy"
+    },
+    {
+        "name": "Die Hard",
+        "year": 1988,
+        "type": "crime"
+    },
+    {
+        "name": "Good Will Hunting",
+        "year": 1997,
+        "type": "adventure"
+    },
+    {
+        "name": "Forrest Gump",
+        "year": 1994,
+        "type": "war"
+    },
+    {
+        "name": "Jurassic Park",
+        "year": 1993,
+        "type": "sci-fi"
+    },
+    {
+        "name": "The Lost World: Jurassic Park 2",
+        "year": 1997,
+        "type": "thirll"
+    },
+    {
+        "name": "Star Wars Episode 1: The Phantom Menace",
+        "year": 1999,
+        "type": "romance"
+    },
+    {
+        "name": "Home Alone",
+        "year": 1990,
+        "type": "family"
+    },
+    {
+        "name": "Home Alone 2",
+        "year": 1992,
+        "type": "comedy"
+    },
+    {
+        "name": "Home Alone 3",
+        "year": 1997,
+        "type": "crime"
+    },
+    {
+        "name": "Armageddon",
+        "year": 1998,
+        "type": "adventure"
+    },
+    {
+        "name": "Speed",
+        "year": 1994,
+        "type": "war"
+    },
+    {
+        "name": "Days of Thunder",
+        "year": 1990,
+        "type": "sci-fi"
+    },
+    {
+        "name": "Saving Private Ryan",
+        "year": 1998,
+        "type": "thirll"
+    },
+    {
+        "name": "Terminator 2",
+        "year": 1991,
+        "type": "romance"
+    },
+    {
+        "name": "Titanic",
+        "year": 1997,
+        "type": "family"
+    },
+    {
+        "name": "Mr. Holland's Opus",
+        "year": 1995,
+        "type": "comedy"
+    },
+    {
+        "name": "Eternal Sunshine of the Spotless Mind",
+        "year": 2004,
+        "type": "crime"
+    },
+    {
+        "name": "Taare Zameen Par",
+        "year": 2007,
+        "type": "adventure"
+    },
+    {
+        "name": "The Dark Knight",
+        "year": 2008,
+        "type": "war"
+    },
+    {
+        "name": "City of God",
+        "year": 2002,
+        "type": "sci-fi"
+    },
+    {
+        "name": "Spirited Away",
+        "year": 2001,
+        "type": "thirll"
+    },
+    {
+        "name": "The Pianist",
+        "year": 2002,
+        "type": "romance"
+    },
+    {
+        "name": "Memento",
+        "year": 2000,
+        "type": "family"
+    },
+    {
+        "name": "A Beautiful Mind",
+        "year": 2001,
+        "type": "comedy"
+    },
+    {
+        "name": "Hotel Rwanda",
+        "year": 2004,
+        "type": "crime"
+    },
+    {
+        "name": "Memories of Murder",
+        "year": 2003,
+        "type": "adventure"
+    },
+    {
+        "name": "In the Mood for Love",
+        "year": 2000,
+        "type": "war"
+    },
+    {
+        "name": "Before Sunset",
+        "year": 2004,
+        "type": "sci-fi"
+    },
+    {
+        "name": "Infernal Affairs",
+        "year": 2002,
+        "type": "thirll"
+    },
+    {
+        "name": "Memories of Matsuko",
+        "year": 2006,
+        "type": "romance"
+    },
+    {
+        "name": "Pan's Labyrinth",
+        "year": 2006,
+        "type": "family"
+    }
+]

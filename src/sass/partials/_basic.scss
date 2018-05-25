@@ -21,7 +21,7 @@ $images: "../images/";
 
 /* -------------------------------------------- color ----------------------------------------------*/
 
-$colorDarker: #631a1c;
+$colorDarker: rgb(100, 26, 29);
 $colorDark: rgb(142,95,89);
 $colorMedium: #cbab9e;
 $colorLight: #e3e0d9;
@@ -66,6 +66,7 @@ h6{font-size: $fontSizeBase; }
 $headerHeight: 100px; 
 .container{
 	margin: ($headerHeight * 2.2) auto;
+	// margin-bottom: ($headerHeight * 4);
 	padding: 100px;
 	width: 80vw;
 	box-sizing: border-box;
