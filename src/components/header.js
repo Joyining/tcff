@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import '../sass/page.scss';
 import logo1 from '../images/logo1.svg';
 import logo2 from '../images/logo2.svg';
@@ -13,6 +14,13 @@ import menuBgImg03 from "../images/2001_a_space_odyssey_03.jpg";
 import menuBgImg04 from "../images/2001_a_space_odyssey_04.jpg";
 import menuBgImg05 from "../images/breakfast_at_tiffany's_01.jpg";
 import menuBgImg06 from "../images/breakfast_at_tiffany's_02.jpg";
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  NavLink
+} from "react-router-dom";
 
 class Header extends Component {
 
@@ -170,35 +178,35 @@ class Header extends Component {
     }
     
     render() {
-        return(
+        return (
         <header>
             <div className="logo">
-                <img src={logo1} alt="" className="" />
+                <Link to="/"><img src={logo1} alt="" className="" /></Link>
             </div>
             <ul className="nav-text transition">
                 <li className="nav-text-li transition">
                     <a href="">節目資訊</a>
                     <ul className="panel transition">
-                        <li><a href="" className="transition" href="">確認放映</a></li>
-                        <li><a href="" className="transition" href="">募資影片</a></li>
-                        <li><a href="" className="transition" href="">場次表</a></li>
+                        <li><Link to="/films" className="transition">確認放映</Link></li>
+                        <li><Link to="/" className="transition">募資影片</Link></li>
+                        <li><Link to="/time" className="transition">場次表</Link></li>
                     </ul>
                 </li>
                 <li className="nav-text-li transition">
                     <a href="">影展資訊</a>
                     <ul className="panel transition">
-                        <li><a className="transition" href="">關於影展</a></li>
-                        <li><a className="transition" href="">場地資訊</a></li>
-                        <li><a className="transition" href="">售票資訊</a></li>
-                        <li><a className="transition" href="">購票Q&A</a></li>
+                        <li><Link to="/info" className="transition">關於影展</Link></li>
+                        <li><Link to="/info" className="transition">場地資訊</Link></li>
+                        <li><Link to="/info" className="transition">售票資訊</Link></li>
+                        <li><Link to="/info" className="transition">購票Q&A</Link></li>
                     </ul>
                 </li>
-                <li className="nav-text-li transition"><a href="">最新消息</a></li>
-                <li className="nav-text-li transition"><a href="">電影賞析</a></li>
+                <li className="nav-text-li transition"><Link to="/news" className="transition">最新消息</Link></li>
+                <li className="nav-text-li transition"><Link to="/article" className="transition">電影賞析</Link></li>
             </ul>
             <div className="nav-icon web">
-                <img className="transition" src={ticket} alt="" />
-                <img  className="transition" src={member} alt="" />
+                <Link to="/my-film"><img className="transition" src={ticket} alt="" /></Link>
+                <Link to="/member"><img  className="transition" src={member} alt="" /></Link>
                 <div className="menu-icon transition">
                     <div className="line-1 no-animation transition"></div>
                     <div className="line-2 no-animation transition"></div>
@@ -293,32 +301,33 @@ class Header extends Component {
                         <li className="active">
                             <a className="transition">節目資訊</a>
                             <ul className="panel transition" data-device='tablet'>
-                                <li><a className="transition" href="">確認放映</a></li>
-                                <li><a className="transition" href="">募資影片</a></li>
-                                <li><a className="transition" href="">場次表</a></li>
+                                <li><Link to="/films" className="transition">確認放映</Link></li>
+                                <li><Link to="/" className="transition">募資影片</Link></li>
+                                <li><Link to="/time" className="transition">場次表</Link></li>
                             </ul>
                         </li>
                         <li>
                             <a className="transition">影展資訊</a>
                             <ul className="panel transition" data-device='tablet'>
-                                <li><a className="transition" href="">關於影展</a></li>
-                                <li><a className="transition" href="">場地資訊</a></li>
-                                <li><a className="transition" href="">售票資訊</a></li>
-                                <li><a className="transition" href="">購票Q&A</a></li>
+                                <li><Link to="/info" className="transition">關於影展</Link></li>
+                                <li><Link to="/info" className="transition">場地資訊</Link></li>
+                                <li><Link to="/info" className="transition">售票資訊</Link></li>
+                                <li><Link to="/info" className="transition">購票Q&A</Link></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="" className="transition">最新消息</a>
+                            <Link to="/news" className="transition">最新消息</Link>
 
                         </li>
                         <li>
-                            <a href="" className="transition">電影賞析</a>
+                            <Link to="/article" className="transition">電影賞析</Link>
                         </li>
                     </ul>
                 </div>
             </div>
         </header>
-        );
+         
+        )
     }
 }
 

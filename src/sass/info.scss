@@ -1,6 +1,6 @@
 @import "partials/basic";
 
-.container{
+.container-info{
     background-color: $colorMedium;
     .title{
     @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);

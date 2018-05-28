@@ -23,27 +23,61 @@ import Home02Poster07 from "../images/Home02Poster07.jpg";
 import Home02Poster08 from "../images/Home02Poster08.jpg";
 import Home02Poster09 from "../images/Home02Poster09.jpg";
 
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  NavLink
+} from "react-router-dom";
+
 
 class Home extends Component {
-  componentDidMount(){
-    document.addEventListener("DOMContentLoaded", function scrollDetection(event){
-      window.addEventListener("scroll", function (){
-        let scrollTop = document.documentElement.scrollTop;
-        const home02 = document.querySelector('.home02');
-        const slogons = document.querySelectorAll('.slogon');
-        if (scrollTop > (home02.offsetTop-800)) {
-          // console.log(scrollTop);
-          // console.log(home02.offsetTop);
-          Array.from(slogons).forEach(slogon=>{
-            slogon.classList.add("animate");
-          })
-        } else if (scrollTop < (home02.offsetTop - 1200)){
-          Array.from(slogons).forEach(slogon => {
-            slogon.classList.remove("animate");
-          })
-        }
+  constructor(props){
+      super(props);
+      this.scrollDetection = this.scrollDetection.bind(this); //bind function once
+  }
+
+  scrollDetection(){
+    let scrollTop = document.documentElement.scrollTop;
+    const home02 = document.querySelector('.home02');
+    const slogons = document.querySelectorAll('.slogon');
+    if (scrollTop > (home02.offsetTop-800)) {
+      Array.from(slogons).forEach(slogon=>{
+        slogon.classList.add("animate");
       })
-    })
+    } else if (scrollTop < (home02.offsetTop - 1200)){
+      Array.from(slogons).forEach(slogon => {
+        slogon.classList.remove("animate");
+      })
+    }
+  }
+
+
+
+  componentDidMount(){
+    console.log('home mount');
+    window.addEventListener('scroll', this.scrollDetection, false);
+
+    // document.addEventListener("DOMContentLoaded", function scrollDetection(event){
+    //   window.addEventListener("scroll", function (){
+    //     let scrollTop = document.documentElement.scrollTop;
+    //     const home02 = document.querySelector('.home02');
+    //     const slogons = document.querySelectorAll('.slogon');
+    //     if (scrollTop > (home02.offsetTop-800)) {
+    //       Array.from(slogons).forEach(slogon=>{
+    //         slogon.classList.add("animate");
+    //       })
+    //     } else if (scrollTop < (home02.offsetTop - 1200)){
+    //       Array.from(slogons).forEach(slogon => {
+    //         slogon.classList.remove("animate");
+    //       })
+    //     }
+    //   })
+    // })
+
+    let myFunc=()=>{
+      console.log('hello');
+    }
 
     let mousePosition = ()=>{
       let lastMouseX;
@@ -54,20 +88,6 @@ class Home extends Component {
         lastMouseX = evt.clientX;
         lastMouseY = evt.clientY;
         const inside = document.querySelector('.inside');
-        // setInterval(function(){
-        //   inside.style.transform = `rotateX(${mouseXdiff}deg)`;
-        //   inside.style.transform = `rotateY(${mouseYdiff}deg)`;
-        //   if (mouseYdiff > 0) {
-        //     console.log('up');
-        //   } else {
-        //     console.log('down');
-        //   }
-        //   if (mouseXdiff > 0) {
-        //     console.log('left');
-        //   } else {
-        //     console.log('right');
-        //   }
-        // }, 1000)
         let insideRotate = ()=>{
           inside.style.transform = `rotateX(${mouseXdiff}deg)`;
           inside.style.transform = `rotateY(${mouseYdiff}deg)`;
@@ -88,16 +108,6 @@ class Home extends Component {
       })
     }
     // mousePosition();
-
-    // let slideMove =()=>{
-    //   let slideMove = 100;
-    //   setInterval(function () {
-    //     const slide = document.querySelector('.slide');
-    //     slide.style.left = `${-slideMove}px`;
-    //     slideMove += 100;
-    //   }, 500)
-    // }
-    // slideMove();
 
     let titleText = ()=>{
       const movies = [
@@ -132,12 +142,16 @@ class Home extends Component {
         }, 3000)
       }, 1400);
     }
-    titleText();
-
-
+    titleText()
   }
+
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this.scrollDetection, false);
+  }
+  
+
   render() {
-    return <section className="container">
+    return <section className="container-home">
         <div className="home01"> </div>
         <div className="home02">
         < Flag />
@@ -216,7 +230,7 @@ class Home extends Component {
             <img src={Home02Poster08} alt="" />
             <img src={Home02Poster09} alt="" />
           </div>
-          <div className="poster-more transition"><a className="transition" href="">更多確認放映影片</a></div>
+          <div className="poster-more transition"><Link to="/films" className="transition">更多確認放映影片</Link></div>
         </div>
         <div className="home03">
           < Flag />
