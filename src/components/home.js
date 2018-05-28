@@ -52,8 +52,6 @@ class Home extends Component {
     }
   }
 
-
-
   componentDidMount(){
     console.log('home mount');
     window.addEventListener('scroll', this.scrollDetection, false);
