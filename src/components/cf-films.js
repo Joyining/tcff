@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import '../sass/page.scss';
-import '../sass/list.scss';
+import '../sass/cf-films.scss';
 import Titantic from '../images/1997_Titanic.jpg';
 import Holland from '../images/1996_Mr_Holland_Opus.jpg';
 import Terminator from '../images/1991_Terminator2.jpg';
