@@ -2,21 +2,19 @@ import React, { Component } from 'react';
 import Header from './header';
 import Footer from './footer';
 import FastTicket from './fast-ticket';
-import Home from './home';
-// import Flag from './flag';
+import Time from './time'
 
-class HomePage extends Component {
+class TimePage extends Component {
   render() {
     return (
-        <div>
+        <div style={{position:'relative'}}>
             <Header />
-            <Home />
-            {/* <Flag /> */}
             <FastTicket />
+            <Time />
             <Footer />
         </div>
     );
   }
 }
 
-export default HomePage;
+export default TimePage;

@@ -2,21 +2,19 @@ import React, { Component } from 'react';
 import Header from './header';
 import Footer from './footer';
 import FastTicket from './fast-ticket';
-import Home from './home';
-// import Flag from './flag';
+import News from './news'
 
-class HomePage extends Component {
+class NewsPage extends Component {
   render() {
     return (
-        <div>
+        <div style={{position:'relative'}}>
             <Header />
-            <Home />
-            {/* <Flag /> */}
             <FastTicket />
+            <News />
             <Footer />
         </div>
     );
   }
 }
 
-export default HomePage;
+export default NewsPage;

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import "./sass/reset.scss";
-// import InfoPage from './components/info-page';
-import MemberPage from './components/member-page';
+import App from "./App";
 
-ReactDOM.render(<MemberPage />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
