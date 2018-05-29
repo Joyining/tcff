@@ -9,7 +9,7 @@ class Member extends Component{
 
     render(){
         return(
-            <section className="container">
+            <section className="container container-member">
                 <div className="login_f">
                     <div className="login_word">會 員 登 入</div>
                     <div className="account_box">
@@ -20,7 +20,7 @@ class Member extends Component{
                         <div className="password_1">密碼：</div>
                         <input type="password" className="password_2"/>
                     </div>
-                    <a href=""><div className="login_btn">登入</div></a>
+                    <button className="login_btn"><div >登入</div></button>
                     <div className="btn_box">
                         <a href="" ><div className="registered">註冊</div></a>
                         <a href="" ><div className="registered">忘記密碼</div></a>
@@ -31,17 +31,14 @@ class Member extends Component{
                  <div className="login_f_p">
                     <div className="login_word_p">忘 記 密 碼</div>
                     <div className="account_box_p">
-                        <div className="account_1_p">帳號：</div>
+                        <div className="account_1_p">註冊帳號：</div>
                         <input type="text" className="account_2_p" placeholder="請輸入Mail"/>
                     </div>
-                    <div className="password_box_p">
-                        <div className="password_1_p">密碼：</div>
-                        <input type="password" className="password_2_p"/>
-                    </div>
-                    <a href=""><div className="login_btn_p">登入</div></a>
-                    <div className="btn_bo_px">
+                    <button className="login_btn_p"><div>確認送出</div></button>
+                    <div className="word_m">已有帳號？</div>
+                    <div className="btn_box_p">
                         <a href="" ><div className="registered_p">註冊</div></a>
-                        <a href="" ><div className="registered_p">忘記密碼</div></a>
+                        <a href="" ><div className="registered_p">登入</div></a>
                     </div>
                 </div>
 
