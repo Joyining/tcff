@@ -102,7 +102,6 @@ a{
 }
 .dir{
     width: 75%;
-    // padding-left: 100px;
 }
 .act{
     width: 90%;
@@ -230,9 +229,7 @@ li{
     height: 100%;
     object-fit: cover;
 }    
-slides li{
-    /* width: 800px; */
-}
+
 .pages{
     position: absolute;
     bottom: 20px;
@@ -285,3 +282,28 @@ slides li{
     display: flex;
 }
 
+#trapezoid_left{
+    border-top: 80px solid rgb(243, 210, 193);
+    border-right: 50px solid transparent;
+	height: 0;
+	width: 200px;
+    margin: 0 auto;
+    color: #602926;
+    margin-top: 10px;
+}
+#trapezoid_right{
+    border-bottom: 80px solid rgb(243, 210, 193);
+	border-left: 50px solid transparent;
+	height: 0;
+	width: 500px;
+    margin: 0 auto;
+    color: #602926;
+    margin-top: 10px;
+}
+#trapezoid_right h2{
+    padding: 20px 60px;    
+}
+#trapezoid_left h2{
+    padding: 20px 60px;
+    margin-top: -80px;
+}
