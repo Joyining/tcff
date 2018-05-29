@@ -4,7 +4,7 @@ import '../sass/info.scss';
 class Info extends Component {
   render() {
     return (
-        <section className="container">
+        <section className="container-info">
             <div className="title">關於影展</div>
             <div className="about">
                 台北經典影展首屆於2018年舉辦，希望透過經典電影的重新放映，帶領觀影民眾回到1960-2000之間的黃金年代。相較於國內其他影展或電影節活動，台北經典影展破先例的完全以「經典老片」為主軸，選擇了相當數量的影史經典巨作呈現在觀眾眼前。我們深信每部經典作品之所以能成為經典，背後一定有著值得我們細細品味挖掘的細節。

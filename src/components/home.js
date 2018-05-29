@@ -23,27 +23,74 @@ import Home02Poster07 from "../images/Home02Poster07.jpg";
 import Home02Poster08 from "../images/Home02Poster08.jpg";
 import Home02Poster09 from "../images/Home02Poster09.jpg";
 
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  NavLink
+} from "react-router-dom";
+
 
 class Home extends Component {
-  componentDidMount(){
-    document.addEventListener("DOMContentLoaded", function scrollDetection(event){
-      window.addEventListener("scroll", function (){
-        let scrollTop = document.documentElement.scrollTop;
-        const home02 = document.querySelector('.home02');
-        const slogons = document.querySelectorAll('.slogon');
-        if (scrollTop > (home02.offsetTop-800)) {
-          // console.log(scrollTop);
-          // console.log(home02.offsetTop);
-          Array.from(slogons).forEach(slogon=>{
-            slogon.classList.add("animate");
-          })
-        } else if (scrollTop < (home02.offsetTop - 1200)){
-          Array.from(slogons).forEach(slogon => {
-            slogon.classList.remove("animate");
-          })
-        }
+  constructor(props){
+      super(props);
+      this.scrollDetection = this.scrollDetection.bind(this); //bind function once
+      this.windowResize = this.windowResize.bind(this); 
+  }
+
+  scrollDetection(){
+    let scrollTop = document.documentElement.scrollTop;
+    const home02 = document.querySelector('.home02');
+    const home03 = document.querySelector(".home03");
+    const slogons = document.querySelectorAll('.slogon');
+    const cube = document.querySelector(".cube");
+    const sides = document.querySelectorAll(".side");
+    const cfButton = document.querySelector(".cf-button").children;
+    const cfPoster = document.querySelector(".cf-poster");
+    if (scrollTop > (home02.offsetTop-800)) {
+        slogons[0].classList.add("animate");
+    } else if (scrollTop < (home02.offsetTop - 1200)){
+        slogons[0].classList.remove("animate");
+    }
+    if (scrollTop > (home03.offsetTop - 600)){
+      slogons[1].classList.add("animate");
+      cube.classList.add("animate");
+      Array.from(sides).forEach(side =>{
+        side.classList.add('animate');
       })
-    })
+      cfButton[0].classList.add("animate");
+      cfPoster.classList.add("animate");
+    } else if (scrollTop < (home03.offsetTop - 1200)){
+      slogons[1].classList.remove("animate");
+    }
+  }
+
+  windowResize(){
+    const container = document.querySelector('.container-home');
+    // let bodyWidth = document.body.clientWidth;
+    let containerWidth = container.clientWidth;
+    // console.log(containerWidth);
+    let eclipseWidth = containerWidth * .9;
+    let posterWidth = eclipseWidth * .9;
+    const eclipse = document.querySelector('.cf-circle');
+    const poster = document.querySelector(".cf-poster");
+    eclipse.style.width = `${eclipseWidth}px`;
+    poster.style.width = `${posterWidth}px`;
+    let imgWidth = document.querySelector('.cf01').clientWidth;
+    let positionMove = Math.tan(10 * Math.PI / 180) * imgWidth;
+    const cfImgs = poster.children;
+    cfImgs[0].style.transform = `translateY(${positionMove*2}px) skewY(-10deg)`;
+    cfImgs[1].style.transform = `translateY(${positionMove}px) skewY(-10deg)`;
+    cfImgs[2].style.transform = `skewY(-10deg)`;
+    cfImgs[3].style.transform = `skewY(10deg)`;
+    cfImgs[4].style.transform = `translateY(${positionMove}px) skewY(10deg)`;
+    cfImgs[5].style.transform = `translateY(${positionMove*2}px) skewY(10deg)`;
+
+  }
+
+  componentDidMount(){
+    // console.log('home mount');
+    window.addEventListener('scroll', this.scrollDetection, false);
 
     let mousePosition = ()=>{
       let lastMouseX;
@@ -54,20 +101,6 @@ class Home extends Component {
         lastMouseX = evt.clientX;
         lastMouseY = evt.clientY;
         const inside = document.querySelector('.inside');
-        // setInterval(function(){
-        //   inside.style.transform = `rotateX(${mouseXdiff}deg)`;
-        //   inside.style.transform = `rotateY(${mouseYdiff}deg)`;
-        //   if (mouseYdiff > 0) {
-        //     console.log('up');
-        //   } else {
-        //     console.log('down');
-        //   }
-        //   if (mouseXdiff > 0) {
-        //     console.log('left');
-        //   } else {
-        //     console.log('right');
-        //   }
-        // }, 1000)
         let insideRotate = ()=>{
           inside.style.transform = `rotateX(${mouseXdiff}deg)`;
           inside.style.transform = `rotateY(${mouseYdiff}deg)`;
@@ -88,16 +121,6 @@ class Home extends Component {
       })
     }
     // mousePosition();
-
-    // let slideMove =()=>{
-    //   let slideMove = 100;
-    //   setInterval(function () {
-    //     const slide = document.querySelector('.slide');
-    //     slide.style.left = `${-slideMove}px`;
-    //     slideMove += 100;
-    //   }, 500)
-    // }
-    // slideMove();
 
     let titleText = ()=>{
       const movies = [
@@ -132,15 +155,22 @@ class Home extends Component {
         }, 3000)
       }, 1400);
     }
-    titleText();
+    titleText()
 
-
+    window.addEventListener("load", this.windowResize, false);
+    window.addEventListener("resize", this.windowResize, false);
   }
+
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this.scrollDetection, false);
+  }
+  
+
   render() {
-    return <section className="container">
+    return <section className="container-home">
         <div className="home01"> </div>
         <div className="home02">
-        < Flag />
+          <Flag />
           <div className="text-wrap">
             <div className="slogon">
               <div>
@@ -193,13 +223,13 @@ class Home extends Component {
               </div>
               <div className="title-wrap">
                 <div className="inner">
-                  <div className="title bg-1 title-text transition"></div>
+                  <div className="title bg-1 title-text transition" />
                   <div className="title bg-2 transition" />
                 </div>
               </div>
               <div className="quote-wrap">
                 <div className="inner">
-                <div className="quote bg-1 quote-text transition"></div>
+                  <div className="quote bg-1 quote-text transition" />
                   <div className="quote bg-2 transition" />
                 </div>
               </div>
@@ -216,10 +246,14 @@ class Home extends Component {
             <img src={Home02Poster08} alt="" />
             <img src={Home02Poster09} alt="" />
           </div>
-          <div className="poster-more transition"><a className="transition" href="">更多確認放映影片</a></div>
+          <div className="poster-more transition">
+            <Link to="/films" className="transition">
+              更多確認放映影片
+            </Link>
+          </div>
         </div>
         <div className="home03">
-          < Flag />
+          <Flag />
           <div className="text-wrap">
             <div className="slogon">
               <div>
@@ -239,12 +273,41 @@ class Home extends Component {
           </div>
           <div className="cube-wrap">
             <div className="cube">
-              <div className="side front">1</div>
-              <div className="side back">2</div>
-              <div className="side right">3</div>
-              <div className="side left">4</div>
-              <div className="side top">5</div>
-              <div className="side bottom">6</div>
+              <div className="side front">台</div>
+              <div className="side back">展</div>
+              <div className="side right">典</div>
+              <div className="side left">北</div>
+              <div className="side top">影</div>
+              <div className="side bottom">經</div>
+            </div>
+          </div>
+          <div className="cf-wrap">
+            <div className="cf-button">
+              <Link to="/cf-films" className="transition">
+                參與募資
+              </Link>
+            </div>
+            <div className="cf-circle">
+              <div className="cf-poster">
+                <Link to="/cf-films" className="transition cf01">
+                  <img src={Home02Poster07} alt="" />
+                </Link>
+                <Link to="/cf-films" className="transition cf02">
+                  <img src={Home02Poster07} alt="" />
+                </Link>
+                <Link to="/cf-films" className="transition cf03">
+                  <img src={Home02Poster07} alt="" />
+                </Link>
+                <Link to="/cf-films" className="transition cf04">
+                  <img src={Home02Poster07} alt="" />
+                </Link>
+                <Link to="/cf-films" className="transition cf05">
+                  <img src={Home02Poster07} alt="" />
+                </Link>
+                <Link to="/cf-films" className="transition cf06">
+                  <img src={Home02Poster07} alt="" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>

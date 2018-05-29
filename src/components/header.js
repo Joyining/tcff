@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import '../sass/page.scss';
 import logo1 from '../images/logo1.svg';
 import logo2 from '../images/logo2.svg';
@@ -14,7 +15,29 @@ import menuBgImg04 from "../images/2001_a_space_odyssey_04.jpg";
 import menuBgImg05 from "../images/breakfast_at_tiffany's_01.jpg";
 import menuBgImg06 from "../images/breakfast_at_tiffany's_02.jpg";
 
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  NavLink
+} from "react-router-dom";
+
 class Header extends Component {
+    constructor(props){
+    super(props);
+    this.menuClose = this.menuClose.bind(this);
+    }
+
+    menuClose(){
+        const menuWrap = document.querySelector(".menu-wrap");
+        const body = document.querySelector("body");
+        const menuIcons = document.querySelectorAll(".menu-icon");
+        menuWrap.classList.remove('active');
+        body.classList.remove('overflow-hidden');
+        Array.from(menuIcons).forEach(menuIcon => {
+            menuIcon.classList.remove("active");
+        });
+    }
 
     componentDidMount(){
         document.addEventListener("DOMContentLoaded", function scrollDetection (event) {
@@ -22,7 +45,7 @@ class Header extends Component {
             window.addEventListener("scroll", function () {
                 let scrollTop = document.documentElement.scrollTop;
                 const header = document.querySelector('header');
-                const logoImg = document.querySelector('.logo').children;
+                const logoImg = document.querySelector('#logo').children;
                 
                 if (scrollTop > lastScrollTop) {
                     header.classList.add('small-header');
@@ -123,6 +146,12 @@ class Header extends Component {
                     this.lastChild.classList.remove("active");
                 })
             }
+
+            // for (let i = 0; i < menuBtn.length; i++) {
+            //     menuBtn[i].addEventListener('click', function () {
+            //         const menuWrap = document.querySelector(".menu-wrap");
+
+            //     })
         }
         menuDetect();
 
@@ -170,35 +199,35 @@ class Header extends Component {
     }
     
     render() {
-        return(
+        return (
         <header>
             <div className="logo">
-                <img src={logo1} alt="" className="" />
+                <Link id="logo" to="/"><img src={logo1} alt="" className="" /></Link>
             </div>
             <ul className="nav-text transition">
                 <li className="nav-text-li transition">
-                    <a href="">節目資訊</a>
+                    <a href="" className="transition">節目資訊</a>
                     <ul className="panel transition">
-                        <li><a href="" className="transition" href="">確認放映</a></li>
-                        <li><a href="" className="transition" href="">募資影片</a></li>
-                        <li><a href="" className="transition" href="">場次表</a></li>
+                        <li><Link to="/films" className="transition">確認放映</Link></li>
+                        <li><Link to="/" className="transition">募資影片</Link></li>
+                        <li><Link to="/time" className="transition">場次表</Link></li>
                     </ul>
                 </li>
                 <li className="nav-text-li transition">
-                    <a href="">影展資訊</a>
+                    <a href="" className="transition">影展資訊</a>
                     <ul className="panel transition">
-                        <li><a className="transition" href="">關於影展</a></li>
-                        <li><a className="transition" href="">場地資訊</a></li>
-                        <li><a className="transition" href="">售票資訊</a></li>
-                        <li><a className="transition" href="">購票Q&A</a></li>
+                        <li><Link to="/info" className="transition">關於影展</Link></li>
+                        <li><Link to="/info" className="transition">場地資訊</Link></li>
+                        <li><Link to="/info" className="transition">售票資訊</Link></li>
+                        <li><Link to="/info" className="transition">購票Q&A</Link></li>
                     </ul>
                 </li>
-                <li className="nav-text-li transition"><a href="">最新消息</a></li>
-                <li className="nav-text-li transition"><a href="">電影賞析</a></li>
+                <li className="nav-text-li transition"><Link to="/news" className="transition">最新消息</Link></li>
+                <li className="nav-text-li transition"><Link to="/article" className="transition">電影賞析</Link></li>
             </ul>
             <div className="nav-icon web">
-                <img className="transition" src={ticket} alt="" />
-                <img  className="transition" src={member} alt="" />
+                <Link to="/my-film" onClick={this.menuClose}><img className="transition" src={ticket} alt="" /></Link>
+                <Link to="/member" onClick={this.menuClose}><img  className="transition" src={member} alt="" /></Link>
                 <div className="menu-icon transition">
                     <div className="line-1 no-animation transition"></div>
                     <div className="line-2 no-animation transition"></div>
@@ -207,10 +236,10 @@ class Header extends Component {
             </div>
             <div className="nav-icon mobile">
                 <div className="icon">
-                    <img src={calendar} alt="" />
-                    <img className="transition" src={ticket} alt="" />
-                    <img src={fastTicket} alt="" />
-                    <img className="transition" src={member} alt="" />
+                    <Link to="/time" onClick={this.menuClose}><img src={calendar} alt="" /></Link>
+                    <Link to="/my-film" onClick={this.menuClose}><img className="transition" src={ticket} alt="" /></Link>
+                    <Link to="/my-film" onClick={this.menuClose}><img src={fastTicket} alt="" /></Link>
+                    <Link to="/member" onClick={this.menuClose}><img className="transition" src={member} alt="" /></Link>
                     <div className="menu-icon transition">
                         <div className="line-1 no-animation transition"></div>
                         <div className="line-2 no-animation transition"></div>
@@ -218,10 +247,10 @@ class Header extends Component {
                     </div>
                 </div>
                 <ul className="text">
-                    <li><a href="">場次表</a></li>
-                    <li><a href="">我的票夾</a></li>
-                    <li><a href="">快速購票</a></li>
-                    <li><a href="">會員登入</a></li>
+                    <li><Link to="/time" onClick={this.menuClose}>場次表</Link></li>
+                    <li><Link to="/my-film" onClick={this.menuClose}>我的票夾</Link></li>
+                    <li><Link to="/my-film" onClick={this.menuClose}>快速購票</Link></li>
+                    <li><Link to="/member" onClick={this.menuClose}>會員登入</Link></li>
                     <li><a href="">主選單</a></li>
                 </ul>
             </div>
@@ -293,32 +322,33 @@ class Header extends Component {
                         <li className="active">
                             <a className="transition">節目資訊</a>
                             <ul className="panel transition" data-device='tablet'>
-                                <li><a className="transition" href="">確認放映</a></li>
-                                <li><a className="transition" href="">募資影片</a></li>
-                                <li><a className="transition" href="">場次表</a></li>
+                                <li><Link to="/films" className="transition" onClick={this.menuClose}>確認放映</Link></li>
+                                <li><Link to="/" className="transition" onClick={this.menuClose}>募資影片</Link></li>
+                                <li><Link to="/time" className="transition" onClick={this.menuClose}>場次表</Link></li>
                             </ul>
                         </li>
                         <li>
                             <a className="transition">影展資訊</a>
                             <ul className="panel transition" data-device='tablet'>
-                                <li><a className="transition" href="">關於影展</a></li>
-                                <li><a className="transition" href="">場地資訊</a></li>
-                                <li><a className="transition" href="">售票資訊</a></li>
-                                <li><a className="transition" href="">購票Q&A</a></li>
+                                <li><Link to="/info" className="transition" onClick={this.menuClose}>關於影展</Link></li>
+                                <li><Link to="/info" className="transition" onClick={this.menuClose}>場地資訊</Link></li>
+                                <li><Link to="/info" className="transition" onClick={this.menuClose}>售票資訊</Link></li>
+                                <li><Link to="/info" className="transition" onClick={this.menuClose}>購票Q&A</Link></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="" className="transition">最新消息</a>
+                            <Link to="/news" className="transition" onClick={this.menuClose}>最新消息</Link>
 
                         </li>
                         <li>
-                            <a href="" className="transition">電影賞析</a>
+                            <Link to="/article" className="transition" onClick={this.menuClose}>電影賞析</Link>
                         </li>
                     </ul>
                 </div>
             </div>
         </header>
-        );
+         
+        )
     }
 }
 

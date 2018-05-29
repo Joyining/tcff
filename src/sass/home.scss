@@ -1,8 +1,21 @@
 @import "partials/basic";
 
-.container{
+.container-home{
     // border: 5px solid red;
-    padding: 0;
+    margin: ($headerHeight * 2.2) auto;
+	// margin-bottom: ($headerHeight * 4);
+	padding: 0;
+	width: 80vw;
+	box-sizing: border-box;
+	@include breakpoint("tablet") {
+		width: 90vw;
+		padding: 50px;
+	}
+	@include breakpoint("mobileonly") {
+		width: 90vw;
+		padding: 30px;
+    }
+    
     .home01{
         width: 100%;
         height: 1800px;
@@ -197,7 +210,7 @@
         .poster-wrap{
             // border: 2px solid blue;
             position: absolute;
-            right: 3%;
+            right: 4%;
             bottom: 0;
             width: 24vw;
             height: 30vw;
@@ -211,6 +224,8 @@
                 width: 33.33%;
                 height: 33.33%;
                 display: block;
+                border: 3px solid transparent;
+                box-sizing: border-box;
             }
             @include breakpoint('tablet'){
                 display: none;
@@ -218,7 +233,7 @@
         }
         .poster-more{
             position: absolute;
-            right: 3%;
+            right: 4%;
             bottom: 0;
             width: 24vw;
             height: 30vw;
@@ -255,11 +270,14 @@
 
     .home03{
         padding-top: 150px;
+        overflow: hidden;
+        // height: 500vh;
         .cube-wrap{
             perspective-origin: center center;
             perspective: 5000px;
             position: absolute;
             right: 50%;
+            // transform: translateX(-50%);
             .cube{
                 transform-style: preserve-3d;
                 width: 100px;
@@ -272,10 +290,13 @@
                     box-sizing: border-box;
                     border: 2px solid black;
                     opacity: .6;
+                    font-size: 3rem;
+                    text-align: center;
+                    line-height: 6rem;
                 }
                 .front{
                     background-color: indigo;
-                    transform: rotate3d(1 ,0 ,0, 180deg) translateZ(-50px);
+                    transform: rotate3d(0 ,0 ,0, 0deg) translateZ(50px);
                 }
                 .back{
                     background-color: yellowgreen;
@@ -299,6 +320,62 @@
                 }
             }
         }
+        .cf-button{
+            a{
+                @include text-rec(30%, 1.5rem, $colorLight, $colorDarker, transparent);
+                display: block;
+                margin: 0 auto;
+                opacity: 0;
+                &.animate{
+                    animation: cf-button-show 1s forwards;
+                    animation-delay: 5s;
+                }
+                &:link, &:visited{
+                    color: $colorDarker;
+                }
+            }
+        }
+        .cf-circle{
+            // width: 100%;
+            height: 30vw;
+            border: 2px solid orange;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            margin: 100px auto;
+        }
+        .cf-poster{
+            display: flex;
+            // width: 90%;
+            height: 400px;
+            opacity: 0;
+            border: 2px solid yellowgreen;
+            position: absolute;
+            right: 50%;
+            top: -2%;
+            transform: translateX(50%);
+            &.animate{
+                animation: cf-button-show 1s forwards;
+                animation-delay: 5s;
+            }
+            a{
+                display: block;
+                object-fit: cover;
+                border: 5px solid $colorDark;
+                img{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@keyframes cf-button-show{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
     }
 }
 
@@ -359,34 +436,34 @@
             }
         }
 
-        .cube {
+        .cube.animate {
             animation-name: cubeRotate;
             animation-duration: 4s;
             // animation-iteration-count: infinite;
             animation-direction: alternate;
             animation-fill-mode: forwards;
         }
-        .front{
+        .front.animate{
             animation: cubeExpandFront 1s forwards;
             animation-delay: 4.5s;            
         }
-        .back{
+        .back.animate{
             animation: cubeExpandBack 1s forwards;
             animation-delay: 4.5s;
         }
-        .top{
+        .top.animate{
             animation: cubeExpandTop 1s forwards;
             animation-delay: 4.5s;
         }
-        .bottom{
+        .bottom.animate{
             animation: cubeExpandBottom 1s forwards;
             animation-delay: 4.5s;
         }
-        .right{
+        .right.animate{
             animation: cubeExpandRight 1s forwards;
             animation-delay: 4.5s;
         }
-        .left{
+        .left.animate{
             animation: cubeExpandLeft 1s forwards;
             animation-delay: 4.5s;
         }

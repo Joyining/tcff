@@ -1,35 +1,71 @@
 @import "partials/basic";
 
-.container{
-    background-color:$colorLight ;
+.container-member{
+    width: 80%;
+    height: 800px;
+    // background-color:$colorLight ;
     padding: 10px 0 ;
     position: relative ;
+    margin: 10% auto;
 
-    @keyframes slide_f{
-        0%{
-            margin: 0 auto ;
-        }
+.place{
+    width: 45vh;
+    height:600px ;
+    top: 50% ;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%) ;
 
-        100%{
-            margin-left: 30% ;
-            margin-top: 100px ;
-        }
+
+     @include breakpoint("tablet"){
+                width: 40vh;
+     }
+      @include breakpoint("mobileonly"){
+                width: 40vh;
+                height: 600px;
+                top: 48% ;
+     }
+
+}
+
+//-----------**animate設定**-----------
+.slide_f_animate{
+    animation-name: slide_f;
+    // animation-name: none;
+    animation-delay: .1s ;
+    animation-timing-function: ease-in ;
+    animation-duration: 1s ;
+    animation-fill-mode: forwards;
+
+    @include breakpoint("mobileonly"){
+        animation-name: none;
+
+    }
+}
+
+@keyframes slide_f{
+    0%{
+        top: 50% ;
+        left:50% ; 
     }
 
-    .login_f{
-        width: 30%;
-        height:600px ;
-        // margin:100px 0 0 30% ;
-        margin: 0 auto ;
-        position: relative ;
-        background-color: $colorMedium ; 
-        z-index: 2;
+    100%{
+        left: 40% ;
+        top: 55% ;
+    }
+}
+//-----------**************-----------
 
-        animation-name: slide_f;
-        animation-delay: .1s ;
-        animation-timing-function: ease-in ;
-        animation-duration: 1s ;
-        animation-fill-mode: forwards;
+.flip{
+    transform: rotateY(-180deg) ;
+}
+
+    .login_f{
+        position: absolute ;
+        background-color: $colorLight ; 
+        // z-index: 2;
+        transform-style: preserve-3d;
+        transition:1s all ;
+
 
             .login_word{
                 margin: 0 auto ;
@@ -77,52 +113,52 @@
                 border: 2px solid $colorMedium ;
             }
             .login_btn{
-                width: 100px;
+                // width: 100px;
                 height: 30px;
-                margin: 50px auto ;
-                @include text-rec(30% , 18px , $colorDark , $colorLight ,transparent) ;                
+                margin: 50px 35% ;
+                padding:0 0 30px 0;
+                @include text-rec(30% , 18px , $colorDark , $colorLight ,transparent) ;   
+                @include breakpoint("mobileonly"){
+                    @include text-rec(200px , 18px , $colorDark , $colorLight ,transparent) ;
+                    margin: 50px 25% ;
+                }             
             }
             .btn_box{
                 display: flex ;
-                flex-direction: row ;
+                flex-direction:row ;
                 justify-content: center ;
                 padding: 30px 0 ;
+                @include breakpoint("mobileonly"){
+                    flex-direction:column ;
+                    padding: 0 ;
+                 }
+
             }
             .registered{
                 margin: 0 20px 0 20px  ;
                 box-sizing: border-box;
                 @include text-rec(100px , 18px , transparent , $colorDark ,$colorDark) ;
+                @include breakpoint("mobileonly"){
+                    @include text-rec(200px , 18px , transparent , $colorDark ,$colorDark) ;
+                    margin: 5px 25% ;
+                 }
             }
     }
 
+
     // --------------**忘記密碼**--------------*
 
-    @keyframes slide_f_p{
-        0%{
-            margin-top: -600px ;
-            margin-left: 35% ;
-        }
-
-        100%{
-            margin-left: 30% ;
-            margin-top: -600px ;
-        }
-    }
-
     .login_f_p{
-        width: 30%;
-        height:600px ;
-        // margin:100px 0 0 30% ;
-        margin: -600px 35% ;
         position: absolute ;
         background-color: #ad9dec ; 
-        z-index: 1;
+        // backface-visibility: hidden;
+        transform-style: preserve-3d;
+        transition:1s all ;
+        transform: rotateY(180deg);
+        // z-index: 1;
+        // display: none ;
 
-        animation-name: slide_f_p;
-        animation-delay: .1s ;
-        animation-timing-function: ease-in ;
-        animation-duration: 1s ;
-        animation-fill-mode: forwards;
+
 
             .login_word_p{
                 margin: 0 auto ;
@@ -138,16 +174,15 @@
                 padding: 50px 50px 0 10px ;
             }
             .account_1_p{
-                width: 80%;
                 height: 35px;
-                margin:  0;
-                @include text-rec(30% , 18px , none , $colorDark ,transparent) ;
+                margin: 35px 0;
+                @include text-rec(50% , 18px , none , $colorDark ,transparent) ;
                 text-align: right ;
             }
             .account_2_p{
                 height: 25px;
                 width: 80%;
-                // margin: 55px auto 0;
+                margin: 40px 0;
                 border: 2px solid $colorMedium ;
             }
             .password_box_p{
@@ -161,7 +196,6 @@
                 margin:  0;
                 @include text-rec(30% , 18px , none , $colorDark ,transparent) ;
                 text-align: right ;
-                // background-color: aliceblue ;
             }
             .password_2_p{
                 height: 25px;
@@ -170,56 +204,78 @@
                 border: 2px solid $colorMedium ;
             }
             .login_btn_p{
-                width: 100px;
-                height: 30px;
-                margin: 50px auto ;
-                @include text-rec(30% , 18px , $colorDark , $colorLight ,transparent) ;                
+            //    width: 100px;
+               height: 30px;
+               margin: 50px 35% ;
+               padding:0 0 30px 0;
+               @include text-rec(30% , 18px , $colorDark , $colorLight ,transparent) ;
+               @include breakpoint("mobileonly"){
+                @include text-rec(200px , 18px , $colorDark , $colorLight ,transparent) ;
+                margin: 50px 25% ;
+            }    
             }
+
             .btn_box_p{
                 display: flex ;
                 flex-direction: row ;
                 justify-content: center ;
-                padding: 30px 0 ;
+                // margin: 30px 0 ;
+                @include breakpoint("mobileonly"){
+                    flex-direction:column ;
+                    padding: 0 ;
+                 }
             }
             .registered_p{
                 margin: 0 20px 0 20px  ;
                 @include text-rec(100px , 18px , transparent , $colorDark ,$colorDark) ;
+                @include breakpoint("mobileonly"){
+                    @include text-rec(200px , 18px , transparent , $colorDark ,$colorDark) ;
+                    margin: 5px 25% ;
+                 }
+            }
+            .word_m{
+                padding: 0 50% 0 25% ;
+                @include text-rec(80% , 12px , transparent , $colorDark ,transparent) ;
             }
     }
    // ----------------------------*
 
-
-    @keyframes slide_b{
-        0%{
-            margin-left: 35% ;
-            margin-top: -600px ;
-        }
-
-        100%{
-            margin-left: 40% ;
-            margin-top: -700px ;
-        }
+   @keyframes slide_b{
+    0%{
+        top: 50% ;
+        left:50% ; 
     }
+
+    100%{
+        left:55% ;
+        top: 40% ;
+    }
+}
+
 
     .login_b{
         background-color: $colorDarker ; 
-        width: 30%;
-        height:600px ;
-        margin:-600px 0 0 35% ;
-        // transform: translate(110px,-15%) ;
-        // transition: .5s all ;
+        position: absolute ;
+
+        
+         //-----------**RWD設定**-----------
+ 
+         @include breakpoint("tablet"){
+            width: 40vh;
+         }
+    
+        //-----------**************-----------
+
         animation-name: slide_b;
         animation-delay: .1s ;
         animation-timing-function: ease-in ;
         animation-duration: 1s ;
         animation-fill-mode: forwards;
-    }
 
-    .login_b_move{
-        background-color: $colorDarker ; 
-        width: 30%;
-        height:600px ;
-        margin:-710px 0 0 40% ;
+        @include breakpoint("mobileonly"){
+            animation-name: none;
+            display: none ;    
+        }
     }
 
 }
