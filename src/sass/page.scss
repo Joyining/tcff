@@ -17,7 +17,7 @@ header{
     position: fixed;
     top: 0;
     box-sizing: border-box;
-    z-index: 1;
+    z-index: 5;
     @include breakpoint('mobileonly'){
         height: $headerHeight*.8;
     }
@@ -62,8 +62,10 @@ header{
         }
         li.nav-text-li{
             @include text-rec(100%, 1.2rem, transparent, $colorDarker, transparent);
+            box-sizing: border-box;
             &:hover{
-                background-color: $colorDark;
+                background-color: $colorMedium;
+                
             }
             a{
                 font-weight: bold;
@@ -73,12 +75,21 @@ header{
             a:link, a:visited{
                 color: $colorLight;
             }
+            a:hover{
+                color: $colorDarker;
+            }
             .panel{
-                border: 2px solid transparent;
+                // border: 4px solid red;
                 box-sizing: border-box;
                 opacity: 0;
+                display: none;
+                a:link, a:visited{
+                    color: $colorDark;
+                }
                 &.active{
                     opacity: 1;
+                    background-color: $colorMedium;
+                    display: block;
                     li{
                         a{
                             &:hover{
@@ -101,10 +112,18 @@ header{
         @include breakpoint('tablet'){
             display: none;
         }
-        img{
+        a{
             width: $headerHeight * .4;
-            padding: $headerHeight * .1;
-            display: block;
+            padding: 0 $headerHeight * .1;
+            height: $headerHeight * .5;
+            margin: $headerHeight * .25 0;
+            display: inline-block;         
+        }
+        img{
+            height: 100%;
+            width: 100%;
+            display: inline-block;
+            vertical-align: middle;
         }
     }
 
@@ -123,13 +142,21 @@ header{
         .icon{
             display: flex;
             justify-content: space-evenly; 
-            height: 80%;         
-            img{
+            height: 80%;  
+            a{
                 width: $headerHeight * .4;
-                
-                padding: $headerHeight * .1;
-                display: block;
+                padding: 0 $headerHeight * .1;
+                // height: $headerHeight * .5;
+                // margin: $headerHeight * .25 0;
+                display: inline-block;         
             }
+            img{
+                height: 100%;
+                width: 100%;
+                display: inline-block;
+                vertical-align: middle;
+            }
+
             .menu-icon {
                 margin: (($headerHeight - ($headerHeight * .6))/2);
                 margin-left: 5px;
@@ -247,7 +274,8 @@ header{
     &.small-header{
         height: $headerHeight*.6;
         .nav-text{
-            opacity: 0;
+            // opacity: 0;
+            display: none;
         }
         .nav-icon.web .menu-icon, .nav-icon.mobile .menu-icon{
             opacity: 1;
@@ -265,8 +293,15 @@ header{
                 margin: 2.5% auto; 
             }
         }
-        .nav-icon.web{
-            height: $headerHeight*.6;
+        .nav-icon.web a{
+            // height: $headerHeight*.6;
+
+            // width: $headerHeight * .4;
+            // padding: $headerHeight * .1;
+            height: $headerHeight * .3;
+            margin: $headerHeight * .15 0;
+            display: block;            
+
         }
     }
 

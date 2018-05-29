@@ -22,7 +22,7 @@ class App extends Component {
           <Route path="/member" component={MemberPage} />
           <Route path="/my-film" component={MyFilmPage} />
           <Route path="/films" component={FilmsPage} />
-          {/* <Route path="/cf-films" component={AllPage} /> */}
+        {/* <Route path="/cf-films" component={CfFilmsPage} /> */}
           <Route path="/time" component={TimePage} />
           <Route path="/info" component={InfoPage} />
           <Route path="/news" component={NewsPage} />

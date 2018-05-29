@@ -45,7 +45,7 @@ class Header extends Component {
             window.addEventListener("scroll", function () {
                 let scrollTop = document.documentElement.scrollTop;
                 const header = document.querySelector('header');
-                const logoImg = document.querySelector('.logo').children;
+                const logoImg = document.querySelector('#logo').children;
                 
                 if (scrollTop > lastScrollTop) {
                     header.classList.add('small-header');
@@ -202,11 +202,11 @@ class Header extends Component {
         return (
         <header>
             <div className="logo">
-                <Link to="/"><img src={logo1} alt="" className="" /></Link>
+                <Link id="logo" to="/"><img src={logo1} alt="" className="" /></Link>
             </div>
             <ul className="nav-text transition">
                 <li className="nav-text-li transition">
-                    <a href="">節目資訊</a>
+                    <a href="" className="transition">節目資訊</a>
                     <ul className="panel transition">
                         <li><Link to="/films" className="transition">確認放映</Link></li>
                         <li><Link to="/" className="transition">募資影片</Link></li>
@@ -214,7 +214,7 @@ class Header extends Component {
                     </ul>
                 </li>
                 <li className="nav-text-li transition">
-                    <a href="">影展資訊</a>
+                    <a href="" className="transition">影展資訊</a>
                     <ul className="panel transition">
                         <li><Link to="/info" className="transition">關於影展</Link></li>
                         <li><Link to="/info" className="transition">場地資訊</Link></li>
