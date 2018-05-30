@@ -293,32 +293,34 @@ class Films extends Component {
         console.log('render', this.state)        
         return (
             <div id="container">
-                <div className="buttons">
-                    {/* <button onClick={this.fadeOut}>fade out</button>		 */}
-                    <button onClick={this.refresh}>refresh</button>
-                    <select name="" id="selType" onChange={this.handleChange}>{this.types.map((type, idx) => <option key={idx} value={type}>{type}</option>)}</select>
-                    <select name="" id="selYear" onChange={this.handleChange}>
-                        <option value="1960">1960</option>
-                        <option value="1970">1970</option>
-                        <option value="1980">1980</option>
-                        <option value="1990">1990</option>
-                        <option value="2000">2000</option>
-                    </select>
+                <div id="filmsPage">
+                    <div className="buttons">
+                        {/* <button onClick={this.fadeOut}>fade out</button>		 */}
+                        <button onClick={this.refresh}>refresh</button>
+                        <select name="" id="selType" onChange={this.handleChange}>{this.types.map((type, idx) => <option key={idx} value={type}>{type}</option>)}</select>
+                        <select name="" id="selYear" onChange={this.handleChange}>
+                            <option value="1960">1960</option>
+                            <option value="1970">1970</option>
+                            <option value="1980">1980</option>
+                            <option value="1990">1990</option>
+                            <option value="2000">2000</option>
+                        </select>
+                    </div>
+                    {
+                        this.state.books && (
+                            <div id="books">
+                                {this.state.datas.map((data, idx) => {
+                                    return (
+                                        <div className="book" data-open='false'>
+                                            <div className="side" onClick={this.pickBook}><h1><span>{data.release_year}</span>{data.name_en}<h3>{this.types[idx % 9]}</h3></h1></div>
+                                            <div className="front"><img className="hide" src={`${process.env.PUBLIC_URL}/images/${data.release_year}_${data.name_en.split(' ').join('_').replace(':', '')}.jpg`} /></div>
+                                        </div>)
+                                })
+                                }
+                            </div>
+                        )
+                    }      
                 </div>
-                {
-                    this.state.books && (
-                        <div id="books">
-                            {this.state.datas.map((data, idx) => {
-                                return (
-                                    <div className="book" data-open='false'>
-                                        <div className="side" onClick={this.pickBook}><h1><span>{data.release_year}</span>{data.name_en}<h3>{this.types[idx % 9]}</h3></h1></div>
-                                        <div className="front"><img className="hide" src={`${process.env.PUBLIC_URL}/images/${data.release_year}_${data.name_en.split(' ').join('_').replace(':', '')}.jpg`} /></div>
-                                    </div>)
-                            })
-                            }
-                        </div>
-                    )
-                }                
             </div>
         );
     }    

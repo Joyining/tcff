@@ -1,0 +1,36 @@
+[
+    {
+        "id_movie": 1,
+        "name": "驚魂記",
+        "date": "2018-07-14 19:00",
+        "auditorium": "台北光點",
+        "bookable": true,
+        "cf": false
+    },
+    {
+        "id_movie": 2,
+        "name": "畢業生",
+        "date": "2018-07-15 19:00",
+        "auditorium": "台北光點",
+        "bookable": true,
+        "cf": false
+    },
+    {
+        "id_movie": 3,
+        "name": "真善美",
+        "date": "2018-07-16 19:00",
+        "auditorium": "台北光點",
+        "bookable": false,
+        "cf": false
+    },
+    {
+        "id_movie": 4,
+        "name": "教父",
+        "cf": true
+    },
+    {
+        "id_movie": 5,
+        "name": "E.T.",
+        "cf": true
+    }
+]

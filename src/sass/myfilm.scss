@@ -1,0 +1,145 @@
+.myfilmPage{
+    // filter: blur(5px);
+    >.tab{
+        display: none;
+        &.active{
+            display: block;
+        }
+    }
+    .progressBar{
+        margin: 10px auto;
+        background-color: #ccc;
+        display: flex;
+        &>div{
+            padding-left: 10px;
+            height: 45px;
+            line-height: 45px;
+            color: white;
+            flex:1;
+            border: 2px solid lightblue;
+            background-color: #333;
+            span{
+                margin-left: 5px;
+            }
+            &.active{
+                background-color: #fff;
+                color: #333;
+            }
+        }
+    }
+    table{
+        width: 100%;
+        margin-bottom: 20px;
+        &, td, th{            
+            border: 1px solid black;
+        }
+        td, th{
+            padding: 15px 0;
+        }
+        tr{
+            display: flex;
+            .check{
+                flex: 1;
+            }
+            .title{
+                flex: 8;
+            }
+            th.title{                
+                font-size: 32px;
+                font-weight: 900;
+            }
+            td.title{
+                padding-left: 10px;
+                font-size: 20px;
+                font-weight: 500;
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .text{
+                    span{
+                        margin: 0 5px;
+                    }
+                }
+                .trash{
+                    height: 30px;
+                    width: 30px;
+                    background-color: blue;
+                    position: absolute;
+                    right: 5px;
+                    margin-right: 15px;
+                    text-align: center;
+                    cursor: pointer;
+                }
+                &.forbid{
+                    background-color: #333;
+                    color: #eee;
+                }
+            }
+            th, td.check{
+                text-align: center;
+            }
+        }
+    }   
+    .buttons{
+        margin: 50px auto;
+        display: flex;
+        max-width: 450px;
+        justify-content: space-between;
+        button{
+            font-size: 20px;
+            padding: 10px 20px;
+            width: 200px;
+            border: none;
+        }
+    }
+    .overlay{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: 101;
+        background-color: rgba(0,0,0,.5);
+        // filter: blur(10px);
+        top: 0;
+        left: 0;
+        // display: flex;
+        justify-content: center;
+        align-items: center;
+        display: none;
+        &.show{
+            display: flex;
+        }
+        .wrap{
+            width: 80vh;
+            height: 80vh;
+            background-color: #eee;
+            overflow: auto;
+            // margin: 0 auto;
+            h3{
+                text-align: center;
+                padding: 15px 0;
+                font-weight: 700;
+                background-color: #666;
+            }
+            .title{
+                font-size: 24px;
+                text-align: center;
+                padding: 15px 0;
+                border: 5px solid lightsteelblue;
+                border-radius: 5px;
+                background-color: lightgray;
+            }
+            .items{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                .item{
+                    padding: 10px 20px;
+                    border: 2px solid lightblue;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
