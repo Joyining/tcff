@@ -1,0 +1,15 @@
+.cb{
+    label{
+        display: block;
+        width: 25px;
+        height: 25px;
+        border: 2px solid black;
+        cursor: pointer;
+    }
+    input{
+        display: none;
+        &:checked+label{
+            background-color: red;
+        }
+    }
+}

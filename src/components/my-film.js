@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Cb from './myfilm/cb'
 import '../sass/myfilm.scss';
 
 class MyFilm extends Component {
@@ -8,6 +9,7 @@ class MyFilm extends Component {
     this.del_collection = this.del_collection.bind(this);
     this.add_collection = this.add_collection.bind(this);
     this.add_item = this.add_item.bind(this);
+    this.checkAll = this.checkAll.bind(this);
     // this.tab = document.querySelectorAll(".myfilmPage>div")
     this.state = {
       films:[],
@@ -43,6 +45,10 @@ class MyFilm extends Component {
       // let str_el = "";
       // fragment.appendChild(str_el);
       // body.appendChild(fragment);
+  }
+  checkAll(event){
+    let target = event.target;
+    console.log(target.getAttribute("for"));
   }
   del_collection(event){
     // let name = 
@@ -167,7 +173,9 @@ class MyFilm extends Component {
             <table className="films">
               <thead>
                   <tr>
-                    <th className="check"><input type="checkbox" /></th>
+                    <th className = "check"> 
+                      <Cb id={`filmsCb`}  onClick={this.checkAll} />
+                    </th >
                     <th className="title">我的片單(確認放映)</th>
                   </tr>
               </thead>
@@ -177,7 +185,8 @@ class MyFilm extends Component {
                     <tr key={idx}>
                       <td className="check">
                         {film.bookable === true ? (
-                          <input type="checkbox" />
+                          // <input type="checkbox" />
+                          <Cb id={`movie_${film.id_movie}`} />
                         ) : (
                           <input type="checkbox" disabled />
                         )}
@@ -201,7 +210,7 @@ class MyFilm extends Component {
             <table className="cffilms">
               <thead>
                 <tr>
-                  <th className="check"><input type="checkbox" /></th>
+                  < th className = "check" > < Cb id = {`cffilmsCb`} onClick={this.checkAll} /></th >
                   <th className="title">我的片單(募資中)</th>
                 </tr>
               </thead>
@@ -210,7 +219,10 @@ class MyFilm extends Component {
                   this.state.cffilms.map((film, idx) => (
                     <tr key={idx}>
                       <td className="check">
-                          <input type="checkbox" />
+                          < Cb id = {
+                            `movie_${film.id_movie}`
+                          }
+                          />
                       </td>
                       <td className="title">
                         <span className="film_name">{film.name}</span>
@@ -225,7 +237,7 @@ class MyFilm extends Component {
             </table>
             <div className="buttons">
               <button type="button" onClick={this.add_collection}>+ 加入更多片單</button>
-              <button type="button">下一步，劃位</button>
+              <button type="button">下一步</button>
             </div>
           </div>
           <div className="tab tab2">
