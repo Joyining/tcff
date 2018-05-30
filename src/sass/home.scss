@@ -288,37 +288,44 @@
                     height: 100px;
                     text-align: center;
                     box-sizing: border-box;
-                    border: 2px solid black;
+                    border: 2px solid $colorDarker;
                     opacity: .6;
                     font-size: 3rem;
                     text-align: center;
                     line-height: 6rem;
+                    color: $colorDarker;
                 }
                 .front{
-                    background-color: indigo;
+                    background-color:$colorLight;
                     transform: rotate3d(0 ,0 ,0, 0deg) translateZ(50px);
                 }
                 .back{
-                    background-color: yellowgreen;
+                    background-color: $colorLight;
                     transform: rotate3d(0 ,0 ,0, 0deg) translateZ(-50px);
                 }
                 .right{
-                    background-color: orange;
+                    background-color: $colorMedium;
                     transform: rotate3d(0 ,1 ,0, -90deg) translateZ(-50px);
                 }
                 .left{
-                    background-color: blue;
+                    background-color: $colorMedium;
                     transform: rotate3d(0 ,1 ,0, 90deg) translateZ(-50px);
                 }
                 .top{
-                    background-color: darkcyan;
+                    background-color: $colorDark;
                     transform: rotate3d(1 ,0 ,0, -90deg) translateZ(-50px);
                 }
                 .bottom{
-                    background-color: darksalmon;
+                    background-color: $colorDark;
                     transform: rotate3d(1 ,0 ,0, 90deg) translateZ(-50px);
                 }
             }
+        }
+        .cf-wrap{
+            // border: 2px solid blue;
+            position: relative;
+            perspective-origin: center center;
+            perspective: 500px;
         }
         .cf-button{
             a{
@@ -338,33 +345,72 @@
         .cf-circle{
             // width: 100%;
             height: 30vw;
-            border: 2px solid orange;
             border-radius: 50%;
             position: relative;
             overflow: hidden;
-            margin: 100px auto;
+            
         }
+        .cf-circle-01{
+            position: relative;
+            z-index: 2;
+            margin: 100px auto;
+            transform: rotate3d(1 ,0 ,0, 360deg);
+            // border: 2px solid orange;
+            .cf-poster{
+                display: flex;
+                // width: 90%;
+                // margin: 0 auto;
+            }
+        }
+
         .cf-poster{
             display: flex;
-            // width: 90%;
-            height: 400px;
+            justify-content: space-evenly;
+            height: 55%;
             opacity: 0;
-            border: 2px solid yellowgreen;
+            // border: 2px solid yellowgreen;
             position: absolute;
-            right: 50%;
-            top: -2%;
-            transform: translateX(50%);
+            left: 50%;
+            // top: -2%;
+            transform: translateX(-50%);
+            filter: grayscale(50%);
             &.animate{
                 animation: cf-button-show 1s forwards;
                 animation-delay: 5s;
             }
             a{
+                width: 13%;
+                height: 90%;
                 display: block;
                 object-fit: cover;
                 border: 5px solid $colorDark;
+                
                 img{
                     width: 100%;
+                    height: 100%;
+                    box-shadow: 3px 3px 5px $colorDarker;
                 }
+            }
+            .cf-bg{
+                width: 14.2%;
+                height: 90%;
+                background-color: $colorDarker;
+                border: 5px solid $colorDark;
+            }
+        }
+        .cf-circle-03{
+            position: absolute;
+            // top: 150px;
+            // border: 2px solid yellow;
+            z-index: 1;
+            // transform-style: preserve-3d;
+            
+            transform: rotate3d(1 ,0 ,0, 340deg);
+            .cf-poster{
+                width: 100vw;
+                // height: 100%;
+                
+                filter: grayscale(0%);
             }
         }
     }

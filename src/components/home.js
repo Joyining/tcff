@@ -23,6 +23,14 @@ import Home02Poster07 from "../images/Home02Poster07.jpg";
 import Home02Poster08 from "../images/Home02Poster08.jpg";
 import Home02Poster09 from "../images/Home02Poster09.jpg";
 
+import Home03Poster01 from "../images/Home03Poster01.jpg";
+import Home03Poster02 from "../images/Home03Poster02.jpg";
+import Home03Poster03 from "../images/Home03Poster03.jpg";
+import Home03Poster04 from "../images/Home03Poster04.jpg";
+import Home03Poster05 from "../images/Home03Poster05.jpg";
+import Home03Poster06 from "../images/Home03Poster06.jpg";
+import Home03Poster07 from "../images/Home03Poster07.jpg";
+
 import {
   BrowserRouter as Router,
   Route,
@@ -46,7 +54,7 @@ class Home extends Component {
     const cube = document.querySelector(".cube");
     const sides = document.querySelectorAll(".side");
     const cfButton = document.querySelector(".cf-button").children;
-    const cfPoster = document.querySelector(".cf-poster");
+    const cfPosters = document.querySelectorAll(".cf-poster");
     if (scrollTop > (home02.offsetTop-800)) {
         slogons[0].classList.add("animate");
     } else if (scrollTop < (home02.offsetTop - 1200)){
@@ -59,7 +67,9 @@ class Home extends Component {
         side.classList.add('animate');
       })
       cfButton[0].classList.add("animate");
-      cfPoster.classList.add("animate");
+      Array.from(cfPosters).forEach(cfPoster => {
+        cfPoster.classList.add("animate");
+      });
     } else if (scrollTop < (home03.offsetTop - 1200)){
       slogons[1].classList.remove("animate");
     }
@@ -72,19 +82,55 @@ class Home extends Component {
     // console.log(containerWidth);
     let eclipseWidth = containerWidth * .9;
     let posterWidth = eclipseWidth * .9;
-    const eclipse = document.querySelector('.cf-circle');
-    const poster = document.querySelector(".cf-poster");
-    eclipse.style.width = `${eclipseWidth}px`;
-    poster.style.width = `${posterWidth}px`;
+    const eclipses = document.querySelectorAll('.cf-circle');
+    const eclipse01 = document.querySelector(".cf-circle-01");
+    const marginTop = parseInt(window
+      .getComputedStyle(eclipse01)
+      .getPropertyValue("margin-top")
+      .replace("px", ""));
+    const imgs = document.querySelector(".cf01").children;
+    const imgHeight = imgs[0].clientHeight;
+    const btnHeight = document.querySelector(".cf-button").clientHeight;
+    console.log(imgs[0]);
+    console.log(marginTop);
+    console.log(btnHeight);
+
+    
+    const posters = document.querySelectorAll(".cf-poster");
+    Array.from(eclipses).forEach(eclipse =>{
+      eclipse.style.width = `${eclipseWidth}px`;
+    });
+    eclipses[1].style.left = `${(containerWidth - eclipseWidth)/2}px`;
+    eclipses[1].style.top = `${btnHeight + marginTop}px`;
+    
+    Array.from(posters).forEach(poster =>{
+      poster.style.width = `${posterWidth}px`;
+    })
     let imgWidth = document.querySelector('.cf01').clientWidth;
     let positionMove = Math.tan(10 * Math.PI / 180) * imgWidth;
-    const cfImgs = poster.children;
-    cfImgs[0].style.transform = `translateY(${positionMove*2}px) skewY(-10deg)`;
-    cfImgs[1].style.transform = `translateY(${positionMove}px) skewY(-10deg)`;
-    cfImgs[2].style.transform = `skewY(-10deg)`;
-    cfImgs[3].style.transform = `skewY(10deg)`;
-    cfImgs[4].style.transform = `translateY(${positionMove}px) skewY(10deg)`;
-    cfImgs[5].style.transform = `translateY(${positionMove*2}px) skewY(10deg)`;
+    
+    const cfImgs = posters[0].children;
+    cfImgs[0].style.transform = `translateY(${positionMove*2.5}px) skewY(-10deg)`;
+    cfImgs[1].style.transform = `translateY(${positionMove*1.5}px) skewY(-10deg)`;
+    cfImgs[2].style.transform = `translateY(${positionMove*.5}px)skewY(-10deg)`;
+    cfImgs[4].style.transform = `translateY(${positionMove*.5}px)skewY(10deg)`;
+    cfImgs[5].style.transform = `translateY(${positionMove*1.5}px) skewY(10deg)`;
+    cfImgs[6].style.transform = `translateY(${positionMove*2.5}px) skewY(10deg)`;
+
+    const cfBg = posters[1].children;
+    cfBg[0].style.transform = `translateY(${positionMove * 2.5}px) skewY(-10deg)`;
+    cfBg[1].style.transform = `translateY(${positionMove * 1.5}px) skewY(-10deg)`;
+    cfBg[2].style.transform = `translateY(${positionMove * 0.5}px)skewY(-10deg)`;
+    cfBg[4].style.transform = `translateY(${positionMove * 0.5}px)skewY(10deg)`;
+    cfBg[5].style.transform = `translateY(${positionMove * 1.5}px) skewY(10deg)`;
+    cfBg[6].style.transform = `translateY(${positionMove * 2.5}px) skewY(10deg)`;
+
+    Array.from(posters).forEach(poster => {
+      poster.style.top = `-${positionMove * .5}px`;
+    })
+    
+
+    // eclipses[1].style.top = `${btnHeight + marginTop + imgHeight*1.5}px`;
 
   }
 
@@ -287,28 +333,43 @@ class Home extends Component {
                 參與募資
               </Link>
             </div>
-            <div className="cf-circle">
+            <div className="cf-circle cf-circle-01">
               <div className="cf-poster">
                 <Link to="/cf-films" className="transition cf01">
-                  <img src={Home02Poster07} alt="" />
+                  <img src={Home03Poster01} alt="" />
                 </Link>
                 <Link to="/cf-films" className="transition cf02">
-                  <img src={Home02Poster07} alt="" />
+                  <img src={Home03Poster02} alt="" />
                 </Link>
                 <Link to="/cf-films" className="transition cf03">
-                  <img src={Home02Poster07} alt="" />
+                  <img src={Home03Poster03} alt="" />
                 </Link>
                 <Link to="/cf-films" className="transition cf04">
-                  <img src={Home02Poster07} alt="" />
+                  <img src={Home03Poster04} alt="" />
                 </Link>
                 <Link to="/cf-films" className="transition cf05">
-                  <img src={Home02Poster07} alt="" />
+                  <img src={Home03Poster05} alt="" />
                 </Link>
                 <Link to="/cf-films" className="transition cf06">
-                  <img src={Home02Poster07} alt="" />
+                  <img src={Home03Poster06} alt="" />
+                </Link>
+                <Link to="/cf-films" className="transition cf07">
+                  <img src={Home03Poster07} alt="" />
                 </Link>
               </div>
             </div>
+            <div className="cf-circle cf-circle-03 cf-circle-bg">
+              <div className="cf-poster">
+                <div className="cf-bg"></div>
+                <div className="cf-bg" />
+                <div className="cf-bg" />
+                <div className="cf-bg" />
+                <div className="cf-bg" />
+                <div className="cf-bg" />
+                <div className="cf-bg" />
+              </div>
+            </div>
+            {/* <div className="cf-circle cf-circle-02"></div> */}
           </div>
         </div>
       </section>;

@@ -1,7 +1,7 @@
 @import "partials/basic";
 
 .container-member{
-    width: 80%;
+    width: 38%;
     height: 800px;
     // background-color:$colorLight ;
     padding: 10px 0 ;
@@ -55,17 +55,34 @@
 }
 //-----------**************-----------
 
-.flip{
-    transform: rotateY(-180deg) ;
+
+.turn{
+    transform-style: preserve-3d;
+    transition:1s all ;
+    // background: #57abff ;
+    position: relative;
 }
+
+.turn.flip{
+    transform: translateX(-70%) translateY(-50%) rotateY(180deg) ;
+    @include breakpoint("mobileonly"){
+        transform: translateX(-50%) translateY(-50%) rotateY(180deg) ;
+    }
+}
+
+.front , .back{
+    backface-visibility: hidden;
+}
+
+
 
     .login_f{
         position: absolute ;
         background-color: $colorLight ; 
-        // z-index: 2;
+
         transform-style: preserve-3d;
         transition:1s all ;
-
+        // z-index: 2;
 
             .login_word{
                 margin: 0 auto ;
@@ -151,11 +168,9 @@
     .login_f_p{
         position: absolute ;
         background-color: #ad9dec ; 
-        // backface-visibility: hidden;
-        transform-style: preserve-3d;
-        transition:1s all ;
-        transform: rotateY(180deg);
-        // z-index: 1;
+        // transform: rotateY(180deg);
+        transform: translateX(-50%) translateY(-50%) rotateY(180deg) ;
+        z-index: 1;
         // display: none ;
 
 
@@ -238,8 +253,23 @@
                 @include text-rec(80% , 12px , transparent , $colorDark ,transparent) ;
             }
     }
-   // ----------------------------*
 
+    
+    //-----------**背面動畫**-----------
+    .back_animate{
+        animation-name: slide_b;
+        animation-delay: .1s ;
+        animation-timing-function: ease-in ;
+        animation-duration: 1s ;
+        animation-fill-mode: forwards;
+
+        @include breakpoint("mobileonly"){
+            animation-name: none;
+            display: none ;    
+        }
+    }
+    //-----------**************-----------
+    
    @keyframes slide_b{
     0%{
         top: 50% ;
@@ -251,6 +281,20 @@
         top: 40% ;
     }
 }
+
+    //-----------**註冊**-----------
+    .registered_b{
+        background-color: $colorDarker ; 
+        position: absolute ;
+
+        
+         //-----------**RWD設定**-----------
+ 
+         @include breakpoint("tablet"){
+            width: 40vh;
+         }
+    
+    }
 
 
     .login_b{
@@ -264,18 +308,8 @@
             width: 40vh;
          }
     
-        //-----------**************-----------
-
-        animation-name: slide_b;
-        animation-delay: .1s ;
-        animation-timing-function: ease-in ;
-        animation-duration: 1s ;
-        animation-fill-mode: forwards;
-
-        @include breakpoint("mobileonly"){
-            animation-name: none;
-            display: none ;    
-        }
     }
+
+   
 
 }
