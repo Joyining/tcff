@@ -18,7 +18,48 @@
     
     .home01{
         width: 100%;
-        height: 1800px;
+        // height: 1800px;
+        .scene {
+            position: relative;
+            perspective: 5000px;
+            margin: 40vh auto;
+            // width: 100%;
+            // height: 80vh;
+            .carousel {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                transform-style: preserve-3d;
+                .carousel_cell {
+                    display:block;
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    left: 10px;
+                    top: 10px;
+                    object-fit: cover;
+                    filter: grayscale(30%);
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        opacity: .8;
+                        display: block;
+                        }
+                    }
+                }
+                .carousel_cell:nth-child(1) { animation: rotate-slide1 20s linear infinite;}
+                .carousel_cell:nth-child(2) { animation: rotate-slide2 20s linear infinite;}
+                .carousel_cell:nth-child(3) { animation: rotate-slide3 20s linear infinite;}
+                .carousel_cell:nth-child(4) { animation: rotate-slide4 20s linear infinite;}
+                .carousel_cell:nth-child(5) { animation: rotate-slide5 20s linear infinite;}
+                .carousel_cell:nth-child(6) { animation: rotate-slide6 20s linear infinite;}
+                .carousel_cell:nth-child(7) { animation: rotate-slide7 20s linear infinite;}
+                .carousel_cell:nth-child(8) { animation: rotate-slide8 20s linear infinite;}
+                .carousel_cell:nth-child(9) { animation: rotate-slide9 20s linear infinite;}
+                .carousel_cell:nth-child(10) { animation: rotate-slide10 20s linear infinite;}
+                .carousel_cell:nth-child(11) { animation: rotate-slide11 20s linear infinite;}
+                .carousel_cell:nth-child(12) { animation: rotate-slide12 20s linear infinite;}
+            }
     }
 
     .home02, .home03{
@@ -320,6 +361,37 @@
                     transform: rotate3d(1 ,0 ,0, 90deg) translateZ(-50px);
                 }
             }
+                .cube.animate {
+                    animation-name: cubeRotate;
+                    animation-duration: 4s;
+                    // animation-iteration-count: infinite;
+                    animation-direction: alternate;
+                    animation-fill-mode: forwards;
+                }
+                .front.animate{
+                    animation: cubeExpandFront 1s forwards;
+                    animation-delay: 4.5s;            
+                }
+                .back.animate{
+                    animation: cubeExpandBack 1s forwards;
+                    animation-delay: 4.5s;
+                }
+                .top.animate{
+                    animation: cubeExpandTop 1s forwards;
+                    animation-delay: 4.5s;
+                }
+                .bottom.animate{
+                    animation: cubeExpandBottom 1s forwards;
+                    animation-delay: 4.5s;
+                }
+                .right.animate{
+                    animation: cubeExpandRight 1s forwards;
+                    animation-delay: 4.5s;
+                }
+                .left.animate{
+                    animation: cubeExpandLeft 1s forwards;
+                    animation-delay: 4.5s;
+                }
         }
         .cf-wrap{
             // border: 2px solid blue;
@@ -482,38 +554,6 @@
             }
         }
 
-        .cube.animate {
-            animation-name: cubeRotate;
-            animation-duration: 4s;
-            // animation-iteration-count: infinite;
-            animation-direction: alternate;
-            animation-fill-mode: forwards;
-        }
-        .front.animate{
-            animation: cubeExpandFront 1s forwards;
-            animation-delay: 4.5s;            
-        }
-        .back.animate{
-            animation: cubeExpandBack 1s forwards;
-            animation-delay: 4.5s;
-        }
-        .top.animate{
-            animation: cubeExpandTop 1s forwards;
-            animation-delay: 4.5s;
-        }
-        .bottom.animate{
-            animation: cubeExpandBottom 1s forwards;
-            animation-delay: 4.5s;
-        }
-        .right.animate{
-            animation: cubeExpandRight 1s forwards;
-            animation-delay: 4.5s;
-        }
-        .left.animate{
-            animation: cubeExpandLeft 1s forwards;
-            animation-delay: 4.5s;
-        }
-
 @keyframes textAnimate {
 	60% {
 		transform: translate(20px, 0) scale(1);
@@ -590,4 +630,91 @@
     left: 0px;
   }
 }
+
+@keyframes rotate-slide1 {
+  from{
+    transform: rotateY(0deg) translateZ(709.09px);
+  }to{
+    transform: rotateY(-360deg) translateZ(709.09px);
+  }
+}
+
+@keyframes rotate-slide2 {
+  from{
+    transform: rotateY(30deg) translateZ(709.09px);
+  }to{
+    transform: rotateY(-330deg) translateZ(709.09px);
+  }
+}
+@keyframes rotate-slide3 {
+  from{
+    transform: rotateY(60deg) translateZ(709.09px);
+  }to{
+    transform: rotateY(-300deg) translateZ(709.09px);
+  }
+}
+@keyframes rotate-slide4 {
+  from{
+    transform: rotateY(90deg) translateZ(709.09px);
+  }to{
+    transform: rotateY(-270deg) translateZ(709.09px);
+  }
+}
+@keyframes rotate-slide5 {
+  from{
+    transform: rotateY(120deg) translateZ(709.09px);
+  }to{
+    transform: rotateY(-240deg) translateZ(709.09px);
+  }
+}
+@keyframes rotate-slide6 {
+  from{
+    transform: rotateY(150deg) translateZ(709.09px);
+  }to{
+    transform: rotateY(-210deg) translateZ(709.09px);
+  }
+}
+@keyframes rotate-slide7 {
+  from{
+    transform: rotateY(180deg) translateZ(709.09px);
+  }to{
+    transform: rotateY(-180deg) translateZ(709.09px);
+  }
+}
+@keyframes rotate-slide8 {
+  from{
+    transform: rotateY(210deg) translateZ(709.09px);
+  }to{
+    transform: rotateY(-150deg) translateZ(709.09px);
+  }
+}
+@keyframes rotate-slide9 {
+  from{
+    transform: rotateY(240deg) translateZ(709.09px);
+  }to{
+    transform: rotateY(-120deg) translateZ(709.09px);
+  }
+}
+@keyframes rotate-slide10 {
+  from{
+    transform: rotateY(270deg) translateZ(709.09px);
+  }to{
+    transform: rotateY(-90deg) translateZ(709.09px);
+  }
+}
+@keyframes rotate-slide11 {
+  from{
+    transform: rotateY(300deg) translateZ(709.09px);
+  }to{
+    transform: rotateY(-60deg) translateZ(709.09px);
+  }
+}
+@keyframes rotate-slide12 {
+  from{
+    transform: rotateY(330deg) translateZ(709.09px);
+  }to{
+    transform: rotateY(-30deg) translateZ(709.09px);
+  }
+}
+
 

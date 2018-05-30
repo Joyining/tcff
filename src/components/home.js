@@ -2,6 +2,19 @@ import React, { Component } from 'react';
 import Flag from './flag';
 import '../sass/home.scss';
 
+import Home01Img01 from "../images/Home01Img01.jpg";
+import Home01Img02 from "../images/Home01Img02.jpg";
+import Home01Img03 from "../images/Home01Img03.jpg";
+import Home01Img04 from "../images/Home01Img04.jpg";
+import Home01Img05 from "../images/Home01Img05.jpg";
+import Home01Img06 from "../images/Home01Img06.jpg";
+import Home01Img07 from "../images/Home01Img07.jpg";
+import Home01Img08 from "../images/Home01Img08.jpg";
+import Home01Img09 from "../images/Home01Img09.jpg";
+import Home01Img10 from "../images/Home01Img10.jpg";
+import Home01Img11 from "../images/Home01Img11.jpg";
+import Home01Img12 from "../images/Home01Img12.jpg";
+
 import Home02Img01 from "../images/Home02Img01.jpg";
 import Home02Img02 from "../images/Home02Img02.jpg";
 import Home02Img03 from "../images/Home02Img03.jpg";
@@ -44,6 +57,7 @@ class Home extends Component {
       super(props);
       this.scrollDetection = this.scrollDetection.bind(this); //bind function once
       this.windowResize = this.windowResize.bind(this); 
+      this.rotateSlide = this.rotateSlide.bind(this); 
   }
 
   scrollDetection(){
@@ -134,6 +148,28 @@ class Home extends Component {
 
   }
 
+  rotateSlide(){
+    const sceneWidth = 380;
+    const sceneHeight = 260;
+    const slides = document.querySelectorAll('.carousel_cell');
+    const slideCount = slides.length;
+    const rotateYDiff = 360 / slideCount;
+    let rotateDeg = 0;
+
+    const scene = document.querySelector('.scene');
+    console.log(scene);
+    scene.style.width = `${sceneWidth}px`;
+    scene.style.height = `${sceneHeight}px`;
+
+    const radius = (sceneWidth / 2) / Math.tan((rotateYDiff / 2) * Math.PI / 180);
+    console.log(radius);
+
+    Array.from(slides).forEach(slide => {
+      slide.style.transform = `rotateY(${rotateDeg}deg) translateZ(${radius}px)`;
+      rotateDeg += rotateYDiff;
+    })
+  }
+  
   componentDidMount(){
     // console.log('home mount');
     window.addEventListener('scroll', this.scrollDetection, false);
@@ -205,6 +241,7 @@ class Home extends Component {
 
     window.addEventListener("load", this.windowResize, false);
     window.addEventListener("resize", this.windowResize, false);
+    window.addEventListener("load", this.rotateSlide, false);
   }
 
   componentWillUnmount(){
@@ -214,7 +251,24 @@ class Home extends Component {
 
   render() {
     return <section className="container-home">
-        <div className="home01"> </div>
+        <div className="home01"> 
+          <div className="scene">
+            <div className="carousel">
+              <Link to="/films" className="carousel_cell transition"><img src={Home01Img01} alt="" /></Link>
+              <Link to="/films" className="carousel_cell transition"><img src={Home01Img02} alt="" /></Link>
+              <Link to="/films" className="carousel_cell transition"><img src={Home01Img03} alt="" /></Link>
+              <Link to="/films" className="carousel_cell transition"><img src={Home01Img04} alt="" /></Link>
+              <Link to="/films" className="carousel_cell transition"><img src={Home01Img05} alt="" /></Link>
+              <Link to="/films" className="carousel_cell transition"><img src={Home01Img06} alt="" /></Link>
+              <Link to="/films" className="carousel_cell transition"><img src={Home01Img07} alt="" /></Link>
+              <Link to="/films" className="carousel_cell transition"><img src={Home01Img08} alt="" /></Link>
+              <Link to="/films" className="carousel_cell transition"><img src={Home01Img09} alt="" /></Link>
+              <Link to="/films" className="carousel_cell transition"><img src={Home01Img10} alt="" /></Link>
+              <Link to="/films" className="carousel_cell transition"><img src={Home01Img11} alt="" /></Link>
+              <Link to="/films" className="carousel_cell transition"><img src={Home01Img12} alt="" /></Link>
+            </div>
+          </div>
+        </div>
         <div className="home02">
           <Flag />
           <div className="text-wrap">
