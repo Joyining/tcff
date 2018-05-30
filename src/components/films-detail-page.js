@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import Header from './header';
 import Footer from './footer';
 import FastTicket from './fast-ticket';
-import Cffilms from './cf-films'
+import Filmsdetail from './films-detail'
 
-class CffilmsPage extends Component {
+class FilmsdetailPage extends Component {
   render() {
     return (
         <div style={{position:'relative'}}>
             <Header />
             <FastTicket />
-            <Cffilms />
+            <Filmsdetail />
             <Footer />
         </div>
     );
   }
 }
 
-export default CffilmsPage;
+export default FilmsdetailPage;

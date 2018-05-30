@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 // import '../sass/page.scss';
 import '../sass/films-detail.scss';
-import dir from '../images/1997_Titanic_dir.jpg';
-import act01 from '../images/1997_Titanic_act01.jpg';
-import act02 from '../images/1997_Titanic_act02.jpg';
-import act03 from '../images/1997_Titanic_act03.jpg';
-import img01 from '../images/1997_Titanic_01.jpg';
-import img02 from '../images/1997_Titanic_02.jpg';
-import img03 from '../images/1997_Titanic_03.jpg';
-import img04 from '../images/1997_Titanic_04.jpg';
-import img05 from '../images/1997_Titanic_05.jpg';
+import dir from '../images/1997_Good_Will_Hunting_dir.jpg';
+import act01 from '../images/1997_Good_Will_Hunting_act01.jpg';
+import act02 from '../images/1997_Good_Will_Hunting_act02.jpg';
+import act03 from '../images/1997_Good_Will_Hunting_act03.jpg';
+import img01 from '../images/1997_Good Will Hunting_01.jpg';
+import img02 from '../images/1997_Good Will Hunting_02.jpg';
+import img03 from '../images/1997_Good Will Hunting_03.jpg';
+import img04 from '../images/1997_Good Will Hunting_04.jpg';
+import img05 from '../images/1997_Good Will Hunting_05.jpg';
 
 
-class Cffilmsdetail extends Component {
+class Filmsdetail extends Component {
     componentDidMount(){
         var slides = [img01,img02,img03,img04,img05];
         var slideWidth = $(".slide_wrap").width();
@@ -89,9 +89,9 @@ class Cffilmsdetail extends Component {
             <div className="box3">
                 <div className="myfilename">
                     <h2 id="h01">1997</h2>
-                    <h2>鐵達尼號</h2>
+                    <h2>心靈捕手</h2>
                 </div>
-                <h2>Titanic</h2>
+                <h2>Good Will Hunting</h2>
                 <div className="myfont">
                     <div className="fpg">
                         <div className="l_font">國家</div>
@@ -99,7 +99,7 @@ class Cffilmsdetail extends Component {
                     </div>
                     <div className="fpg">
                         <div className="l_font">片長</div>
-                        <div className="r_font">194分鐘</div>
+                        <div className="r_font">126分鐘</div>
                     </div>
                     <div className="fpg">
                         <div className="l_font">級別</div>
@@ -110,31 +110,31 @@ class Cffilmsdetail extends Component {
             </div>
             <section className="container">                
                 <div className="about">
-                    鐵達尼號》於1997年12月19日（星期六）在美國公開放映，在星期日它就已經錄得2850萬美元的票房收入。在此後一周內它的票房收入翻了三倍。即使在三個月後依然能夠達到滿座。一直到15個星期後每星期的收入才下降50%，一般電影在首映後，每周票房收入平均會下降40%。1998年3月《鐵達尼號》成為第一部票房收入達10億美元的電影。許多人表示曾多次翻看這部電影。電影唱片以及《詹姆斯·卡麥隆的鐵達尼號》電影書籍也非常暢銷，這本書在數星期《紐約時報》的暢銷書列表上占第一位——這是第一部這麼暢銷的電影書籍。鐵達尼號》最終錄得的總票房收入為18.353億美元，是歷史上最成功的電影之一，這個票房紀錄直至12年後才被柯麥隆自己編導的《阿凡達》所破。
+                    何謂「三敲四踹」？參演《心靈捕手》、《瞞天過海》、以《刺殺傑西》角逐奧斯卡，看似有望成名卻始終無望的機會不在家。何謂「一鳴驚人」？沉浮到過了不惑之年，以《海邊的曼徹斯特》一舉成影帝、獎拿到手軟。不再是誰的誰，他就是凱西艾佛列克。奧斯卡9項大獎提名（最佳影片、導演、原創劇本、男主角、男配角、女配角、剪輯、配樂、主題曲）；榮獲最佳原創劇本與男配角2項大獎，本作品是由麥特戴蒙自編自演的電影，劇本由麥特戴蒙與班·艾佛列克聯合撰寫並獲得成功，羅賓威廉斯飾演一位開導男主的心理諮詢師，精湛的演技使他獲得奧斯卡最佳男配角獎。
                 </div>
                 <div className="about"> 
-                    1912年，夢之船鐵達尼號首次出航，年輕美貌的貴族少女Rose隨著母親和未婚夫Caledon乘上豪華舒適的鐵達尼號巨輪。當年因家族面臨破產，Rose奉母之命被迫與富商Caledon訂婚。為博得Rose的歡心，Caledon不僅許諾滿足Rose的一切要求，而且將一條鑲有五十六克拉藍鑽石：海洋之心項鏈送給Rose，但Rose仍感到精神上孤獨寂寞，常因單調乏味的貴族生活而鬱鬱寡歡。 正當她因為生存意義與價值觀的不同之問題而尋死的剎那，邂逅了男主角Jack。與之相比，同船三等艙的年輕畫家Jack雖然生活窘迫，連三等艙都是從賭桌上贏得的，但他卻樂天知命。在他眼中人生如同一場幸運的遊戲，珍惜生活、珍惜自由就是他的生活真諦。Rose面對著滾滾的海浪欲結束自己的生命時，Jack的出現不僅挽救了她的生命，更挽救了她的靈魂。
+                    一個麻省理工學院的數學教授，在他系上的公佈欄寫下一道他覺得十分困難的題目，希望他那些傑出的學生能解開答案，可是卻無人能解。結果一個年輕的清潔工（麥特戴蒙飾）卻在下課打掃時，發現了這道數學題並輕易的解開這個難題。數學教授在找不到真正的解題之後，又下了另一道更難的題目，要找出這個數學天才。 
                 </div>
                 <div className="about">
-                    Rose與Jack墜入 戀愛後，Rose感受到 了愛情的美妙和生活的活力。她沖破世俗觀念，不顧貪圖虛榮的母親的反對，不受Caledon財富的誘惑，毅然選擇了自己的真愛與Jack沉浸在愛情的喜悅之中。然而，夢幻之船鐵達尼號卻發生難以挽回的意外，使得這段浪漫的情感沉入了大西洋的滔滔海水。
+                    原來這個可能是下一世紀的愛因斯坦的年輕人叫威爾杭特，他聰明絕頂卻叛逆不羈，甚至到處打架滋事，並被少年法庭宣判送進少年觀護所。最後經過數學教授的保釋並向法官求情，才讓他免受牢獄之災。雖然教授希望威爾能夠重拾自己的人生目標，而用盡方法希望他打開心結，但是許多被教授請來為威爾做心理轉導的心理學家，卻都被這個毛頭小伙子洞悉心理反被威爾羞辱，紛紛宣告威爾已「無藥可救」。
                 </div>
                 <div className="about">
-                    八十四年後，尋寶探險家在三千英尺深處的鐵達尼號殘骸中找到了一幅完美無損的少女裸身素描畫畫中人正是年逾百歲的沉船倖存者羅絲。面對這張熟悉的畫像，飽經滄桑的老人不禁陷入了對往事的追憶之中…
+                    數學教授在無計可施的情況下，只好求助他的大學同學及好友（羅賓威廉斯飾），希望他來開導這個前途汲汲可危的年輕人。到底最後他能不能打開心胸擁抱生命？會不會把他之前所遭遇的困境拋諸腦後？ 
                 </div>                    
             </section>
             
             <section className="box2">
                 <div className="mycontain">
-                    <div className="flex dir">
+                    <div className="dir">
                         <h2>導<br /><br />演</h2>
                         <div className="mycontent cover">                
                             <div className="mycontent-overlay"></div>
                             <img className="mycontent-image" src={dir} />
                             <div className="mycontent-details fadeIn-bottom">
-                                <h3 className="mycontent-title">詹姆斯·卡麥隆</h3>
-                                <h4 className="mycontent-title">James Cameron</h4>
+                                <h3 className="mycontent-title">葛斯·范·桑</h3>
+                                <h4 className="mycontent-title">Gus Van Sant</h4>
                                 <hr />
-                                <p className="mycontent-text">詹姆斯·卡麥隆生於加拿大的安大略省的一個名為Kapuskasing的地方。他到南加州大學的圖書館找資料自修學習電影特效技術，以編劇開始他的職業生涯，後來又轉向電影的藝術導演以及特效處理工作。曾擔任過電影Roger Corman的製片。</p>
+                                <p className="mycontent-text">拍攝廣告出身的葛斯范桑，第一部作品電影長片作品《追流雲的少年》獲選為洛杉磯影評人協會最佳獨立電影。作品大多關注於同志議題、次文化和邊緣少年問題等等，像是比較為台灣觀眾所知的，《迷幻公園》和《自由大道》的主題皆是如此。</p>
                             </div>
                         </div>
                     </div>
@@ -145,45 +145,54 @@ class Cffilmsdetail extends Component {
                                 <div className="mycontent-overlay"></div>
                                 <img className="mycontent-image" src={act01} />
                                 <div className="mycontent-details fadeIn-bottom">
-                                    <h3 className="mycontent-title">李奧納多·狄卡皮歐</h3>
-                                    <h4 className="mycontent-title">Leonardo DiCaprio</h4>
+                                    <h3 className="mycontent-title">麥特·戴蒙</h3>
+                                    <h4 className="mycontent-title">Matt Damon</h4>
                                     <hr />
-                                    <p className="mycontent-text">小學就開始學習表演，並在同年演出他的電視處女秀《新靈犬萊西》。隨後因為名導麥可卡頓瓊斯慧眼識英雄，而與勞勃狄尼洛、艾倫芭金主演暢銷名著改編的《這男孩的一生》，並贏得一致好評。</p>
+                                    <p className="mycontent-text">最初的拍攝的電影是浪漫喜劇《Mystic Pizza》，當年16歲。戴蒙與班·艾佛列克是相當要好的好朋友，成名作《心靈捕手》，為兩人贏得九項奧斯卡大獎的提名，並且讓兩人獲得奧斯卡最佳原創劇本獎。</p>
                                 </div>
                             </div>
                         </div>
                         <div className="flex">
+                            
                             <div className="mycontent cover left">            
                                 <div className="mycontent-overlay"></div>
                                 <img className="mycontent-image" src={act02} />
                                 <div className="mycontent-details fadeIn-bottom">
-                                    <h3 className="mycontent-title">凱特·溫斯蕾</h3>
-                                    <h4 className="mycontent-title">Kate Winslet</h4>
+                                    <h3 className="mycontent-title">羅賓·威廉斯</h3>
+                                    <h4 className="mycontent-title">Robin Williams</h4>
                                     <hr />
-                                    <p className="mycontent-text">凱特·溫斯蕾從電視上開始演員生涯，她在電影中的首次演出是彼得·傑克森所執導的《夢幻天堂》，並飾演女主角茱麗葉·休姆，她在劇中是一位活潑的少女，並幫助自己最好的朋友謀殺她的母親（因為她不允許她們在一起）。凱特·溫斯蕾這次演出受到許多正面的評價。</p>
+                                    <p className="mycontent-text">羅賓曾三度提名奧斯卡最佳男主角獎，並在1997年以電影《心靈捕手》榮獲奧斯卡最佳男配角獎、美國演員工會獎最佳男配角。此外，羅賓也曾三度拿下金球獎最佳音樂及喜劇類電影男主角獎。</p>
                                 </div>
 
                             </div>
                         </div>
                         <div className="flex">
+                            
                             <div className="mycontent cover left">        
                                 <div className="mycontent-overlay"></div>
                                 <img className="mycontent-image" src={act03} /> 
                                 <div className="mycontent-details fadeIn-bottom">
-                                    <h3 className="mycontent-title">比利·贊恩</h3>
-                                    <h4 className="mycontent-title">Billy Zane</h4>
+                                    <h3 className="mycontent-title">班·艾佛列克</h3>
+                                    <h4 className="mycontent-title">Ben Affleck</h4>
                                     <hr />
-                                    <p className="mycontent-text">「比利」·贊恩（" Billy " Zane)是一位美國男演員和監製。他較著名的是在1989年驚悚片《航越地平線》中飾演休吉·沃里納，以及在1996年超級英雄片《轟天奇兵》中主演基特·沃克／轟天奇兵。</p>
+                                    <p className="mycontent-text">班艾佛列克出生於美國的加州，早期與夥伴兼死黨麥特戴蒙出演了一系列的肥皂劇，1997年兩人自編自演的電影《心靈捕手》獲得九項奧斯卡金像獎提名，共同創作的劇本更獲得最佳原著劇本獎，自此正式踏上明星之路。</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>                
             </section>
-            
+            <div className="box3 flex">
+                <div id="trapezoid_left">
+                    <h2>07/01(日)</h2>
+                </div>            
+                <div id="trapezoid_right">                 
+                    <h2>台北光點電影院</h2>       
+                </div>        
+            </div>
         </div>
     );
   }
 }
 
-export default Cffilmsdetail;
+export default Filmsdetail;
