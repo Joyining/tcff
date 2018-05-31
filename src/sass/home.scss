@@ -11,12 +11,14 @@
         // width: 100%;
         // height: 80vh;
         .carousel {
-            // width: 100%;
-            // height: 100%;
+            // width: 99%;
+            // height: 99%;
             position: absolute;
             transform-style: preserve-3d;
             object-fit: cover;
             .carousel_cell {
+                // border: 2px solid red;
+                box-sizing: border-box;
                 display:block;
                 position: absolute;
                 width: 100%;
@@ -80,7 +82,7 @@
                     }
                     &.animate{
                         .year, .name, .award, .logo-time{
-                            animation: show-text-box 10s ease-in;
+                            animation: show-text-box 48s infinite ease-in;
                         }
                     }
                 }
@@ -783,11 +785,14 @@ $radius: 709.09px;
     0%{
         opacity: 0;
     }
-    20%{
+    2%{
         opacity: 1;
     }
+    20%{
+        opacity: 0;
+    }
     100%{
-        opacity: 1;
+        opacity: 0;
     }
 }
 

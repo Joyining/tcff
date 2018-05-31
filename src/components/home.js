@@ -154,8 +154,8 @@ class Home extends Component {
     let containerWidth = container.clientWidth;
     // console.log(`container width: ${containerWidth}`);
 
-    const sceneWidth = containerWidth*.30;
-    const sceneHeight = containerWidth*.23;
+    const sceneWidth = containerWidth*.40;
+    const sceneHeight = containerWidth*.27;
     const carousel = document.querySelector(".carousel");
     
     const slides = document.querySelectorAll('.carousel_cell');
@@ -169,9 +169,12 @@ class Home extends Component {
     scene.style.height = `${sceneHeight}px`;
     carousel.style.width = `${sceneWidth}px`;
     carousel.style.height = `${sceneHeight}px`;
+    
 
-    const radius = (sceneWidth / 2) / Math.tan((rotateYDiff / 2) * Math.PI / 180);
-    // console.log(radius);
+    const radius = parseFloat((sceneWidth / 2) / Math.tan((rotateYDiff / 2) * Math.PI / 180));
+    console.log(rotateYDiff);
+    console.log(radius);
+    carousel.style.transform = `translateZ(-${radius}px)`;
 
     // for (let i = 0; i < slides.length; i++) {
     //   slides[i].style.transform = `rotateY(${rotateDeg}deg) translateZ(${radius}px)`;
@@ -186,7 +189,8 @@ class Home extends Component {
 
     Array.from(slides).forEach(slide => {
       slide.style.transform = `rotateY(${rotateDeg}deg) translateZ(${radius}px)`;
-
+      console.log(rotateDeg);
+      console.log(window.getComputedStyle(slide).width);
       let rotateDeg2 = rotateDeg;
       let move = () => {  
         rotateDeg2 -= .75;
@@ -198,17 +202,13 @@ class Home extends Component {
     })
 
     const textBoxes = document.querySelectorAll('.text-box');
-    // textBoxes[0].classList.add("animate");
     let showTextBox = ()=>{
       for (let i = 0; i < textBoxes.length; i++) {
         setTimeout(function () {
           textBoxes[i].classList.add("animate");
         }, i * 4000, i);
-        setTimeout(function () {
-          textBoxes[i].classList.remove("animate");
-        }, i * 4000 + 12000, i);
       }
-      setTimeout(showTextBox, 48000); 
+      // setTimeout(showTextBox, 48000); 
     }
     showTextBox();
 

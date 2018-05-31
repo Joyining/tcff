@@ -209,7 +209,7 @@ class Header extends Component {
                     <a href="" className="transition">節目資訊</a>
                     <ul className="panel transition">
                         <li><Link to="/films" className="transition">確認放映</Link></li>
-                        <li><Link to="/" className="transition">募資影片</Link></li>
+                        <li><Link to="/cf-films" className="transition">募資影片</Link></li>
                         <li><Link to="/time" className="transition">場次表</Link></li>
                     </ul>
                 </li>
@@ -323,7 +323,7 @@ class Header extends Component {
                             <a className="transition">節目資訊</a>
                             <ul className="panel transition" data-device='tablet'>
                                 <li><Link to="/films" className="transition" onClick={this.menuClose}>確認放映</Link></li>
-                                <li><Link to="/" className="transition" onClick={this.menuClose}>募資影片</Link></li>
+                                <li><Link to="/cf-films" className="transition" onClick={this.menuClose}>募資影片</Link></li>
                                 <li><Link to="/time" className="transition" onClick={this.menuClose}>場次表</Link></li>
                             </ul>
                         </li>

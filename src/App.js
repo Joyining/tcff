@@ -5,7 +5,9 @@ import MemberPage from './components/member-page';
 import HomePage from './components/home-page';
 import MyFilmPage from './components/my-film-page';
 import FilmsPage from './components/films-page';
-// import AllPage from './components/all-page';
+import CfFilmsPage from './components/cf-films-page';
+import FilmsDetailPage from './components/films-detail-page';
+import CfFilmsDetailPage from './components/cf-films-detail-page';
 import TimePage from './components/time-page';
 import InfoPage from './components/info-page';
 import NewsPage from './components/news-page';
@@ -22,7 +24,9 @@ class App extends Component {
           <Route path="/member" component={MemberPage} />
           <Route path="/my-film" component={MyFilmPage} />
           <Route path="/films" component={FilmsPage} />
-        {/* <Route path="/cf-films" component={CfFilmsPage} /> */}
+          <Route path="/cf-films" component={CfFilmsPage} />
+          <Route path="/films-detail-page" component={FilmsDetailPage} />
+          <Route path="/cf-films-detail-page" component={CfFilmsDetailPage} />
           <Route path="/time" component={TimePage} />
           <Route path="/info" component={InfoPage} />
           <Route path="/news" component={NewsPage} />
