@@ -16,7 +16,7 @@
         "cf": false
     },
     {
-        "id_movie": 3,
+        "id_movie": 4,
         "name": "真善美",
         "date": "2018-07-16 19:00",
         "auditorium": "台北光點",
@@ -24,13 +24,13 @@
         "cf": false
     },
     {
-        "id_movie": 4,
-        "name": "教父",
+        "id_movie": 3,
+        "name": "Bonnie and Clyde",
         "cf": true
     },
     {
         "id_movie": 5,
-        "name": "E.T.",
+        "name": "Mary Poppins",
         "cf": true
     }
 ]
