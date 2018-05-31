@@ -6,9 +6,32 @@
     // background-color:$colorLight ;
     padding: 10px 0 ;
     position: relative ;
-    margin: 10% auto;
+    margin: -8% auto;
+    z-index: 1;
 
 .place{
+    width: 45vh;
+    height:600px ;
+    top:  50% ;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%) ;
+
+
+     @include breakpoint("tablet"){
+                width: 40vh;
+                left: 60% ;
+                top:30%;
+     }
+      @include breakpoint("mobileonly"){
+                width: 40vh;
+                height: 600px;
+                top: 40% ;
+                left: 50% ;
+     }
+
+}
+
+.place_b{
     width: 45vh;
     height:600px ;
     top: 50% ;
@@ -25,6 +48,18 @@
                 top: 48% ;
      }
 
+}
+
+.display{
+    display: none ;
+}
+
+.color{
+    background-color: $colorDarker ;
+}
+
+.zindex{
+    z-index: 2;
 }
 
 //-----------**animate設定**-----------
@@ -55,27 +90,37 @@
 }
 //-----------**************-----------
 
-
-.turn{
-    transform-style: preserve-3d;
-    transition:1s all ;
-    // background: #57abff ;
-    position: relative;
-}
-
-.turn.flip{
-    transform: translateX(-70%) translateY(-50%) rotateY(180deg) ;
-    @include breakpoint("mobileonly"){
-        transform: translateX(-50%) translateY(-50%) rotateY(180deg) ;
+//-----------**Flip設定**-----------
+    .turn{
+        transform-style: preserve-3d;
+        transition:1s all ;
+        // background: #57abff ;
+        position: relative;
     }
-}
 
-.front , .back{
-    backface-visibility: hidden;
-}
+    .turn.flip{
+        transform: translateX(-70%) translateY(-50%) rotateY(180deg) ;
+        @include breakpoint("mobileonly"){
+            transform: translateX(-50%) translateY(-50%) rotateY(180deg) ;
+        }
+    }
+
+    .front , .back{
+        backface-visibility: hidden;
+    }
+
+    .sign_up_flip{
+        transform: rotateY( 180deg ) translateX(49%) translateY(-80%) ;
+    }
+
+    .sign_up_down_flip{
+        transform: rotateY( -180deg ) translateX(0%) translateY(-80%) ;
+    }
+
+//-----------**************-----------
 
 
-
+    // --------------**會員登入**--------------*
     .login_f{
         position: absolute ;
         background-color: $colorLight ; 
@@ -167,7 +212,7 @@
 
     .login_f_p{
         position: absolute ;
-        background-color: #ad9dec ; 
+        background-color: $colorLight ; 
         // transform: rotateY(180deg);
         transform: translateX(-50%) translateY(-50%) rotateY(180deg) ;
         z-index: 1;
@@ -252,54 +297,177 @@
                 padding: 0 50% 0 25% ;
                 @include text-rec(80% , 12px , transparent , $colorDark ,transparent) ;
             }
+
+            .worring_box_p{
+                margin: -30px -50px 30px -50px;
+                height: 24px;
+                width: 100%;
+                // overflow: hidden ;
+            }
+            .worring_p{
+                @include text-rec(none , 12px , transparent , red ,transparent) ;
+                text-align: right ;
+                // display: none ;
+                
+            }
     }
 
     
     //-----------**背面動畫**-----------
     .back_animate{
         animation-name: slide_b;
+        // animation-name: none;
         animation-delay: .1s ;
         animation-timing-function: ease-in ;
         animation-duration: 1s ;
         animation-fill-mode: forwards;
 
-        @include breakpoint("mobileonly"){
+        @include breakpoint("tablet"){
             animation-name: none;
             display: none ;    
+        }
+
+        @include breakpoint("mobileonly"){
+            animation-name: none;
+            display: none ;
+        }
+    }
+
+    @keyframes slide_b{
+        0%{
+            top:50% ;
+            left:50% ; 
+        }
+    
+        100%{
+            left:60% ;
+            top: -150px ;
         }
     }
     //-----------**************-----------
     
-   @keyframes slide_b{
-    0%{
-        top: 50% ;
-        left:50% ; 
-    }
 
-    100%{
-        left:55% ;
-        top: 40% ;
-    }
+
+.turn_b{
+    transform-style: preserve-3d;
+    transition:1s all ;
+    // background: #57abff ;
+    // position: relative;
+    // left: 10% ;
+    // top:30% ;
 }
 
     //-----------**註冊**-----------
-    .registered_b{
-        background-color: $colorDarker ; 
+    .registered_f{
+        width: 45vh;
+        height:600px ;
+        top:  50% ;
+        left: 50%;
+        transform: translateX(-50%) translateY(40%) rotateY(180deg) ;
+        // transform: translateX(-50%) translateY(17%);
         position: absolute ;
-
+        background-color: #75eadb ; 
+        // z-index: 10 ;
         
-         //-----------**RWD設定**-----------
- 
-         @include breakpoint("tablet"){
+        @include breakpoint("tablet"){
             width: 40vh;
-         }
-    
+        }
+        @include breakpoint("mobileonly"){
+            width: 40vh;
+            height: 600px;
+            top: 48% ;
+        }
+
+            .registered_word{
+                margin: 0 auto ;
+                padding: 20px 0 10px 0 ;
+                height: 50px ;           
+                @include text-rec(80% , 24px , none , $colorDark ,transparent) ;
+                border-bottom: 3px solid $colorDark ;
+                font-weight: bold ;
+            }
+            .account_box_r{
+                display: flex ;
+                flex-direction: row ;
+                padding: 50px 50px 0 10px ;
+            }
+            .account_r{
+                width: 80%;
+                height: 35px;
+                margin:  0;
+                @include text-rec(50% , 18px , none , $colorDark ,transparent) ;
+                text-align: right ;
+                // background-color: aliceblue ;
+            }
+            .account_r_2{
+                height: 25px;
+                width: 80%;
+                // margin: 55px auto 0;
+                border: 2px solid $colorMedium ;
+            }
+            .password_box_r{
+                display: flex ;
+                flex-direction: row ;
+                padding: 10px 50px 0 10px  ;
+            }
+            .password_r_1{
+                width: 80%;
+                height: 35px;
+                margin:  0;
+                @include text-rec(50% , 18px , none , $colorDark ,transparent) ;
+                text-align: right ;
+                // background-color: aliceblue ;
+            }
+            .password_r_2{
+                height: 25px;
+                width: 80%;
+                // margin: 55px auto 0;
+                border: 2px solid $colorMedium ;
+            }
+            .registered_btn{
+                width: 100px;
+                height: 30px;
+                margin: 50px auto ;
+                @include text-rec(30% , 18px , $colorDark , $colorLight ,transparent) ;                
+            }
+            .btn_box_r{
+                display: flex ;
+                flex-direction: row ;
+                justify-content: center ;
+                padding: 0  ;
+            }
+            .registered_r{
+                margin: 0 20px 0 20px  ;
+                @include text-rec(100px , 18px , transparent , $colorDark ,$colorDark) ;
+            }
+            .word_r{
+                padding: 0 10% ;
+                @include text-rec(80% , 12px , transparent , $colorDark ,transparent) ;
+            }
+            .worring_box_r{
+                margin: 0 60% ;
+                height: 24px;
+                width: 100%;
+                // overflow: hidden ;
+            }
+            .worring_r{
+                @include text-rec(30% , 12px , transparent , red ,transparent) ;
+                text-align: right ;
+            }
+            .display{
+                display: none ;
+            }
     }
 
 
     .login_b{
         background-color: $colorDarker ; 
         position: absolute ;
+        top:  50% ;
+        left: 50%;
+        // transform: translateX(-50%) translateY(17%) rotateY(180deg) ;
+        transform: translateX(-50%) translateY(17%);
+        // top:400px ;
 
         
          //-----------**RWD設定**-----------
