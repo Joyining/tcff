@@ -14,6 +14,7 @@ import Home01Img09 from "../images/Home01Img09.jpg";
 import Home01Img10 from "../images/Home01Img10.jpg";
 import Home01Img11 from "../images/Home01Img11.jpg";
 import Home01Img12 from "../images/Home01Img12.jpg";
+import logoSmall from "../images/logo-small.svg";
 
 import Home02Img01 from "../images/Home02Img01.jpg";
 import Home02Img02 from "../images/Home02Img02.jpg";
@@ -55,7 +56,7 @@ import {
 class Home extends Component {
   constructor(props){
       super(props);
-      this.scrollDetection = this.scrollDetection.bind(this); //bind function once
+      this.scrollDetection = this.scrollDetection.bind(this);
       this.windowResize = this.windowResize.bind(this); 
       this.rotateSlide = this.rotateSlide.bind(this); 
   }
@@ -105,9 +106,9 @@ class Home extends Component {
     const imgs = document.querySelector(".cf01").children;
     const imgHeight = imgs[0].clientHeight;
     const btnHeight = document.querySelector(".cf-button").clientHeight;
-    console.log(imgs[0]);
-    console.log(marginTop);
-    console.log(btnHeight);
+    // console.log(imgs[0]);
+    // console.log(marginTop);
+    // console.log(btnHeight);
 
     
     const posters = document.querySelectorAll(".cf-poster");
@@ -149,30 +150,79 @@ class Home extends Component {
   }
 
   rotateSlide(){
-    const sceneWidth = 380;
-    const sceneHeight = 260;
+    const container = document.querySelector('.container-home');
+    let containerWidth = container.clientWidth;
+    // console.log(`container width: ${containerWidth}`);
+
+    const sceneWidth = containerWidth*.30;
+    const sceneHeight = containerWidth*.23;
+    const carousel = document.querySelector(".carousel");
+    
     const slides = document.querySelectorAll('.carousel_cell');
     const slideCount = slides.length;
     const rotateYDiff = 360 / slideCount;
     let rotateDeg = 0;
 
     const scene = document.querySelector('.scene');
-    console.log(scene);
+    // console.log(scene);
     scene.style.width = `${sceneWidth}px`;
     scene.style.height = `${sceneHeight}px`;
+    carousel.style.width = `${sceneWidth}px`;
+    carousel.style.height = `${sceneHeight}px`;
 
     const radius = (sceneWidth / 2) / Math.tan((rotateYDiff / 2) * Math.PI / 180);
-    console.log(radius);
+    // console.log(radius);
+
+    // for (let i = 0; i < slides.length; i++) {
+    //   slides[i].style.transform = `rotateY(${rotateDeg}deg) translateZ(${radius}px)`;
+
+    //   let rotateDeg2 = rotateDeg;
+    //   setTimeout(function() {
+    //     rotateDeg2 -= .75;
+    //     slides[i].style.transform = `rotateY(${rotateDeg2}deg) translateZ(${radius}px)`;
+    //     }, i * 100, i);
+    //   rotateDeg += rotateYDiff;
+    // }
 
     Array.from(slides).forEach(slide => {
       slide.style.transform = `rotateY(${rotateDeg}deg) translateZ(${radius}px)`;
+
+      let rotateDeg2 = rotateDeg;
+      let move = () => {  
+        rotateDeg2 -= .75;
+        slide.style.transform = `rotateY(${rotateDeg2}deg) translateZ(${radius}px)`;
+        setTimeout(move, 100);
+      }
+      move();
       rotateDeg += rotateYDiff;
     })
+
+    const textBoxes = document.querySelectorAll('.text-box');
+    // textBoxes[0].classList.add("animate");
+    let showTextBox = ()=>{
+      for (let i = 0; i < textBoxes.length; i++) {
+        setTimeout(function () {
+          textBoxes[i].classList.add("animate");
+        }, i * 4000, i);
+        setTimeout(function () {
+          textBoxes[i].classList.remove("animate");
+        }, i * 4000 + 12000, i);
+      }
+      setTimeout(showTextBox, 48000); 
+    }
+    showTextBox();
+
   }
+
+
   
   componentDidMount(){
     // console.log('home mount');
     window.addEventListener('scroll', this.scrollDetection, false);
+    window.addEventListener("load", this.windowResize, false);
+    window.addEventListener("resize", this.windowResize, false);
+    window.addEventListener("load", this.rotateSlide, false);
+    window.addEventListener("resize", this.rotateSlide, false);
 
     let mousePosition = ()=>{
       let lastMouseX;
@@ -238,195 +288,403 @@ class Home extends Component {
       }, 1400);
     }
     titleText()
-
-    window.addEventListener("load", this.windowResize, false);
-    window.addEventListener("resize", this.windowResize, false);
-    window.addEventListener("load", this.rotateSlide, false);
   }
 
   componentWillUnmount(){
     window.removeEventListener('scroll', this.scrollDetection, false);
+    window.removeEventListener("load", this.windowResize, false);
+    window.removeEventListener("resize", this.windowResize, false);
+    window.removeEventListener("load", this.rotateSlide, false);
+    window.removeEventListener("resize", this.rotateSlide, false);
   }
   
 
   render() {
-    return <section className="container-home">
-        <div className="home01"> 
+    return <div className="home-outer-wrap">
+        <div className="home01">
           <div className="scene">
             <div className="carousel">
-              <Link to="/films" className="carousel_cell transition"><img src={Home01Img01} alt="" /></Link>
-              <Link to="/films" className="carousel_cell transition"><img src={Home01Img02} alt="" /></Link>
-              <Link to="/films" className="carousel_cell transition"><img src={Home01Img03} alt="" /></Link>
-              <Link to="/films" className="carousel_cell transition"><img src={Home01Img04} alt="" /></Link>
-              <Link to="/films" className="carousel_cell transition"><img src={Home01Img05} alt="" /></Link>
-              <Link to="/films" className="carousel_cell transition"><img src={Home01Img06} alt="" /></Link>
-              <Link to="/films" className="carousel_cell transition"><img src={Home01Img07} alt="" /></Link>
-              <Link to="/films" className="carousel_cell transition"><img src={Home01Img08} alt="" /></Link>
-              <Link to="/films" className="carousel_cell transition"><img src={Home01Img09} alt="" /></Link>
-              <Link to="/films" className="carousel_cell transition"><img src={Home01Img10} alt="" /></Link>
-              <Link to="/films" className="carousel_cell transition"><img src={Home01Img11} alt="" /></Link>
-              <Link to="/films" className="carousel_cell transition"><img src={Home01Img12} alt="" /></Link>
-            </div>
-          </div>
-        </div>
-        <div className="home02">
-          <Flag />
-          <div className="text-wrap">
-            <div className="slogon">
-              <div>
-                <span>經</span>
-                <span>典</span>
-                <span>倒</span>
-                <span>帶</span>
-              </div>
-              <div>
-                <span>復</span>
-                <span>古</span>
-                <span>最</span>
-                <span>摩</span>
-                <span>登</span>
-              </div>
-            </div>
-            <div className="content">
-              <p>台北經典影展用熟悉的對白和配樂，回放你的人生底片</p>
-              <p>橫跨四十年，影史必看作品，六十四部數位修復老電影</p>
-              <p>經典永遠流行</p>
-            </div>
-          </div>
-          <div className="home02-screen-wrap">
-            <div className="bg-image">
-              <img src={Home02Img01} alt="" />
-              <img src={Home02Img02} alt="" />
-              <img src={Home02Img03} alt="" />
-              <img src={Home02Img04} alt="" />
-              <img src={Home02Img05} alt="" />
-              <img src={Home02Img06} alt="" />
-              <img src={Home02Img07} alt="" />
-              <img src={Home02Img08} alt="" />
-              <img src={Home02Img09} alt="" />
-              <img src={Home02Img10} alt="" />
-            </div>
-            <div className="inside">
-              <div className="image">
-                <div className="slide transition">
-                  <img src={Home02Img01} alt="" />
-                  <img src={Home02Img02} alt="" />
-                  <img src={Home02Img03} alt="" />
-                  <img src={Home02Img04} alt="" />
-                  <img src={Home02Img05} alt="" />
-                  <img src={Home02Img06} alt="" />
-                  <img src={Home02Img07} alt="" />
-                  <img src={Home02Img08} alt="" />
-                  <img src={Home02Img09} alt="" />
-                  <img src={Home02Img10} alt="" />
+              <Link to="/films" className="carousel_cell transition">
+                <img src={Home01Img01} alt="" />
+              </Link>
+              <Link to="/films" className="carousel_cell transition text-box">
+                <div className="year">1964</div>
+                <div className="name">
+                  007：金手指
                 </div>
-              </div>
-              <div className="title-wrap">
-                <div className="inner">
-                  <div className="title bg-1 title-text transition" />
-                  <div className="title bg-2 transition" />
+                <div className="award">
+                  第37届奥斯卡最佳音效<br/>
+                  當年引發了間諜電影的潮流<br/>
+                  影片裡的許多元素成為日後007固定的元素及套路
                 </div>
-              </div>
-              <div className="quote-wrap">
-                <div className="inner">
-                  <div className="quote bg-1 quote-text transition" />
-                  <div className="quote bg-2 transition" />
+                <div className="logo-time">
+                  <div className="logo">
+                  <img src={logoSmall} alt="" className="" />
+                  </div>
+                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div className="poster-wrap transition">
-            <img src={Home02Poster01} alt="" />
-            <img src={Home02Poster02} alt="" />
-            <img src={Home02Poster03} alt="" />
-            <img src={Home02Poster04} alt="" />
-            <img src={Home02Poster05} alt="" />
-            <img src={Home02Poster06} alt="" />
-            <img src={Home02Poster07} alt="" />
-            <img src={Home02Poster08} alt="" />
-            <img src={Home02Poster09} alt="" />
-          </div>
-          <div className="poster-more transition">
-            <Link to="/films" className="transition">
-              更多確認放映影片
-            </Link>
-          </div>
-        </div>
-        <div className="home03">
-          <Flag />
-          <div className="text-wrap">
-            <div className="slogon">
-              <div>
-                <span>沒</span>
-                <span>有</span>
-                <span>遺</span>
-                <span>珠</span>
-                <span>之</span>
-                <span>憾</span>
-              </div>
-            </div>
-            <div className="content">
-              <p>四十年太長，十四天太短</p>
-              <p>還有好多想看的經典作品不在確認放映清單裡嗎？</p>
-              <p>參加募資，由你決定哪些經典老片可以強勢回歸大螢幕!</p>
-            </div>
-          </div>
-          <div className="cube-wrap">
-            <div className="cube">
-              <div className="side front">台</div>
-              <div className="side back">展</div>
-              <div className="side right">典</div>
-              <div className="side left">北</div>
-              <div className="side top">影</div>
-              <div className="side bottom">經</div>
-            </div>
-          </div>
-          <div className="cf-wrap">
-            <div className="cf-button">
-              <Link to="/cf-films" className="transition">
-                參與募資
+              </Link>
+              <Link to="/films" className="carousel_cell transition">
+                <img src={Home01Img02} alt="" />
+              </Link>
+              <Link to="/films" className="carousel_cell transition text-box">
+                <div className="year">1964</div>
+                <div className="name">窈窕淑女</div>
+                <div className="award">
+                    第37届奥斯卡最佳音效
+                    當年引發了間諜電影的潮流
+                    影片裡的許多元素成為日後007固定的元素及套路
+                  </div>
+                <div className="logo-time">
+                  <div className="logo">
+                    <img src={logoSmall} alt="" className="" />
+                  </div>
+                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
+                </div>
+              </Link>
+              <Link to="/films" className="carousel_cell transition">
+                <img src={Home01Img03} alt="" />
+              </Link>
+              <Link to="/films" className="carousel_cell transition text-box">
+                <div className="year">1977</div>
+                <div className="name">安妮霍爾</div>
+                <div className="award">
+                      第37届奥斯卡最佳音效
+                      當年引發了間諜電影的潮流
+                      影片裡的許多元素成為日後007固定的元素及套路
+                    </div>
+                <div className="logo-time">
+                  <div className="logo">
+                    <img src={logoSmall} alt="" className="" />
+                  </div>
+                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
+                </div>
+              </Link>
+              <Link to="/films" className="carousel_cell transition">
+                <img src={Home01Img04} alt="" />
+              </Link>
+              <Link to="/films" className="carousel_cell transition text-box">
+                <div className="year">1964</div>
+                <div className="name">窈窕淑女</div>
+                <div className="award">
+                  第37届奥斯卡最佳音效
+                  當年引發了間諜電影的潮流
+                  影片裡的許多元素成為日後007固定的元素及套路
+                    </div>
+                <div className="logo-time">
+                  <div className="logo">
+                    <img src={logoSmall} alt="" className="" />
+                  </div>
+                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
+                </div>
+              </Link>
+              <Link to="/films" className="carousel_cell transition">
+                <img src={Home01Img05} alt="" />
+              </Link>
+              <Link to="/films" className="carousel_cell transition text-box">
+                <div className="year">1964</div>
+                <div className="name">窈窕淑女</div>
+                <div className="award">
+                  第37届奥斯卡最佳音效
+                  當年引發了間諜電影的潮流
+                  影片裡的許多元素成為日後007固定的元素及套路
+                    </div>
+                <div className="logo-time">
+                  <div className="logo">
+                    <img src={logoSmall} alt="" className="" />
+                  </div>
+                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
+                </div>
+              </Link>
+              <Link to="/films" className="carousel_cell transition">
+                <img src={Home01Img06} alt="" />
+              </Link>
+              <Link to="/films" className="carousel_cell transition text-box">
+                <div className="year">1964</div>
+                <div className="name">窈窕淑女</div>
+                <div className="award">
+                  第37届奥斯卡最佳音效
+                  當年引發了間諜電影的潮流
+                  影片裡的許多元素成為日後007固定的元素及套路
+                    </div>
+                <div className="logo-time">
+                  <div className="logo">
+                    <img src={logoSmall} alt="" className="" />
+                  </div>
+                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
+                </div>
+              </Link>
+              <Link to="/films" className="carousel_cell transition">
+                <img src={Home01Img07} alt="" />
+              </Link>
+              <Link to="/films" className="carousel_cell transition text-box">
+                <div className="year">1964</div>
+                <div className="name">窈窕淑女</div>
+                <div className="award">
+                  第37届奥斯卡最佳音效
+                  當年引發了間諜電影的潮流
+                  影片裡的許多元素成為日後007固定的元素及套路
+                    </div>
+                <div className="logo-time">
+                  <div className="logo">
+                    <img src={logoSmall} alt="" className="" />
+                  </div>
+                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
+                </div>
+              </Link>
+              <Link to="/films" className="carousel_cell transition">
+                <img src={Home01Img08} alt="" />
+              </Link>
+              <Link to="/films" className="carousel_cell transition text-box">
+                <div className="year">1964</div>
+                <div className="name">窈窕淑女</div>
+                <div className="award">
+                  第37届奥斯卡最佳音效
+                  當年引發了間諜電影的潮流
+                  影片裡的許多元素成為日後007固定的元素及套路
+                    </div>
+                <div className="logo-time">
+                  <div className="logo">
+                    <img src={logoSmall} alt="" className="" />
+                  </div>
+                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
+                </div>
+              </Link>
+              <Link to="/films" className="carousel_cell transition">
+                <img src={Home01Img09} alt="" />
+              </Link>
+              <Link to="/films" className="carousel_cell transition text-box">
+                <div className="year">1964</div>
+                <div className="name">窈窕淑女</div>
+                <div className="award">
+                  第37届奥斯卡最佳音效
+                  當年引發了間諜電影的潮流
+                  影片裡的許多元素成為日後007固定的元素及套路
+                    </div>
+                <div className="logo-time">
+                  <div className="logo">
+                    <img src={logoSmall} alt="" className="" />
+                  </div>
+                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
+                </div>
+              </Link>
+              <Link to="/films" className="carousel_cell transition">
+                <img src={Home01Img10} alt="" />
+              </Link>
+              <Link to="/films" className="carousel_cell transition text-box">
+                <div className="year">1964</div>
+                <div className="name">窈窕淑女</div>
+                <div className="award">
+                  第37届奥斯卡最佳音效
+                  當年引發了間諜電影的潮流
+                  影片裡的許多元素成為日後007固定的元素及套路
+                    </div>
+                <div className="logo-time">
+                  <div className="logo">
+                    <img src={logoSmall} alt="" className="" />
+                  </div>
+                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
+                </div>
+              </Link>
+              <Link to="/films" className="carousel_cell transition">
+                <img src={Home01Img11} alt="" />
+              </Link>
+              <Link to="/films" className="carousel_cell transition text-box">
+                <div className="year">1964</div>
+                <div className="name">窈窕淑女</div>
+                <div className="award">
+                  第37届奥斯卡最佳音效
+                  當年引發了間諜電影的潮流
+                  影片裡的許多元素成為日後007固定的元素及套路
+                    </div>
+                <div className="logo-time">
+                  <div className="logo">
+                    <img src={logoSmall} alt="" className="" />
+                  </div>
+                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
+                </div>
+              </Link>
+              <Link to="/films" className="carousel_cell transition">
+                <img src={Home01Img12} alt="" />
+              </Link>
+              <Link to="/films" className="carousel_cell transition text-box">
+                <div className="year">1964</div>
+                <div className="name">窈窕淑女</div>
+                <div className="award">
+                  第37届奥斯卡最佳音效
+                  當年引發了間諜電影的潮流
+                  影片裡的許多元素成為日後007固定的元素及套路
+                    </div>
+                <div className="logo-time">
+                  <div className="logo">
+                    <img src={logoSmall} alt="" className="" />
+                  </div>
+                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
+                </div>
               </Link>
             </div>
-            <div className="cf-circle cf-circle-01">
-              <div className="cf-poster">
-                <Link to="/cf-films" className="transition cf01">
-                  <img src={Home03Poster01} alt="" />
-                </Link>
-                <Link to="/cf-films" className="transition cf02">
-                  <img src={Home03Poster02} alt="" />
-                </Link>
-                <Link to="/cf-films" className="transition cf03">
-                  <img src={Home03Poster03} alt="" />
-                </Link>
-                <Link to="/cf-films" className="transition cf04">
-                  <img src={Home03Poster04} alt="" />
-                </Link>
-                <Link to="/cf-films" className="transition cf05">
-                  <img src={Home03Poster05} alt="" />
-                </Link>
-                <Link to="/cf-films" className="transition cf06">
-                  <img src={Home03Poster06} alt="" />
-                </Link>
-                <Link to="/cf-films" className="transition cf07">
-                  <img src={Home03Poster07} alt="" />
-                </Link>
-              </div>
-            </div>
-            <div className="cf-circle cf-circle-03 cf-circle-bg">
-              <div className="cf-poster">
-                <div className="cf-bg"></div>
-                <div className="cf-bg" />
-                <div className="cf-bg" />
-                <div className="cf-bg" />
-                <div className="cf-bg" />
-                <div className="cf-bg" />
-                <div className="cf-bg" />
-              </div>
-            </div>
-            {/* <div className="cf-circle cf-circle-02"></div> */}
           </div>
         </div>
-      </section>;
+        <section className="container-home">
+          <div className="home02">
+            <Flag />
+            <div className="text-wrap">
+              <div className="slogon">
+                <div>
+                  <span>經</span>
+                  <span>典</span>
+                  <span>倒</span>
+                  <span>帶</span>
+                </div>
+                <div>
+                  <span>復</span>
+                  <span>古</span>
+                  <span>最</span>
+                  <span>摩</span>
+                  <span>登</span>
+                </div>
+              </div>
+              <div className="content">
+                <p>台北經典影展用熟悉的對白和配樂，回放你的人生底片</p>
+                <p>橫跨四十年，影史必看作品，六十四部數位修復老電影</p>
+                <p>經典永遠流行</p>
+              </div>
+            </div>
+            <div className="home02-screen-wrap">
+              <div className="bg-image">
+                <img src={Home02Img01} alt="" />
+                <img src={Home02Img02} alt="" />
+                <img src={Home02Img03} alt="" />
+                <img src={Home02Img04} alt="" />
+                <img src={Home02Img05} alt="" />
+                <img src={Home02Img06} alt="" />
+                <img src={Home02Img07} alt="" />
+                <img src={Home02Img08} alt="" />
+                <img src={Home02Img09} alt="" />
+                <img src={Home02Img10} alt="" />
+              </div>
+              <div className="inside">
+                <div className="image">
+                  <div className="slide transition">
+                    <img src={Home02Img01} alt="" />
+                    <img src={Home02Img02} alt="" />
+                    <img src={Home02Img03} alt="" />
+                    <img src={Home02Img04} alt="" />
+                    <img src={Home02Img05} alt="" />
+                    <img src={Home02Img06} alt="" />
+                    <img src={Home02Img07} alt="" />
+                    <img src={Home02Img08} alt="" />
+                    <img src={Home02Img09} alt="" />
+                    <img src={Home02Img10} alt="" />
+                  </div>
+                </div>
+                <div className="title-wrap">
+                  <div className="inner">
+                    <div className="title bg-1 title-text transition" />
+                    <div className="title bg-2 transition" />
+                  </div>
+                </div>
+                <div className="quote-wrap">
+                  <div className="inner">
+                    <div className="quote bg-1 quote-text transition" />
+                    <div className="quote bg-2 transition" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="poster-wrap transition">
+              <img src={Home02Poster01} alt="" />
+              <img src={Home02Poster02} alt="" />
+              <img src={Home02Poster03} alt="" />
+              <img src={Home02Poster04} alt="" />
+              <img src={Home02Poster05} alt="" />
+              <img src={Home02Poster06} alt="" />
+              <img src={Home02Poster07} alt="" />
+              <img src={Home02Poster08} alt="" />
+              <img src={Home02Poster09} alt="" />
+            </div>
+            <div className="poster-more transition">
+              <Link to="/films" className="transition">
+                更多確認放映影片
+              </Link>
+            </div>
+          </div>
+          <div className="home03">
+            <Flag />
+            <div className="text-wrap">
+              <div className="slogon">
+                <div>
+                  <span>沒</span>
+                  <span>有</span>
+                  <span>遺</span>
+                  <span>珠</span>
+                  <span>之</span>
+                  <span>憾</span>
+                </div>
+              </div>
+              <div className="content">
+                <p>四十年太長，十四天太短</p>
+                <p>還有好多想看的經典作品不在確認放映清單裡嗎？</p>
+                <p>參加募資，由你決定哪些經典老片可以強勢回歸大螢幕!</p>
+              </div>
+            </div>
+            <div className="cube-wrap">
+              <div className="cube">
+                <div className="side front">台</div>
+                <div className="side back">展</div>
+                <div className="side right">典</div>
+                <div className="side left">北</div>
+                <div className="side top">影</div>
+                <div className="side bottom">經</div>
+              </div>
+            </div>
+            <div className="cf-wrap">
+              <div className="cf-button">
+                <Link to="/cf-films" className="transition">
+                  參與募資
+                </Link>
+              </div>
+              <div className="cf-circle cf-circle-01">
+                <div className="cf-poster">
+                  <Link to="/cf-films" className="transition cf01">
+                    <img src={Home03Poster01} alt="" />
+                  </Link>
+                  <Link to="/cf-films" className="transition cf02">
+                    <img src={Home03Poster02} alt="" />
+                  </Link>
+                  <Link to="/cf-films" className="transition cf03">
+                    <img src={Home03Poster03} alt="" />
+                  </Link>
+                  <Link to="/cf-films" className="transition cf04">
+                    <img src={Home03Poster04} alt="" />
+                  </Link>
+                  <Link to="/cf-films" className="transition cf05">
+                    <img src={Home03Poster05} alt="" />
+                  </Link>
+                  <Link to="/cf-films" className="transition cf06">
+                    <img src={Home03Poster06} alt="" />
+                  </Link>
+                  <Link to="/cf-films" className="transition cf07">
+                    <img src={Home03Poster07} alt="" />
+                  </Link>
+                </div>
+              </div>
+              <div className="cf-circle cf-circle-03 cf-circle-bg">
+                <div className="cf-poster">
+                  <div className="cf-bg" />
+                  <div className="cf-bg" />
+                  <div className="cf-bg" />
+                  <div className="cf-bg" />
+                  <div className="cf-bg" />
+                  <div className="cf-bg" />
+                  <div className="cf-bg" />
+                </div>
+              </div>
+              {/* <div className="cf-circle cf-circle-02"></div> */}
+            </div>
+          </div>
+        </section>
+      </div>;
   }
 }
 
