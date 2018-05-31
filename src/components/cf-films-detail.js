@@ -105,7 +105,7 @@ class Cffilmsdetail extends Component {
                         <div className="l_font">級別</div>
                         <div className="r_font">保護級</div>
                     </div>            
-                    <a href=""><div className="r_font">加入我的票夾</div></a>
+                    <a href=""><div className="r_font BGC"><i class="fas fa-plus-circle"></i>  加入我的票夾</div></a>
                 </div>        
             </div>
             <section className="container">                
