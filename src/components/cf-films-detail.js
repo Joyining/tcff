@@ -87,11 +87,11 @@ class Cffilmsdetail extends Component {
                 </div>
             </div>
             <div className="box3">
-                <div className="myfilename">
-                    <h2 id="h01">1997</h2>
-                    <h2>鐵達尼號</h2>
+                <div className="myfilmname">
+                    <h1 id="h01">1997</h1>
+                    <h1>鐵達尼號</h1>
                 </div>
-                <h2>Titanic</h2>
+                <h1>Titanic</h1>
                 <div className="myfont">
                     <div className="fpg">
                         <div className="l_font">國家</div>
@@ -108,7 +108,7 @@ class Cffilmsdetail extends Component {
                     <a href=""><div className="r_font BGC"><i class="fas fa-plus-circle"></i>  加入我的票夾</div></a>
                 </div>        
             </div>
-            <section className="container">                
+            <section className="container-filmsDetail">                
                 <div className="about">
                     鐵達尼號》於1997年12月19日（星期六）在美國公開放映，在星期日它就已經錄得2850萬美元的票房收入。在此後一周內它的票房收入翻了三倍。即使在三個月後依然能夠達到滿座。一直到15個星期後每星期的收入才下降50%，一般電影在首映後，每周票房收入平均會下降40%。1998年3月《鐵達尼號》成為第一部票房收入達10億美元的電影。許多人表示曾多次翻看這部電影。電影唱片以及《詹姆斯·卡麥隆的鐵達尼號》電影書籍也非常暢銷，這本書在數星期《紐約時報》的暢銷書列表上占第一位——這是第一部這麼暢銷的電影書籍。鐵達尼號》最終錄得的總票房收入為18.353億美元，是歷史上最成功的電影之一，這個票房紀錄直至12年後才被柯麥隆自己編導的《阿凡達》所破。
                 </div>

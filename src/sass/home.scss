@@ -7,7 +7,7 @@
     .scene {
         position: relative;
         perspective: 5000px;
-        margin: 40vh auto;
+        margin: 30vh auto;
         // width: 100%;
         // height: 80vh;
         .carousel {
@@ -16,77 +16,6 @@
             position: absolute;
             transform-style: preserve-3d;
             object-fit: cover;
-            .carousel_cell {
-                // border: 2px solid red;
-                box-sizing: border-box;
-                display:block;
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                // left: 10px;
-                // top: 10px;
-                object-fit: cover;
-                filter: grayscale(30%);
-                img{
-                    width: 100%;
-                    height: 100%;
-                    opacity: .9;
-                    display: block;
-                }
-                &.text-box{
-                    background-color: $colorLight;
-                    padding: 20px;
-                    box-sizing: border-box;
-                    text-align: center;
-                    font-weight: bold;
-                    .year{
-                        font-size: 2rem;
-                        line-height: 4rem;
-                        color: $colorDarker;
-                    }
-                    .name{
-                        font-size: 1.5rem;
-                        line-height: 3rem;
-                        color: $colorDarker;
-                    }
-                    .time{
-                        color: $colorDark;
-                        font-size: .8rem;
-                        line-height: 1.6rem; 
-                    }
-                    .award{   
-                        font-size: 1rem;
-                        line-height: 2rem; 
-                    }
-                    .logo-time{
-                        position: absolute;
-                        width: 100%;
-                        bottom: 5%;
-                    }
-                    .logo{
-                        width: 30%;
-                        height: 20%;
-                        margin: 0 auto;
-                        // margin-top: 10%;
-                        img{
-                            width: 100%;
-                            height: 100%;
-                        }
-                    }
-
-                    &:link, &:visited{
-                        color: $colorDarker;
-                    }
-                    .year, .name, .award, .logo-time{
-                        opacity: 0;
-                    }
-                    &.animate{
-                        .year, .name, .award, .logo-time{
-                            animation: show-text-box 48s infinite ease-in;
-                        }
-                    }
-                }
-            }
         }
 
 
@@ -111,6 +40,7 @@
 .container-home{
     // border: 5px solid red;
     margin: ($headerHeight * 2.2) auto;
+    margin-top: 0;
 	// margin-bottom: ($headerHeight * 4);
 	padding: 0;
 	width: 80vw;
@@ -122,12 +52,13 @@
 	}
 	@include breakpoint("mobileonly") {
 		width: 90vw;
-		padding: 30px;
+		padding: 0;
     }
 
     .home02, .home03{
         width: 100%;
         position: relative;
+        padding-top: 150px;
         // display: flex;
         .text-wrap{
             width: 100%;
@@ -188,7 +119,7 @@
                     }
                 }
                 @include breakpoint('tablet'){
-                    margin: 120px auto 0 auto;
+                    // margin: 120px auto 0 auto;
                     padding: 20px;
                 }
             }
@@ -219,20 +150,25 @@
                 }
             }
             .inside{
-                overflow: hidden;
+                // overflow: hidden;
                 transform: rotateX(-18deg) rotateY(14deg);
                 position: relative;
                 width: 120%;
                 height: 100%;
                 // transform-style: 3d;
                 .image{
-                    // border: 2px solid yellow;
                     position: absolute;
-                    width: 60%;
+                    width: 1000vw;
                     height: 60%;
                     left: 15%;
                     top: 18%;
+                    border: 2px solid yellowgreen;
+                    background: url('../images/Home02ImgAll.jpg') 0 0 repeat-x;
+                    background-size:contain; 
+                    animation: slideMoveDesktop 40s infinite linear;
                 }
+
+                // can delete (start)
                 .slide{
                     position: absolute;
                     width: 100%;
@@ -240,16 +176,19 @@
                     display: flex;
                     object-fit: cover;
                     filter:brightness(70%);
+
                     // overflow: hidden;
-                    animation: slideMoveDesktop 30s linear infinite forwards;
+                    // animation: slideMoveDesktop 30s linear infinite forwards;
                     @include breakpoint('tablet'){
-                        animation: slideMoveTablet 28s linear infinite forwards;
+                        // animation: slideMoveTablet 30s linear infinite forwards;
                     }
                     img{
                         width: 100%;
                         height: 100%;
                     }
                 }
+                // can delete (end)
+
                 .title-wrap, .quote-wrap{
                     width: 20vw;
                     height: 6vh;
@@ -258,6 +197,9 @@
                     top: 10%;
                     left: 5%;
                     overflow: hidden;
+                    @include breakpoint('mobileonly'){
+                        width: 50vw;            
+                    }
                     .inner{
                         display:flex;
                         position: absolute;
@@ -280,6 +222,12 @@
                                 background-color:$colorMedium;
                             }
                             color: $colorDarker;
+                            @include breakpoint('mobileonly'){
+                                font-size: 1rem;
+                                line-height: 2rem;
+                                width: 50vw;
+                                height: 4vh;
+                            }
                         }
 
                     }
@@ -290,6 +238,10 @@
                     position: absolute;
                     top: 75%;
                     left: 10%;
+                    @include breakpoint('mobileonly'){
+                        height: 4vh;
+                        width: 80vw;
+                    }
                     .inner{
                         animation: quoteMove 3s infinite;
                         // animation-delay: 2.5s;
@@ -305,7 +257,11 @@
                     }
                     .inner .quote{
                         width: 60vw;
-                        height: 8vh;  
+                        height: 8vh; 
+                        @include breakpoint('mobileonly'){
+                            height: 4vh;
+                            width: 80vw;
+                        } 
                     }
                 }
 
@@ -347,12 +303,14 @@
                 width: 100%;
                 right: 0;
                 position: initial;
+                height: auto;
             }
             a{
                 @include text-rec(90%, 1.5rem, $colorLight, $colorDark, transparent);
                 display: block;
                 margin: 250px auto;
                 opacity: 0;
+                font-weight: bold;
                 &:link, &:visited{
                     color:$colorDark;
                 }
@@ -360,6 +318,16 @@
                     opacity: 1;
                     width: 80%;
                     margin: 30px auto;
+                    background-color: $colorDarker;
+                    color: $colorLight;
+                    font-weight: bold;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    z-index: 1;
+                    &:link, &:visited{
+                        color:$colorLight;
+                    }
                 }
             }
             &:hover{
@@ -371,17 +339,24 @@
 
         }
     }
+    .home02{
+        @include breakpoint('mobileonly'){
+            padding-bottom: 150px;
+        }
+    }
 
     .home03{
-        padding-top: 150px;
+        // padding-top: 150px;
         overflow: hidden;
-        // height: 500vh;
+        @include breakpoint('mobileonly'){
+            height: 180vh;
+        }
         .cube-wrap{
             perspective-origin: center center;
             perspective: 5000px;
             position: absolute;
-            right: 50%;
-            // transform: translateX(-50%);
+            left: 50%;
+            transform: translateX(-50%);
             .cube{
                 transform-style: preserve-3d;
                 width: 100px;
@@ -461,6 +436,9 @@
             position: relative;
             perspective-origin: center center;
             perspective: 500px;
+            @include breakpoint('mobileonly'){
+                height: 120vh;
+            } 
         }
         .cf-button{
             a{
@@ -468,12 +446,23 @@
                 display: block;
                 margin: 0 auto;
                 opacity: 0;
+                font-weight: bold;
                 &.animate{
                     animation: cf-button-show 1s forwards;
                     animation-delay: 5s;
                 }
                 &:link, &:visited{
                     color: $colorDarker;
+                }
+                &:hover{
+                    background-color: $colorMedium;
+                }
+                @include breakpoint('mobileonly'){
+                    @include text-rec(80%, 1.5rem, $colorDarker, $colorLight, transparent);
+                    font-weight: bold;
+                    &:link, &:visited{
+                        color: $colorLight;
+                    }
                 }
             }
         }
@@ -483,6 +472,10 @@
             border-radius: 50%;
             position: relative;
             overflow: hidden;
+            @include breakpoint('mobileonly'){
+                border-radius: 0%;
+                height: 90%;
+            }
             
         }
         .cf-circle-01{
@@ -491,10 +484,9 @@
             margin: 100px auto;
             transform: rotate3d(1 ,0 ,0, 360deg);
             // border: 2px solid orange;
-            .cf-poster{
-                display: flex;
-                // width: 90%;
-                // margin: 0 auto;
+            @include breakpoint('mobileonly'){
+                // transform: none;
+                margin: 5vh auto;
             }
         }
 
@@ -508,10 +500,15 @@
             left: 50%;
             // top: -2%;
             transform: translateX(-50%);
-            filter: grayscale(50%);
+            // filter: grayscale(50%);
             &.animate{
                 animation: cf-button-show 1s forwards;
                 animation-delay: 5s;
+            }
+            @include breakpoint('mobileonly'){
+                flex-wrap: wrap;
+                height: 100vh;
+                width: 100%;
             }
             a{
                 width: 13%;
@@ -519,11 +516,18 @@
                 display: block;
                 object-fit: cover;
                 border: 5px solid $colorDark;
-                
+                @include breakpoint('mobileonly'){
+                    width: 33%;
+                    height: 20%;
+                }
                 img{
                     width: 100%;
                     height: 100%;
                     box-shadow: 3px 3px 5px $colorDarker;
+                    filter: grayscale(70%);
+                    &:hover{
+                        filter: grayscale(0%);
+                    }
                 }
             }
             .cf-bg{
@@ -535,17 +539,15 @@
         }
         .cf-circle-03{
             position: absolute;
-            // top: 150px;
             // border: 2px solid yellow;
             z-index: 1;
-            // transform-style: preserve-3d;
-            
             transform: rotate3d(1 ,0 ,0, 340deg);
             .cf-poster{
                 width: 100vw;
-                // height: 100%;
-                
                 filter: grayscale(0%);
+            }
+            @include breakpoint('mobileonly'){
+                display: none;
             }
         }
     }
@@ -645,7 +647,7 @@
         left: 0;
     }
     to{
-        left: -360vw;
+        left: -1000vw;
     }
 }
 
@@ -654,7 +656,7 @@
         left: 0;
     }
     to{
-        left: -750vw;
+        left: -1200vw;
     }
 }
 

@@ -10,6 +10,9 @@
     @include breakpoint('tablet'){
         width: 30vw;
     }
+    @include breakpoint('mobileonly'){
+        width: 50vw;
+    }
     .line-long{
         position: absolute;
         background-color: $colorLight;
@@ -18,42 +21,45 @@
         top: 0;
         right: 5%;
     }
-    .line-short{
+    .flag-inner-wrap{
         position: absolute;
-        background-color: $colorLight;
-        height: 5px;
-        width: 30%;
-        top: 10%;
-        right: 6%; 
+        @include text-rec(100%, 1.5rem, transparent, transparent, transparent);
+        // border: 2px solid red;
+        top: 15%;
+        right: 1.5%;
         @include breakpoint('mobileonly'){
-            top: 17%;
-        } 
-    }
-    .circle{
-        position: absolute;
-        background-color: $colorLight;
-        height: 20px;
-        width: 20px;
-        border-radius: 50%;
-        top: 9%;
-        right: 2%;
-        @include breakpoint('mobileonly'){
-            top: 16%;
-            right: 0;
-        }        
-    }
-    .flag{
-        position: absolute;
-        @include text-rec(70%, 1.5rem, $colorLight, $colorDark, transparent);
-        top: 7%;
-        right: 34%; 
-        box-shadow: $colorDarker -5px 5px 0px;
-        @include breakpoint('mobileonly'){
-            top: 14%;
-            width: 100%;
-        } 
+            top: 5%;
+            right: 0%;   
+        }
+        .flag{
+            position: absolute;
+            @include text-rec(70%, 1.5rem, $colorLight, $colorDark, transparent);
+            top: 0;
+            left: 0; 
+            box-shadow: $colorDarker -5px 5px 0px;
+        }
+        .line-short{
+            position: absolute;
+            background-color: $colorLight;
+            height: 5px;
+            width: 30%;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0; 
+        }
+        .circle{
+            position: absolute;
+            background-color: $colorLight;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0%;         
+        }
 
     }
+
 }
 
 

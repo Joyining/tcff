@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Flag from './flag';
+import Home01Text from "./home01-text";
+import Home01Img from "./home01-img";
 import '../sass/home.scss';
 
 import Home01Img01 from "../images/Home01Img01.jpg";
@@ -14,8 +16,8 @@ import Home01Img09 from "../images/Home01Img09.jpg";
 import Home01Img10 from "../images/Home01Img10.jpg";
 import Home01Img11 from "../images/Home01Img11.jpg";
 import Home01Img12 from "../images/Home01Img12.jpg";
-import logoSmall from "../images/logo-small.svg";
 
+import Home02ImgAll from "../images/Home02ImgAll.jpg";
 import Home02Img01 from "../images/Home02Img01.jpg";
 import Home02Img02 from "../images/Home02Img02.jpg";
 import Home02Img03 from "../images/Home02Img03.jpg";
@@ -59,6 +61,24 @@ class Home extends Component {
       this.scrollDetection = this.scrollDetection.bind(this);
       this.windowResize = this.windowResize.bind(this); 
       this.rotateSlide = this.rotateSlide.bind(this); 
+
+      this.state = {
+        flagType: ['確認放映', '募資中'],
+        home01Slide:[
+          { year: '1964', name: '007：金手指', award: '最具有重要里程碑意義的一部詹姆士龐德系列影片', time: '2018 | 07 | 14 20:30	誠品電影院', img:'Home01Img01'},
+          { year: '1964', name: '窈窕淑女', award: '奧斯卡最佳影片、男主角、導演、攝影、藝術指導、服裝設計等八項大獎', time: '2018 | 07 | 08 10:00	誠品電影院' },
+          { year: '1977', name: '安妮霍爾', award: '現代浪漫喜劇的典範，榮獲奧斯卡最佳影片、女主角、導演、原著劇本', time: '2018 | 07 | 12 19:30	台北光點' },
+          { year: '1974', name: '異形', award: '影史上的經典科幻片，獲得第52屆奧斯卡最佳視覺效果獎，榮登AFI百年百大驚悚電影第六名', time: '2018 | 07 | 03 19:30	誠品電影院' },
+          { year: '1905', name: 'xyz', award: 'uutt', time: '2018/08/09' },
+          { year: '1906', name: 'pqr', award: 'uutt', time: '2018/08/10' },
+          { year: '1907', name: 'pqr', award: 'uutt', time: '2018/08/10' },
+          { year: '1908', name: 'abc', award: 'uutt', time: '2018/08/08' },
+          { year: '1909', name: 'xyz', award: 'uutt', time: '2018/08/09' },
+          { year: '1910', name: 'pqr', award: 'uutt', time: '2018/08/10' },
+          { year: '1911', name: 'pqr', award: 'uutt', time: '2018/08/10' },
+          { year: '1912', name: 'pqr', award: 'uutt', time: '2018/08/10' },
+        ],
+      }
   }
 
   scrollDetection(){
@@ -91,76 +111,90 @@ class Home extends Component {
   }
 
   windowResize(){
-    const container = document.querySelector('.container-home');
-    // let bodyWidth = document.body.clientWidth;
-    let containerWidth = container.clientWidth;
-    // console.log(containerWidth);
-    let eclipseWidth = containerWidth * .9;
-    let posterWidth = eclipseWidth * .9;
-    const eclipses = document.querySelectorAll('.cf-circle');
-    const eclipse01 = document.querySelector(".cf-circle-01");
-    const marginTop = parseInt(window
-      .getComputedStyle(eclipse01)
-      .getPropertyValue("margin-top")
-      .replace("px", ""));
-    const imgs = document.querySelector(".cf01").children;
-    const imgHeight = imgs[0].clientHeight;
-    const btnHeight = document.querySelector(".cf-button").clientHeight;
-    // console.log(imgs[0]);
-    // console.log(marginTop);
-    // console.log(btnHeight);
+    if (!/Android|webOS|iPhone|iPad|BlackBerry|Windows Phone|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent)) {
+      const container = document.querySelector('.container-home');
+      // let bodyWidth = document.body.clientWidth;
+      let containerWidth = container.clientWidth;
+      // console.log(containerWidth);
+      let eclipseWidth = containerWidth * .9;
+      let posterWidth = eclipseWidth * .9;
+      const eclipses = document.querySelectorAll('.cf-circle');
+      const eclipse01 = document.querySelector(".cf-circle-01");
+      const marginTop = parseInt(window
+        .getComputedStyle(eclipse01)
+        .getPropertyValue("margin-top")
+        .replace("px", ""));
+      const imgs = document.querySelector(".cf01").children;
+      const imgHeight = imgs[0].clientHeight;
+      const btnHeight = document.querySelector(".cf-button").clientHeight;
+      // console.log(imgs[0]);
+      // console.log(marginTop);
+      // console.log(btnHeight);
+
+
+      const posters = document.querySelectorAll(".cf-poster");
+      Array.from(eclipses).forEach(eclipse => {
+        eclipse.style.width = `${eclipseWidth}px`;
+      });
+      eclipses[1].style.left = `${(containerWidth - eclipseWidth) / 2}px`;
+      eclipses[1].style.top = `${btnHeight + marginTop}px`;
+
+      Array.from(posters).forEach(poster => {
+        poster.style.width = `${posterWidth}px`;
+      })
+      let imgWidth = document.querySelector('.cf01').clientWidth;
+      let positionMove = Math.tan(10 * Math.PI / 180) * imgWidth;
+
+      const cfImgs = posters[0].children;
+      cfImgs[0].style.transform = `translateY(${positionMove * 2.5}px) skewY(-10deg)`;
+      cfImgs[1].style.transform = `translateY(${positionMove * 1.5}px) skewY(-10deg)`;
+      cfImgs[2].style.transform = `translateY(${positionMove * .5}px)skewY(-10deg)`;
+      cfImgs[4].style.transform = `translateY(${positionMove * .5}px)skewY(10deg)`;
+      cfImgs[5].style.transform = `translateY(${positionMove * 1.5}px) skewY(10deg)`;
+      cfImgs[6].style.transform = `translateY(${positionMove * 2.5}px) skewY(10deg)`;
+
+      const cfBg = posters[1].children;
+      cfBg[0].style.transform = `translateY(${positionMove * 2.5}px) skewY(-10deg)`;
+      cfBg[1].style.transform = `translateY(${positionMove * 1.5}px) skewY(-10deg)`;
+      cfBg[2].style.transform = `translateY(${positionMove * 0.5}px)skewY(-10deg)`;
+      cfBg[4].style.transform = `translateY(${positionMove * 0.5}px)skewY(10deg)`;
+      cfBg[5].style.transform = `translateY(${positionMove * 1.5}px) skewY(10deg)`;
+      cfBg[6].style.transform = `translateY(${positionMove * 2.5}px) skewY(10deg)`;
+
+      Array.from(posters).forEach(poster => {
+        poster.style.top = `-${positionMove * .5}px`;
+      })
+      // eclipses[1].style.top = `${btnHeight + marginTop + imgHeight*1.5}px`;
+
+    } else {
+      // ...
+    }
 
     
-    const posters = document.querySelectorAll(".cf-poster");
-    Array.from(eclipses).forEach(eclipse =>{
-      eclipse.style.width = `${eclipseWidth}px`;
-    });
-    eclipses[1].style.left = `${(containerWidth - eclipseWidth)/2}px`;
-    eclipses[1].style.top = `${btnHeight + marginTop}px`;
-    
-    Array.from(posters).forEach(poster =>{
-      poster.style.width = `${posterWidth}px`;
-    })
-    let imgWidth = document.querySelector('.cf01').clientWidth;
-    let positionMove = Math.tan(10 * Math.PI / 180) * imgWidth;
-    
-    const cfImgs = posters[0].children;
-    cfImgs[0].style.transform = `translateY(${positionMove*2.5}px) skewY(-10deg)`;
-    cfImgs[1].style.transform = `translateY(${positionMove*1.5}px) skewY(-10deg)`;
-    cfImgs[2].style.transform = `translateY(${positionMove*.5}px)skewY(-10deg)`;
-    cfImgs[4].style.transform = `translateY(${positionMove*.5}px)skewY(10deg)`;
-    cfImgs[5].style.transform = `translateY(${positionMove*1.5}px) skewY(10deg)`;
-    cfImgs[6].style.transform = `translateY(${positionMove*2.5}px) skewY(10deg)`;
-
-    const cfBg = posters[1].children;
-    cfBg[0].style.transform = `translateY(${positionMove * 2.5}px) skewY(-10deg)`;
-    cfBg[1].style.transform = `translateY(${positionMove * 1.5}px) skewY(-10deg)`;
-    cfBg[2].style.transform = `translateY(${positionMove * 0.5}px)skewY(-10deg)`;
-    cfBg[4].style.transform = `translateY(${positionMove * 0.5}px)skewY(10deg)`;
-    cfBg[5].style.transform = `translateY(${positionMove * 1.5}px) skewY(10deg)`;
-    cfBg[6].style.transform = `translateY(${positionMove * 2.5}px) skewY(10deg)`;
-
-    Array.from(posters).forEach(poster => {
-      poster.style.top = `-${positionMove * .5}px`;
-    })
-    
-
-    // eclipses[1].style.top = `${btnHeight + marginTop + imgHeight*1.5}px`;
-
   }
 
   rotateSlide(){
     const container = document.querySelector('.container-home');
-    let containerWidth = container.clientWidth;
     // console.log(`container width: ${containerWidth}`);
+    let containerWidth = container.clientWidth;
+    let rotateFn, sceneWidth, sceneHeight, sceneSize;;
+    if(/Android|webOS|iPhone|iPad|BlackBerry|Windows Phone|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent)){
+      rotateFn = "rotateX";
+      sceneWidth = containerWidth * 0.8;
+      sceneHeight = containerWidth * 0.5;
+      sceneSize = sceneHeight;
+    } else{
+      rotateFn = "rotateY";
+      sceneWidth = containerWidth * .42;
+      sceneHeight = containerWidth * .3;
+      sceneSize = sceneWidth;
+    }
+    console.log(rotateFn);
 
-    const sceneWidth = containerWidth*.40;
-    const sceneHeight = containerWidth*.27;
     const carousel = document.querySelector(".carousel");
-    
     const slides = document.querySelectorAll('.carousel_cell');
     const slideCount = slides.length;
-    const rotateYDiff = 360 / slideCount;
+    const rotateDiff = 360 / slideCount;
     let rotateDeg = 0;
 
     const scene = document.querySelector('.scene');
@@ -171,34 +205,29 @@ class Home extends Component {
     carousel.style.height = `${sceneHeight}px`;
     
 
-    const radius = parseFloat((sceneWidth / 2) / Math.tan((rotateYDiff / 2) * Math.PI / 180));
-    console.log(rotateYDiff);
+    const radius = parseFloat(sceneSize / 2 / Math.tan(rotateDiff / 2 * Math.PI / 180));
+    console.log(rotateDiff);
     console.log(radius);
     carousel.style.transform = `translateZ(-${radius}px)`;
 
-    // for (let i = 0; i < slides.length; i++) {
-    //   slides[i].style.transform = `rotateY(${rotateDeg}deg) translateZ(${radius}px)`;
-
-    //   let rotateDeg2 = rotateDeg;
-    //   setTimeout(function() {
-    //     rotateDeg2 -= .75;
-    //     slides[i].style.transform = `rotateY(${rotateDeg2}deg) translateZ(${radius}px)`;
-    //     }, i * 100, i);
-    //   rotateDeg += rotateYDiff;
+    // if (/Android|webOS|iPhone|iPad|BlackBerry|Windows Phone|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent)){
+    //   alert('mobile device');
     // }
 
+      
+
     Array.from(slides).forEach(slide => {
-      slide.style.transform = `rotateY(${rotateDeg}deg) translateZ(${radius}px)`;
+      slide.style.transform = `${rotateFn}(${rotateDeg}deg) translateZ(${radius}px)`;
       console.log(rotateDeg);
       console.log(window.getComputedStyle(slide).width);
       let rotateDeg2 = rotateDeg;
       let move = () => {  
         rotateDeg2 -= .75;
-        slide.style.transform = `rotateY(${rotateDeg2}deg) translateZ(${radius}px)`;
+        slide.style.transform = `${rotateFn}(${rotateDeg2}deg) translateZ(${radius}px)`;
         setTimeout(move, 100);
       }
       move();
-      rotateDeg += rotateYDiff;
+      rotateDeg += rotateDiff;
     })
 
     const textBoxes = document.querySelectorAll('.text-box');
@@ -288,6 +317,8 @@ class Home extends Component {
       }, 1400);
     }
     titleText()
+
+    console.log(this.state);
   }
 
   componentWillUnmount(){
@@ -307,227 +338,59 @@ class Home extends Component {
               <Link to="/films" className="carousel_cell transition">
                 <img src={Home01Img01} alt="" />
               </Link>
-              <Link to="/films" className="carousel_cell transition text-box">
-                <div className="year">1964</div>
-                <div className="name">
-                  007：金手指
-                </div>
-                <div className="award">
-                  第37届奥斯卡最佳音效<br/>
-                  當年引發了間諜電影的潮流<br/>
-                  影片裡的許多元素成為日後007固定的元素及套路
-                </div>
-                <div className="logo-time">
-                  <div className="logo">
-                  <img src={logoSmall} alt="" className="" />
-                  </div>
-                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
-                </div>
-              </Link>
+              {/* <Home01Img home01Slide={this.state.home01Slide[0]} /> */}
+              <Home01Text home01Slide={this.state.home01Slide[0]} />
               <Link to="/films" className="carousel_cell transition">
                 <img src={Home01Img02} alt="" />
               </Link>
-              <Link to="/films" className="carousel_cell transition text-box">
-                <div className="year">1964</div>
-                <div className="name">窈窕淑女</div>
-                <div className="award">
-                    第37届奥斯卡最佳音效
-                    當年引發了間諜電影的潮流
-                    影片裡的許多元素成為日後007固定的元素及套路
-                  </div>
-                <div className="logo-time">
-                  <div className="logo">
-                    <img src={logoSmall} alt="" className="" />
-                  </div>
-                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
-                </div>
-              </Link>
+              <Home01Text home01Slide={this.state.home01Slide[1]} />
               <Link to="/films" className="carousel_cell transition">
                 <img src={Home01Img03} alt="" />
               </Link>
-              <Link to="/films" className="carousel_cell transition text-box">
-                <div className="year">1977</div>
-                <div className="name">安妮霍爾</div>
-                <div className="award">
-                      第37届奥斯卡最佳音效
-                      當年引發了間諜電影的潮流
-                      影片裡的許多元素成為日後007固定的元素及套路
-                    </div>
-                <div className="logo-time">
-                  <div className="logo">
-                    <img src={logoSmall} alt="" className="" />
-                  </div>
-                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
-                </div>
-              </Link>
+              <Home01Text home01Slide={this.state.home01Slide[2]} />
               <Link to="/films" className="carousel_cell transition">
                 <img src={Home01Img04} alt="" />
               </Link>
-              <Link to="/films" className="carousel_cell transition text-box">
-                <div className="year">1964</div>
-                <div className="name">窈窕淑女</div>
-                <div className="award">
-                  第37届奥斯卡最佳音效
-                  當年引發了間諜電影的潮流
-                  影片裡的許多元素成為日後007固定的元素及套路
-                    </div>
-                <div className="logo-time">
-                  <div className="logo">
-                    <img src={logoSmall} alt="" className="" />
-                  </div>
-                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
-                </div>
-              </Link>
+              <Home01Text home01Slide={this.state.home01Slide[3]} />
               <Link to="/films" className="carousel_cell transition">
                 <img src={Home01Img05} alt="" />
               </Link>
-              <Link to="/films" className="carousel_cell transition text-box">
-                <div className="year">1964</div>
-                <div className="name">窈窕淑女</div>
-                <div className="award">
-                  第37届奥斯卡最佳音效
-                  當年引發了間諜電影的潮流
-                  影片裡的許多元素成為日後007固定的元素及套路
-                    </div>
-                <div className="logo-time">
-                  <div className="logo">
-                    <img src={logoSmall} alt="" className="" />
-                  </div>
-                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
-                </div>
-              </Link>
+              <Home01Text home01Slide={this.state.home01Slide[4]} />
               <Link to="/films" className="carousel_cell transition">
                 <img src={Home01Img06} alt="" />
               </Link>
-              <Link to="/films" className="carousel_cell transition text-box">
-                <div className="year">1964</div>
-                <div className="name">窈窕淑女</div>
-                <div className="award">
-                  第37届奥斯卡最佳音效
-                  當年引發了間諜電影的潮流
-                  影片裡的許多元素成為日後007固定的元素及套路
-                    </div>
-                <div className="logo-time">
-                  <div className="logo">
-                    <img src={logoSmall} alt="" className="" />
-                  </div>
-                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
-                </div>
-              </Link>
+              <Home01Text home01Slide={this.state.home01Slide[5]} />
               <Link to="/films" className="carousel_cell transition">
                 <img src={Home01Img07} alt="" />
               </Link>
-              <Link to="/films" className="carousel_cell transition text-box">
-                <div className="year">1964</div>
-                <div className="name">窈窕淑女</div>
-                <div className="award">
-                  第37届奥斯卡最佳音效
-                  當年引發了間諜電影的潮流
-                  影片裡的許多元素成為日後007固定的元素及套路
-                    </div>
-                <div className="logo-time">
-                  <div className="logo">
-                    <img src={logoSmall} alt="" className="" />
-                  </div>
-                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
-                </div>
-              </Link>
+              <Home01Text home01Slide={this.state.home01Slide[6]} />
               <Link to="/films" className="carousel_cell transition">
                 <img src={Home01Img08} alt="" />
               </Link>
-              <Link to="/films" className="carousel_cell transition text-box">
-                <div className="year">1964</div>
-                <div className="name">窈窕淑女</div>
-                <div className="award">
-                  第37届奥斯卡最佳音效
-                  當年引發了間諜電影的潮流
-                  影片裡的許多元素成為日後007固定的元素及套路
-                    </div>
-                <div className="logo-time">
-                  <div className="logo">
-                    <img src={logoSmall} alt="" className="" />
-                  </div>
-                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
-                </div>
-              </Link>
+              <Home01Text home01Slide={this.state.home01Slide[7]} />
               <Link to="/films" className="carousel_cell transition">
                 <img src={Home01Img09} alt="" />
               </Link>
-              <Link to="/films" className="carousel_cell transition text-box">
-                <div className="year">1964</div>
-                <div className="name">窈窕淑女</div>
-                <div className="award">
-                  第37届奥斯卡最佳音效
-                  當年引發了間諜電影的潮流
-                  影片裡的許多元素成為日後007固定的元素及套路
-                    </div>
-                <div className="logo-time">
-                  <div className="logo">
-                    <img src={logoSmall} alt="" className="" />
-                  </div>
-                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
-                </div>
-              </Link>
+              <Home01Text home01Slide={this.state.home01Slide[8]} />
               <Link to="/films" className="carousel_cell transition">
                 <img src={Home01Img10} alt="" />
               </Link>
-              <Link to="/films" className="carousel_cell transition text-box">
-                <div className="year">1964</div>
-                <div className="name">窈窕淑女</div>
-                <div className="award">
-                  第37届奥斯卡最佳音效
-                  當年引發了間諜電影的潮流
-                  影片裡的許多元素成為日後007固定的元素及套路
-                    </div>
-                <div className="logo-time">
-                  <div className="logo">
-                    <img src={logoSmall} alt="" className="" />
-                  </div>
-                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
-                </div>
-              </Link>
+              <Home01Text home01Slide={this.state.home01Slide[9]} />
               <Link to="/films" className="carousel_cell transition">
                 <img src={Home01Img11} alt="" />
               </Link>
-              <Link to="/films" className="carousel_cell transition text-box">
-                <div className="year">1964</div>
-                <div className="name">窈窕淑女</div>
-                <div className="award">
-                  第37届奥斯卡最佳音效
-                  當年引發了間諜電影的潮流
-                  影片裡的許多元素成為日後007固定的元素及套路
-                    </div>
-                <div className="logo-time">
-                  <div className="logo">
-                    <img src={logoSmall} alt="" className="" />
-                  </div>
-                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
-                </div>
-              </Link>
+              <Home01Text home01Slide={this.state.home01Slide[10]} />
               <Link to="/films" className="carousel_cell transition">
                 <img src={Home01Img12} alt="" />
               </Link>
-              <Link to="/films" className="carousel_cell transition text-box">
-                <div className="year">1964</div>
-                <div className="name">窈窕淑女</div>
-                <div className="award">
-                  第37届奥斯卡最佳音效
-                  當年引發了間諜電影的潮流
-                  影片裡的許多元素成為日後007固定的元素及套路
-                    </div>
-                <div className="logo-time">
-                  <div className="logo">
-                    <img src={logoSmall} alt="" className="" />
-                  </div>
-                  <div className="time">2018/07/14 (六) 20:30 誠品電影院</div>
-                </div>
-              </Link>
+              <Home01Text home01Slide={this.state.home01Slide[11]} />
+
             </div>
           </div>
         </div>
         <section className="container-home">
           <div className="home02">
-            <Flag />
+            <Flag flagType={this.state.flagType[0]}/>
             <div className="text-wrap">
               <div className="slogon">
                 <div>
@@ -565,8 +428,8 @@ class Home extends Component {
               </div>
               <div className="inside">
                 <div className="image">
-                  <div className="slide transition">
-                    <img src={Home02Img01} alt="" />
+                  {/* <div className="slide transition"> */}
+                    {/* <img src={Home02Img01} alt="" />
                     <img src={Home02Img02} alt="" />
                     <img src={Home02Img03} alt="" />
                     <img src={Home02Img04} alt="" />
@@ -575,8 +438,8 @@ class Home extends Component {
                     <img src={Home02Img07} alt="" />
                     <img src={Home02Img08} alt="" />
                     <img src={Home02Img09} alt="" />
-                    <img src={Home02Img10} alt="" />
-                  </div>
+                    <img src={Home02Img10} alt="" /> */}
+                  {/* </div> */}
                 </div>
                 <div className="title-wrap">
                   <div className="inner">
@@ -610,7 +473,7 @@ class Home extends Component {
             </div>
           </div>
           <div className="home03">
-            <Flag />
+            <Flag flagType={this.state.flagType[1]}/>
             <div className="text-wrap">
               <div className="slogon">
                 <div>
