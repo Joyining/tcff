@@ -10,6 +10,42 @@
     margin-top: 100px;
     }
 }
+.container-cf{
+    padding: 100px;
+	width: 80vw;
+	box-sizing: border-box;
+    margin: 10px auto ;
+    margin-top: 250px;
+    height: 30em;
+    background-color: $colorMedium ;
+    background-image: url(../images/Unclesamwantyou2.png);
+    background-repeat: no-repeat; 
+    background-position: center;
+    background-position-y: -80px;
+    overflow: hidden;
+    .title{
+    @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
+    }
+    .about{
+    @include paragraph($colorDarker);
+    
+    }
+}
+.container-cfFilms{
+    padding: 100px;
+	width: 80vw;
+	box-sizing: border-box;
+    margin: 10px auto ;
+    background-color: $colorMedium;
+    .title{
+    @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
+    }
+    .about{
+    @include paragraph($colorDarker);
+        
+        padding: 30px;
+    }
+}
 .flex{
     display: flex;
     flex-wrap: wrap;
@@ -46,4 +82,38 @@ a:hover .system{
     color: #602926;
     background-color: #cbab9e;
     border: 1px solid #602926;
+}
+@media screen and (max-width: 1030px){
+    .container-cf{
+        height: 20em;
+        background-position-y: -90px;
+        background-size: 600px;
+    }
+    .container-cfFilms{
+        padding: 10px;
+        
+    }
+}
+@media screen and (max-width: 830px){
+    .container-cf{
+        margin-top: 200px;
+        height: 15em;
+        background-position-y: -40px;
+        background-size: 400px;
+    }
+}
+@media screen and (max-width: 550px){
+    .container-cf{
+        background-position-y: -10px;
+        height: 10em;
+        background-size: 300px;
+        
+    }
+}
+@media screen and (max-width: 460px){
+    .container-cf{
+        height: 5em;
+        background-position-y: 0;
+        background-size: 290px;
+    }
 }

@@ -85,13 +85,11 @@ class Cffilms2 extends Component {
   render() {
     return (
         <div>
-        <section className="container">
+        <section className="container-cf">
 
         </section>
-        <section className="container">
-            <div className="about">
-                <p>最受歡迎的電影-給我一個看電影的理由Reason of Movie</p>
-            </div>
+        <section className="container-cfFilms">
+            
             <div id="mycard" className="flex">
             {
                 this.state.movie.map((movie,i) =>

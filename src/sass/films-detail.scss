@@ -1,6 +1,10 @@
 @import "partials/basic";
 
-.container{
+.container-filmsDetail{
+    padding: 100px;
+	width: 80vw;
+	box-sizing: border-box;
+    margin: 10px auto ;
     background-color: $colorMedium;
     .title{
     @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
@@ -8,8 +12,9 @@
     .about{
     @include paragraph($colorDarker);
     }
-    margin: 10px auto;
+    
 }
+
 
 .box3{
     width: 80%;
@@ -28,7 +33,9 @@
     margin: 0 auto;
     background: $colorMedium;
 }
-.myfilename{
+
+// 片名區
+.myfilmname{
     width:300px;
     display: flex;
     text-align: center;
@@ -37,17 +44,9 @@
 #h01{
     border-right: 5px solid white;
 }
-.box3 h2{
+.box3 h1{
     padding: 20px;
 
-}
-.box2 p{
-    color: #8e5f59;
-}
-
-.test{
-    width: 100%;
-    height: 250px;
 }
 .myfont{
     display: flex;
@@ -64,7 +63,7 @@
     margin-top: 10px;
     text-align: center;
 }
-.box3 a{
+.myfont a{
     margin-top: 10px;
 }
 .l_font{
@@ -84,6 +83,12 @@ a{
     border: 1px solid white;
     padding: 10px;
 }
+
+// 導演 演員表
+.box2 p{
+    color: #8e5f59;
+}
+
 .mycontain{
     display: flex;
     padding: 1em 0;
@@ -197,9 +202,7 @@ a{
 .fadeIn-bottom{
   top: 80%;
 }
-.post{
-    width: 60%;
-}
+
 /* Slideshow container */
 ul,li{
     margin: 0;
@@ -309,6 +312,9 @@ li{
 }
 
 @media screen and (max-width: 1030px){
+    .container-filmsDetail{
+        width: 90vw;        
+    }
     .box2{
         width: 90vw;
     }
@@ -335,6 +341,10 @@ li{
     
      }
      @media screen and (max-width: 550px){
+        .container-filmsDetail{
+            width: 90vw;
+            padding: 30px;
+        }
         .myfont{
             width: 100%;
         }
