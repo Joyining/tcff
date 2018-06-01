@@ -226,7 +226,7 @@ class Header extends Component {
                 <li className="nav-text-li transition"><Link to="/article" className="transition">電影賞析</Link></li>
             </ul>
             <div className="nav-icon web">
-                <Link to="/my-film" onClick={this.menuClose}><img className="transition" src={ticket} alt="" /></Link>
+                <Link to="/my-film/1" onClick={this.menuClose}><img className="transition" src={ticket} alt="" /></Link>
                 <Link to="/member" onClick={this.menuClose}><img  className="transition" src={member} alt="" /></Link>
                 <div className="menu-icon transition">
                     <div className="line-1 no-animation transition"></div>
@@ -237,8 +237,8 @@ class Header extends Component {
             <div className="nav-icon mobile">
                 <div className="icon">
                     <Link to="/time" onClick={this.menuClose}><img src={calendar} alt="" /></Link>
-                    <Link to="/my-film" onClick={this.menuClose}><img className="transition" src={ticket} alt="" /></Link>
-                    <Link to="/my-film" onClick={this.menuClose}><img src={fastTicket} alt="" /></Link>
+                    <Link to="/my-film/1" onClick={this.menuClose}><img className="transition" src={ticket} alt="" /></Link>
+                    <Link to="/my-film/1" onClick={this.menuClose}><img src={fastTicket} alt="" /></Link>
                     <Link to="/member" onClick={this.menuClose}><img className="transition" src={member} alt="" /></Link>
                     <div className="menu-icon transition">
                         <div className="line-1 no-animation transition"></div>
@@ -248,8 +248,8 @@ class Header extends Component {
                 </div>
                 <ul className="text">
                     <li><Link to="/time" onClick={this.menuClose}>場次表</Link></li>
-                    <li><Link to="/my-film" onClick={this.menuClose}>我的票夾</Link></li>
-                    <li><Link to="/my-film" onClick={this.menuClose}>快速購票</Link></li>
+                    <li><Link to="/my-film/1" onClick={this.menuClose}>我的票夾</Link></li>
+                    <li><Link to="/my-film/1" onClick={this.menuClose}>快速購票</Link></li>
                     <li><Link to="/member" onClick={this.menuClose}>會員登入</Link></li>
                     <li><a href="">主選單</a></li>
                 </ul>

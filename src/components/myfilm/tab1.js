@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import Cb from './myfilm/cb'
-import '../sass/myfilm.scss';
+import Cb from './cb';
+import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
+import '../myfilm/tab1.scss';
 
-class MyFilm extends Component {
+class Tab1 extends Component {
   constructor(props){
     super(props);
-    this.changeTab = this.changeTab.bind(this);
+    // this.changeTab = this.changeTab.bind(this);
     this.del_collection = this.del_collection.bind(this);
     this.add_collection = this.add_collection.bind(this);
     this.add_item = this.add_item.bind(this);
@@ -24,6 +25,8 @@ class MyFilm extends Component {
     this.temp = [];
   }
   componentDidMount(){
+    // console.log(Store);
+    
     // fetch(`http://192.168.39.110:3000/${process.env.PUBLIC_URL}/component/collection.json`)
     fetch(`${process.env.PUBLIC_URL}/json/collection.json`)
       .then(res => res.json())
@@ -53,6 +56,7 @@ class MyFilm extends Component {
   }
   componentDidUpdate(){
     console.log('didupdate');
+    Array.from(document.querySelectorAll(".cb input")).forEach(cb => cb.checked = true);
   }
   cancelOverlay(event){
     let target = event.target;
@@ -116,6 +120,7 @@ class MyFilm extends Component {
     let target = event.target;
     let inputFor = target.getAttribute("for");
     let isCheck = target.previousSibling.checked;
+    console.log(isCheck);
     let tbody = target.closest("tbody");
     let allItemChecked = isCheck ? tbody.querySelectorAll('input:checked').length - 1 : tbody.querySelectorAll('input:checked').length+1;
     let allItem = tbody.querySelectorAll('input').length;
@@ -286,33 +291,32 @@ class MyFilm extends Component {
       this.temp.push(target);
     }
   }
-  changeTab(event){
-    let target = event.target;
-    let tabs = document.querySelectorAll(".tab")
-    // event.stopPropagation();
-    Array.from(tabs).forEach(function(tab){
-      tab.classList.remove('active'); // tab content
-    })
-    // console.log("parent", target.parentElement.parentElement)
-    let index = Array.from(document.querySelectorAll(".step")).indexOf(target);
-    // target.parentElement.parentElement.classList.add("active");
-    tabs[index].classList.add("active");
-    Array.prototype.forEach.call(document.querySelectorAll('.step'), function(el){
-      el.classList.remove('active');
-    })
-    // console.log(tab);
-    // tab.classList.remove('active');
-    console.log(tabs);
-    target.classList.add('active'); //step
+  // changeTab(event){
+  //   let target = event.target;
+  //   let tabs = document.querySelectorAll(".tab")
+  //   // event.stopPropagation();
+  //   Array.from(tabs).forEach(function(tab){
+  //     tab.classList.remove('active'); // tab content
+  //   })
+  //   // console.log("parent", target.parentElement.parentElement)
+  //   let index = Array.from(document.querySelectorAll(".step")).indexOf(target);
+  //   // target.parentElement.parentElement.classList.add("active");
+  //   tabs[index].classList.add("active");
+  //   Array.prototype.forEach.call(document.querySelectorAll('.step'), function(el){
+  //     el.classList.remove('active');
+  //   })
+  //   // console.log(tab);
+  //   // tab.classList.remove('active');
+  //   console.log(tabs);
+  //   target.classList.add('active'); //step
 
-  }
+  // }
   render() {
     return (
-      <section className="container">
-        <div className="myfilmPage">
-          <div className="overlay">
-            <div className="wrap">
-              <h3>加入更多片單</h3>
+          <div className="tab tab1 active"> 
+            <div className="overlay">
+              <div className="wrap">
+                <h3>加入更多片單</h3>
                 <div className="panel">
                   <div className="selected">
                     <div className="title">
@@ -348,7 +352,7 @@ class MyFilm extends Component {
                         ))
                       }
                     </ul>
-                    </div>
+                  </div>
                   <div className="options">
                     <div className="films">
                       <div className="title">
@@ -363,7 +367,7 @@ class MyFilm extends Component {
                           ))
                         }
                       </div>
-                      </div>
+                    </div>
                     <div className="cffilms">
                       <div className="title">
                         募資
@@ -371,7 +375,7 @@ class MyFilm extends Component {
                       <div className="items">
                         {
                           this.state.all_cffilms.map((film, idx) => (
-                          <div key={idx} className={`item ${film.select ? 'selected' : 'notSelected'}`} data-id-movie={film.id} onClick={this.add_item}>
+                            <div key={idx} className={`item ${film.select ? 'selected' : 'notSelected'}`} data-id-movie={film.id} onClick={this.add_item}>
                               {film.name}
                             </div>
                           ))
@@ -381,27 +385,12 @@ class MyFilm extends Component {
                         <input type="button" value="取消" onClick={this.cancelOverlay} />
                         <input type="button" value="確定" onClick={this.cancelOverlay} />
                       </div>
-                      </div>
                     </div>
                   </div>
+                </div>
               </div>
             </div>
-          <div className="progressBar">
-            <div className="step step1 active" onClick={this.changeTab}>
-              STEP1. <span>勾選欲購買之場次</span>
-            </div>
-            <div className="step step2" onClick={this.changeTab}>
-              STEP2. <span>選擇張數及劃位</span>
-            </div>
-            <div className="step step3" onClick={this.changeTab}>
-              STEP3. <span>選擇付款方式</span>
-            </div>
-            <div className="step step4" onClick={this.changeTab}>
-              STEP4. <span>完成結帳</span>
-            </div>
-            </div>
 
-          <div className="tab tab1 active"> 
             <table className="films">
               <thead>
                   <tr>
@@ -467,22 +456,13 @@ class MyFilm extends Component {
             </table>
             <div className="buttons">
               <button type="button" onClick={this.add_collection}>+ 加入更多片單</button>
-              <button type="button">下一步</button>
+              <Link to="/my-film/2" onClick={this.nextStep}>下一步</Link>
             </div>
             </div>
-          <div className="tab tab2">
-            Tab2
-              </div>
-          <div className="tab tab3">
-            Tab3
-              </div>
-          <div className="tab tab4">
-            Tab4
-            </div>
-          </div>
-        </section>
+          
+
     );
   }
 }
 
-export default MyFilm;
+export default Tab1;

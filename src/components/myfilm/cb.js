@@ -8,8 +8,9 @@ class Cb extends Component {
         super(props);
         // this.handleCheck = this.handleCheck.bind(this);
     }
-    // componentDidMount() {
-    // }
+    componentDidMount() {
+        
+    }
     // handleCheck(evt){
     //     let target = evt.target;
     //     console.log(target);

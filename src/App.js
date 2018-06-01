@@ -22,7 +22,7 @@ class App extends Component {
           {/* 路由對照設定 */}
           <Route exact path="/" component={HomePage} />
           <Route path="/member" component={MemberPage} />
-          <Route path="/my-film" component={MyFilmPage} />
+          <Route path="/my-film/:page" component={MyFilmPage} />
           <Route path="/films" component={FilmsPage} />
           <Route path="/cf-films" component={CfFilmsPage} />
           <Route path="/films-detail-page" component={FilmsDetailPage} />

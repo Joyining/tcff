@@ -1,0 +1,27 @@
+.myfilmPage{
+    // filter: blur(5px);
+    // overflow: auto;
+    height: 100%;
+    .progressBar{
+        margin: 10px auto;
+        background-color: #ccc;
+        display: flex;
+        &>a{
+            padding-left: 10px;
+            height: 45px;
+            line-height: 45px;
+            color: white;
+            flex:1;
+            display: block;
+            border: 2px solid lightblue;
+            background-color: #333;
+            span{
+                margin-left: 5px;
+            }
+            &.active{
+                background-color: #fff;
+                color: #333;
+            }
+        }
+    }
+}

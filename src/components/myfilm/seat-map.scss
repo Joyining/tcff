@@ -1,0 +1,76 @@
+.seat-map{
+    table{
+        border: 2px solid #ccc;
+        max-width: 80vh;
+        margin: 100px auto;
+        border-collapse: separate;
+        border-spacing: 5px;
+        background-color: cadetblue;
+        // max-height: 80vh;
+        // box-shadow: 5px 5px 5px lightcoral;
+        thead{
+            // display: flex;
+            // justify-content: center;
+            // margin: 0 auto;
+            tr{
+                // display: flex;
+                // justify-content: center;
+
+                th{
+                    background-color: rgba(0,0,0,0);
+                    height: 80px;
+                    // margin: 0 auto;
+                    // display: block;
+                    span{
+                        background-color: #ccc;
+                        display: block;
+                        margin: 0 auto;
+                        width: 60%;
+                        padding: 10px;
+
+                    }
+                }
+            }
+        }
+        
+        tr{
+            margin: 5px;
+        }
+    }
+    td{
+        width: 10px;
+        height: 10px;
+        border: 1px solid white;
+        margin: 5px;
+        color: black;
+        font-weight: 600;
+        padding: 15px;
+        background-color: lightblue;
+        &.available{
+            background-color: teal;
+            cursor: pointer;
+            transition: all .5s;
+            &:hover{
+                background-color: lighten(teal, 10%);
+                // color: crimson;
+            }
+            &.picked{
+                background-color: rgb(235, 91, 48);
+                color: black;
+            }
+        }
+        &.occupied{
+            background-color: rgba(0,0,0,.5);
+            cursor: auto;
+            color: rgba(255,255,255,.5);
+        }
+        &.empty{
+            opacity: 0;
+        }
+        &.row{
+            background-color: rgba(0,0,0,0);
+            color: black;
+            
+        }
+    }
+}

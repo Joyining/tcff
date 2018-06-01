@@ -29,7 +29,7 @@ class FastTicket extends Component {
     render() {
         return(
             <div className="fast-ticket">
-                <Link to="/my-film" onClick={this.menuClose}><img src={fastTicket} alt="" /></Link>
+                <Link to="/my-film/1" onClick={this.menuClose}><img src={fastTicket} alt="" /></Link>
             </div>
         );
     }
