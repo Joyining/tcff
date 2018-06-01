@@ -13,40 +13,39 @@ class Member extends Component{
             $('.turn').toggleClass('flip');
         })
 
-        // $('.sign_up').click(function(){
-        //     $('.turn').toggleClass('sign_up_flip');
-        // })
-
-        // $('.sign_up').click(function(){
-        //     $('.turn').toggleClass('sign_up_flip');
-        //     $('.sign_up').addClass('.color');
-        //     $('.login_f_p').empty();
-        // })
-
         $('.sign_up').click(function(){
             $('.turn').toggleClass('sign_up_flip');
             $('.turn_b').toggleClass('sign_up_down_flip');        
+            $('.registered_f').css("z-index","10") ;
+            $('.turn').css("z-index","-1") ;
+            $('.login_f_p').css("background-color","rgb(100, 26, 29)");
             $('.login_f_p').empty();
+            $('.login_f').empty();
         })
-        $('.sign_up_2').click(function(){
-            $('.registered_f').addClass('zindex');
-            $('.login_f_p').addClass('color');   
-        }) 
 
-        $('.sign_up_r').click(function(){
-            $('.turn_b').toggleClass('sign_up_down_flip');
+        $('.sign_up').click(function(){
+            const windowWidth=$(window).width();
+            const table = document.querySelector(".container");
+            if(windowWidth <= 1024){
+                $(table).css("dispaly","none");
+            }
         })
+
+
     }
+
+
+
     render(){
         return(
             <section className="container">
-                <div className="container-member display">
+                <div className="container-member">
 
                         <div className="turn_b front">
                             <div className="login_b place back_animate"></div>
 
                         {/* 會員註冊 */}
-                            <div className="registered_f back_animate back">
+                            <div className="registered_f back_animate back_r ">
                                 <div className="registered_word">會 員 註 冊</div>
                                 <div className="account_box_r">
                                     <div className="account_r">帳號：</div>
@@ -70,11 +69,11 @@ class Member extends Component{
                                     <div className="worring_r">請輸入註冊密碼</div>
                                 </div>
                                 <div className="btn_box_r">
-                                    <button className="registered_btn"><div>註冊</div></button>
+                                    <button className="registered_btn mouse"><div>註冊</div></button>
                                 </div>
                                 <div className="word_r">已有帳號?</div>
                                 <div className="btn_box_r">
-                                    <button className="registered_r sign_up_r"><div>登入</div></button>                    
+                                    <button className="registered_r sign_up_r mouse"><div>登入</div></button>                    
                                 </div>
                             </div>
                         </div>
@@ -91,10 +90,10 @@ class Member extends Component{
                                         <div className="password_1">密碼：</div>
                                         <input type="password" className="password_2"/>
                                     </div>
-                                    <button className="login_btn"><div >登入</div></button>
+                                    <button className="login_btn mouse"><div >登入</div></button>
                                     <div className="btn_box">
-                                        <button  className="registered sign_up"><div>註冊</div></button>
-                                        <button  className="registered forget_p"><div>忘記密碼</div></button>
+                                        <button  className="registered sign_up mouse"><div>註冊</div></button>
+                                        <button  className="registered forget_p mouse"><div>忘記密碼</div></button>
                                     </div>
                                 </div>
 
@@ -109,10 +108,10 @@ class Member extends Component{
                                     <div className="worring_box_p">
                                             <div className="worring_p">請輸入註冊帳號</div>
                                     </div>
-                                    <button className="login_btn_p"><div>確認送出</div></button>
+                                    <button className="login_btn_p mouse"><div>確認送出</div></button>
                                     <div className="btn_box_p">
-                                        <button  className="registered_p  sign_up sign_up_2"><div>註冊</div></button>
-                                        <button  className="registered_p  login_btn_t"><div>登入</div></button>
+                                        <button  className="registered_p sign_up mouse"><div>註冊</div></button>
+                                        <button  className="registered_p login_btn_t mouse"><div>登入</div></button>
                                     </div>
                                 </div>                 
                             </div>

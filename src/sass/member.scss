@@ -7,7 +7,6 @@
     padding: 10px 0 ;
     position: relative ;
     margin: -8% auto;
-    z-index: 1;
 
 .place{
     width: 45vh;
@@ -54,12 +53,8 @@
     display: none ;
 }
 
-.color{
-    background-color: $colorDarker ;
-}
-
-.zindex{
-    z-index: 2;
+.mouse{ 
+    cursor: pointer; 
 }
 
 //-----------**animate設定**-----------
@@ -109,8 +104,23 @@
         backface-visibility: hidden;
     }
 
+    .back_r{
+        backface-visibility: hidden;
+        @include breakpoint("tablet"){
+            backface-visibility: hidden;
+        }    
+    }
+
     .sign_up_flip{
-        transform: rotateY( 180deg ) translateX(49%) translateY(-80%) ;
+        transform: rotateY( 180deg ) translateX(100%) translateY(-80%) ;
+        @include breakpoint("tablet"){
+            transform: rotateY( 180deg ) translateX(63%) translateY(-50%) ; 
+            background-color:transparent ;   
+        }
+        @include breakpoint("mobileonly"){
+            transform: rotateY( 180deg )translateX(50%) translateY(-50%) ; 
+            background-color:transparent ;   
+        }
     }
 
     .sign_up_down_flip{
@@ -324,12 +334,12 @@
 
         @include breakpoint("tablet"){
             animation-name: none;
-            display: none ;    
+            // display: none ;
         }
 
         @include breakpoint("mobileonly"){
             animation-name: none;
-            display: none ;
+            // display: none ;
         }
     }
 
@@ -352,7 +362,7 @@
     transform-style: preserve-3d;
     transition:1s all ;
     // background: #57abff ;
-    // position: relative;
+    // position: absolute;
     // left: 10% ;
     // top:30% ;
 }
@@ -367,15 +377,17 @@
         // transform: translateX(-50%) translateY(17%);
         position: absolute ;
         background-color: #75eadb ; 
-        // z-index: 10 ;
         
         @include breakpoint("tablet"){
             width: 40vh;
+            left: 44.5%;
+            transform: translateX(-50%) translateY(-5%) rotateY(180deg) ;
         }
         @include breakpoint("mobileonly"){
             width: 40vh;
             height: 600px;
-            top: 48% ;
+            left:49.5% ;
+            transform: translateX(-50%) translateY(-6.5%) rotateY(180deg) ;
         }
 
             .registered_word{
@@ -474,6 +486,7 @@
  
          @include breakpoint("tablet"){
             width: 40vh;
+            display: none ;
          }
     
     }
