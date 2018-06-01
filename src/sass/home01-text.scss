@@ -1,0 +1,61 @@
+@import "partials/basic";
+
+.carousel_cell{
+    &.text-box{
+        background-color: $colorLight;
+        padding: 20px;
+        box-sizing: border-box;
+        text-align: center;
+        font-weight: bold;
+        .year{
+            font-size: 2rem;
+            line-height: 4rem;
+            color: $colorDarker;
+        }
+        .name{
+            font-size: 1.5rem;
+            line-height: 3rem;
+            color: $colorDarker;
+        }
+        .time{
+            color: $colorDark;
+            font-size: .8rem;
+            line-height: 1.6rem; 
+        }
+        .award{   
+            font-size: 1rem;
+            line-height: 2rem; 
+            // display: none;
+        }
+        .logo-time{
+            position: absolute;
+            width: 100%;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .logo{
+            width: 30%;
+            height: 20%;
+            margin: 0 auto;
+            // margin-top: 10%;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        &:link, &:visited{
+            color: $colorDarker;
+        }
+        .year, .name, .award, .logo-time{
+            opacity: 0;
+        }
+        &.animate{
+            .year, .name, .award, .logo-time{
+                animation: show-text-box 48s infinite ease-in;
+            }
+        }
+    }
+}
+            
