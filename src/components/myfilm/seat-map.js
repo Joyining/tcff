@@ -11,13 +11,23 @@ class SeatMap extends Component {
     }
     // componentDidMount() {
     // }
-    createSeats(occupiedSeats){
+    createSeats(seatOfFilm){
         let table = [];
         this.allSeatsNum = 0;
 
         // Outer loop to create parent ((3+6+3)cols * 9rows)=108seats
         let noSeatCol = [1,5,12];
         // let allSeatsNum = 0;
+        // console.log("atfirst: ", seatOfFilm);
+        if (seatOfFilm.occupied == undefined) return;
+        // console.log(seatOfFilm == null)
+        // console.log(seatOfFilm === null)
+        // console.log(seatOfFilm == undefined)
+        // console.log(seatOfFilm === undefined)
+        // console.log(seatOfFilm.length)
+        // console.log(seatOfFilm.occupied == undefined)
+        // else{
+        // console.log("after: ", seatOfFilm);
         for (let i = 0; i < 9; i++) {
             let children = []
             //Inner loop to create children
@@ -38,9 +48,17 @@ class SeatMap extends Component {
                 // console.log("still");
                 this.allSeatsNum++;
                 // let col = (<td className="available occupied">{`${this.allSeatsNum}`}</td>);
-                occupiedSeats.map(num => {
+                seatOfFilm.occupied.map(num => {
                     if (this.allSeatsNum === num) {
                         children.push(<td className="occupied" data-seat-num={this.allSeatsNum} data-row={String.fromCharCode(65 + i)}>{`${((this.allSeatsNum-1) % 12) +1}`}</td>);
+                        // console.log("return");
+                        return;
+                    }
+                })
+                if (cl !== children.length) continue;
+                seatOfFilm.seats.map(num => {
+                    if (this.allSeatsNum === num) {
+                        children.push(<td className="available picked" data-seat-num={this.allSeatsNum} data-row={String.fromCharCode(65 + i)}>{`${((this.allSeatsNum-1) % 12) +1}`}</td>);
                         // console.log("return");
                         return;
                     }
@@ -53,6 +71,7 @@ class SeatMap extends Component {
             table.push(<tr>{children}</tr>)
         }
         return table
+    // };
         // return map;
     }
     render() {
@@ -67,7 +86,7 @@ class SeatMap extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                    {this.createSeats(this.props.occupiedSeats)}
+                    {this.createSeats(this.props.seatOfFilm)}
                     </tbody>
                     </table>
             </div>

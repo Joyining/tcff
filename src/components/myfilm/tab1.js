@@ -25,6 +25,8 @@ class Tab1 extends Component {
     this.temp = [];
   }
   componentDidMount(){
+    console.log("props: ", this.props);
+    console.log("props: " ,this.props.match);
     // console.log(Store);
     
     // fetch(`http://192.168.39.110:3000/${process.env.PUBLIC_URL}/component/collection.json`)
