@@ -6,6 +6,9 @@
         margin: 10px auto;
         background-color: #ccc;
         display: flex;
+        @media (max-width: 1080px) {
+            flex-wrap: wrap;
+        }
         &>a{
             padding-left: 10px;
             height: 45px;
@@ -15,6 +18,10 @@
             display: block;
             border: 2px solid lightblue;
             background-color: #333;
+            @media (max-width: 1080px) {
+                width: 100%;
+                flex: none;
+            }
             span{
                 margin-left: 5px;
             }

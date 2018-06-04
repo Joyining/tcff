@@ -1,3 +1,18 @@
 .tab3{
-    
+    table{        
+        width: 100%;
+        margin-bottom: 20px;
+        th{
+            font-size: 28px;
+            background-color: lightcoral;
+        }
+        td{
+            background-color: #ccc;
+            font-size: 20px;
+            border: 1px solid black;
+        }
+        .totalPrice{
+            text-align: right;
+        }
+    }
 }

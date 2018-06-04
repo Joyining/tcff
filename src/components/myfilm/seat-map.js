@@ -18,6 +18,7 @@ class SeatMap extends Component {
         // Outer loop to create parent ((3+6+3)cols * 9rows)=108seats
         let noSeatCol = [1,5,12];
         // let allSeatsNum = 0;
+        console.log("seatOfFilm: ", seatOfFilm);
         // console.log("atfirst: ", seatOfFilm);
         if (seatOfFilm.occupied == undefined) return;
         // console.log(seatOfFilm == null)
@@ -57,7 +58,10 @@ class SeatMap extends Component {
                 })
                 if (cl !== children.length) continue;
                 seatOfFilm.seats.map(num => {
-                    if (this.allSeatsNum === num) {
+                    // console.log("num",num[0].charCodeAt());
+                    let n = (num[0].charCodeAt() - 65)*12 + parseInt(num.slice(1));
+                    console.log("n",n)
+                    if (this.allSeatsNum === n) {
                         children.push(<td className="available picked" data-seat-num={this.allSeatsNum} data-row={String.fromCharCode(65 + i)}>{`${((this.allSeatsNum-1) % 12) +1}`}</td>);
                         // console.log("return");
                         return;

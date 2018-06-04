@@ -1,3 +1,25 @@
 .tab4{
-    
+    .wrap{
+        background-color: #fff;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: wrap;
+        h3, p{
+            text-align: center;
+            margin: 20px 0;
+            width: 100%;
+            height: fit-content;
+        }
+        a{
+            text-align: center;
+            padding: 10px 20px;
+            background-color: darksalmon;
+            display: block;
+        }
+        a:visited{
+            color: black;
+        }
+    }
 }

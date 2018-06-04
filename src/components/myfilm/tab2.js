@@ -63,10 +63,19 @@ class Tab2 extends Component {
         this.price = 250;
         this.overlay = "";
         this.picked = [];
+        this.temp = [];
     }
     componentDidMount() {
         // console.log("props: ", this.props);
         // console.log("dm",this.overlay);
+        // console.log("href", location.href)
+        // console.log("URL", document.URL)
+        // console.log("href", window.location.href)
+        // console.log("path", window.location.pathname)
+        // console.log("id", window.location.pathname.search('='))
+        // console.log("q", window.location.search)
+        // console.log("index", window.location.search.search('='))
+        // console.log("id", window.location.search.slice(3+1))
         this.overlay = document.getElementsByClassName('overlay')[0];
     }
     componentDidUpdate(){
@@ -119,7 +128,21 @@ class Tab2 extends Component {
             if (film.id_movie == ar[0]['id_movie']) return a.concat(film.seats)
             else return a;
         }, [])
-        console.log("this.picked",this.picked)
+        let picked = this.picked.sort((a, b) => { 
+            if (a[0] == b[0]) return parseInt(a.slice(1)) > parseInt(b.slice(1));
+            else return a[0] > b[0] 
+        })
+        this.temp = Array.from(document.querySelectorAll('.available')).reduce((a,x) => {
+            picked.forEach(y => {
+                let n = (y[0].charCodeAt() - 65) * 12 + parseInt(y.slice(1));
+                if(n==x.getAttribute('data-seat-num')) a.push(x)
+            })
+            return a;
+        },[])
+
+
+        console.log("this.picked", this.picked)
+        console.log("this.temp", this.temp)
         // console.log("ar",ar);
         this.setState({
             seatOfFilm: ar[0]
@@ -135,7 +158,8 @@ class Tab2 extends Component {
         let id = evt.target.closest('.wrap').querySelector('table').getAttribute('data-id-movie');
         // console.log(id);
         if(isYes){
-            console.log("this.picked",this.picked)
+            console.log("this.picked", this.picked)
+            console.log("this.temp",this.temp)
             let ar = this.state.films.map((film) => {
                 if (film.id_movie == id) {
                     film.seats = this.picked;
@@ -151,8 +175,19 @@ class Tab2 extends Component {
                 console.log("state: ", this.state);
             })
             // this.picked.length = 0;
+            // this.temp = 
         }else{
-            // this.picked.length = 0;
+            // console.log("sof",this.state.seatOfFilm)
+            let seats = this.state.seatOfFilm.seats;
+            this.temp.map(td => {
+                let seatNum = td.getAttribute('data-row') + td.innerHTML;
+                if(!seats.includes(seatNum)) td.classList.remove('picked');
+            })
+            
+            this.picked.length = 0;
+            this.temp.length = 0;
+            console.log("picked", this.picked);
+            console.log("temp", this.temp);
         }
     }
     pickSeat(evt) {
@@ -160,6 +195,8 @@ class Tab2 extends Component {
         let isPicked = td.classList.contains('picked');
         let seatNum = td.getAttribute('data-row') + td.innerHTML;
         let id_movie = td.closest('table').getAttribute("data-id-movie");
+        let quantity = this.state.seatOfFilm.quantity
+        console.log("Q",quantity)
         // this.picked = this.state.films.filter(film => {
         //     if(film.id_movie == id_movie) return film.seats
         // })
@@ -167,19 +204,76 @@ class Tab2 extends Component {
         console.log("this.picked", this.picked)
         let picked = this.picked.includes(seatNum);
         console.log("is SeatNum in picked? ", picked);
+        // if (!this.temp.includes(td)) this.temp.push(td);
         
-        if (isPicked) {
-            td.classList.remove("picked");
-            if (picked) {
-                let index = this.picked.indexOf(seatNum);
-                this.picked.splice(index);
-            };
-        }
-        else {
-            td.classList.add("picked");
+        console.log("in?", this.temp.includes(td));
+        if(this.temp.length < quantity){
+            console.log("<")
+            if (isPicked) {
+                td.classList.remove("picked");
+                if (picked) {
+                    let index = this.picked.indexOf(seatNum);
+                    this.picked.splice(index,1);
+                };
+                if (this.temp.includes(td)){
+                    let index = this.temp.indexOf(td);
+                    console.log({
+                        index:index,
+                        temp:this.temp
+                    })
+                    this.temp.splice(index,1);
+                }
+            }
+            else {
+                td.classList.add("picked");
 
-            if (!picked) this.picked.push(seatNum);
+                if (!picked){
+                    this.picked.push(seatNum);
+                    // this.temp.push(td);
+                    // console.log(this.temp);
+                } 
+                if (!this.temp.includes(td)) {
+                    this.temp.push(td);
+                }
+            }
         }
+        else{
+           console.log(">");
+            if (isPicked) {
+                td.classList.remove("picked");
+                if (picked) {
+                    let index = this.picked.indexOf(seatNum);
+                    this.picked.splice(index, 1);
+                };
+                if (this.temp.includes(td)) {
+                    let index = this.temp.indexOf(td);
+                    console.log({
+                        index: index,
+                        temp: this.temp
+                    })
+                    this.temp.splice(index, 1);
+                }
+            }
+            else {
+                td.classList.add("picked");
+                this.temp[0].classList.remove("picked");
+
+                this.temp.shift();
+                this.temp.push(td);
+
+                this.picked.shift();
+                this.picked.push(seatNum);
+                // if (!picked) {
+                //     this.picked.push(seatNum);
+                //     // this.temp.push(td);
+                //     // console.log(this.temp);
+                // }
+                // if (!this.temp.includes(td)) {
+                //     this.temp.push(td);
+                // }
+            }
+        }
+        console.log("this.temp", this.temp)
         console.log("this.picked", this.picked);
     }
     prevStep(){
@@ -206,7 +300,7 @@ class Tab2 extends Component {
                         </div>
                     </div>
 
-                <table className="films">
+                <table className="films rwd-table">
                     <thead>
                         <tr>
                             <th colSpan="6">欲購買的場次</th>
@@ -216,12 +310,12 @@ class Tab2 extends Component {
                         {
                             this.state.films.map((film, idx) => (
                                 <tr data-id-movie={film.id_movie} key={idx}>
-                                    <td>{film.name}</td>
-                                    <td>{film.session}</td>
-                                    <td><input type="number" value={film.quantity} min="1" max="10" onChange={this.changeTicketNum} /></td>
-                                    <td>{this.price * film.quantity}</td>
-                                    <td>{film.seats.join(",")}</td>
-                                    <td><input type="button" value="自行劃位" onClick={this.seatAssign} /></td>
+                                    <td data-th="片名">{film.name}</td>
+                                    <td data-th="場次">{film.session}</td>
+                                    <td data-th="數量"><input type="number" value={film.quantity} min="1" max="10" onChange={this.changeTicketNum} /></td>
+                                    <td data-th="小計">{this.price * film.quantity}</td>
+                                    <td data-th="位號">{film.seats.join(",")}</td>
+                                    <td data-th="劃位"><input type="button" value="自行劃位" onClick={this.seatAssign} /></td>
                                     </tr>
                             ))
                         }
@@ -236,7 +330,7 @@ class Tab2 extends Component {
                             </tr> */}
                         </tbody>
                 </table>
-                <table className="cffilms">
+                <table className="cffilms rwd-table">
                     <thead>
                         <tr>
                             <th colSpan="3">參與募資的電影</th>
@@ -245,10 +339,10 @@ class Tab2 extends Component {
                     <tbody>
                         {
                             this.state.cffilms.map((film, idx) => (
-                                <tr key={idx}>
-                                    <td>{film.name}</td>
-                                    <td><input type="number" value={film.quantity} min="1" max="10" onChange={this.changeTicketNum} /></td>
-                                    <td>{this.price * film.quantity}</td>
+                                <tr data-id-movie={film.id_movie} key={idx}>
+                                    <td data-th="片名">{film.name}</td>
+                                    <td data-th="數量"><input type="number" value={film.quantity} min="1" max="10" onChange={this.changeTicketNum} /></td>
+                                    <td data-th="小計">{this.price * film.quantity}</td>
                                 </tr>
                             ))
                         }
