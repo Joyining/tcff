@@ -4,6 +4,87 @@ import $ from 'jquery';
 import { width } from 'window-size';
 
 class Member extends Component{
+    constructor(props){
+        super(props) ;
+        this.state = {value: ''};
+
+        this.ChangeValue = this.ChangeValue.bind(this) ;
+        // this.checkAccount = this.checkAccount.bind(this) ;
+    }
+
+    ChangeValue(event) {
+        this.setState({value: event.target.value});
+
+        var pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        var email = $('#mail_use').value;
+        var password = $('#password_use').value;
+        var isPass = true;
+
+        
+        console.log($('#mail_use')) ;
+
+
+        if(! pattern.test(email) ){
+            $('#worring_mail').removeClass('.display')
+            isPass = false;    
+        }
+
+        // if( password.length<6 ){
+        //     $('#worring_password').removeClass('.display');
+        //     isPass = false;    
+        // }
+
+        return isPass;
+      }
+
+    // checkAccount(){           
+    
+    //             var pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    //             var email = $('#mail_use').value;
+    //             var password = $('#password_use').value;
+    //             var isPass = true;
+
+                
+    //             console.log($('#mail_use')) ;
+    
+  
+    //             if(! pattern.test(email) ){
+    //                 $('#worring_mail').removeClass('.display')
+    //                 isPass = false;    
+    //             }
+
+    //             // if( password.length<6 ){
+    //             //     $('#worring_password').removeClass('.display');
+    //             //     isPass = false;    
+    //             // }
+    
+    //             return isPass;
+                       
+    // }
+
+    login(){   
+
+            var pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            var email = $('#mail_use').value;
+            var password = $('#password_use').value;
+            var isPass = true;
+
+
+            if( password.length<6 ){
+                $('.login_btn').Css("disabled","disabled");
+                isPass = false;    
+            }
+    
+           if(! pattern.test(email) ){
+                 $('.login_btn').attr('disabled', 'disabled');
+                //  console.log("BTN") ;
+                isPass = false;    
+            }  
+
+            return isPass;       
+        
+    }
+
     componentDidMount(){
         $('.forget_p').click(function(){
             $('.turn').toggleClass('flip');
@@ -17,20 +98,14 @@ class Member extends Component{
             $('.turn').toggleClass('sign_up_flip');
             $('.turn_b').toggleClass('sign_up_down_flip');        
             $('.registered_f').css("z-index","10") ;
-            $('.turn').css("z-index","-1") ;
+            $('.turn').css("z-index","-2") ;
+            $('.login_f').css("z-index","-1") ;
             $('.login_f_p').css("background-color","rgb(100, 26, 29)");
             $('.login_f_p').empty();
             $('.login_f').empty();
         })
 
-        $('.sign_up').click(function(){
-            const windowWidth=$(window).width();
-            const table = document.querySelector(".container");
-            if(windowWidth <= 1024){
-                $(table).css("dispaly","none");
-            }
-        })
-
+        
 
     }
 
@@ -80,17 +155,23 @@ class Member extends Component{
 
                         <div className="turn place">
                             {/* 會員登入 */}
-                                <div className="login_f place slide_f_animate front">
+                                <div className="login_f place slide_f_animate front" name="">
                                     <div className="login_word">會 員 登 入</div>
                                     <div className="account_box">
                                         <div className="account_1">帳號：</div>
-                                        <input type="text" className="account_2" placeholder="請輸入Mail"/>
+                                        <input type="text" className="account_2" id="mail_use" placeholder="請輸入Mail" value={this.state.value} onBlur={this.ChangeValue}/>
                                     </div>
-                                    <div className="password_box">
+                                    <div className="worring_box_l">
+                                            <div className="worring_l hide_use display" id="worring_mail" >Mail格式錯誤</div>
+                                    </div>
+                                    <div className="password_box pass">
                                         <div className="password_1">密碼：</div>
-                                        <input type="password" className="password_2"/>
+                                        <input type="password" className="password_2" id="password_use" placeholder="請輸入密碼" value={this.state.value}  onBlur={this.ChangeValue}/>
                                     </div>
-                                    <button className="login_btn mouse"><div >登入</div></button>
+                                    <div className="worring_box_l">
+                                            <div className="worring_l hide_use display" id="worring_password">請輸入密碼</div>
+                                    </div>
+                                    <button className="login_btn mouse" onClick={this.login}><div >登入</div></button>
                                     <div className="btn_box">
                                         <button  className="registered sign_up mouse"><div>註冊</div></button>
                                         <button  className="registered forget_p mouse"><div>忘記密碼</div></button>
