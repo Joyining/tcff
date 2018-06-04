@@ -53,6 +53,8 @@
     display: none ;
 }
 
+
+
 .mouse{ 
     cursor: pointer; 
 }
@@ -168,8 +170,13 @@
             .password_box{
                 display: flex ;
                 flex-direction: row ;
-                padding: 50px 50px 0 10px  ;
+                padding: 50px 50px 0 10px  ;                
             }
+
+            .pass{
+                padding: 20px 50px 0 10px  ;
+            }
+
             .password_1{
                 width: 80%;
                 height: 35px;
@@ -206,6 +213,20 @@
                  }
 
             }
+
+            .worring_box_l{
+                margin: -10px -50px 30px -50px;
+                height: 24px;
+                width: 100%;
+                // overflow: hidden ;
+            }
+
+            .worring_l{
+                @include text-rec(none , 12px , transparent , red ,transparent) ;
+                text-align: right ;
+                // display: none ;                
+            }
+
             .registered{
                 margin: 0 20px 0 20px  ;
                 box-sizing: border-box;
@@ -282,7 +303,7 @@
                @include breakpoint("mobileonly"){
                 @include text-rec(200px , 18px , $colorDark , $colorLight ,transparent) ;
                 margin: 50px 25% ;
-            }    
+                }    
             }
 
             .btn_box_p{
@@ -317,8 +338,7 @@
             .worring_p{
                 @include text-rec(none , 12px , transparent , red ,transparent) ;
                 text-align: right ;
-                // display: none ;
-                
+                // display: none ;                
             }
     }
 

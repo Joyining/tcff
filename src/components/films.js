@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../sass/films.scss';
+import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 // import $ from 'jquery';
 // import alien from '../images/1974_alien.jpg';
 
@@ -311,10 +312,17 @@ class Films extends Component {
                             <div id="books">
                                 {this.state.datas.map((data, idx) => {
                                     return (
+                                        
                                         <div className="book" data-open='false'>
                                             <div className="side" onClick={this.pickBook}><h1><span>{data.release_year}</span>{data.name_en}<h3>{this.types[idx % 9]}</h3></h1></div>
-                                            <div className="front"><img className="hide" src={`${process.env.PUBLIC_URL}/images/${data.release_year}_${data.name_en.split(' ').join('_').replace(':', '')}.jpg`} /></div>
-                                        </div>)
+                                            <div className="front">
+                                                <img className="hide" src={`${process.env.PUBLIC_URL}/images/${data.release_year}_${data.name_en.split(' ').join('_').replace(':', '')}.jpg`} />
+                                                <Link to={`films-detail-page?id=${data.id_movie}`}>
+                                                    電影內容
+                                                </Link>
+                                            </div>
+                                            </div> 
+                                            )
                                 })
                                 }
                             </div>

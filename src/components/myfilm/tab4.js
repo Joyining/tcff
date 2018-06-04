@@ -1,7 +1,8 @@
 import React, {
     Component
 } from 'react';
-// import './cb.scss';
+import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
+import './tab4.scss';
 
 class Tab4 extends Component {
     constructor(props) {
@@ -12,7 +13,19 @@ class Tab4 extends Component {
     render() {
         return (
             <div className="tab tab4">
-                感謝您的購買
+                <div className="wrap">
+                    <div className="text">
+                        <h3>
+                            感謝您的購買
+                        </h3>
+                        <p>
+                            您的兌票序號為ABCD123456
+                        </p>
+                        <Link className="" to={`/`}>回首頁</Link>
+                        
+                    </div>
+                        
+                </div>
             </div>
         );
     }

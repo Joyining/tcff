@@ -420,7 +420,7 @@ class Tab1 extends Component {
                           <span className="film_bookable">{film.bookable === true ? "熱賣中" : "已售完"}</span>
                         </div>
                         <div className="trash" data-id-movie={film.id_movie} onClick={this.del_collection}>
-                          X
+                            <i class="fas fa-trash-alt"></i>
                         </div>
                       </td>
                     </tr>
@@ -448,7 +448,7 @@ class Tab1 extends Component {
                       <td className="title">
                         <span className="film_name">{film.name}</span>
                         <div className="trash" data-id-movie={film.id_movie} onClick={this.del_collection}>
-                          X
+                          <i class="fas fa-trash-alt"></i>
                         </div>
                       </td>
                     </tr>

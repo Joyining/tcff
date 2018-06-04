@@ -39,12 +39,19 @@
                     .trash{
                         height: 30px;
                         width: 30px;
-                        background-color: blue;
+                        color: #555;
+                        // background-color: blue;
                         position: absolute;
                         right: 5px;
                         margin-right: 15px;
                         text-align: center;
                         cursor: pointer;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        svg{
+                            display: block;
+                        }
                     }
                     &.forbid{
                         background-color: #333;

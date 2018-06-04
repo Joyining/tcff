@@ -22,6 +22,7 @@
             overflow: hidden;
             // background-color: darken(lightblue,40%);
             // margin-bottom: 50px;
+            
             .book{
                 height: 450px;
                 transform-style: preserve-3d;
@@ -70,6 +71,27 @@
                     width: 250px;
                     transform-origin: 0 50%;
                     transition: all 1s;
+                    position: relative;
+                    &:hover a{
+                        display: block;
+                        opacity: 1;
+                    }
+                    a{
+                        display: block;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        padding: 10px 20px;
+                        background-color: lightblue;
+                        color: #333;
+                        transform: translate(-50%,-50%);
+                        transition: all .5s;
+                        // display: none;
+                        opacity: 0;
+                        &.show{
+                            display: block;
+                        }
+                    }
                     img{
                         object-fit: contain;
                         width: 100%;
