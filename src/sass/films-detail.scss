@@ -24,183 +24,184 @@
     text-align: center;
     color: white;
     margin-top: 50px;
+    // 片名區
+    .myfilmname{
+        width:300px;
+        display: flex;
+        text-align: center;
+        margin: 0 auto;
+    }
+    #h01{
+        border-right: 5px solid white;
+    }
+    h1{
+        padding: 20px;
+    }
+    .myfont{
+        display: flex;
+        width: 100%;
+        margin: 0 auto;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 50px;
+    }
+    .myfont a{
+        color: white;
+    }
+    .fpg{
+        display: flex;
+        margin-top: 10px;
+        text-align: center;
+    }
+    .myfont a{
+        margin-top: 10px;
+    }
+    .l_font{
+        width: 130px;
+        background-color: white;
+        padding: 10px;
+        color: #8e5f59;    
+    }
+    .BGC{
+        background-color: rgb(219, 143, 0);
+    }
+    .r_font{
+        width: 130px;
+        border: 1px solid white;
+        padding: 10px;
+    }
 }
 .box{    
     margin-top: 200px;
 }
+// 導演 演員表
 .box2{
     width: 80vw;
     margin: 0 auto;
     background: $colorMedium;
+    .left{
+        margin-left: 60px;
+    }
+    .mycontent .mycontent-overlay {
+        background: rgba(96, 41, 38,.6);
+        position: absolute;
+        height: 99%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        opacity: 0;
+        transition: all 0.4s ease-in-out 0s;
+      }
+      
+      .mycontent:hover .mycontent-overlay{
+        opacity: 1;
+      }
+      
+      .mycontent-image{
+        width: 100%;
+        
+      }
+      
+      .mycontent-details {
+        position: absolute;
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+        width: 100%;
+        top: 50%;
+        left: 50%;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+        transition: all 0.3s ease-in-out 0s;
+      }
+      
+      .mycontent:hover .mycontent-details{
+        top: 50%;
+        left: 50%;
+        opacity: 1;
+      }
+      
+      .mycontent-details h3{
+        color: #fff;
+        font-weight: 500;
+        letter-spacing: 0.15em;
+        margin-bottom: 0.5em;
+        text-transform: uppercase;
+      }
+      
+      .mycontent-details h4{
+          color: #fff;
+          font-size: 1em;
+        }
+      .mycontent-details p{
+        color: #fff;
+        font-size: 0.8em;
+          line-height: 20px;  
+      }
+      
+      .fadeIn-bottom{
+        top: 80%;
+      }
+      p{
+        color: #8e5f59;
+    }
+    
+    .mycontain{
+        display: flex;
+        padding: 1em 0;
+        // float: left;
+        width: 90%;
+        margin: 0 auto;
+        justify-content: space-between;
+        background: $colorMedium;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+    }
+    .flex{
+        display: flex;    
+    }
+    
+    .dir{
+        // width: 75%;
+        display: flex;
+        margin-bottom: 10px;
+    }
+    .act{
+        // width: 90%; 
+        display: flex;
+        margin-bottom: 10px;
+    }
+    .mycontain h2{
+        width: 30px;
+        background-color: #602926;
+        color: white;
+        padding: 10px;
+        height: 120px;
+        text-align: center;
+    }
+    
+    .mycontent {
+      position: relative;
+      width: 50%;
+      max-width: 200px;
+      margin: 0 ;
+      overflow: hidden;
+      margin-left: 10px;
+    }
+    .cover{
+        width: 400px;
+        height: 240px;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
 }
 
-// 片名區
-.myfilmname{
-    width:300px;
-    display: flex;
-    text-align: center;
-    margin: 0 auto;
-}
-#h01{
-    border-right: 5px solid white;
-}
-.box3 h1{
-    padding: 20px;
 
-}
-.myfont{
-    display: flex;
-    width: 100%;
-    margin: 0 auto;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-.myfont a{
-    color: white;
-}
-.fpg{
-    display: flex;
-    margin-top: 10px;
-    text-align: center;
-}
-.myfont a{
-    margin-top: 10px;
-}
-.l_font{
-    width: 130px;
-    background-color: white;
-    padding: 10px;
-    color: #8e5f59;    
-}
-.BGC{
-    background-color: rgb(219, 143, 0);
-}
+
 a{
     text-decoration: none;
-}
-.r_font{
-    width: 130px;
-    border: 1px solid white;
-    padding: 10px;
-}
-
-// 導演 演員表
-.box2 p{
-    color: #8e5f59;
-}
-
-.mycontain{
-    display: flex;
-    padding: 1em 0;
-    // float: left;
-    width: 90%;
-    margin: 0 auto;
-    justify-content: space-between;
-    background: $colorMedium;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-}
-.flex{
-    display: flex;    
-}
-
-.dir{
-    // width: 75%;
-    display: flex;
-    margin-bottom: 10px;
-}
-.act{
-    // width: 90%; 
-    display: flex;
-    margin-bottom: 10px;
-}
-.mycontain h2{
-    width: 30px;
-    background-color: #602926;
-    color: white;
-    padding: 10px;
-    height: 120px;
-    text-align: center;
-}
-
-.mycontent {
-  position: relative;
-  width: 50%;
-  max-width: 200px;
-  margin: 0 ;
-  overflow: hidden;
-  margin-left: 10px;
-}
-.cover{
-    width: 400px;
-    height: 240px;
-    overflow: hidden;
-    margin-bottom: 10px;
-}
-.left{
-    margin-left: 60px;
-}
-.mycontent .mycontent-overlay {
-  background: rgba(96, 41, 38,.6);
-  position: absolute;
-  height: 99%;
-  width: 100%;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  opacity: 0;
-  transition: all 0.4s ease-in-out 0s;
-}
-
-.mycontent:hover .mycontent-overlay{
-  opacity: 1;
-}
-
-.mycontent-image{
-  width: 100%;
-  
-}
-
-.mycontent-details {
-  position: absolute;
-  text-align: center;
-  padding-left: 1em;
-  padding-right: 1em;
-  width: 100%;
-  top: 50%;
-  left: 50%;
-  opacity: 0;
-  transform: translate(-50%, -50%);
-  transition: all 0.3s ease-in-out 0s;
-}
-
-.mycontent:hover .mycontent-details{
-  top: 50%;
-  left: 50%;
-  opacity: 1;
-}
-
-.mycontent-details h3{
-  color: #fff;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  margin-bottom: 0.5em;
-  text-transform: uppercase;
-}
-
-.mycontent-details h4{
-    color: #fff;
-    font-size: 1em;
-  }
-.mycontent-details p{
-  color: #fff;
-  font-size: 0.8em;
-    line-height: 20px;  
-}
-
-.fadeIn-bottom{
-  top: 80%;
 }
 
 /* Slideshow container */
@@ -289,7 +290,7 @@ li{
     border-top: 80px solid rgb(243, 210, 193);
     border-right: 50px solid transparent;
 	height: 0;
-	width: 200px;
+	width: 600px;
     margin: 0 auto;
     color: #602926;
     margin-top: 10px;
@@ -298,7 +299,7 @@ li{
     border-bottom: 80px solid rgb(243, 210, 193);
 	border-left: 50px solid transparent;
 	height: 0;
-	width: 500px;
+	width: 600px;
     margin: 0 auto;
     color: #602926;
     margin-top: 10px;
@@ -317,16 +318,20 @@ li{
     }
     .box2{
         width: 90vw;
+        .dir{
+            margin: 0 auto;
+            margin-bottom: 10px;
+        }
+        .act{
+           margin: 0 auto;
+           margin-bottom: 10px;
+           display: initial;
+        }
+        .left{
+            margin-left: 60px;
+        }
     }
-	.dir{
-        margin: 0 auto;
-        margin-bottom: 10px;
-    }
-    .act{
-       margin: 0 auto;
-       margin-bottom: 10px;
-       display: initial;
-    }
+	
     .myfont{
         width: 70%;
         margin: 0 auto;
