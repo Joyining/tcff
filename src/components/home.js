@@ -59,8 +59,8 @@ class Home extends Component {
   constructor(props){
       super(props);
       this.scrollDetection = this.scrollDetection.bind(this);
-      this.windowResize = this.windowResize.bind(this); 
-      this.rotateSlide = this.rotateSlide.bind(this); 
+      this.eclipseSizing = this.eclipseSizing.bind(this); 
+      this.rotateCarousel = this.rotateCarousel.bind(this); 
 
       this.state = {
         flagType: ['確認放映', '募資中'],
@@ -69,18 +69,19 @@ class Home extends Component {
           { year: '1964', name: '窈窕淑女', award: '奧斯卡最佳影片、男主角、導演、攝影、藝術指導、服裝設計等八項大獎', time: '2018 | 07 | 08 10:00	誠品電影院' },
           { year: '1977', name: '安妮霍爾', award: '現代浪漫喜劇的典範，榮獲奧斯卡最佳影片、女主角、導演、原著劇本', time: '2018 | 07 | 12 19:30	台北光點' },
           { year: '1974', name: '異形', award: '影史上的經典科幻片，獲得第52屆奧斯卡最佳視覺效果獎，榮登AFI百年百大驚悚電影第六名', time: '2018 | 07 | 03 19:30	誠品電影院' },
-          { year: '1905', name: 'xyz', award: 'uutt', time: '2018/08/09' },
-          { year: '1906', name: 'pqr', award: 'uutt', time: '2018/08/10' },
-          { year: '1907', name: 'pqr', award: 'uutt', time: '2018/08/10' },
-          { year: '1908', name: 'abc', award: 'uutt', time: '2018/08/08' },
-          { year: '1909', name: 'xyz', award: 'uutt', time: '2018/08/09' },
-          { year: '1910', name: 'pqr', award: 'uutt', time: '2018/08/10' },
-          { year: '1911', name: 'pqr', award: 'uutt', time: '2018/08/10' },
-          { year: '1912', name: 'pqr', award: 'uutt', time: '2018/08/10' },
+          { year: '1985', name: '回到未來', award: '經典預言電影，赋予時間旅行新的想像力，至今仍令人回味無窮，榮獲奧斯卡最佳音效剪輯獎', time: '2018 | 07 | 14 12: 30	誠品電影院' },
+          { year: '1988', name: '終極警探', award: '首開許多警匪動作片的先河，布魯斯威利一舉成名之作，之後更拍了四部系列作品', time: '現正募資中' },
+          { year: '1998', name: '搶救雷恩大兵', award: '經典的搶灘場面重現戰爭的殘酷與慘烈，當年橫掃了奧斯卡最佳導演和攝影在內的5項大獎', time: '2018 | 07 | 14 18:00	誠品電影院' },
+          { year: '2002', name: '戰地琴人', award: '法國坎城影展最高榮譽金棕櫚獎，並奪得奧斯卡最佳導演和最佳男主角，安德林·布洛迪成為史上最年輕影帝', time: '2018 | 07 | 07 20:30	誠品電影院' },
+          { year: '1974', name: '教父', award: '全球影評及大眾公認的影史經典，史上最棒的電影之一，爛番茄98%新鮮度的高分', time: '2018 | 07 | 01 12:30	台北光點' },
+          { year: '1997', name: '鐵達尼號', award: '第一部達到10億美元票房大關的電影，全球票房收入達18億，獲得奧斯卡11項大獎，史上獲獎最多影片之一', time: '現正募資中' },
+          { year: '2000', name: '花樣年華', award: '梁朝偉憑此片奪下坎城影帝，影片被美國CNN評選為「最佳亞洲電影」第一位', time: '現正募資中' },
+          { year: '1997', name: '心靈捕手', award: '由麥特戴蒙與班·艾佛列克撰寫的劇本榮獲奧斯卡最佳原創劇本，羅賓威廉斯也憑此片獲得最佳男配角獎', time: '2018 | 07 | 01 18:00	台北光點' },
         ],
       }
   }
 
+  // home02 home03 slogon, home03 cube animation
   scrollDetection(){
     let scrollTop = document.documentElement.scrollTop;
     const home02 = document.querySelector('.home02');
@@ -90,11 +91,13 @@ class Home extends Component {
     const sides = document.querySelectorAll(".side");
     const cfButton = document.querySelector(".cf-button").children;
     const cfPosters = document.querySelectorAll(".cf-poster");
-    if (scrollTop > (home02.offsetTop-800)) {
+
+    if (scrollTop > (home02.offsetTop-600)) {
         slogons[0].classList.add("animate");
-    } else if (scrollTop < (home02.offsetTop - 1200)){
+    } else if (scrollTop < (home02.offsetTop - 800)){
         slogons[0].classList.remove("animate");
     }
+
     if (scrollTop > (home03.offsetTop - 600)){
       slogons[1].classList.add("animate");
       cube.classList.add("animate");
@@ -110,7 +113,8 @@ class Home extends Component {
     }
   }
 
-  windowResize(){
+  // home03 sizing
+  eclipseSizing(){
     if (!/Android|webOS|iPhone|iPad|BlackBerry|Windows Phone|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent)) {
       const container = document.querySelector('.container-home');
       // let bodyWidth = document.body.clientWidth;
@@ -173,7 +177,8 @@ class Home extends Component {
     
   }
 
-  rotateSlide(){
+  // home01 carousel rotate
+  rotateCarousel(){
     const container = document.querySelector('.container-home');
     // console.log(`container width: ${containerWidth}`);
     let containerWidth = container.clientWidth;
@@ -209,13 +214,7 @@ class Home extends Component {
     console.log(rotateDiff);
     console.log(radius);
     carousel.style.transform = `translateZ(-${radius}px)`;
-
-    // if (/Android|webOS|iPhone|iPad|BlackBerry|Windows Phone|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent)){
-    //   alert('mobile device');
-    // }
-
       
-
     Array.from(slides).forEach(slide => {
       slide.style.transform = `${rotateFn}(${rotateDeg}deg) translateZ(${radius}px)`;
       console.log(rotateDeg);
@@ -243,45 +242,13 @@ class Home extends Component {
 
   }
 
-
-  
   componentDidMount(){
     // console.log('home mount');
     window.addEventListener('scroll', this.scrollDetection, false);
-    window.addEventListener("load", this.windowResize, false);
-    window.addEventListener("resize", this.windowResize, false);
-    window.addEventListener("load", this.rotateSlide, false);
-    window.addEventListener("resize", this.rotateSlide, false);
-
-    let mousePosition = ()=>{
-      let lastMouseX;
-      let lastMouseY;
-      window.addEventListener('mousemove', function(evt){
-        let mouseXdiff = lastMouseX - evt.clientX;
-        let mouseYdiff = lastMouseY - evt.clientY;
-        lastMouseX = evt.clientX;
-        lastMouseY = evt.clientY;
-        const inside = document.querySelector('.inside');
-        let insideRotate = ()=>{
-          inside.style.transform = `rotateX(${mouseXdiff}deg)`;
-          inside.style.transform = `rotateY(${mouseYdiff}deg)`;
-          if (mouseYdiff > 0) {
-            console.log('up');
-          } else {
-            console.log('down');
-          }
-          if (mouseXdiff > 0) {
-            console.log('left');
-          } else {
-            console.log('right');
-          }
-        }
-        insideRotate();
-        console.log(mouseXdiff);
-        console.log(mouseYdiff);
-      })
-    }
-    // mousePosition();
+    window.addEventListener("load", this.eclipseSizing, false);
+    window.addEventListener("resize", this.eclipseSizing, false);
+    window.addEventListener("load", this.rotateCarousel, false);
+    window.addEventListener("resize", this.rotateCarousel, false);
 
     let titleText = ()=>{
       const movies = [
@@ -323,10 +290,10 @@ class Home extends Component {
 
   componentWillUnmount(){
     window.removeEventListener('scroll', this.scrollDetection, false);
-    window.removeEventListener("load", this.windowResize, false);
-    window.removeEventListener("resize", this.windowResize, false);
-    window.removeEventListener("load", this.rotateSlide, false);
-    window.removeEventListener("resize", this.rotateSlide, false);
+    window.removeEventListener("load", this.eclipseSizing, false);
+    window.removeEventListener("resize", this.eclipseSizing, false);
+    window.removeEventListener("load", this.rotateCarousel, false);
+    window.removeEventListener("resize", this.rotateCarousel, false);
   }
   
 
@@ -428,8 +395,9 @@ class Home extends Component {
               </div>
               <div className="inside">
                 <div className="image">
-                  {/* <div className="slide transition"> */}
-                    {/* <img src={Home02Img01} alt="" />
+                {/* method 2 (multiple images, can't continually rotate) */}
+                  <div className="slide transition">
+                    <img src={Home02Img01} alt="" />
                     <img src={Home02Img02} alt="" />
                     <img src={Home02Img03} alt="" />
                     <img src={Home02Img04} alt="" />
@@ -438,8 +406,9 @@ class Home extends Component {
                     <img src={Home02Img07} alt="" />
                     <img src={Home02Img08} alt="" />
                     <img src={Home02Img09} alt="" />
-                    <img src={Home02Img10} alt="" /> */}
-                  {/* </div> */}
+                    <img src={Home02Img10} alt="" />
+                  </div>
+                {/* end of method 2 */}
                 </div>
                 <div className="title-wrap">
                   <div className="inner">

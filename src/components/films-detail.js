@@ -88,10 +88,12 @@ class Filmsdetail extends Component {
             </div>
             <div className="box3">
                 <div className="myfilmname">
-                    <h1 id="h01">1997</h1>
-                    <h1>心靈捕手</h1>
+                    <h1 id="h01">1997</h1>                    
+                    <div>
+                        <h1>心靈捕手</h1>
+                        <span>Good Will Hunting</span>
+                    </div>
                 </div>
-                <h1>Good Will Hunting</h1>
                 <div className="myfont">
                     <div className="fpg">
                         <div className="l_font">國家</div>
