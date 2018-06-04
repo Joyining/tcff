@@ -65,14 +65,14 @@
             .slogon{
                 display: flex;
                 justify-content: center;
-                @include breakpoint('mobileonly'){
+                @include breakpoint("mobileonly"){
                     display: block;
                 }
                 div{
                     transform: translateX(-50%) rotate(-10deg);
                     margin: 10px;
                     display: block;
-                    @include breakpoint('mobileonly'){
+                    @include breakpoint("mobileonly"){
                         transform: translateX(0%) rotate(-10deg)
                     }
                 }
@@ -113,12 +113,12 @@
                     font-weight: 500;
                     line-height: 1.2rem;
                     text-align: center;
-                    @include breakpoint('mobileonly'){
+                    @include breakpoint("mobileonly"){
                         text-align: initial;
                         line-height: 2rem;
                     }
                 }
-                @include breakpoint('tablet'){
+                @include breakpoint("tablet"){
                     // margin: 120px auto 0 auto;
                     padding: 20px;
                 }
@@ -131,7 +131,7 @@
             position: relative;
             perspective-origin: center center;
             perspective: 500px;
-            @include breakpoint('tablet'){
+            @include breakpoint("tablet"){
                 width: 80vw;
                 height: 50vw;
                 margin: 0 auto;
@@ -150,15 +150,45 @@
                 }
             }
             .inside{
-                // overflow: hidden;
+                overflow: hidden;
                 transform: rotateX(-18deg) rotateY(14deg);
                 position: relative;
                 width: 120%;
                 height: 100%;
                 // transform-style: 3d;
+
+                // method 2 (multiple images, cant continually rotate)
                 .image{
+                    // border: 2px solid yellow;
                     position: absolute;
-                    width: 1000vw;
+                    width: 60%;
+                    height: 60%;
+                    left: 15%;
+                    top: 18%;
+                }
+                .slide{
+                    position: absolute;
+                    width: 100%;
+                    left: 0;
+                    display: flex;
+                    object-fit: cover;
+                    filter:brightness(70%);
+                    // overflow: hidden;
+                    animation: slideMoveDesktop 30s linear infinite forwards;
+                    @include breakpoint('tablet'){
+                        animation: slideMoveTablet 28s linear infinite forwards;
+                    }
+                    img{
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+                // end of method 2
+
+                // method 1 (1 long image)
+                .image.method1{
+                    position: absolute;
+                    width: 120%;
                     height: 60%;
                     left: 15%;
                     top: 18%;
@@ -167,27 +197,7 @@
                     background-size:contain; 
                     animation: slideMoveDesktop 40s infinite linear;
                 }
-
-                // can delete (start)
-                .slide{
-                    position: absolute;
-                    width: 100%;
-                    left: 0;
-                    display: flex;
-                    object-fit: cover;
-                    filter:brightness(70%);
-
-                    // overflow: hidden;
-                    // animation: slideMoveDesktop 30s linear infinite forwards;
-                    @include breakpoint('tablet'){
-                        // animation: slideMoveTablet 30s linear infinite forwards;
-                    }
-                    img{
-                        width: 100%;
-                        height: 100%;
-                    }
-                }
-                // can delete (end)
+                // end of method 1
 
                 .title-wrap, .quote-wrap{
                     width: 20vw;
@@ -197,7 +207,7 @@
                     top: 10%;
                     left: 5%;
                     overflow: hidden;
-                    @include breakpoint('mobileonly'){
+                    @include breakpoint("mobileonly"){
                         width: 50vw;            
                     }
                     .inner{
@@ -222,7 +232,7 @@
                                 background-color:$colorMedium;
                             }
                             color: $colorDarker;
-                            @include breakpoint('mobileonly'){
+                            @include breakpoint("mobileonly"){
                                 font-size: 1rem;
                                 line-height: 2rem;
                                 width: 50vw;
@@ -238,7 +248,7 @@
                     position: absolute;
                     top: 75%;
                     left: 10%;
-                    @include breakpoint('mobileonly'){
+                    @include breakpoint("mobileonly"){
                         height: 4vh;
                         width: 80vw;
                     }
@@ -258,7 +268,7 @@
                     .inner .quote{
                         width: 60vw;
                         height: 8vh; 
-                        @include breakpoint('mobileonly'){
+                        @include breakpoint("mobileonly"){
                             height: 4vh;
                             width: 80vw;
                         } 
@@ -287,7 +297,7 @@
                 border: 3px solid transparent;
                 box-sizing: border-box;
             }
-            @include breakpoint('tablet'){
+            @include breakpoint("tablet"){
                 display: none;
             }
         }
@@ -299,7 +309,7 @@
             height: 30vw;
             background-color: transparent;
             // cursor: pointer;
-            @include breakpoint('tablet'){
+            @include breakpoint("tablet"){
                 width: 100%;
                 right: 0;
                 position: initial;
@@ -314,7 +324,7 @@
                 &:link, &:visited{
                     color:$colorDark;
                 }
-                @include breakpoint('tablet'){
+                @include breakpoint("tablet"){
                     opacity: 1;
                     width: 80%;
                     margin: 30px auto;
@@ -340,7 +350,7 @@
         }
     }
     .home02{
-        @include breakpoint('mobileonly'){
+        @include breakpoint("mobileonly"){
             padding-bottom: 150px;
         }
     }
@@ -348,7 +358,7 @@
     .home03{
         // padding-top: 150px;
         overflow: hidden;
-        @include breakpoint('mobileonly'){
+        @include breakpoint("mobileonly"){
             height: 180vh;
         }
         .cube-wrap{
@@ -436,7 +446,7 @@
             position: relative;
             perspective-origin: center center;
             perspective: 500px;
-            @include breakpoint('mobileonly'){
+            @include breakpoint("mobileonly"){
                 height: 120vh;
             } 
         }
@@ -457,7 +467,7 @@
                 &:hover{
                     background-color: $colorMedium;
                 }
-                @include breakpoint('mobileonly'){
+                @include breakpoint("mobileonly"){
                     @include text-rec(80%, 1.5rem, $colorDarker, $colorLight, transparent);
                     font-weight: bold;
                     &:link, &:visited{
@@ -472,7 +482,7 @@
             border-radius: 50%;
             position: relative;
             overflow: hidden;
-            @include breakpoint('mobileonly'){
+            @include breakpoint("mobileonly"){
                 border-radius: 0%;
                 height: 90%;
             }
@@ -484,7 +494,7 @@
             margin: 100px auto;
             transform: rotate3d(1 ,0 ,0, 360deg);
             // border: 2px solid orange;
-            @include breakpoint('mobileonly'){
+            @include breakpoint("mobileonly"){
                 // transform: none;
                 margin: 5vh auto;
             }
@@ -505,7 +515,7 @@
                 animation: cf-button-show 1s forwards;
                 animation-delay: 5s;
             }
-            @include breakpoint('mobileonly'){
+            @include breakpoint("mobileonly"){
                 flex-wrap: wrap;
                 height: 100vh;
                 width: 100%;
@@ -516,7 +526,7 @@
                 display: block;
                 object-fit: cover;
                 border: 5px solid $colorDark;
-                @include breakpoint('mobileonly'){
+                @include breakpoint("mobileonly"){
                     width: 33%;
                     height: 20%;
                 }
@@ -546,7 +556,7 @@
                 width: 100vw;
                 filter: grayscale(0%);
             }
-            @include breakpoint('mobileonly'){
+            @include breakpoint("mobileonly"){
                 display: none;
             }
         }
@@ -642,7 +652,27 @@
 	}
 }
 
+// animation for method 2
 @keyframes slideMoveDesktop{
+    from{
+        left: 0;
+    }
+    to{
+        left: -360vw;
+    }
+}
+
+@keyframes slideMoveTablet{
+    from{
+        left: 0;
+    }
+    to{
+        left: -550vw;
+    }
+}
+
+// animation for method 1
+@keyframes slideMoveDesktopMethod1{
     from{
         left: 0;
     }
@@ -651,7 +681,7 @@
     }
 }
 
-@keyframes slideMoveTablet{
+@keyframes slideMoveTabletethod1{
     from{
         left: 0;
     }

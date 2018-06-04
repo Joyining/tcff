@@ -11,6 +11,10 @@
             font-size: 2rem;
             line-height: 4rem;
             color: $colorDarker;
+            @include breakpoint("mobileonly"){
+                line-height: 2rem;
+            }
+
         }
         .name{
             font-size: 1.5rem;
@@ -26,7 +30,11 @@
             font-size: 1rem;
             line-height: 2rem; 
             // display: none;
+            @include breakpoint("mobileonly"){
+                display: none;
+            }
         }
+
         .logo-time{
             position: absolute;
             width: 100%;
