@@ -1,0 +1,60 @@
+@import "partials/basic";
+
+.container-time{
+	margin: ($headerHeight * 2.2) auto;
+	// margin-bottom: ($headerHeight * 4);
+	padding: 100px;
+	width: 80vw;
+	box-sizing: border-box;
+	@include breakpoint("tablet") {
+		width: 90vw;
+		padding: 50px;
+	}
+	@include breakpoint("mobileonly") {
+		width: 90vw;
+		padding: 30px;
+    }
+    .time-wrap{
+        // border: 2px solid blue;
+        width: 100%;
+        .time-row{
+            display: flex;
+            width: 100%;
+            margin: 0 auto;
+            .time-col{
+                padding: 1%;
+                font-weight: bold;
+                display: block;
+                &.date{
+                    @include text-rec(20%, 1.1rem, transparent, $colorLight, transparent);
+                    border: none;
+                    border-bottom: 2px solid $colorLight;
+                    &:link, &:visited{
+                        color: $colorLight;
+                    }
+                }
+                &.time-name{
+                    @include text-rec(40%, 1.1rem, transparent, $colorLight, transparent);
+                    text-align: left;
+                    border: none;
+                    border-bottom: 2px solid $colorLight;
+                    &:link, &:visited{
+                        color: $colorLight;
+                    }
+                }
+                &.heading{
+                    font-weight: bold;
+                    background-color: $colorMedium;
+                    color: $colorDarker;
+                    border: transparent;
+                    text-align: center;
+                    font-size: 1.5rem;
+                    &.border{
+                        border-right: 2px solid $colorDark;
+                    }
+                }
+                
+            }
+        }
+    }
+}
