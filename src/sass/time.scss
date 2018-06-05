@@ -17,44 +17,59 @@
     .time-wrap{
         // border: 2px solid blue;
         width: 100%;
-        .time-row{
-            display: flex;
-            width: 100%;
-            margin: 0 auto;
-            .time-col{
-                padding: 1%;
-                font-weight: bold;
+        display: flex;
+            .cell{
                 display: block;
-                &.date{
-                    @include text-rec(20%, 1.1rem, transparent, $colorLight, transparent);
-                    border: none;
-                    border-bottom: 2px solid $colorLight;
-                    &:link, &:visited{
-                        color: $colorLight;
-                    }
-                }
-                &.time-name{
-                    @include text-rec(40%, 1.1rem, transparent, $colorLight, transparent);
-                    text-align: left;
-                    border: none;
-                    border-bottom: 2px solid $colorLight;
-                    &:link, &:visited{
-                        color: $colorLight;
-                    }
+                @include text-rec(100%, 1.1rem, transparent, $colorLight, transparent);
+                text-align: left;
+                border: none;
+                border-bottom: 2px solid $colorLight;
+                line-height: 2.2rem;
+                padding: 10px;
+                font-weight: bold;
+                // box-sizing: border-box;
+
+                &:link, &:visited{
+                    color: $colorLight;
                 }
                 &.heading{
-                    font-weight: bold;
                     background-color: $colorMedium;
                     color: $colorDarker;
-                    border: transparent;
+                    font-weight: bold;
                     text-align: center;
                     font-size: 1.5rem;
+                    border: 2px solid transparent;
                     &.border{
                         border-right: 2px solid $colorDark;
                     }
                 }
-                
             }
+
+        .col1{
+            width: 20%;
         }
+        .col2, .col3{
+            width: 40%;
+        }   
+    }
+}
+.time-switch{
+    display: block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: $colorDarker;
+    text-align: center;
+    line-height: 100px;
+    font-size: 1.2rem;
+    position: fixed;
+    right: 5vw;
+    top: 10vw;
+    &:link, &:visited{
+        color: $colorLight;
+    }
+    &:hover{
+        background-color: $colorLight;
+        color: $colorDarker;
     }
 }
