@@ -26,17 +26,25 @@
     margin-top: 50px;
     // 片名區
     .myfilmname{
-        width:300px;
+        width:700px;
         display: flex;
-        text-align: center;
+        text-align: left;
         margin: 0 auto;
+        .l_pad{
+            width: 400px;
+            padding: 20px;
+        }
+        #h01{
+            width: 300px;
+            border-right: 5px solid white;
+            padding: 20px;
+            text-align: right;
+        }
     }
-    #h01{
-        border-right: 5px solid white;
-    }
-    h1{
-        padding: 20px;
-    }
+    
+    
+    
+    
     .myfont{
         display: flex;
         width: 100%;
@@ -70,6 +78,7 @@
         border: 1px solid white;
         padding: 10px;
     }
+    
 }
 .box{    
     margin-top: 200px;
@@ -331,6 +340,11 @@ li{
             margin-left: 60px;
         }
     }
+    .box3{
+        .myfilmname{
+            width:400px;
+        }           
+    }
 	
     .myfont{
         width: 70%;
@@ -350,6 +364,16 @@ li{
             width: 90vw;
             padding: 30px;
         }
+        .box3{
+            .myfilmname{
+                width:300px;
+                #h01{
+                    width: 200px;
+                }
+            }  
+                     
+        }
+        
         .myfont{
             width: 100%;
         }

@@ -103,7 +103,7 @@
     }
 
     .front , .back{
-        backface-visibility: hidden;
+        backface-visibility: hidden; 
     }
 
     .back_r{
@@ -301,8 +301,8 @@
                padding:0 0 30px 0;
                @include text-rec(30% , 18px , $colorDark , $colorLight ,transparent) ;
                @include breakpoint("mobileonly"){
-                @include text-rec(200px , 18px , $colorDark , $colorLight ,transparent) ;
-                margin: 50px 25% ;
+                    @include text-rec(200px , 18px , $colorDark , $colorLight ,transparent) ;
+                     margin: 50px 25% ;
                 }    
             }
 
@@ -449,6 +449,12 @@
                 @include text-rec(50% , 18px , none , $colorDark ,transparent) ;
                 text-align: right ;
                 // background-color: aliceblue ;
+                .password_mo{
+                    @include text-rec(50% , 18px , none , $colorDark ,transparent) ;
+                    @include breakpoint("mobileonly"){
+                        @include text-rec(50% , 10px , none , $colorDark ,transparent) ;
+                    }
+                }
             }
             .password_r_2{
                 height: 25px;
@@ -481,10 +487,24 @@
                 height: 24px;
                 width: 100%;
                 // overflow: hidden ;
+                @include breakpoint("tablet"){
+                    overflow: hidden ;
+                    margin: 0 ;
+                    padding-left: 55% ;
+                 }
+                @include breakpoint("mobileonly"){
+                    overflow: hidden ;
+                    margin: 0 ;
+                    padding-left: 20% ;
+                 } 
             }
             .worring_r{
                 @include text-rec(30% , 12px , transparent , red ,transparent) ;
                 text-align: right ;
+                @include breakpoint("mobileonly"){
+                    overflow: hidden ;
+                    padding-left: 35% ;
+                }
             }
             .display{
                 display: none ;
