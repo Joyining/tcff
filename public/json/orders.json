@@ -1,0 +1,27 @@
+{
+    "films":[
+        {
+            "session":1,
+            "seats":[
+                "10",
+                "11"
+            ],
+            "quantity": 2
+        },
+        {
+            "session": 2,
+            "seats": [
+                "1",
+                "2",
+                "3"
+            ],
+            "quantity": 3
+        }
+    ],
+    "cffilms":[
+        {
+            "id_movie":15,
+            "quantity":10
+        }
+    ]
+}

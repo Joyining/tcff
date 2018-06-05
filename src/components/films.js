@@ -13,9 +13,11 @@ class Films extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.pickBook = this.pickBook.bind(this);        
         this.state = {
-            books:false
+            books:false,
+            types:[]
         };
-        this.types = ["romance", "family", "thrill", "war", "sci-fi", "drama", "comedy", "adventure", "crime"];
+        // this.types = ["romance", "family", "thrill", "war", "sci-fi", "drama", "comedy", "adventure", "crime"];
+        // this.types = [];
     }    
     positioning(index){
         let books = Array.from(document.querySelectorAll('.book'));
@@ -146,15 +148,15 @@ class Films extends Component {
         } else if (target == 'selType'){
             if (this.state.sortBy !== 'type') {
                 newAr = this.state.datas.sort((a, b) => {
-                    if (a.type > b.type) {
+                    if (a.theme > b.theme) {
                         return 1;
                     }
-                    if (a.type < b.type) {
+                    if (a.theme < b.theme) {
                         return -1;
                     }
                     return 0;
                 });
-                let index = newAr.findIndex(a => a.type == value);
+                let index = newAr.findIndex(a => a.theme == value);
                 console.log(index);
                 this.fadeOut(
                     () => {
@@ -166,7 +168,7 @@ class Films extends Component {
                 );
                 console.log(target, newAr, this.state);
             }else{
-                let index = this.state.datas.findIndex(a => a.type == value);
+                let index = this.state.datas.findIndex(a => a.theme == value);
                 console.log("pickbook_index: ", index)
                 console.log("newAr: ", newAr)
                 this.positioning(index);
@@ -259,14 +261,45 @@ class Films extends Component {
     }
     componentWillMount(){
         // fetch(`${process.env.PUBLIC_URL}/json/films.json`)
-        fetch(`http://192.168.39.110/tcff_php/api/movie/read.php`)
+        fetch(`http://192.168.39.110/tcff_php/api/movie/read.php?cf=false`)
         .then((res)=>res.json())
         // .then(films => console.log(films))
-        .then((films)=>this.setState({
-            datas:films,
-            sortBy:'year',
-            books:true
-        }));
+        .then((films)=> {
+            let types = films.reduce((a, x) => {
+                // console.log({
+                //     a:a,
+                //     x:x
+                // })
+                if (!a.includes(x.theme)) {
+                    a.push(x.theme);
+                }
+                return a;
+            }, []);
+            films = films.sort((a, b) => {
+                if (a.release_year > b.release_year) {
+                    return 1;
+                }
+                if (a.release_year < b.release_year) {
+                    return -1;
+                }
+                return 0;
+            })
+            types = types.sort((a,b) => {
+                if (a > b) {
+                    return 1;
+                }
+                if (a < b) {
+                    return -1;
+                }
+                return 0;
+            })
+            this.setState({
+                datas:films,
+                sortBy:'year',
+                types: types,
+                books:true
+            })
+        });
         console.log('state: ', this.state);
     }
     componentDidUpdate(){
@@ -280,6 +313,7 @@ class Films extends Component {
         this.fadeIn();
     }
     componentDidMount() {
+        
         // let allBook = document.querySelectorAll('.book');
         // let book = Array.from(allBook);
         // let allFront = document.querySelectorAll('.front');
@@ -298,7 +332,7 @@ class Films extends Component {
                     <div className="buttons">
                         {/* <button onClick={this.fadeOut}>fade out</button>		 */}
                         <button onClick={this.refresh}>refresh</button>
-                        <select name="" id="selType" onChange={this.handleChange}>{this.types.map((type, idx) => <option key={idx} value={type}>{type}</option>)}</select>
+                        <select name="" id="selType" onChange={this.handleChange}>{this.state.types.map((type, idx) => <option key={idx} value={type}>{type}</option>)}</select>
                         <select name="" id="selYear" onChange={this.handleChange}>
                             <option value="1960">1960</option>
                             <option value="1970">1970</option>
@@ -314,9 +348,9 @@ class Films extends Component {
                                     return (
                                         
                                         <div className="book" data-open='false'>
-                                            <div className="side" onClick={this.pickBook}><h1><span>{data.release_year}</span>{data.name_en}<h3>{this.types[idx % 9]}</h3></h1></div>
+                                            <div className="side" onClick={this.pickBook}><h1><span>{data.release_year}</span>{data.name_zhtw}<h3>{data.theme}</h3></h1></div>
                                             <div className="front">
-                                                <img className="hide" src={`${process.env.PUBLIC_URL}/images/${data.release_year}_${data.name_en.split(' ').join('_').replace(':', '')}.jpg`} />
+                                                <img className="hide" src={`${process.env.PUBLIC_URL}/images/${data.release_year}_${data.name_en.split(' ').join('_').replace(':', '_')}.jpg`} />
                                                 <Link to={`films-detail-page?id=${data.id_movie}`}>
                                                     電影內容
                                                 </Link>
