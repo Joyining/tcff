@@ -14,6 +14,9 @@ class Time extends Component {
     this.state = {
       data:[],
     };
+    // this.createCol1 = this.createCol1.bind(this); 
+    // this.createCol2 = this.createCol2.bind(this); 
+    // this.createCol3 = this.createCol3.bind(this); 
   }
   
   componentWillMount() {
@@ -25,59 +28,81 @@ class Time extends Component {
     console.log('state: ', this.state);
   }
 
+  // createCol1 = () => {
+  //   let dataLength = this.state.data.length;
+  //   console.log(dataLength);
+  //     this.state.data.map(session =>{
+  //       if (session.auditorium == "誠品電影院"){
+  //         console.log(session.date);
+  //         return <div className="">
+  //           {session.date.replace('-', '/').replace('-', '/')}
+  //           {session.day}
+  //         </div>;
+  //       }
+  //     }
+  //   )}
+
+  // createCol2 = () => {
+  //   this.state.data.map(session => {
+  //     if (session.auditorium == "誠品電影院") {
+  //       return <Link to="/" className="">
+  //         {session.time.slice(0, 5)}
+  //         {session.name_zhtw}
+  //       </Link>;
+  //     }
+  //   })
+  // }
+
+  // createCol3 = () => {
+  //   this.state.data.map(session => {
+  //     if (session.auditorium == "台北光點") {
+  //       return <Link to="/" className="">
+  //         {session.time.slice(0, 5)}
+  //         {session.name_zhtw}
+  //       </Link>;
+  //     }
+  //   })
+  // }
+
   render() {
     return <section className="container-time">
         <div className="time-wrap">
-          <div className="time-row">
-            <div className="time-col date heading" />
-            <div className="time-col time-name border heading">誠品電影院</div>
-            <div className="time-col time-name heading">台北光點</div>
+          <div className="col col1">
+            <div className="heading cell"></div>
+            {this.state.data.map(session => {
+              if (session.auditorium == "誠品電影院") {
+                return <div className="cell">
+                    {session.date
+                      .replace("-", "/")
+                    .replace("-", "/")}{'  '}
+                    {session.day}
+                  </div>;
+              }
+            })}
           </div>
-
-          {this.state.data.map(session => (
-            <div className="time-row" key={session.id}>
-              <div className="time-col date">
-                {session.date.replace('-', '/')}&nbsp 
-                {session.day}
-              </div>
-              <Link to="/" className="time-col time-name">
-                {session.time.slice(1,5)}&nbsp 
-                {session.name_zhtw}
-              </Link>
-              <Link to="/" className="time-col time-name">
-                {session.time.slice(1, 5)}&nbsp 
-                {session.name_zhtw}
-              </Link>
-            </div>
-          ))}
+          <div className="col col2">
+            <div className="heading cell border">誠品電影院</div>
+            {this.state.data.map(session => {
+              if (session.auditorium == "誠品電影院") {
+                return <Link to="/" className="cell">
+                    {session.time.slice(0, 5)}{'  '}
+                    {session.name_zhtw}
+                  </Link>;
+              }
+            })}
+          </div>
+          <div className="col col3">
+            <div className="heading cell">台北光點</div>
+            {this.state.data.map(session => {
+              if (session.auditorium == "台北光點") {
+                return <Link to="/" className="cell">
+                    {session.time.slice(0, 5)}{'  '}
+                    {session.name_zhtw}
+                  </Link>;
+              }
+            })}
+          </div>
         </div>
-
-        {/* <table>
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>date</th>
-              <th>day</th>
-              <th>time</th>
-              <th>auditorium</th>
-              <th>id_movie</th>
-              <th>name_zhtw</th>
-              <th>running_time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.data.map(session => <tr key={session.id}>
-                <td>{session.id}</td>
-                <td>{session.date}</td>
-                <td>{session.day}</td>
-                <td>{session.time}</td>
-                <td>{session.auditorium}</td>
-                <td>{session.id_movie}</td>
-                <td>{session.name_zhtw}</td>
-                <td>{session.running_time}</td>
-              </tr>)}
-          </tbody>
-        </table> */}
       </section>;
   }
 }
