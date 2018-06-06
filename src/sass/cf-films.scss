@@ -9,10 +9,11 @@
     margin-top: 250px;
     height: 30em;
     background-color: $colorMedium ;
-    background-image: url(../images/Unclesamwantyou2.png);
+    background-image: url(../images/movie_00.png);
     background-repeat: no-repeat; 
     background-position: center;
-    background-position-y: -80px;
+    background-position-y: -40px;
+    background-size: 1200px;
     overflow: hidden;
     .title{
     @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
@@ -74,11 +75,24 @@ a:hover .system{
     background-color: #cbab9e;
     border: 1px solid #602926;
 }
+@media screen and (max-width: 1600px){
+    .container-cf{
+        background-position-y: 0;
+        background-size: 1110px;
+    }
+}
+@media screen and (max-width: 1360px){
+    .container-cf{
+        background-position-y: 30px;
+        background-size: 1000px;
+    }
+}
 @media screen and (max-width: 1030px){
     .container-cf{
-        height: 20em;
-        background-position-y: -90px;
-        background-size: 600px;
+        background-image: url(../images/movie_01.png);
+        height: 50em;
+        background-position-y: -360px;
+        background-size: 650px;
     }
     .container-cfFilms{
         padding: 10px;
@@ -88,23 +102,24 @@ a:hover .system{
 @media screen and (max-width: 830px){
     .container-cf{
         margin-top: 200px;
-        height: 15em;
-        background-position-y: -40px;
-        background-size: 400px;
+        height: 40em;
+        background-position-y: -340px;
+        background-size: 550px;
     }
 }
 @media screen and (max-width: 550px){
     .container-cf{
-        background-position-y: -10px;
-        height: 10em;
-        background-size: 300px;
+        background-position-y: -160px;
+        height: 35em;
+        background-size: 400px;
         
     }
 }
 @media screen and (max-width: 460px){
     .container-cf{
-        height: 5em;
-        background-position-y: 0;
-        background-size: 290px;
+        height: 35em;
+        // background-position-x: -32px;
+        background-position-y: -30px;
+        background-size: 330px;
     }
 }

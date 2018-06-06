@@ -13,8 +13,10 @@ import img05 from '../images/1997_Titanic_05.jpg';
 class Cffilmsdetail extends Component {
     constructor(props){
         super(props);
+        this.slide = [];
         this.state = {
-            films: []
+            films: [],
+            slide: []
         }
     }
     
@@ -32,57 +34,117 @@ class Cffilmsdetail extends Component {
             console.log(datas) 
             this.setState({
              films: datas
-         })})
+         }, () => {
+             let path = `${this.state.films.release_year}_${this.state.films.name_en.split(' ').join('_').replace(':', '_')}`;
+             console.log(path);
+             let slide = [];
+             for(let i=1;i<=5;i++){
+                let url = `${process.env.PUBLIC_URL}/images/` + path + "_0" + i + '.jpg';
+                slide.push(url);
+             }
+             this.setState({slide:slide}, () =>{
+                // var slides = [img01,img02,img03,img04,img05];
+                let slides = this.state.slide;
+                var slideWidth = $(".slide_wrap").width();
+                var slideNum=0;
+                // console.log(slides[0]);
+                //var sildeCount=$(".slides li").length;
+                var slideCount = slides.length;
+                console.log(slideWidth);
+        
+                for(let $i=0; $i< slideCount;$i++){
+                    // console.log(slides[$i]);
+                    $(".slides").append(`<li><img src="${slides[$i]}" alt=''></li>`)
+                    $(".pages").append("<li></li>");
+                }
+        
+                // $(".slide li").width(slideWidth);
+                // $(".slide_wrap ul.slides").width(slideWidth*slideCount);
+                setWidth();
+        
+                $(".pages li").eq(0).css("background","white");
+                $(".pages").on("mouseenter","li",function(){
+                    slideNum=$(this).index();
+                    moveSlide(slideNum);
+                });
+                $("#left").click(function(){
+                    slideNum--;
+                    if(slideNum<0)slideNum=slideCount-1;
+                    moveSlide(slideNum);
+                });
+                $("#right").click(function(){
+                    slideNum++;
+                    if(slideNum>=slideCount)slideNum=0;
+                    moveSlide(slideNum);
+                });
+                $(window).resize(function(){
+                    setWidth();
+                });
+                function setWidth(){
+                    slideWidth = $(".slide_wrap").width();
+                    $(".slides li").width(slideWidth);
+                    $(".slide_wrap ul.slides").width(slideWidth*slideCount);
+                    moveSlide(slideNum);
+                };
+                function moveSlide(slideNum){
+                     var slideMove = 0-slideNum*slideWidth;
+                    $(".pages li").eq(slideNum).css("background","white")
+                        .siblings().css("background","transparent");
+                    $(".slides").css("left",slideMove);
+                }
+             })
+         }
+        )})
 
         //  sliider
-        var slides = [img01,img02,img03,img04,img05];
-        var slideWidth = $(".slide_wrap").width();
-        var slideNum=0;
-        // console.log(slides[0]);
-        //var sildeCount=$(".slides li").length;
-        var slideCount = slides.length;
-        console.log(slideWidth);
+        // var slides = [img01,img02,img03,img04,img05];
+        // var slideWidth = $(".slide_wrap").width();
+        // var slideNum=0;
+        // // console.log(slides[0]);
+        // //var sildeCount=$(".slides li").length;
+        // var slideCount = slides.length;
+        // console.log(slideWidth);
 
-        for(let $i=0; $i< slideCount;$i++){
-            console.log(slides[$i])
-            $(".slides").append("<li><img src='"+ slides[$i] +"' alt=''></li>")
-            $(".pages").append("<li></li>");
-        }
+        // for(let $i=0; $i< slideCount;$i++){
+        //     console.log(slides[$i])
+        //     $(".slides").append("<li><img src='"+ slides[$i] +"' alt=''></li>")
+        //     $(".pages").append("<li></li>");
+        // }
 
-        // $(".slide li").width(slideWidth);
-        // $(".slide_wrap ul.slides").width(slideWidth*slideCount);
-        setWidth();
+        // // $(".slide li").width(slideWidth);
+        // // $(".slide_wrap ul.slides").width(slideWidth*slideCount);
+        // setWidth();
 
-        $(".pages li").eq(0).css("background","white");
-        $(".pages").on("mouseenter","li",function(){
-            slideNum=$(this).index();
-            moveSlide(slideNum);
-        });
-        $("#left").click(function(){
-            slideNum--;
-            if(slideNum<0)slideNum=slideCount-1;
-            moveSlide(slideNum);
-        });
-        $("#right").click(function(){
-            slideNum++;
-            if(slideNum>=slideCount)slideNum=0;
-            moveSlide(slideNum);
-        });
-        $(window).resize(function(){
-            setWidth();
-        });
-        function setWidth(){
-            slideWidth = $(".slide_wrap").width();
-            $(".slide li").width(slideWidth);
-            $(".slide_wrap ul.slides").width(slideWidth*slideCount);
-            moveSlide(slideNum);
-        };
-        function moveSlide(slideNum){
-             var slideMove = 0-slideNum*slideWidth;
-            $(".pages li").eq(slideNum).css("background","white")
-                .siblings().css("background","transparent");
-            $(".slides").css("left",slideMove);
-        }
+        // $(".pages li").eq(0).css("background","white");
+        // $(".pages").on("mouseenter","li",function(){
+        //     slideNum=$(this).index();
+        //     moveSlide(slideNum);
+        // });
+        // $("#left").click(function(){
+        //     slideNum--;
+        //     if(slideNum<0)slideNum=slideCount-1;
+        //     moveSlide(slideNum);
+        // });
+        // $("#right").click(function(){
+        //     slideNum++;
+        //     if(slideNum>=slideCount)slideNum=0;
+        //     moveSlide(slideNum);
+        // });
+        // $(window).resize(function(){
+        //     setWidth();
+        // });
+        // function setWidth(){
+        //     slideWidth = $(".slide_wrap").width();
+        //     $(".slide li").width(slideWidth);
+        //     $(".slide_wrap ul.slides").width(slideWidth*slideCount);
+        //     moveSlide(slideNum);
+        // };
+        // function moveSlide(slideNum){
+        //      var slideMove = 0-slideNum*slideWidth;
+        //     $(".pages li").eq(slideNum).css("background","white")
+        //         .siblings().css("background","transparent");
+        //     $(".slides").css("left",slideMove);
+        // }
     }
   render() {
          
@@ -131,7 +193,7 @@ class Cffilmsdetail extends Component {
                             <div className="l_font">級別</div>
                             <div className="r_font">{this.state.films.rating}</div>
                         </div>            
-                        <a href=""><div className="r_font BGC"><i class="fas fa-plus-circle"></i>  加入我的票夾</div></a>
+                        <button className="favorite BGC"><div><i class="fas fa-plus-circle"></i>  加入我的票夾</div></button>
                     </div>        
                 </div>
 
