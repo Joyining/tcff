@@ -52,6 +52,63 @@
             width: 40%;
         }   
     }
+    .date-pick-wrap{
+        display: flex;
+        width: 80%;
+        margin: 0 auto;
+        border: 2px solid yellow;
+        flex-wrap: wrap;
+        .date-picker{
+            @include text-rec(12%, 1rem, $colorLight, $colorDarker, transparent);
+            margin: 5px;
+            &:link, &:visited{
+                color: $colorDarker;
+            }
+        }
+    }
+    .calendar{
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        .cal{
+            // border: 2px solid $colorLight;
+            width: 45%;
+            margin: 5%;
+            background-color: $colorLight;
+            height: 500px;
+
+            .cal-heading{
+                @include text-rec(100%, 1.5rem, $colorDarker, $colorLight, transparent);
+                font-weight: bold;
+                border: none;
+                border-bottom: 5px solid  #3b0e10;
+            }
+            .year, .date, .day{
+                @include text-rec(100%, 1.5rem, transparent, $colorDarker, transparent);
+            }
+            .year, .day{
+                font-size: 1.2rem;
+            }
+            .date{
+                font-weight: bold;
+                font-size: 2rem;
+            }
+            .time-name{
+                display: block;
+                @include text-rec(100%, 1.6rem, transparent, $colorDarker, transparent);
+                border: none;  
+                &:link, &:visited{
+                    color: $colorDarker;
+                }
+                &:hover{
+                    font-weight: bold;
+                    background-color: $colorMedium;
+                }
+            }
+            
+        }
+    }
+
 }
 .time-switch{
     display: block;

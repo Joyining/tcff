@@ -9,9 +9,11 @@ import CfFilmsPage from './components/cf-films-page';
 import FilmsDetailPage from './components/films-detail-page';
 import CfFilmsDetailPage from './components/cf-films-detail-page';
 import TimePage from './components/time-page';
+import TimeListPage from "./components/time-list-page";
 import InfoPage from './components/info-page';
 import NewsPage from './components/news-page';
 import ArticlePage from './components/article-page';
+
 
 
 
@@ -28,6 +30,7 @@ class App extends Component {
           <Route path="/films-detail-page" component={FilmsDetailPage} />
           <Route path="/cf-films-detail-page" component={CfFilmsDetailPage} />
           <Route path="/time" component={TimePage} />
+          <Route path="/time-list" component={TimeListPage} />
           <Route path="/info" component={InfoPage} />
           <Route path="/news" component={NewsPage} />
           <Route path="/article" component={ArticlePage} />

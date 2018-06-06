@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import Header from './header';
 import Footer from './footer';
 import FastTicket from './fast-ticket';
-import Time from './time'
+import TimeList from "./time-list";
 import TimeSwitch from "./time-switch";
 
-class TimePage extends Component {
+class TimeListPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,12 +22,12 @@ class TimePage extends Component {
         <div style={{position:'relative'}}>
             <Header />
             <FastTicket />
-            <Time />
-            <TimeSwitch switch={this.state.switch[1]}/>
+            <TimeList />
+            <TimeSwitch switch={this.state.switch[0]}/>
             <Footer />
         </div>
     );
   }
 }
 
-export default TimePage;
+export default TimeListPage;
