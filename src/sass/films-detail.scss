@@ -7,10 +7,17 @@
     margin: 10px auto ;
     background-color: $colorMedium;
     .title{
-    @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
+        @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
     }
     .about{
-    @include paragraph($colorDarker);
+        @include paragraph($colorDarker);
+        h2{
+            margin-bottom: 10px;
+            background-color: #602926;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
     }
     
 }
@@ -80,6 +87,7 @@
         margin-top: 10px;
         color: white;
         cursor: pointer;
+        font-family: "\5FAE\8EDF\6B63\9ED1\9AD4";
     }
     
 }
@@ -113,7 +121,7 @@
       
       .mycontent-image{
         width: 100%;
-        
+        height: 100%;
       }
       
       .mycontent-details {
@@ -202,7 +210,7 @@
     }
     .cover{
         width: 400px;
-        height: 240px;
+        height: 260px;
         overflow: hidden;
         margin-bottom: 10px;
     }
@@ -295,7 +303,7 @@ li{
 }
 
 #trapezoid_left{
-    border-top: 80px solid rgb(243, 210, 193);
+    border-top: 80px solid #cbab9e;
     border-right: 50px solid transparent;
 	height: 0;
 	width: 450px;
@@ -304,7 +312,7 @@ li{
     margin-top: 10px;
 }
 #trapezoid_right{
-    border-bottom: 80px solid rgb(243, 210, 193);
+    border-bottom: 80px solid #cbab9e;
 	border-left: 50px solid transparent;
 	height: 0;
 	width: 600px;
@@ -381,32 +389,33 @@ li{
             padding: 30px;
         }
         .box3{
+            width: 100%;
             .myfilmname{
                 width:300px;
                 #h01{
                     width: 200px;
                 }
             }  
-                     
+            .myfont{
+                width: 80%;
+            }         
         }
         
-        .myfont{
-            width: 100%;
-        }
+        
         .slide_wrap{
-            max-width: 400px;
-            height: 200px;       
+            max-width: 375px;
+            height: 230px;       
         }
         .slide_wrap ul.slides{
-            height: 200px;
+            height: 230px;
         }
         #trapezoid_left{
-            border-top: 80px solid rgb(243, 210, 193);
+            border-top: 80px solid #cbab9e;
             border-right: 0 solid transparent;
            
         }
         #trapezoid_right{
-            border-bottom: 80px solid rgb(243, 210, 193);
+            border-bottom: 80px solid #cbab9e;
             border-left: 0 solid transparent;
             
         }
@@ -420,7 +429,7 @@ li{
         .play_video{
             background-size: 70%;
             left: 7%;
-            top: 30%;
+            top: 35%;
         }
      }
 

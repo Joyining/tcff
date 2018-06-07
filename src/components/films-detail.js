@@ -206,9 +206,11 @@ class Filmsdetail extends Component {
             
                 <section className="container-filmsDetail">                
                     <div className="about">
+                        <h2>劇情簡介</h2>
                         {this.state.films.synopsis}
                     </div>
-                    <div className="about"> 
+                    <div className="about">
+                        <h2>獲獎事蹟</h2>
                         {this.state.films.award}
                     </div>                                       
                 </section>
