@@ -12,8 +12,66 @@ class Tab4 extends Component {
             films:[],
             cffilms:[]
         };
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.getOrders = this.getOrders.bind(this);
+    }
+    getOrders(evt){
+        let id = sessionStorage.getItem('sessionId');
+        console.log("id", id)
+        console.log("id", JSON.stringify(id))
+        fetch('http://localhost/tcff_php/api/checkSession.php',{
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'                
+            },
+            method: "POST",
+            mode: 'cors',
+            credentials: "same-origin",
+            // 'cookie':document.cookie,
+            body: JSON.stringify(id)
+
+        })
+            // .then(res => console.log(res))
+            .then(res => res.json())
+            .then(data => {
+                console.log('res', data)
+                // document.getElementById('message').innerHTML = data.success == null ? 'error' : data.success + ', Hi ' + data.username;
+
+            });
+    }
+    handleSubmit(evt){
+        let form = document.getElementById('logIn');
+        let l = form.length-1;
+        let json = {};
+        for(let i=0;i<l;i++){
+            let k = form.elements[i].id;
+            let v = form.elements[i].value;
+            console.log(v,k);
+            json[k] = v;
+        }
+        console.log("json:" ,json)
+        console.log(form.elements);
+        console.log(form.input);
+        console.log(form.elements);
+        // console.log()
+        let url = `http://localhost/tcff_php/api/members/login.php`;
+        let body = JSON.stringify(json);
+        fetch(url,{
+            method : "POST",
+            body: JSON.stringify(json)
+        }).then(res => res.json())
+            .then(data => {
+                console.log('res',data);
+                if(data.success){
+                    sessionStorage.setItem('user', JSON.stringify(data.user));
+                }
+                // sessionStorage.setItem('sessionId', data.sessionId);
+                // document.getElementById('message').innerHTML = data.success == null ? 'error' : data.success + ', Hi ' + data.username;
+
+            });
     }
     componentDidUpdate(){
+        
         let ar0 = this.state.cffilms.slice(0);
         console.log("init",ar0)
         console.log("state",this.state);
@@ -131,6 +189,7 @@ class Tab4 extends Component {
         console.log("final state: ", this.state);
     }
     componentDidMount() {
+        window.scrollTo(0, 0);
         let data = [];
         fetch(`${process.env.PUBLIC_URL}/json/orders_raw.json`)
         .then(res => res.json())
@@ -161,7 +220,13 @@ class Tab4 extends Component {
                             您的兌票序號為ABCD123456
                         </p>
                         <Link className="" to={`/`}>回首頁</Link>
-                        
+                        <form action="" id="logIn">
+                            <input type="text" id="email"/>
+                            <input type="password" id="password"/>
+                            <input type="button" onClick={this.handleSubmit} value="登入"/>
+                        </form>
+                        <div id="message"></div>
+                        <button type="button" onClick={this.getOrders}>get orders</button>
                     </div>
                         
                 </div>

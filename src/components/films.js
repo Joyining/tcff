@@ -191,9 +191,11 @@ class Films extends Component {
         // console.log('removeChild: ', evt.target.removeChild);
         // console.log('parentElement == parentNode : ', evt.target.parentElement == evt.target.parentNode);
         // evt.target.parentElement.classList.add('opened');
+        console.log('target', evt.target)
+        console.log('current target',evt.currentTarget)
         let books = Array.from(document.querySelectorAll(".book"));
 
-        let index = (i === undefined) ? books.indexOf(evt.target.parentElement) : i;
+        let index = (i === undefined) ? books.indexOf(evt.currentTarget.parentElement) : i;
         console.log("index i evt: ", index, i, evt);
         this.positioning(index);
         books.map((book, idx) => {

@@ -25,12 +25,14 @@ class Tab1 extends Component {
     this.temp = [];
   }
   componentDidMount(){
+
+    window.scrollTo(0, 0);
     console.log("props: ", this.props);
     console.log("props: " ,this.props.match);
     // console.log(Store);
-    
-    // fetch(`http://192.168.39.110:3000/${process.env.PUBLIC_URL}/component/collection.json`)
-    fetch(`${process.env.PUBLIC_URL}/json/collection.json`)
+    let id = JSON.parse(sessionStorage.getItem('user')).id;
+    fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=` + id)
+    // fetch(`${process.env.PUBLIC_URL}/json/collection.json`)
       .then(res => res.json())
       .then(datas => {
         let films = [];

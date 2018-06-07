@@ -66,6 +66,8 @@ class Tab2 extends Component {
         this.temp = [];
     }
     componentDidMount() {
+
+        window.scrollTo(0, 0);
         // console.log("props: ", this.props);
         // console.log("dm",this.overlay);
         // console.log("href", location.href)
