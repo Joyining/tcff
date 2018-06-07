@@ -13,164 +13,117 @@ class Time extends Component {
     super(props);
     this.state = {
       data:[],
-      // currentDay:'',
-      uniqueDate:[],
-      uniqueDateAll: [],
-      // uniqueDay: [],
-      uniqueDateDay: [],
-      currentDate:'',
+      uniqueDate:[], //07-01
+      uniqueDateAll: [], //2018-07-01
+      uniqueDay: [], // Sun
+      uniqueDateDay: [], // 2018-07-01 Sun
       currentInx:0,
       currentDay:'',
     };
     this.createUniqueDate = this.createUniqueDate.bind(this);
     this.nextDate = this.nextDate.bind(this);  
-    
-    // this.datePick = this.datePick.bind(this);
-    // this.findCurrentDay = this.findCurrentDay.bind(this);
   }
 
   createUniqueDate(){
-    // console.log("createUniqueDate");
     let dateArr = [];
     let dateAllArr = [];
-    // let dayArr = [];
     let dateDayArr = [];
     function onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
     }
 
+    // 從60筆data中取出所有的date
     this.state.data.map(session =>{
-      // dateArr.push(`${session.date.slice(5, 10).replace('-', '/')} ${session.day}`);
       dateArr.push(`${session.date.slice(5,10)}`);
       dateAllArr.push(`${session.date}`);
-      // dayArr.push(`${session.day}`);
       dateDayArr.push(`${session.date} ${session.day}`);
     })
+
+    // 60筆date中，取出Unique的14天
     let uniqueDateArr = dateArr.filter(onlyUnique);
     let uniqueDateAllArr = dateAllArr.filter(onlyUnique);
-    // let uniqueDayArr = dayArr.filter(onlyUnique);
     let uniqueDateDayArr = dateDayArr.filter(onlyUnique);
-
-    let currentDay = new Date(this.state.uniqueDate[this.state.currentInx]).getDay();
-    let currentDayStr;
-    console.log(this.state.uniqueDate[this.state.currentInx]);
-    switch (currentDay) {
-      case 0:
-        currentDayStr = "Sun";
-        break;
-      case 1:
-        currentDayStr = "Mon";
-        break;
-      case 2:
-        currentDayStr = "Tue";
-        break;
-      case 3:
-        currentDayStr = "Wed";
-        break;
-      case 4:
-        currentDayStr = "Thu";
-        break;
-      case 5:
-        currentDayStr = "Fri";
-        break;
-      case 6:
-        currentDayStr = "Sat";
-        break;
-    }
+    let uniqueDayArr = [];
+    Array.from(uniqueDateDayArr).forEach(el=>{
+      uniqueDayArr.push(el.slice(11, 15));
+    });
 
     this.setState({
       uniqueDate: uniqueDateArr,
       uniqueDateAll: uniqueDateAllArr,
-      // uniqueDay: uniqueDayArr,
+      uniqueDay: uniqueDayArr,
       uniqueDateDay: uniqueDateDayArr,
       currentDate: uniqueDateDayArr[0],
-      currentDay: currentDayStr,
     });
+
+    let datePickers = document.querySelectorAll('.date-picker');
+    datePickers[0].classList.add('active');
   }
 
   datePick(date){
-    let currentDate = `2018-${date.replace('/', '-')}`;
-    this.setState({
-      currentDate: currentDate,
-    })
-    // console.log(currentDate);
-    // console.log(this.state.currentDate);
-  }
-
-  nextDate(){
-    let currentInx = this.state.currentInx;
-    currentInx=(currentInx+1)%14;
+    let currentDate = `2018-${date}`;
+    let uniqueDateAllArr = this.state.uniqueDateAll;
+    let currentInx = uniqueDateAllArr.indexOf(currentDate);
+    let datePickers = document.querySelectorAll('.date-picker');
+    for (let i = 0; i < datePickers.length; i++){
+      if (i == currentInx){
+        for (let j = 0; j < datePickers[i].parentNode.childNodes.length; j++){
+          datePickers[i].parentNode.childNodes[j].classList.remove('active');
+        }
+        console.log(datePickers[i].parentNode.childNodes[0]);
+        datePickers[i].classList.add('active');
+      }
+    }
     this.setState({
       currentInx: currentInx,
     })
     console.log(this.state.currentInx);
   }
 
-
-  findCurrentDay() {
-    let currentDateStrAll = this.state.currentDate;
-    let currentDay = new Date(currentDateStrAll).getDay();
-    let currentDayStr;
-    console.log(currentDay);
-    switch (currentDay) {
-      case 0:
-        currentDayStr = "Sun"
-        break;
-      case 1:
-        currentDayStr = "Mon"
-        break;
-      case 2:
-        currentDayStr = "Tue"
-        break;
-      case 3:
-        currentDayStr = "Wed"
-        break;
-      case 4:
-        currentDayStr = "Thu"
-        break;
-      case 5:
-        currentDayStr = "Fri"
-        break;
-      case 6:
-        currentDayStr = "Sat"
-        break;
+  nextDate(){
+    let currentInx = this.state.currentInx;
+    currentInx=(currentInx+1)%14;
+    let datePickers = document.querySelectorAll(".date-picker");
+    for (let i = 0; i < datePickers.length; i++) {
+      if (i == currentInx) {
+        for (let j = 0; j < datePickers[i].parentNode.childNodes.length; j++) {
+          datePickers[i].parentNode.childNodes[j].classList.remove('active');
+        }
+        console.log(datePickers[i].parentNode.childNodes[0]);
+        datePickers[i].classList.add('active');
+      }
     }
     this.setState({
-      currentDay: currentDayStr,
+      currentInx: currentInx,
     })
-    console.log(this.state.currentDay);
+    console.log(this.state.currentInx);
   }
-  
+
   componentWillMount() {
     fetch("http://192.168.39.110/tcff_php/api/movie/session.php")
       .then(res => res.json())
       .then(sessions => {
         this.setState({ data: sessions });
-      });
-    window.addEventListener("load", this.createUniqueDate, false);
-    // window.addEventListener("load", this.findCurrentDay, false);
-  }
-
-  componentDidMount(){
-
+      })
+      .then(this.createUniqueDate);
   }
 
   render() {
     return <section className="container-time">
         <div className="date-pick-wrap">
           {this.state.uniqueDate.map(date=>{
-          return <div className="date-picker" key={date.id} onClick={this.datePick.bind(this, date)}>
+          return <div className="date-picker transition" key={date.id} onClick={this.datePick.bind(this, date)}>
               {date}
             </div>;
           })}
         </div>
 
         <div className="calendar">
-          <div className="cal cal-left" onClick={this.nextDate}>
+          <div className="cal cal-left shadow transition" onClick={this.nextDate}>
             <div className="cal-heading">誠品電影院</div>
             <div className="year">2018</div>
             <div className="date">{this.state.uniqueDate[this.state.currentInx]}</div>
-            <div className="day">{this.state.currentDay}</div>
+            <div className="day">{this.state.uniqueDay[this.state.currentInx]}</div>
             {this.state.data.map(session => {
             // console.log(this.state.currentDate)
               if (session.date == this.state.uniqueDateAll[this.state.currentInx] && session.auditorium == "誠品電影院") {
@@ -180,11 +133,11 @@ class Time extends Component {
               }
             })}
           </div>
-          <div className="cal cal-right" onClick={this.nextDate}>
+          <div className="cal cal-right shadow transition" onClick={this.nextDate}>
             <div className="cal-heading">台北光點</div>
             <div className="year">2018</div>
             <div className="date">{this.state.uniqueDate[this.state.currentInx]}</div>
-            <div className="day">{this.state.uniqueDateDay[this.state.currentInx]}</div>
+           <div className="day">{this.state.uniqueDay[this.state.currentInx]}</div>
             {this.state.data.map(session => {
               // console.log(this.state.currentDate)
               if (session.date == this.state.uniqueDateAll[this.state.currentInx] && session.auditorium == "台北光點") {

@@ -15,9 +15,12 @@
 		padding: 30px;
     }
     .time-wrap{
-        // border: 2px solid blue;
         width: 100%;
         display: flex;
+        flex-wrap: wrap;
+        @include breakpoint('mobileonly'){
+            // border: 2px solid $colorMedium;
+        }
             .cell{
                 display: block;
                 @include text-rec(100%, 1.1rem, transparent, $colorLight, transparent);
@@ -28,6 +31,10 @@
                 padding: 10px;
                 font-weight: bold;
                 // box-sizing: border-box;
+                @include breakpoint('mobileonly'){
+                    padding: 0 10px;
+                    box-sizing: border-box;
+                }
 
                 &:link, &:visited{
                     color: $colorLight;
@@ -47,22 +54,57 @@
 
         .col1{
             width: 20%;
+            @include breakpoint('mobileonly'){
+                display: none;
+            }
         }
         .col2, .col3{
             width: 40%;
-        }   
+            @include breakpoint('mobileonly'){
+                display: none;
+            }
+        }
+
+        // for mobile
+        .col4, .col5{
+            display: none;
+            width: 100%;
+            @include breakpoint('mobileonly'){
+                display: block;
+            }
+            .cell{
+                height: auto;
+                &.heading{
+                    border: none;
+                }
+            }
+        }
+        .col5{
+            margin-top: 30px;
+        }  
     }
     .date-pick-wrap{
         display: flex;
         width: 80%;
         margin: 0 auto;
-        border: 2px solid yellow;
+        // border: 2px solid yellow;
         flex-wrap: wrap;
         .date-picker{
             @include text-rec(12%, 1rem, $colorLight, $colorDarker, transparent);
+            width: initial;
+            flex: 2 1 auto;
             margin: 5px;
+            cursor: pointer;
             &:link, &:visited{
                 color: $colorDarker;
+            }
+            &:hover{
+                background-color: $colorDarker;
+                color: $colorLight;
+            }
+            &.active{
+                background-color: $colorDarker;
+                color: $colorLight;
             }
         }
     }
@@ -70,12 +112,29 @@
         width: 100%;
         margin: 0 auto;
         display: flex;
+        @include breakpoint('mobileonly'){
+            display: block;
+        }
         .cal{
             // border: 2px solid $colorLight;
             width: 45%;
             margin: 5%;
             background-color: $colorLight;
             height: 500px;
+            cursor: pointer;
+            transition: background 200ms ease-in-out;
+            background: linear-gradient(to right bottom,  #ccb3b1 15%, #e3e0d9 100%);
+            box-shadow: 1px 2px 1px -1px  #641a1d;
+            @include breakpoint('mobileonly'){
+                width: 100%;
+                margin: 5% auto;
+            }
+            &:hover{
+                // animation: cal-animation .5s forwards;
+                &.shadow{
+                    // animation: shadow-animation .5s forwards;
+                }
+            }
 
             .cal-heading{
                 @include text-rec(100%, 1.5rem, $colorDarker, $colorLight, transparent);
@@ -107,8 +166,32 @@
             }
             
         }
+        .shadow{
+            position: relative;
+            &:before{
+                z-index: -1;
+                position: absolute;
+                content: "";
+                // bottom: 11px;
+                bottom: 22px;
+                right: 4px;
+                width: 75%;
+                height: 25%;
+                box-shadow: 0 25px 20px #641a1d;
+                transform: rotate(4deg);
+                transition: all 150ms ease-in-out;
+                @include breakpoint('mobileonly'){
+                    bottom: 17px;
+                    right: 1px;
+                }
+            }
+        }
+        .shadow:hover{
+            &:before{
+                animation: shadow-animation .5s forwards;
+            }
+        }
     }
-
 }
 .time-switch{
     display: block;
@@ -128,5 +211,38 @@
     &:hover{
         background-color: $colorLight;
         color: $colorDarker;
+    }
+    @include breakpoint('mobileonly'){
+        top: 30vw;
+    }
+}
+
+@keyframes cal-animation{
+    from{
+        background: linear-gradient(to right bottom,  #dbd0b9 35%, #e3e0d9 100%);
+        box-shadow: 1px 2px 1px -1px  #641a1d;
+    }
+    to{
+        background: linear-gradient(to right bottom,  #d6c8a9 15%, #e3e0d9 100%);
+        box-shadow: 1px 2px 1px -1px  #641a1d;
+    }
+}
+
+@keyframes shadow-animation{
+    from{
+        bottom: 22px;
+        right: 4px;
+        // width: 75%;
+        // height: 25%;
+        // box-shadow: 0 25px 20px #641a1d;
+        // transform: rotate(4deg);
+    }
+    to{
+        bottom: 11px;
+        right: 6px;
+        // width: 55%;
+        // height: 25%;
+        // box-shadow: 0 25px 20px #641a1d;
+        // transform: rotate(7deg);
     }
 }

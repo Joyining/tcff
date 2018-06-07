@@ -23,7 +23,7 @@ class TimeSwtich extends Component {
   }
 
   render() {
-      return <Link to="/" className="time-switch transition">{this.props.switch}
+    return <Link to={this.props.switchUrl} className="time-switch transition">{this.props.switch}
     </Link>;
   }
 }
