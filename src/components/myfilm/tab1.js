@@ -37,18 +37,25 @@ class Tab1 extends Component {
       .then(datas => {
         let films = [];
         let cffilms = [];
+        console.log(datas);
         datas.forEach(data => {
-          if(data.cf === true){
+          if(data.cf == 1){
             cffilms.push(data);
           }else{
             films.push(data);
           }
         })
-        // console.log(films,cffilms);
+        console.log(films,cffilms);
         this.setState({
           films: films,
           cffilms: cffilms
         });
+        let collection = {
+          films: films,
+          cffilms: cffilms
+        };
+        sessionStorage.setItem("collection", JSON.stringify(collection));
+
         // console.log(this.state);
       })
 
@@ -330,28 +337,28 @@ class Tab1 extends Component {
                       {
                         this.state.films.map((film, idx) => (
                           <li key={idx}>
-                            {film.name}
+                            {film.name_zhtw}
                           </li>
                         ))
                       }
                       {
                         this.state.cffilms.map((film, idx) => (
                           <li key={idx}>
-                            {film.name}
+                            {film.name_zhtw}
                           </li>
                         ))
                       }
                       {
                         this.state.add_films.map((film, idx) => (
                           <li key={idx} data-id-movie={film.id_movie}>
-                            {film.name}
+                            {film.name_zhtw}
                           </li>
                         ))
                       }
                       {
                         this.state.add_cffilms.map((film, idx) => (
                           <li key={idx} data-id-movie={film.id_movie}>
-                            {film.name}
+                            {film.name_zhtw}
                           </li>
                         ))
                       }
@@ -409,17 +416,18 @@ class Tab1 extends Component {
                   this.state.films.map((film, idx) => (
                     <tr key={idx}>
                       <td className="check checkItem">
-                        {film.bookable ? (
+                      {film.bookable_seats_count > 0 ? (
                           // <input type="checkbox" />
                           <Cb id={`movie_${film.id_movie}`} click={this.checkItem} />
                         ) : ""}
                       </td>
-                      <td className={`title ${film.bookable === true ? "" : "forbid"}`}>
+                    <td className={`title ${film.bookable_seats_count > 0 ? "" : "forbid"}`}>
+                      {/* <td className={`title`}> */}
                         <div className="text">
-                          <span className="film_name">{film.name}</span>
-                          <span className="film_date">{film.date}</span>
+                          <span className="film_name">{film.name_zhtw + film.name_en}</span>
+                          <span className="film_date">{film.date + film.day + film.time}</span>
                           <span className="film_auditorium">{film.auditorium}</span>
-                          <span className="film_bookable">{film.bookable === true ? "熱賣中" : "已售完"}</span>
+                      <span className="film_bookable">{film.bookable_seats_count > 20 ? "熱賣中" : film.bookable_seat_count}</span>
                         </div>
                         <div className="trash" data-id-movie={film.id_movie} onClick={this.del_collection}>
                             <i class="fas fa-trash-alt"></i>
@@ -448,7 +456,8 @@ class Tab1 extends Component {
                           />
                       </td>
                       <td className="title">
-                        <span className="film_name">{film.name}</span>
+                    <span className="film_name">{film.name_zhtw + film.name_en + "已達成" + (film.cf_progress * 100) + '%'}</span>
+                      {/* <span className="cf_progress">{"目前募資進度為" + (film.cf_progress * 100) + '%'}</span> */}
                         <div className="trash" data-id-movie={film.id_movie} onClick={this.del_collection}>
                           <i class="fas fa-trash-alt"></i>
                         </div>
