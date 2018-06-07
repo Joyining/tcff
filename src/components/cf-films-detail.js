@@ -4,11 +4,11 @@ import $ from 'jquery';
 // import '../sass/page.scss';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import '../sass/films-detail.scss';
-import img01 from '../images/1997_Titanic_01.jpg';
-import img02 from '../images/1997_Titanic_02.jpg';
-import img03 from '../images/1997_Titanic_03.jpg';
-import img04 from '../images/1997_Titanic_04.jpg';
-import img05 from '../images/1997_Titanic_05.jpg';
+// import img01 from '../images/1997_Titanic_01.jpg';
+// import img02 from '../images/1997_Titanic_02.jpg';
+// import img03 from '../images/1997_Titanic_03.jpg';
+// import img04 from '../images/1997_Titanic_04.jpg';
+// import img05 from '../images/1997_Titanic_05.jpg';
 
 class Cffilmsdetail extends Component {
     constructor(props){
@@ -35,10 +35,13 @@ class Cffilmsdetail extends Component {
             this.setState({
              films: datas
          }, () => {
+
+
              let path = `${this.state.films.release_year}_${this.state.films.name_en.split(' ').join('_').replace(':', '_')}`;
              console.log(path);
+             let trailer = `${this.state.films.trailer}`;
              let slide = [];
-             for(let i=1;i<=5;i++){
+             for(let i=1;i<=6;i++){
                 let url = `${process.env.PUBLIC_URL}/images/` + path + "_0" + i + '.jpg';
                 slide.push(url);
              }
@@ -54,7 +57,7 @@ class Cffilmsdetail extends Component {
         
                 for(let $i=0; $i< slideCount;$i++){
                     // console.log(slides[$i]);
-                    $(".slides").append(`<li><img src="${slides[$i]}" alt=''></li>`)
+                    $(".slides").append(`<li><a href='` + trailer + `'><div class='play_video' ></div></a><img src="${slides[$i]}" alt=''></li>`)
                     $(".pages").append("<li></li>");
                 }
         

@@ -320,6 +320,18 @@ li{
     margin-top: -80px;
 }
 
+.play_video{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    text-align: center;
+    left: 7.5%;
+    top: 41%;
+    background: url(../images/icon_play4.png) no-repeat;
+    background-size: 100%;
+    z-index: 1;
+}
+
 @media screen and (max-width: 1030px){
     .container-filmsDetail{
         width: 90vw;        
@@ -356,8 +368,13 @@ li{
     .slide_wrap ul.slides{
         height: 400px;
     }
+    .play_video{
+        background-size: 90%;
+        left: 7.5%;
+        top: 40%;
+    }
     
-     }
+}
      @media screen and (max-width: 550px){
         .container-filmsDetail{
             width: 90vw;
@@ -399,6 +416,11 @@ li{
         #trapezoid_left h2{
             padding: 20px 40px;
             margin-top: -75px;
+        }
+        .play_video{
+            background-size: 70%;
+            left: 7%;
+            top: 30%;
         }
      }
 
