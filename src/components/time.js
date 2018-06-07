@@ -97,6 +97,11 @@ class Time extends Component {
       currentInx: currentInx,
     })
     console.log(this.state.currentInx);
+
+    // let calendars = document.querySelectorAll('.cal');
+    // Array.from(calendars).forEach(calendar=>{
+    //   calendar.classList.add('animate');
+    // })
   }
 
   componentWillMount() {
@@ -128,7 +133,7 @@ class Time extends Component {
             // console.log(this.state.currentDate)
               if (session.date == this.state.uniqueDateAll[this.state.currentInx] && session.auditorium == "誠品電影院") {
                 return <div key={session.id}>
-                  <Link to="/" className="time-name transition">{session.time.slice(0, 5)}{"  "}{session.name_zhtw}</Link>
+                  <Link to={`/films-detail-page?id=${session.id_movie}`} className="time-name transition">{session.time.slice(0, 5)}{"  "}{session.name_zhtw}</Link>
                 </div>;
               }
             })}
@@ -142,7 +147,7 @@ class Time extends Component {
               // console.log(this.state.currentDate)
               if (session.date == this.state.uniqueDateAll[this.state.currentInx] && session.auditorium == "台北光點") {
                 return <div key={session.id}>
-                  <Link to="/" className="time-name transition">{session.time.slice(0, 5)}{"  "}{session.name_zhtw}</Link>
+                  <Link to={`/films-detail-page?id=${session.id_movie}`} className="time-name transition">{session.time.slice(0, 5)}{"  "}{session.name_zhtw}</Link>
                 </div>;
               }
             })}

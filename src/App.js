@@ -18,6 +18,17 @@ import ArticlePage from './components/article-page';
 
 
 class App extends Component {
+
+  // shouldComponentUpdate() {
+  //   window.scrollTo(0, 0);
+  // }
+  // componentWillUpdate(){
+  //   window.scrollTo(0, 0);
+  // }
+  // componentDidUpdate(){
+  //   window.scrollTo(0, 0);
+  // }
+  
   render() {
     return <Router>
         <div>
