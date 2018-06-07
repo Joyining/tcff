@@ -75,7 +75,7 @@ class TimeList extends Component {
                 return <div className="cell" key={session.id}>
                     {session.date
                       .replace("-", "/")
-                    .replace("-", "/")}{'  '}
+                    .replace("-", "/").slice(5,10)}{'  '}
                     {session.day}
                   </div>;
               }
@@ -104,6 +104,40 @@ class TimeList extends Component {
                   </Link>;
               }
             })}
+          </div>
+          <div className="col col4">
+            <div className="heading cell border">誠品電影院</div>
+            {this.state.data.map(session => {
+              if (session.auditorium == "誠品電影院") {
+                return <Link to="/" className="cell" key={session.id}>
+                  {session.date
+                    .replace("-", "/")
+                    .replace("-", "/").slice(5, 10)}{'  '}
+                  {session.day}
+                  <br />
+                  {session.time.slice(0, 5)}
+                  {"  "}
+                  {session.name_zhtw}
+                </Link>;
+              }
+            })}
+          </div>
+          <div className="col col5">
+            <div className="heading cell border">台北光點</div>
+              {this.state.data.map(session => {
+              if (session.auditorium == "台北光點") {
+                  return <Link to="/" className="cell" key={session.id}>
+                    {session.date
+                      .replace("-", "/")
+                      .replace("-", "/").slice(5, 10)}{'  '}
+                    {session.day}
+                    <br />
+                    {session.time.slice(0, 5)}
+                    {"  "}
+                    {session.name_zhtw}
+                  </Link>;
+                }
+              })}
           </div>
         </div>
       </section>;

@@ -10,6 +10,7 @@ class TimeListPage extends Component {
     super(props);
     this.state = {
       switch: ['切換日曆', '切換列表'],
+      switchUrl: ['/time', '/time-list'],
     };
   }
 
@@ -23,7 +24,7 @@ class TimeListPage extends Component {
             <Header />
             <FastTicket />
             <TimeList />
-            <TimeSwitch switch={this.state.switch[0]}/>
+            <TimeSwitch switch={this.state.switch[0]}  switchUrl={this.state.switchUrl[0]}/>
             <Footer />
         </div>
     );
