@@ -7,6 +7,7 @@
     padding: 10px 0 ;
     position: relative ;
     margin: -8% auto;
+    // overflow: hidden;
 
 .place{
     width: 45vh;
@@ -103,7 +104,7 @@
     }
 
     .front , .back{
-        backface-visibility: hidden; 
+        // backface-visibility: hidden; 
     }
 
     .back_r{
@@ -303,6 +304,7 @@
                @include breakpoint("mobileonly"){
                     @include text-rec(200px , 18px , $colorDark , $colorLight ,transparent) ;
                      margin: 50px 25% ;
+                     width: 50%  ;
                 }    
             }
 
@@ -322,6 +324,7 @@
                 @include breakpoint("mobileonly"){
                     @include text-rec(200px , 18px , transparent , $colorDark ,$colorDark) ;
                     margin: 5px 25% ;
+                    width: 50%;
                  }
             }
             .word_m{
@@ -396,7 +399,7 @@
         transform: translateX(-50%) translateY(40%) rotateY(180deg) ;
         // transform: translateX(-50%) translateY(17%);
         position: absolute ;
-        background-color: #75eadb ; 
+        background-color: $colorLight; 
         
         @include breakpoint("tablet"){
             width: 40vh;
@@ -467,6 +470,9 @@
                 height: 30px;
                 margin: 50px auto ;
                 @include text-rec(30% , 18px , $colorDark , $colorLight ,transparent) ;                
+                @include breakpoint("mobileonly"){
+                    width: 50%;
+                }
             }
             .btn_box_r{
                 display: flex ;

@@ -14,7 +14,6 @@ import NewsPage from './components/news-page';
 import ArticlePage from './components/article-page';
 
 
-
 class App extends Component {
   render() {
     return <Router>
