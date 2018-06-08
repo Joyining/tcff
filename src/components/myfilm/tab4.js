@@ -16,28 +16,33 @@ class Tab4 extends Component {
         this.getOrders = this.getOrders.bind(this);
     }
     getOrders(evt){
-        let id = sessionStorage.getItem('sessionId');
-        console.log("id", id)
-        console.log("id", JSON.stringify(id))
-        fetch('http://localhost/tcff_php/api/checkSession.php',{
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'                
-            },
-            method: "POST",
-            mode: 'cors',
-            credentials: "same-origin",
-            // 'cookie':document.cookie,
-            body: JSON.stringify(id)
+        // let id = sessionStorage.getItem('sessionId');
+        // console.log("id", id)
+        // console.log("id", JSON.stringify(id))
+        // fetch('http://localhost/tcff_php/api/checkSession.php',{
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Accept': 'application/json'                
+        //     },
+        //     method: "POST",
+        //     mode: 'cors',
+        //     credentials: "same-origin",
+        //     // 'cookie':document.cookie,
+        //     body: JSON.stringify(id)
 
-        })
-            // .then(res => console.log(res))
-            .then(res => res.json())
-            .then(data => {
-                console.log('res', data)
-                // document.getElementById('message').innerHTML = data.success == null ? 'error' : data.success + ', Hi ' + data.username;
+        // })
+        //     // .then(res => console.log(res))
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         console.log('res', data)
+        //         // document.getElementById('message').innerHTML = data.success == null ? 'error' : data.success + ', Hi ' + data.username;
 
-            });
+        //     })
+        //     .catch(function (error) {
+        //         console.log('There has been a problem with your fetch operation: ', error.message);
+        //     });
+
+        
     }
     handleSubmit(evt){
         let form = document.getElementById('logIn');

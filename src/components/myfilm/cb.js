@@ -19,7 +19,7 @@ class Cb extends Component {
         return ( 
             <div className="cb">
                 <input type="checkbox" id={this.props.id} />
-                <label htmlFor={this.props.id} onClick={this.props.click ? this.props.click : this.handleCheck}></label>
+                <label data-id-movie={this.props.id.split('_')[1]} htmlFor={this.props.id} onClick={this.props.click ? this.props.click : this.handleCheck}></label>
             </div>
         );
     }

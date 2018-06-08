@@ -16,58 +16,79 @@ class Tab2 extends Component {
         this.prevStep = this.prevStep.bind(this);
 
         this.state = {
-            films: [
-                {
-                    id_movie: 1,
-                    name: "驚魂記",
-                    session: "2018-07-14 19:00 台北光點",
-                    quantity: 1,
-                    seats: [],
-                    allSeats: 170,
-                    occupied: [1, 2, 3, 4, 5, 6, 50, 51, 52, 60, 71, 72]
-                },
-                {
-                    id_movie: 2,
-                    name: "畢業生",
-                    session: "2018-07-14 19:00 台北光點",
-                    quantity: 1,
-                    seats: [],
-                    allSeats: 170,
-                    occupied: [30,31,32,34,35,36]
-                },
-                {
-                    id_movie: 4,
-                    name: "真善美",
-                    session: "2018-07-14 19:00 台北光點",
-                    quantity: 1,
-                    seats: [],
-                    allSeats: 170,
-                    occupied: [54,55,56,57,58,59,60,61]
-                },
-            ],
-            cffilms: [
-                {
-                    id_movie: 15,
-                    name: "最長的一天",
-                    quantity: 1
-                },
-                {
-                    id_movie: 30,
-                    name: "克萊門夫婦",
-                    quantity: 1
-                }
+            // films: [
+            //     {
+            //         id_movie: 1,
+            //         name: "驚魂記",
+            //         session: "2018-07-14 19:00 台北光點",
+            //         quantity: 1,
+            //         seats: [],
+            //         allSeats: 170,
+            //         occupied: [1, 2, 3, 4, 5, 6, 50, 51, 52, 60, 71, 72]
+            //     },
+            //     {
+            //         id_movie: 2,
+            //         name: "畢業生",
+            //         session: "2018-07-14 19:00 台北光點",
+            //         quantity: 1,
+            //         seats: [],
+            //         allSeats: 170,
+            //         occupied: [30,31,32,34,35,36]
+            //     },
+            //     {
+            //         id_movie: 4,
+            //         name: "真善美",
+            //         session: "2018-07-14 19:00 台北光點",
+            //         quantity: 1,
+            //         seats: [],
+            //         allSeats: 170,
+            //         occupied: [54,55,56,57,58,59,60,61]
+            //     },
+            // ],
+            // cffilms: [
+            //     {
+            //         id_movie: 15,
+            //         name: "最長的一天",
+            //         quantity: 1
+            //     },
+            //     {
+            //         id_movie: 30,
+            //         name: "克萊門夫婦",
+            //         quantity: 1
+            //     }
                 
-            ],
-            seatOfFilm: {}
+            // ],
+            films:[],
+            cffilms:[],
+            seatOfFilm: {},
+            completeLoad: false
         };
         this.price = 250;
         this.overlay = "";
         this.picked = [];
         this.temp = [];
     }
+    componentWillMount(){
+        let cart = JSON.parse(sessionStorage.getItem('cart'));
+        cart.films.map(film => {
+            film.seats = [];
+            film.occupied = film.occupied.sort((a, b) => (a + 0) - (b + 0));
+            film.quantity = 1;
+            // film.name = film.name_zhtw + film.name_en
+        })
+        cart.cffilms.map(film => {
+            film.quantity = 1;
+        })
+        this.setState({
+            films: cart.films,
+            cffilms: cart.cffilms,
+            completeLoad: true
+        })
+    }
     componentDidMount() {
 
         window.scrollTo(0, 0);
+        
         // console.log("props: ", this.props);
         // console.log("dm",this.overlay);
         // console.log("href", location.href)
@@ -120,7 +141,7 @@ class Tab2 extends Component {
         let index = event.target.closest('tr').getAttribute('data-id-movie');
         
         // console.log(index)
-        let ar = this.state.films.filter((film) => film.id_movie===parseInt(index));
+        let ar = this.state.films.filter((film) => film.id_movie===index);
         // this.state.seatOfFilm = ar
 
         this.picked = this.state.films.reduce((a, film) => {
@@ -281,8 +302,23 @@ class Tab2 extends Component {
     prevStep(){
 
     }
-    nextStep(){
-
+    nextStep(evt){
+        let isAllAssign = true;
+        this.state.films.forEach(function(film){
+            if(film.seats.length === 0){
+                isAllAssign = false;
+            }
+        })
+        if(!isAllAssign){
+            evt.preventDefault();
+            alert("記得要劃位喔!!")
+        }else{
+            let cart = {
+                films: this.state.films,
+                cffilms: this.state.cffilms,
+            };
+            sessionStorage.setItem('cart', JSON.stringify(cart));
+        }
     }
     render() {
         return (
@@ -310,10 +346,10 @@ class Tab2 extends Component {
                     </thead>
                     <tbody>
                         {
-                            this.state.films.map((film, idx) => (
+                            this.state.completeLoad && this.state.films.map((film, idx) => (
                                 <tr data-id-movie={film.id_movie} key={idx}>
-                                    <td data-th="片名">{film.name}</td>
-                                    <td data-th="場次">{film.session}</td>
+                                    <td data-th="片名">{film.name_zhtw}</td>
+                                    <td data-th="場次">{film.date + film.time.slice(0,-3) + film.auditorium}</td>
                                     <td data-th="數量"><input type="number" value={film.quantity} min="1" max="10" onChange={this.changeTicketNum} /></td>
                                     <td data-th="小計">{this.price * film.quantity}</td>
                                     <td data-th="位號">{film.seats.join(",")}</td>
@@ -340,9 +376,9 @@ class Tab2 extends Component {
                     </thead>
                     <tbody>
                         {
-                            this.state.cffilms.map((film, idx) => (
+                            this.state.completeLoad && this.state.cffilms.map((film, idx) => (
                                 <tr data-id-movie={film.id_movie} key={idx}>
-                                    <td data-th="片名">{film.name}</td>
+                                    <td data-th="片名">{film.name_zhtw}</td>
                                     <td data-th="數量"><input type="number" value={film.quantity} min="1" max="10" onChange={this.changeTicketNum} /></td>
                                     <td data-th="小計">{this.price * film.quantity}</td>
                                 </tr>

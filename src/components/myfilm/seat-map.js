@@ -50,7 +50,7 @@ class SeatMap extends Component {
                 this.allSeatsNum++;
                 // let col = (<td className="available occupied">{`${this.allSeatsNum}`}</td>);
                 seatOfFilm.occupied.map(num => {
-                    if (this.allSeatsNum === num) {
+                    if (this.allSeatsNum === parseInt(num,10)) {
                         children.push(<td className="occupied" data-seat-num={this.allSeatsNum} data-row={String.fromCharCode(65 + i)}>{`${((this.allSeatsNum-1) % 12) +1}`}</td>);
                         // console.log("return");
                         return;

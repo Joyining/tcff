@@ -25,39 +25,44 @@ class Tab1 extends Component {
     this.temp = [];
   }
   componentDidMount(){
-
     window.scrollTo(0, 0);
-    console.log("props: ", this.props);
-    console.log("props: " ,this.props.match);
-    // console.log(Store);
-    let id = JSON.parse(sessionStorage.getItem('user')).id;
-    fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=` + id)
-    // fetch(`${process.env.PUBLIC_URL}/json/collection.json`)
-      .then(res => res.json())
-      .then(datas => {
-        let films = [];
-        let cffilms = [];
-        console.log(datas);
-        datas.forEach(data => {
-          if(data.cf == 1){
-            cffilms.push(data);
-          }else{
-            films.push(data);
-          }
-        })
-        console.log(films,cffilms);
-        this.setState({
-          films: films,
-          cffilms: cffilms
-        });
-        let collection = {
-          films: films,
-          cffilms: cffilms
-        };
-        sessionStorage.setItem("collection", JSON.stringify(collection));
 
-        // console.log(this.state);
-      })
+    if (sessionStorage.getItem('user') !== null){
+      let id = JSON.parse(sessionStorage.getItem('user')).id;
+      fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=` + id)
+      // fetch(`${process.env.PUBLIC_URL}/json/collection.json`)
+        // .then(res => console.log(res.text()))
+        .then(res => res.json())
+        .then(datas => {
+          let films = [];
+          let cffilms = [];
+          console.log(datas);
+          datas.forEach(data => {
+            if(data.cf == 1){
+              cffilms.push(data);
+            }else{
+              films.push(data);
+            }
+          })
+          console.log(films,cffilms);
+          this.setState({
+            films: films,
+            cffilms: cffilms
+          });
+          let collection = {
+            films: films,
+            cffilms: cffilms
+          };
+          sessionStorage.setItem("collection", JSON.stringify(collection));
+
+          // console.log(this.state);
+        })
+        .catch(function (error) {
+          console.log('There has been a problem with your fetch operation: ', error.message);
+        })
+      }else{
+
+      }
 
       // let body = document.getElementsByTagName('body')[0];
       // let fragment = document.createDocumentFragment();
@@ -68,6 +73,8 @@ class Tab1 extends Component {
   componentDidUpdate(){
     console.log('didupdate');
     Array.from(document.querySelectorAll(".cb input")).forEach(cb => cb.checked = true);
+    let collection = sessionStorage.getItem('collection');
+    sessionStorage.setItem('cart', collection);
   }
   cancelOverlay(event){
     let target = event.target;
@@ -118,6 +125,7 @@ class Tab1 extends Component {
   }
   checkAll(event){
     let target = event.target;
+    let section = target.previousSibling.id.slice(0,-2);
     let isCheck = !target.previousSibling.checked;
     let table = target.closest("table");
     let cbs = table.querySelectorAll(".checkItem input");
@@ -126,6 +134,20 @@ class Tab1 extends Component {
     Array.from(cbs).forEach(function(cb){
       cb.checked = isCheck;
     })
+    let collection = JSON.parse(sessionStorage.getItem('collection'));
+    let cart = JSON.parse(sessionStorage.getItem('cart'));
+    console.log("section", section);
+    //collection 都加入 cart
+    if(isCheck){
+      collection[section].forEach(x => {
+        if(cart[section].includes(x)) return;
+        else cart[section].push(x);
+      })
+    //cart清空
+    }else{
+      cart[section].length = 0;
+    }
+    sessionStorage.setItem("cart",JSON.stringify(cart));
   }
   checkItem(event) {
     let target = event.target;
@@ -139,6 +161,18 @@ class Tab1 extends Component {
     //if all item checked, let checkAll box checked
     //vice versa
     checkAll.checked = (allItemChecked === allItem);
+    let collection = JSON.parse(sessionStorage.getItem('collection'));
+    let cart = JSON.parse(sessionStorage.getItem('cart'));
+    let id = target.getAttribute('data-id-movie');
+    let section = target.closest('table').classList[0];
+    if(isCheck){
+      cart[section] = cart[section].filter((x) => {
+        return x.id_movie !== id;
+      })
+    }else{
+      cart[section].push(collection[section].filter((x)=> x.id_movie === id));
+    }
+    sessionStorage.setItem('cart', JSON.stringify(cart));
   }
   del_collection(event){
     // confirm
@@ -322,6 +356,13 @@ class Tab1 extends Component {
   //   target.classList.add('active'); //step
 
   // }
+  nextStep(evt){
+    let cart = JSON.parse(sessionStorage.getItem('cart'));
+    if(!(cart.films.length || cart.cffilms.length)){
+      evt.preventDefault();
+      alert('請先勾選欲購買之商品!!');
+    } 
+  }
   render() {
     return (
           <div className="tab tab1 active"> 
@@ -430,7 +471,7 @@ class Tab1 extends Component {
                       <span className="film_bookable">{film.bookable_seats_count > 20 ? "熱賣中" : film.bookable_seat_count}</span>
                         </div>
                         <div className="trash" data-id-movie={film.id_movie} onClick={this.del_collection}>
-                            <i class="fas fa-trash-alt"></i>
+                        <i className="fas fa-trash-alt"></i>
                         </div>
                       </td>
                     </tr>
@@ -459,7 +500,7 @@ class Tab1 extends Component {
                     <span className="film_name">{film.name_zhtw + film.name_en + "已達成" + (film.cf_progress * 100) + '%'}</span>
                       {/* <span className="cf_progress">{"目前募資進度為" + (film.cf_progress * 100) + '%'}</span> */}
                         <div className="trash" data-id-movie={film.id_movie} onClick={this.del_collection}>
-                          <i class="fas fa-trash-alt"></i>
+                      <i className="fas fa-trash-alt"></i>
                         </div>
                       </td>
                     </tr>

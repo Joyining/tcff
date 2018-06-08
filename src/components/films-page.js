@@ -8,13 +8,26 @@ import Films from './films';
 class FilmsPage extends Component{
     constructor(props){
         super(props);
+        this.state = {
+            collectionNum: "0"
+        }
+    }
+    componentWillMount(){
+        this.setState({
+            collectionNum: localStorage.getItem("collectionNum")
+        })
+    }
+    unpdatecollectionNum(){
+        this.setState({
+            collectionNum: localStorage.getItem("collectionNum")
+        })
     }
     render(){
         return (
             <div>
-                <Header />
+                <Header collectionNum={this.collectionNum} />
                 <FastTicket />
-                <Films />
+                <Films addToCart={this.unpdatecollectionNum} />
                 <Footer />
             </div>
         );
