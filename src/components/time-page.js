@@ -9,16 +9,19 @@ class TimePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      switch: ['切換日曆', '切換列表'],
-      switchUrl: ['/time', '/time-list'],
-      collectionNum: "0",
+      switch: ["切換日曆", "切換列表"],
+      switchUrl: ["/time", "/time-list"],
+      collectionNum: "0" // only for testing 加到購物車
     };
+    // only for testing 加到購物車
     this.updatecollectionNum = this.updatecollectionNum.bind(this);
-        
   }
+
+  // only for testing 加到購物車
   componentWillMount() {
-    this.setState({ collectionNum: localStorage.getItem("collectionsNum")});
+    this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
   }
+  // only for testing 加到購物車
   updatecollectionNum() {
     this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
   }
@@ -29,13 +32,16 @@ class TimePage extends Component {
 
   render() {
     return (
-        <div style={{position:'relative'}}>
-            <Header collectionNum={this.state.collectionNum}/>
-            <FastTicket />
-            <Time updatecollectionNum={this.updatecollectionNum} />
-            <TimeSwitch switch={this.state.switch[1]} switchUrl={this.state.switchUrl[1]}/>
-            <Footer />
-        </div>
+      <div style={{ position: "relative" }}>
+        <Header collectionNum={this.state.collectionNum} />
+        <FastTicket />
+        <Time updatecollectionNum={this.updatecollectionNum} />
+        <TimeSwitch
+          switch={this.state.switch[1]}
+          switchUrl={this.state.switchUrl[1]}
+        />
+        <Footer />
+      </div>
     );
   }
 }

@@ -26,7 +26,7 @@ class Time extends Component {
     // this.click = this.click.bind(this); 
   }
 
-  // only for testing
+  // only for testing 加到購物車
   addtocollection(event) {
     //console.log(event.currentTarget.dataset);
     console.log('add to collection');
