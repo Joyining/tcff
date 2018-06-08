@@ -1,6 +1,12 @@
 @import "partials/basic";
 
 .container-time{
+    .add-to-collection{
+        width: 100px;
+        height: 50px;
+        background-color: yellow;
+        text-align: center;
+    }
 	margin: ($headerHeight * 2.2) auto;
 	// margin-bottom: ($headerHeight * 4);
 	padding: 100px;
@@ -15,46 +21,239 @@
 		padding: 30px;
     }
     .time-wrap{
-        // border: 2px solid blue;
         width: 100%;
-        .time-row{
-            display: flex;
-            width: 100%;
-            margin: 0 auto;
-            .time-col{
-                padding: 1%;
-                font-weight: bold;
+        display: flex;
+        flex-wrap: wrap;
+        @include breakpoint('mobileonly'){
+            // border: 2px solid $colorMedium;
+        }
+            .cell{
                 display: block;
-                &.date{
-                    @include text-rec(20%, 1.1rem, transparent, $colorLight, transparent);
-                    border: none;
-                    border-bottom: 2px solid $colorLight;
-                    &:link, &:visited{
-                        color: $colorLight;
-                    }
+                @include text-rec(100%, 1.1rem, transparent, $colorLight, transparent);
+                text-align: left;
+                border: none;
+                border-bottom: 2px solid $colorLight;
+                height: 60px;
+                line-height: 50px;
+                padding: 10px;
+                // padding-left: 20px;
+                font-weight: bold;
+                box-sizing: border-box;
+                @include breakpoint('mobileonly'){
+                    padding: 0 10px;
+                    line-height: 40px;
                 }
-                &.time-name{
-                    @include text-rec(40%, 1.1rem, transparent, $colorLight, transparent);
-                    text-align: left;
-                    border: none;
-                    border-bottom: 2px solid $colorLight;
-                    &:link, &:visited{
-                        color: $colorLight;
-                    }
+
+                &:link, &:visited{
+                    color: $colorLight;
                 }
                 &.heading{
-                    font-weight: bold;
-                    background-color: $colorMedium;
+                    background-color: $colorLight;
                     color: $colorDarker;
-                    border: transparent;
+                    font-weight: bold;
                     text-align: center;
                     font-size: 1.5rem;
+                    border: 2px solid transparent;
                     &.border{
                         border-right: 2px solid $colorDark;
                     }
                 }
-                
+            }
+
+        .col1{
+            width: 20%;
+            @include breakpoint('mobileonly'){
+                display: none;
             }
         }
+        .col2, .col3{
+            width: 40%;
+            @include breakpoint('mobileonly'){
+                display: none;
+            }
+            .cell{
+                &:hover{
+                    background-color: $colorMedium;
+                    color: $colorDarker;
+                }
+            }
+        }
+
+        // for mobile
+        .col4, .col5{
+            display: none;
+            width: 100%;
+            @include breakpoint('mobileonly'){
+                display: block;
+            }
+            .cell{
+                height: auto;
+                &.heading{
+                    border: none;
+                }
+            }
+        }
+        .col5{
+            margin-top: 30px;
+        }  
+    }
+    .date-pick-wrap{
+        display: flex;
+        width: 80%;
+        margin: 0 auto;
+        // border: 2px solid yellow;
+        flex-wrap: wrap;
+        .date-picker{
+            @include text-rec(12%, 1rem, $colorLight, $colorDarker, transparent);
+            width: initial;
+            flex: 2 1 auto;
+            margin: 5px;
+            cursor: pointer;
+            &:link, &:visited{
+                color: $colorDarker;
+            }
+            &:hover{
+                background-color: $colorDarker;
+                color: $colorLight;
+            }
+            &.active{
+                background-color: $colorDarker;
+                color: $colorLight;
+            }
+        }
+    }
+    .calendar{
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        @include breakpoint('mobileonly'){
+            display: block;
+        }
+        .cal{
+            // border: 2px solid $colorLight;
+            width: 45%;
+            margin: 5%;
+            background-color: $colorLight;
+            height: 500px;
+            cursor: pointer;
+            transition: background 200ms ease-in-out;
+            background: linear-gradient(to right bottom,  #c5b7b6 50%, #e3e0d9 100%);
+            box-shadow: 1px 2px 1px -1px  #641a1d;
+            @include breakpoint('mobileonly'){
+                width: 100%;
+                margin: 5% auto;
+            }
+            &:hover{
+                animation: cal-animation .5s forwards;
+            }
+
+            .cal-heading{
+                @include text-rec(100%, 1.5rem, $colorDarker, $colorLight, transparent);
+                font-weight: bold;
+                border: none;
+                border-bottom: 5px solid  #3b0e10;
+            }
+            .year, .date, .day{
+                @include text-rec(100%, 1.5rem, transparent, $colorDarker, transparent);
+            }
+            .year, .day{
+                font-size: 1.2rem;
+            }
+            .date{
+                font-weight: bold;
+                font-size: 2rem;
+            }
+            .time-name{
+                display: block;
+                @include text-rec(100%, 1.6rem, transparent, $colorDarker, transparent);
+                border: none;  
+                &:link, &:visited{
+                    color: $colorDarker;
+                }
+                &:hover{
+                    font-weight: bold;
+                    background-color: $colorMedium;
+                }
+            }
+            
+        }
+        .shadow{
+            position: relative;
+            &:before{
+                z-index: -1;
+                position: absolute;
+                content: "";
+                // bottom: 11px;
+                bottom: 22px;
+                right: 4px;
+                width: 75%;
+                height: 25%;
+                box-shadow: 0 25px 20px #641a1d;
+                transform: rotate(4deg);
+                transition: all 150ms ease-in-out;
+                @include breakpoint('mobileonly'){
+                    bottom: 17px;
+                    right: 1px;
+                }
+            }
+        }
+        .shadow:hover{
+            &:before{
+                animation: shadow-animation .5s forwards;
+            }
+        }
+    }
+}
+.time-switch{
+    display: block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: $colorDarker;
+    text-align: center;
+    line-height: 100px;
+    font-size: 1.2rem;
+    position: fixed;
+    right: 5vw;
+    top: 10vw;
+    &:link, &:visited{
+        color: $colorLight;
+    }
+    &:hover{
+        background-color: $colorLight;
+        color: $colorDarker;
+    }
+    @include breakpoint('mobileonly'){
+        top: 30vw;
+    }
+}
+
+@keyframes cal-animation{
+    from{
+        background: linear-gradient(to right bottom,  #c5b7b6 50%, #e3e0d9 100%);
+        box-shadow: 1px 2px 1px -1px  #641a1d;
+    }
+    to{
+        background: linear-gradient(to right bottom,  #c5b7b6 20%, #e3e0d9 100%);
+        box-shadow: 1px 2px 5px -1px  #641a1d;
+    }
+}
+
+@keyframes shadow-animation{
+    from{
+        bottom: 22px;
+        right: 4px;
+        // width: 75%;
+        // height: 25%;
+        // box-shadow: 0 25px 20px #641a1d;
+        // transform: rotate(4deg);
+    }
+    to{
+        bottom: 11px;
+        right: 6px;
+        // width: 55%;
+        // height: 25%;
+        // box-shadow: 0 25px 20px #641a1d;
+        // transform: rotate(7deg);
     }
 }

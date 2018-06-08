@@ -52,8 +52,10 @@ class Cffilms extends Component {
 
             {this.state.Films.map((data, idx) => 
                 <figure className="card">
-                    <img className="post" src={`${process.env.PUBLIC_URL}/images/${data.release_year}_${data.name_en.split(' ').join('_').replace(':', '')}.jpg`} alt="" />
-                    <p>{data.release_year}</p>
+                    <div className="mycontent cover">
+                        <img className="post" src={`${process.env.PUBLIC_URL}/images/${data.release_year}_${data.name_en.split(' ').join('_').replace(':', '')}.jpg`} alt="" />
+                    </div>
+                    <p className="first">{data.release_year}</p>
                     <p>{data.name_zhtw}</p>
                     <Link to={`cf-films-detail-page?id=${data.id_movie}&cf=true`}>
                         <div className="system">參與募資</div>

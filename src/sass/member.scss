@@ -201,6 +201,7 @@
                 @include breakpoint("mobileonly"){
                     @include text-rec(200px , 18px , $colorDark , $colorLight ,transparent) ;
                     margin: 50px 25% ;
+                    width: 50%;
                 }             
             }
             .btn_box{
@@ -235,6 +236,7 @@
                 @include breakpoint("mobileonly"){
                     @include text-rec(200px , 18px , transparent , $colorDark ,$colorDark) ;
                     margin: 5px 25% ;
+                    width: 50%;
                  }
             }
     }
@@ -496,12 +498,12 @@
                 @include breakpoint("tablet"){
                     overflow: hidden ;
                     margin: 0 ;
-                    padding-left: 55% ;
+                    padding-left: 50px ;
                  }
                 @include breakpoint("mobileonly"){
                     overflow: hidden ;
                     margin: 0 ;
-                    padding-left: 20% ;
+                    padding-right: 50px ;
                  } 
             }
             .worring_r{

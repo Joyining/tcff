@@ -45,6 +45,8 @@ class Tab3 extends Component {
         this.price = 250;
     }
     componentDidMount() {
+        window.scrollTo(0, 0);
+        console.log("user: ",JSON.parse(sessionStorage.getItem('user')));
         let price = document.querySelectorAll(".price");
         let total = Array.from(price).reduce((a,x) => {
             return a + parseInt(x.innerHTML);

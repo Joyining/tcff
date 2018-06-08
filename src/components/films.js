@@ -1,76 +1,64 @@
 import React, { Component } from 'react';
 import '../sass/films.scss';
-import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
-// import $ from 'jquery';
-// import alien from '../images/1974_alien.jpg';
+import { Link } from "react-router-dom";
 
 class Films extends Component {
     constructor(props) {
         super(props);
-        this.refresh = this.refresh.bind(this);
         this.fadeOut = this.fadeOut.bind(this);
         this.fadeIn = this.fadeIn.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.pickBook = this.pickBook.bind(this);        
         this.state = {
-            books:false
+            books:false,
+            types:[]
         };
-        this.types = ["romance", "family", "thrill", "war", "sci-fi", "drama", "comedy", "adventure", "crime"];
     }    
     positioning(index){
         let books = Array.from(document.querySelectorAll('.book'));
         let middle = Math.ceil(books.length / 2);
-        // let displacement = 0;
-        let bookwidth = parseInt(window.getComputedStyle(document.querySelector('.front'), null).getPropertyValue("width"));
-        let sidewidth = parseInt(window.getComputedStyle(document.querySelector('.side'), null).getPropertyValue("width"));
-        // console.log(bookwidth);
-        // console.log(sidewidth);
-        let containerwidth = parseInt(window.getComputedStyle(document.getElementById('container'), null).getPropertyValue("width"));
-        // console.log(containerwidth);
+        //封面寬
+        let bookwidth = parseInt(window.getComputedStyle(document.querySelector('.front'), null).getPropertyValue("width"),10);
+        //書背寬
+        let sidewidth = parseInt(window.getComputedStyle(document.querySelector('.side'), null).getPropertyValue("width"),10);
+        let containerwidth = parseInt(window.getComputedStyle(document.getElementById('container'), null).getPropertyValue("width"),10);
         let centralline = containerwidth / 2;
-        let span = sidewidth * 0.6;
-        let middleposition = centralline - sidewidth / 2;
-        let sideminimun = Math.floor(((containerwidth - bookwidth) / 2) / (span + sidewidth));
-        // console.log(sideminimun);
-        // let i = 0;
-        index = index == undefined ? middle : index;
+        let span = sidewidth * 0.6; // 書與書的間隔
+        let sideminimun = Math.floor(((containerwidth - bookwidth) / 2) / (span + sidewidth)); //兩旁能容納的本數
+        index = index === undefined ? middle : index; //點到翻開的書，初始值為最中間的那本
+
+        //點到頭側的書
         if (index < sideminimun) {
             books.map((book, i) => {
                 let left;
                 if (i < (index)) {
                     left = i * (span + sidewidth) + 'px';
-                    // console.log('<<');
-                } else if (i == (index)) {
+                } else if (i === (index)) {
                     left = i * (span + sidewidth) - sidewidth + 'px';
-                    // console.log('<==');
                 } else if (i > (index)) {
                     left = (i - 1) * (span + sidewidth) + bookwidth + span + 'px';
-                    // console.log('<>');
                 }
-                // console.log(left);
                 book.style.left = left;
             })
+        //點到尾端的書
         } else if (index > (books.length - sideminimun)) {
             books.map((book, i) => {
                 let left;
-                if (i == (index)) {
+                if (i === (index)) {
                     left = (containerwidth - sidewidth - bookwidth) - (books.length - 1 - i) * (span + sidewidth) + 'px';
-                    // console.log('>==');
                 } else if (i > (index)) {
                     left = (containerwidth - sidewidth) - (books.length - 1 - i) * (span + sidewidth) + 'px';
-                    // console.log('>>');
                 }
                 else if (i < (index)){
                     left = (containerwidth - bookwidth) - (books.length - 1 - i) * (span + sidewidth) + 'px';
-                    // console.log('><');
                 }
-                // console.log(left);
                 book.style.left = left;
             })
+        //其餘中間的書
         } else {
             books.map((book, i) => {
                 let left;
-                if (i == (index)) {
+                if (i === (index)) {
                     left = centralline - bookwidth / 2 - sidewidth + 'px';
                 }
                 else if (i < index) left = centralline - bookwidth / 2 - (span + sidewidth) * (index - i) + 'px';
@@ -80,17 +68,16 @@ class Films extends Component {
         }
     }
     fadeOut(callBack, p){
-        // console.log(this);
-        // console.log(evt.target);
         let books = Array.from(document.querySelectorAll(".book"));
         const addFadeOut = (i) => {
             books[i].classList.add('fadeOut');
             return (i < books.length - 1) ? addFadeOut(i+1) : i;
         }
+
+        //遞迴 加上class:fadeOut
         addFadeOut(0);
-        // books.map((book, idx) => {
-        //     book.classList.add('fadeOut');
-        // })
+
+        //動畫結束移除class
         setTimeout(()=>{
             books.map((book, idx) => {
                 book.classList.remove('show');
@@ -99,24 +86,13 @@ class Films extends Component {
             if (callBack) callBack(p);
         }, 1000)
     }
-    refresh(evt){
-        // console.log(this);
-        // console.log(evt.target);
-        // let books = Array.from(document.querySelectorAll(".book"));
-        this.fadeOut(this.fadeIn);
-        // books.map((book, idx) => {
-        //     book.classList.remove('show');
-        // })
-    }
     handleChange(evt){
-        // console.log(this);
-        // console.log(evt.target.id);
-        console.log(evt.target.value);
         let target = evt.target.id;
         let value = evt.target.value;
         let newAr = [];
-        if(target == 'selYear'){
+        if(target === 'selYear'){
             if(this.state.sortBy !== 'year'){
+                //依年代排序
                 newAr = this.state.datas.sort((a, b) => {
                     if (a.release_year > b.release_year) {
                         return 1;
@@ -126,35 +102,34 @@ class Films extends Component {
                     }
                     return 0;
                 });
+                //翻開分類第一本
                 let index = newAr.findIndex(a => a.release_year >= value);
-                console.log(index);
+
                 this.fadeOut(
                     () => {
-                        console.log('index: ', index);
-                        this.setState({ datas: newAr, sortBy: 'year' });
-                        this.positioning(index);
-                        this.fadeIn(index);
+                        this.setState({ datas: newAr, sortBy: 'year' }); //更新狀態重新渲染
+                        this.positioning(index); //移動
+                        this.fadeIn(index); //開書
                     } , index
                 );
-                console.log(target, newAr, this.state);
+            //同個分類不同選項
             }else{
                 let index = this.state.datas.findIndex(a => a.release_year >= value);
-                // console.log("pickbook_index: ", index)
                 this.positioning(index);
                 this.pickBook(evt, index);
             }
-        } else if (target == 'selType'){
+        } else if (target === 'selType'){
             if (this.state.sortBy !== 'type') {
                 newAr = this.state.datas.sort((a, b) => {
-                    if (a.type > b.type) {
+                    if (a.theme > b.theme) {
                         return 1;
                     }
-                    if (a.type < b.type) {
+                    if (a.theme < b.theme) {
                         return -1;
                     }
                     return 0;
                 });
-                let index = newAr.findIndex(a => a.type == value);
+                let index = newAr.findIndex(a => a.theme == value);
                 console.log(index);
                 this.fadeOut(
                     () => {
@@ -166,7 +141,7 @@ class Films extends Component {
                 );
                 console.log(target, newAr, this.state);
             }else{
-                let index = this.state.datas.findIndex(a => a.type == value);
+                let index = this.state.datas.findIndex(a => a.theme == value);
                 console.log("pickbook_index: ", index)
                 console.log("newAr: ", newAr)
                 this.positioning(index);
@@ -189,9 +164,11 @@ class Films extends Component {
         // console.log('removeChild: ', evt.target.removeChild);
         // console.log('parentElement == parentNode : ', evt.target.parentElement == evt.target.parentNode);
         // evt.target.parentElement.classList.add('opened');
+        console.log('target', evt.target)
+        console.log('current target',evt.currentTarget)
         let books = Array.from(document.querySelectorAll(".book"));
 
-        let index = (i === undefined) ? books.indexOf(evt.target.parentElement) : i;
+        let index = (i === undefined) ? books.indexOf(evt.currentTarget.parentElement) : i;
         console.log("index i evt: ", index, i, evt);
         this.positioning(index);
         books.map((book, idx) => {
@@ -259,14 +236,45 @@ class Films extends Component {
     }
     componentWillMount(){
         // fetch(`${process.env.PUBLIC_URL}/json/films.json`)
-        fetch(`http://192.168.39.110/tcff_php/api/movie/read.php`)
+        fetch(`http://192.168.39.110/tcff_php/api/movie/read.php?cf=false`)
         .then((res)=>res.json())
         // .then(films => console.log(films))
-        .then((films)=>this.setState({
-            datas:films,
-            sortBy:'year',
-            books:true
-        }));
+        .then((films)=> {
+            let types = films.reduce((a, x) => {
+                // console.log({
+                //     a:a,
+                //     x:x
+                // })
+                if (!a.includes(x.theme)) {
+                    a.push(x.theme);
+                }
+                return a;
+            }, []);
+            films = films.sort((a, b) => {
+                if (a.release_year > b.release_year) {
+                    return 1;
+                }
+                if (a.release_year < b.release_year) {
+                    return -1;
+                }
+                return 0;
+            })
+            types = types.sort((a,b) => {
+                if (a > b) {
+                    return 1;
+                }
+                if (a < b) {
+                    return -1;
+                }
+                return 0;
+            })
+            this.setState({
+                datas:films,
+                sortBy:'year',
+                types: types,
+                books:true
+            })
+        });
         console.log('state: ', this.state);
     }
     componentDidUpdate(){
@@ -280,6 +288,7 @@ class Films extends Component {
         this.fadeIn();
     }
     componentDidMount() {
+        
         // let allBook = document.querySelectorAll('.book');
         // let book = Array.from(allBook);
         // let allFront = document.querySelectorAll('.front');
@@ -296,9 +305,7 @@ class Films extends Component {
             <div id="container">
                 <div id="filmsPage">
                     <div className="buttons">
-                        {/* <button onClick={this.fadeOut}>fade out</button>		 */}
-                        <button onClick={this.refresh}>refresh</button>
-                        <select name="" id="selType" onChange={this.handleChange}>{this.types.map((type, idx) => <option key={idx} value={type}>{type}</option>)}</select>
+                        <select name="" id="selType" onChange={this.handleChange}>{this.state.types.map((type, idx) => <option key={idx} value={type}>{type}</option>)}</select>
                         <select name="" id="selYear" onChange={this.handleChange}>
                             <option value="1960">1960</option>
                             <option value="1970">1970</option>
@@ -314,9 +321,9 @@ class Films extends Component {
                                     return (
                                         
                                         <div className="book" data-open='false'>
-                                            <div className="side" onClick={this.pickBook}><h1><span>{data.release_year}</span>{data.name_en}<h3>{this.types[idx % 9]}</h3></h1></div>
+                                            <div className="side" onClick={this.pickBook}><h1><span>{data.release_year}</span>{data.name_zhtw}<h3>{data.theme}</h3></h1></div>
                                             <div className="front">
-                                                <img className="hide" src={`${process.env.PUBLIC_URL}/images/${data.release_year}_${data.name_en.split(' ').join('_').replace(':', '')}.jpg`} />
+                                                <img className="hide" src={`${process.env.PUBLIC_URL}/images/${data.release_year}_${data.name_en.split(' ').join('_').replace(':', '_')}.jpg`} />
                                                 <Link to={`films-detail-page?id=${data.id_movie}`}>
                                                     電影內容
                                                 </Link>

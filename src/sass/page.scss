@@ -117,7 +117,22 @@ header{
             padding: 0 $headerHeight * .1;
             height: $headerHeight * .5;
             margin: $headerHeight * .25 0;
-            display: inline-block;         
+            display: inline-block;
+            // border: 2px solid red;
+            .collection-num{
+                width: 23px;
+                height: 23px;
+                border-radius: 50%;
+                background-color: #db8f00;
+                position: absolute;
+                top:52px;
+                right: 115px;
+                color: $colorDarker;
+                font-weight: bold;
+                font-size: .8rem;
+                line-height: 23px;
+                text-align: center;
+            }         
         }
         img{
             height: 100%;
@@ -301,7 +316,9 @@ header{
             height: $headerHeight * .3;
             margin: $headerHeight * .15 0;
             display: block;            
-
+            .collection-num{
+                top:30px;
+            }   
         }
     }
 
@@ -482,6 +499,8 @@ footer{
     justify-content: center;
     font-size: .8rem;
     margin-bottom: 0;
+    // position: absolute;
+    // bottom: 0;
     @include breakpoint("desktop"){
         // position: absolute;
         // bottom: 0;
@@ -517,7 +536,7 @@ footer{
                     padding: 0;
             }
        }
-       .fab, .fas{
+       .fab, .fas, svg{
             color: $colorDarker;
             font-size: 2rem;
             margin: 10px;

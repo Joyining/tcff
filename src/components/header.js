@@ -23,9 +23,14 @@ import {
 } from "react-router-dom";
 
 class Header extends Component {
+
     constructor(props){
-    super(props);
-    this.menuClose = this.menuClose.bind(this);
+        super(props);
+        this.menuClose = this.menuClose.bind(this);
+        }
+
+    updatecollectionNum() {
+        this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
     }
 
     menuClose(){
@@ -226,7 +231,8 @@ class Header extends Component {
                 <li className="nav-text-li transition"><Link to="/article" className="transition">電影賞析</Link></li>
             </ul>
             <div className="nav-icon web">
-                <Link to="/my-film/1" onClick={this.menuClose}><img className="transition" src={ticket} alt="" /></Link>
+                <Link to="/my-film/1" onClick={this.menuClose}><img className="transition" src={ticket} alt="" /><div className="collection-num">{this.props.collectionNum}</div></Link>
+                
                 <Link to="/member" onClick={this.menuClose}><img  className="transition" src={member} alt="" /></Link>
                 <div className="menu-icon transition">
                     <div className="line-1 no-animation transition"></div>

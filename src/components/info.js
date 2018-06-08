@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../sass/info.scss';
 
 class Info extends Component {
+
   render() {
     return (
         <section className="container-info">

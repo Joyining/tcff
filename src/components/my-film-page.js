@@ -67,6 +67,12 @@ class MyFilmPage extends Component {
     console.log("url: ", this.props.match);
     console.log("new: ", evt.target.getAttribute("to"));
   }
+  componentDidMount(){
+    window.scrollTo(0, 0);
+  }
+  componentDidCatch(){
+    window.scrollTo(0, 0);
+  }
   render() {
     return (
         <div style={{position:'relative'}}>

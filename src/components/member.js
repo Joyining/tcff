@@ -10,7 +10,11 @@ class Member extends Component{
         this.state = {          
             email: '', 
             password: '', 
-            message:{'email':'','password':''} 
+            message:{'email':'','password':''} ,
+
+            account:'' ,
+            password_acc:'',
+            message:{'account':'','password_acc':''} ,
           }
 
         this.handleChange = this.handleChange.bind(this);   
@@ -31,6 +35,9 @@ class Member extends Component{
             case "password":
                 this.passwordCheck();
                 break;
+            case "account":
+                this.accountCheck();
+                break;
             default:
                 break;
         } 
@@ -45,7 +52,14 @@ class Member extends Component{
     passwordCheck(){
         const pwd = this.state.password;
         const error = this.state.message
-        pwd.length <=8 ? error.password = "" : error.password = "請輸入至少8字元";
+        pwd.length >=1 && pwd.length <=8 ? error.password = "" : error.password = "請輸入至少8字元";
+        this.setState({message:error})
+    }
+
+    accountCheck(){
+        const pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        const error = this.state.message
+        pattern.test(this.state.email) ? error.email = "" : error.email = "email格式不正確";
         this.setState({message:error})
     }
 
@@ -100,24 +114,24 @@ class Member extends Component{
                                 <div className="registered_word">會 員 註 冊</div>
                                 <div className="account_box_r">
                                     <div className="account_r">帳號：</div>
-                                    <input type="text" className="account_r_2" placeholder="請輸入Mail"/>
+                                    <input type="text" name="account" id="account_r" className="account_r_2" placeholder="請輸入Mail"  onBlur={this.validate} value={this.state.account_r} onChange={this.handleChange}/>
                                 </div>
                                 <div className="worring_box_r">
-                                    <div className="worring_r">請輸入正確的Mail格式</div>
+                                    <div className="worring_r">{this.state.message.account}</div>
                                 </div>
                                 <div className="password_box_r">
                                     <div className="password_r_1">密碼：</div>
-                                    <input type="password" className="password_r_2" placeholder="請輸入至少六字元"/>
+                                    <input type="password" name="password_acc" className="password_r_2" placeholder="請輸入至少六字元"/>
                                 </div>
                                 <div className="worring_box_r">
                                     <div className="worring_r">請輸入至少六字元</div>
                                 </div>
                                 <div className="password_box_r">
                                     <div className="password_r_1 password_mo">再次確認密碼：</div>
-                                    <input type="password" className="password_r_2"placeholder="請再次輸入註冊密碼"/>
+                                    <input type="password" name="password_acc_ag" className="password_r_2"placeholder="請再次輸入註冊密碼"/>
                                 </div>
                                 <div className="worring_box_r">
-                                    <div className="worring_r">請輸入註冊密碼</div>
+                                    <div className="worring_r">{this.state.message.password_acc_ag}</div>
                                 </div>
                                 <div className="btn_box_r">
                                     <button className="registered_btn mouse"><div>註冊</div></button>
@@ -134,20 +148,20 @@ class Member extends Component{
                                 <div className="login_f place slide_f_animate front" name="form">
                                     <div className="login_word hide_use">會 員 登 入</div>
                                     <div className="account_box hide_use">
-                                        <div className="account_1"  htmlFor="email">帳號：</div>
-                                        <input type="text" autoComplete="off" className="account_2" id="mail_use" placeholder="請輸入E-Mail" value={this.state.mail_use} onChange={this.handleChange} onBlur={this.validate}/>
+                                        <div className="account_1"  htmlFor="email"><label> 帳號：</label></div>
+                                        <input type="text" name="email" autoComplete="off" className="account_2" id="mail_use" placeholder="請輸入E-Mail" value={this.state.mail_use} onChange={this.handleChange} onBlur={this.validate}/>
                                     </div>
                                     <div className="worring_box_l hide_use">
                                         <div className="worring_l" id="worring_mail" >{this.state.message.email}</div>
                                     </div>
                                     <div className="password_box pass hide_use">
                                         <div className="password_1" htmlFor="password">密碼：</div>
-                                        <input type="password" className="password_2" id="password_use" placeholder="請輸入密碼"  value={this.state.password} onChange={this.handleChange} onBlur={this.validate}/>
+                                        <input type="password" name="password" className="password_2" id="password_use" placeholder="請輸入密碼"  value={this.state.password_use} onChange={this.handleChange} onBlur={this.validate}/>
                                     </div>
                                     <div className="worring_box_l hide_use">
                                         <div className="worring_l" id="worring_password">{this.state.message.password}</div>
                                     </div>
-                                    <button className="login_btn mouse hide_use" onClick={this.login}><div >登入</div></button>
+                                    <button className="login_btn mouse hide_use"><div >登入</div></button>
                                     <div className="btn_box hide_use">
                                         <button  className="registered sign_up mouse"><div>註冊</div></button>
                                         <button  className="registered forget_p mouse"><div>忘記密碼</div></button>
@@ -157,7 +171,7 @@ class Member extends Component{
 
                             {/* 忘記密碼 */}
                                 <div className="login_f_p place slide_f_animate back">
-                                    <div className="login_word_p hide_use">忘 記 密 碼</div>
+                                    <div className="login_word_p hide_use ">忘 記 密 碼</div>
                                     <div className="account_box_p hide_use">
                                         <div className="account_1_p">註冊帳號：</div>
                                         <input type="text" className="account_2_p" placeholder="請輸入Mail"/>
