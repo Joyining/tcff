@@ -3,10 +3,6 @@ import '../sass/info.scss';
 
 class Info extends Component {
 
-componentDidMount() {
-    window.scrollTo(0, 0);
-}
-
   render() {
     return (
         <section className="container-info">

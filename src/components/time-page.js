@@ -11,7 +11,16 @@ class TimePage extends Component {
     this.state = {
       switch: ['切換日曆', '切換列表'],
       switchUrl: ['/time', '/time-list'],
+      collectionNum: "0",
     };
+    this.updatecollectionNum = this.updatecollectionNum.bind(this);
+        
+  }
+  componentWillMount() {
+    this.setState({ collectionNum: localStorage.getItem("collectionsNum")});
+  }
+  updatecollectionNum() {
+    this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
   }
 
   componentDidMount() {
@@ -21,9 +30,9 @@ class TimePage extends Component {
   render() {
     return (
         <div style={{position:'relative'}}>
-            <Header />
+            <Header collectionNum={this.state.collectionNum}/>
             <FastTicket />
-            <Time />
+            <Time updatecollectionNum={this.updatecollectionNum} />
             <TimeSwitch switch={this.state.switch[1]} switchUrl={this.state.switchUrl[1]}/>
             <Footer />
         </div>

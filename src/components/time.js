@@ -22,6 +22,41 @@ class Time extends Component {
     };
     this.createUniqueDate = this.createUniqueDate.bind(this);
     this.nextDate = this.nextDate.bind(this);  
+    this.addtocollection = this.addtocollection.bind(this);
+    // this.click = this.click.bind(this); 
+  }
+
+  // only for testing
+  addtocollection(event) {
+    //console.log(event.currentTarget.dataset);
+    console.log('add to collection');
+    var data = JSON.stringify(event.currentTarget.dataset);
+    var item = JSON.parse(data);
+    var collections = localStorage.getItem("collections");
+    if (collections == null) {
+      collections = [];
+      collections.push(item)
+      localStorage.setItem("collections", JSON.stringify(collections));
+    } else {
+      collections = JSON.parse(collections);
+      let add = true;
+      collections.map(function (ele) {
+        if (ele.id === item.id) {
+          var qty = parseInt(ele.qty);
+          ele.qty = (qty + 1).toString();
+
+          add = false;
+        }
+      })
+      if (add) {
+        collections.push(item)
+      }
+      console.log(collections);
+      localStorage.setItem("collections", JSON.stringify(collections));
+      localStorage.setItem("collectionsNum", JSON.stringify(collections.length));
+      console.log(localStorage.getItem("collections"));
+    }
+    this.props.updatecollectionNum();
   }
 
   createUniqueDate(){
@@ -103,6 +138,10 @@ class Time extends Component {
     //   calendar.classList.add('animate');
     // })
   }
+  // click(){
+  //   this.addtocollection();
+  //   this.props.updatecollectionNum();
+  // }
 
   componentWillMount() {
     fetch("http://192.168.39.110/tcff_php/api/movie/session.php")
@@ -115,6 +154,26 @@ class Time extends Component {
 
   render() {
     return <section className="container-time">
+      <div className="add-to-collection" data-id='8' data-price='250' data-qty="1" data-name='jaws' onClick={this.addtocollection}>add to collection</div>
+
+      <div className="add-to-collection" data-id='9' data-price='250' data-qty="1" data-name='titanic' onClick={this.addtocollection}>add to collection</div>
+
+      <div className="add-to-collection" data-id='10' data-price='250' data-qty="1" data-name='tiffany' onClick={this.addtocollection}>add to collection</div>
+
+      <div className="add-to-collection" data-id='11' data-price='250' data-qty="1" data-name='star war' onClick={this.addtocollection}>add to collection</div>
+
+      <div className="add-to-collection" data-id='12' data-price='250' data-qty="1" data-name='2001' onClick={this.addtocollection}>add to collection</div>
+
+      <div className="add-to-collection" data-id='13' data-price='250' data-qty="1" data-name='jaws' onClick={this.addtocollection}>add to collection</div>
+
+      <div className="add-to-collection" data-id='14' data-price='250' data-qty="1" data-name='titanic' onClick={this.addtocollection}>add to collection</div>
+
+      <div className="add-to-collection" data-id='15' data-price='250' data-qty="1" data-name='tiffany' onClick={this.addtocollection}>add to collection</div>
+
+      <div className="add-to-collection" data-id='16' data-price='250' data-qty="1" data-name='star war' onClick={this.addtocollection}>add to collection</div>
+
+      <div className="add-to-collection" data-id='17' data-price='250' data-qty="1" data-name='2001' onClick={this.addtocollection}>add to collection</div>
+
         <div className="date-pick-wrap">
           {this.state.uniqueDate.map(date=>{
           return <div className="date-picker transition" key={date.id} onClick={this.datePick.bind(this, date)}>

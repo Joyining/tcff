@@ -244,7 +244,6 @@ class Home extends Component {
 
   componentDidMount(){
     // console.log('home mount');
-    window.scrollTo(0, 0);
     window.addEventListener('scroll', this.scrollDetection, false);
     window.addEventListener("load", this.eclipseSizing, false);
     window.addEventListener("resize", this.eclipseSizing, false);
