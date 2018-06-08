@@ -6,6 +6,12 @@
 	box-sizing: border-box;
     margin: 10px auto ;
     background-color: $colorMedium;
+    h2{
+        margin-bottom: 10px;
+        color: #602926;
+        padding: 10px;
+        text-align: center;
+    }
     .title{
         @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
     }
@@ -17,6 +23,21 @@
             color: white;
             padding: 10px;
             text-align: center;
+        }
+    }
+    #progressbar{
+        width: 100%;
+        height: 30px;
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #602926;
+        box-shadow: 0 0 2px inset;
+        #bar{
+            width: 0;
+            height: 100%;
+            background-color: #602926;
+            box-shadow: 0 0 2px inset;
         }
     }
     
@@ -70,14 +91,14 @@
         background-color: white;
         padding: 10px;
         color: #8e5f59;    
-    }
-    .BGC{
-        background-color: rgb(219, 143, 0);
-    }
+    }    
     .r_font{
         width: 130px;
         border: 1px solid white;
         padding: 10px;
+    }
+    .BGC{
+        background-color: rgb(219, 143, 0);
     }
     .favorite{
         width: 150px;

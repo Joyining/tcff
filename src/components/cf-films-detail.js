@@ -35,7 +35,18 @@ class Cffilmsdetail extends Component {
             this.setState({
              films: datas
          }, () => {
-
+            fetch(`http://192.168.39.110/tcff_php/api/movie/cfRead.php`)
+            .then((res) => res.json())
+            .then((datas) => {
+               console.log(datas) 
+               console.log("state",this.state.films)
+               let films = this.state.films;
+               let id_movie = films.id;
+               films.progress = datas[id_movie];
+               
+               this.setState({Films:films});
+               console.log("films",films)
+               })
 
              let path = `${this.state.films.release_year}_${this.state.films.name_en.split(' ').join('_').replace(':', '_')}`;
              console.log(path);
@@ -98,7 +109,10 @@ class Cffilmsdetail extends Component {
              })
          }
         )})
-
+        
+        // $( "#bar" ).css({
+        //     width:'40%'
+        // });
         //  sliider
         // var slides = [img01,img02,img03,img04,img05];
         // var slideWidth = $(".slide_wrap").width();
@@ -196,11 +210,15 @@ class Cffilmsdetail extends Component {
                             <div className="l_font">級別</div>
                             <div className="r_font">{this.state.films.rating}</div>
                         </div>            
-                        <button className="favorite BGC"><div><i class="fas fa-plus-circle"></i>  加入我的票夾</div></button>
+                        <button className="favorite BGC"><div><i class="fas fa-plus-circle"></i>  參與募資</div></button>
                     </div>        
                 </div>
 
-                <section className="container-filmsDetail">                
+                <section className="container-filmsDetail">
+                    <h2>募資進度({this.state.films.progress*100}%)</h2>
+                    <div id="progressbar">
+                        <div id="bar" style={{width:this.state.films.progress*100+'%'}}></div>
+                    </div>
                     <div className="about">
                         <h2>劇情簡介</h2>
                         {this.state.films.synopsis}

@@ -67,8 +67,42 @@
         font-size: 26px;    
         width: 78%;
         text-align: center;
+        margin: 0 auto;    
+    }
+    h6{
+        color: #602926;
+    }
+    #progressbar{
         margin: 0 auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 70%;
+        height: 15px;
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #602926;
+        box-shadow: 0 0 2px inset;
+        #bar{
+            width: 0;
+            height: 100%;
+            background-color: #602926;
+            box-shadow: 0 0 2px inset;
+        }
+    }
     
+    .favorite{
+        width: 150px;
+        color: #cbab9e;
+        background-color: #602926;
+        padding: 10px 20px 10px 20px;
+        text-align: center;
+        margin: 0 auto;
+        font-size: 18px;
+        margin-top: 30px;
+        border: 1px solid #cbab9e;
+        cursor: pointer;
+        font-family: "\5FAE\8EDF\6B63\9ED1\9AD4";
     }
 }
 
@@ -81,24 +115,12 @@
     height: 100%;
 
 }
-.system{
-    transition: .5s;
-    width: 100px;
-    color: #cbab9e;
-    background-color: #602926;
-    padding: 10px 20px 10px 20px;
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 30px;
-}
+
 a{
     text-decoration: none;
+    
 }
-a:hover .system{
-    color: #602926;
-    background-color: #cbab9e;
-    border: 1px solid #602926;
-}
+
 @media screen and (max-width: 1600px){
     .container-cf{
         background-position-y: 0;
