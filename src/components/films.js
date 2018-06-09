@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../sass/films.scss';
 import { Link } from "react-router-dom";
+// import Cb from "./myfilm/cb";
 
 class Films extends Component {
     constructor(props) {
@@ -9,11 +10,146 @@ class Films extends Component {
         this.fadeIn = this.fadeIn.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.pickBook = this.pickBook.bind(this);        
+        this.handleSort = this.handleSort.bind(this);        
+        this.handleMove = this.handleMove.bind(this);        
         this.state = {
             books:false,
-            types:[]
+            types:[],
+            moveTo: ""
         };
     }    
+    handleMove(evt){
+        let moveTo = evt.target.innerHTML;
+        let index;
+        console.log(moveTo.slice(0, -1));
+        if(evt.target.classList[0] === "detailYear"){
+            index = this.state.datas.findIndex(a => a.release_year >= moveTo.slice(0,-1));
+        }else{
+            index = this.state.datas.findIndex(a => a.theme >= moveTo);
+        }
+        console.log(index);
+        // let index = this.state.datas.findIndex(a => a.release_year >= value);
+        this.positioning(index);
+        this.pickBook(evt, index);
+        // setTimeout(() => this.setState({ moveTo: moveTo }), 1000);
+    }
+    handleSort(evt){
+        console.log("id: ",evt.target.previousSibling.id);
+        let target = evt.target;
+        // let htmlFor = target.getAttribute('htmlFor');
+        let sortBy = target.classList[0];
+        let parent = target.parentNode;
+        // let value = evt.target.value;
+        // let isChecked = target.previousSibling.checked;
+        let isChecked = (sortBy === "optionYear" ? "year" : "theme") === this.state.sortBy;
+
+        console.log(sortBy, parent, isChecked);
+        let newAr = [];
+        if(isChecked === false){
+            if (sortBy === "optionYear"){
+                //依年代排序
+                newAr = this.state.datas.sort((a, b) => {
+                    if (a.release_year > b.release_year) {
+                        return 1;
+                    }
+                    if (a.release_year < b.release_year) {
+                        return -1;
+                    }
+                    return 0;
+                });
+                //翻開分類第一本
+                // let index = newAr.findIndex(a => a.release_year >= value);
+                let index = 30;
+
+                this.fadeOut(
+                    () => {
+                        this.setState({ datas: newAr, sortBy: 'year' }); //更新狀態重新渲染
+                        this.positioning(index); //移動
+                        this.fadeIn(index); //開書
+                    }, index
+                );
+            }else{
+                newAr = this.state.datas.sort((a, b) => {
+                    if (a.theme > b.theme) {
+                        return 1;
+                    }
+                    if (a.theme < b.theme) {
+                        return -1;
+                    }
+                    return 0;
+                });
+                // let index = newAr.findIndex(a => a.theme == value);
+                let index = 30;
+                console.log(index);
+                this.fadeOut(
+                    () => {
+                        console.log('index: ', index);
+                        this.setState({ datas: newAr, sortBy: 'theme' });
+                        this.positioning(index);
+                        this.fadeIn(index);
+                    }, index
+                );
+            }
+        }
+        // if (target === 'selYear') {
+        //     if (this.state.sortBy !== 'year') {
+        //         //依年代排序
+        //         newAr = this.state.datas.sort((a, b) => {
+        //             if (a.release_year > b.release_year) {
+        //                 return 1;
+        //             }
+        //             if (a.release_year < b.release_year) {
+        //                 return -1;
+        //             }
+        //             return 0;
+        //         });
+        //         //翻開分類第一本
+        //         let index = newAr.findIndex(a => a.release_year >= value);
+
+        //         this.fadeOut(
+        //             () => {
+        //                 this.setState({ datas: newAr, sortBy: 'year' }); //更新狀態重新渲染
+        //                 this.positioning(index); //移動
+        //                 this.fadeIn(index); //開書
+        //             }, index
+        //         );
+        //         //同個分類不同選項
+        //     } else {
+        //         let index = this.state.datas.findIndex(a => a.release_year >= value);
+        //         this.positioning(index);
+        //         this.pickBook(evt, index);
+        //     }
+        // } else if (target === 'selType') {
+        //     if (this.state.sortBy !== 'type') {
+        //         newAr = this.state.datas.sort((a, b) => {
+        //             if (a.theme > b.theme) {
+        //                 return 1;
+        //             }
+        //             if (a.theme < b.theme) {
+        //                 return -1;
+        //             }
+        //             return 0;
+        //         });
+        //         let index = newAr.findIndex(a => a.theme == value);
+        //         console.log(index);
+        //         this.fadeOut(
+        //             () => {
+        //                 console.log('index: ', index);
+        //                 this.setState({ datas: newAr, sortBy: 'type' });
+        //                 this.positioning(index);
+        //                 this.fadeIn(index);
+        //             }, index
+        //         );
+        //         console.log(target, newAr, this.state);
+        //     } else {
+        //         let index = this.state.datas.findIndex(a => a.theme == value);
+        //         console.log("pickbook_index: ", index)
+        //         console.log("newAr: ", newAr)
+        //         this.positioning(index);
+        //         this.pickBook(evt, index);
+        //     }
+        // }
+    }
     positioning(index){
         let books = Array.from(document.querySelectorAll('.book'));
         let middle = Math.ceil(books.length / 2);
@@ -236,7 +372,8 @@ class Films extends Component {
     }
     componentWillMount(){
         // fetch(`${process.env.PUBLIC_URL}/json/films.json`)
-        fetch(`http://192.168.39.110/tcff_php/api/movie/read.php?cf=false`)
+        // fetch(`http://192.168.39.110/tcff_php/api/movie/read.php?cf=false`)
+        fetch(`http://localhost/tcff_php/api/movie/read.php?cf=false`)
         .then((res)=>res.json())
         // .then(films => console.log(films))
         .then((films)=> {
@@ -314,6 +451,42 @@ class Films extends Component {
                             <option value="2000">2000</option>
                         </select>
                     </div>
+                    {this.state.books && (
+                        <div className="sortBy">
+                            
+                                <input type="radio" name="sortBy" id="sortByYear" checked={this.state.sortBy === "year" ? true : false} />
+                                <label className="optionYear" htmlFor="sortByYear" onClick={this.handleSort}>年代</label>
+                            
+                            
+                                
+                                <input type="radio" name="sortBy" id="sortByTheme" checked={this.state.sortBy === "theme" ? true : false} />
+                                <label className="optionTheme" htmlFor="sortByTheme" onClick={this.handleSort}>類型</label>
+                                <div className="sortDetailYear">
+                                    <input type="radio" name="sortDetail" id="to1960s" />
+                                    <label className="detailYear" htmlFor="to1960s" onClick={this.handleMove}>1960s</label>
+                                    <input type="radio" name="sortDetail" id="to1970s" />
+                                    <label className="detailYear" htmlFor="to1970s" onClick={this.handleMove}>1970s</label>
+                                    <input type="radio" name="sortDetail" id="to1980s" />
+                                    <label className="detailYear" htmlFor="to1980s" onClick={this.handleMove}>1980s</label>
+                                    <input type="radio" name="sortDetail" id="to1990s" />
+                                    <label className="detailYear" htmlFor="to1990s" onClick={this.handleMove}>1990s</label>
+                                    <input type="radio" name="sortDetail" id="to2000s" />
+                                    <label className="detailYear" htmlFor="to2000s" onClick={this.handleMove}>2000s</label>
+                                </div>
+                                <div className="sortDetailTheme">
+                                    {this.state.types.map((type, idx) => 
+                                        (<div key={idx}>
+                                            <input type="radio" name="sortDetail" id={`toType${idx}`} />
+                                            <label className="detailTheme" htmlFor={`toType${idx}`} onClick={this.handleMove}>{type}</label>
+                                        </div>)
+                                    )}
+                                </div>
+                            <div className="frame"></div>
+                        
+                            
+                          
+                        </div>
+                    )}
                     {
                         this.state.books && (
                             <div id="books">
@@ -321,12 +494,47 @@ class Films extends Component {
                                     return (
                                         
                                         <div className="book" data-open='false'>
-                                            <div className="side" onClick={this.pickBook}><h1><span>{data.release_year}</span>{data.name_zhtw}<h3>{data.theme}</h3></h1></div>
+                                            <div className="side" onClick={this.pickBook}>
+                                                <h1>
+                                                    <span className="year">{data.release_year + "│    " + data.name_zhtw.replace('：', ' ').slice(0,8)}</span>
+                                                    {/* <span className="name">{data.name_zhtw}</span> */}
+                                                    <span className="theme">{data.theme}</span>
+                                                    {/* {data.name_zhtw}{data.theme} */}
+                                                    {/* <h3>{data.theme}</h3> */}
+                                                    </h1>
+                                                </div>
                                             <div className="front">
                                                 <img className="hide" src={`${process.env.PUBLIC_URL}/images/${data.release_year}_${data.name_en.split(' ').join('_').replace(':', '_')}.jpg`} />
-                                                <Link to={`films-detail-page?id=${data.id_movie}`}>
-                                                    電影內容
-                                                </Link>
+                                                <div className="top">
+                                                    <div className="h4">
+                                                        <h4>{data.release_year + "│    " + data.theme}</h4>
+                                                    </div>
+                                                    <div className="h2">
+                                                        <h2 className="name">{data.name_zhtw}</h2>
+                                                    </div>
+                                                    
+                                                    <div className="h5">
+                                                        {/* <h5>{data.theme}</h5> */}
+                                                        <h5>{data.director_name}</h5>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div className="btm">
+                                                    <Link to={`films-detail-page?id=${data.id_movie}`}>
+                                                        電影內容
+                                                    </Link>
+                                                    {/* <button onClick="" className="addCollection" type="button" data-liked="false">
+                                                        {
+                                                            false ? <i class="far fa-heart"></i> : <i class="fas fa-heart"></i>
+                                                        }                                                       
+                                                    </button> */}
+                                                    <input type="checkbox" name="" id={"add-" + data.id_movie}/>
+                                                    <label htmlFor={"add-" + data.id_movie}>
+                                                        <i className="fas fa-heart"></i>
+                                                    </label>
+                                                </div>
+                                                
+                                                
                                             </div>
                                             </div> 
                                             )

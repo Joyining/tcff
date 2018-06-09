@@ -29,7 +29,8 @@ class Tab1 extends Component {
 
     if (sessionStorage.getItem('user') !== null){
       let id = JSON.parse(sessionStorage.getItem('user')).id;
-      fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=` + id)
+      // fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=` + id)
+      fetch(`http://localhost/tcff_php/api/cart/collection.php?id=` + id)
       // fetch(`${process.env.PUBLIC_URL}/json/collection.json`)
         // .then(res => console.log(res.text()))
         .then(res => res.json())
