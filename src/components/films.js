@@ -11,13 +11,141 @@ class Films extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.pickBook = this.pickBook.bind(this);        
         this.handleSort = this.handleSort.bind(this);        
-        this.handleMove = this.handleMove.bind(this);        
+        this.handleMove = this.handleMove.bind(this);
+        this.handleCollect = this.handleCollect.bind(this);        
         this.state = {
             books:false,
             types:[],
-            moveTo: ""
+            moveTo: "",
         };
+        this.sideMaxBooks = 0;
+        this.sideWidth = 0;
+        this.bookWidth = 0;
+        this.containerWidth = 0;
+        this.firstUpdate = false;
     }    
+    handleCollect(evt){
+        let isChecked = evt.currentTarget.previousElementSibling.checked;
+        let id_movie = evt.currentTarget.getAttribute('data-id-movie');
+        let user = sessionStorage.getItem('user');
+        let id_user = user === null ? undefined : JSON.parse(user).id;
+        let url = "";
+        // let collectionNum = sessionStorage.getItem('collectionNum');
+        // console.log(evt.currentTarget.previousElementSibling);
+        
+        if(isChecked){
+            console.log("del");
+            if (id_user !== undefined){
+                url = `https://localhost/tcff_php/api/cart/collection.php/${id_movie}/${id_user}`;
+                fetch(url,{
+                    method:"DELETE",
+                    headers: {
+                        "Access-Control-Request-Headers": "X-PINGOTHER, Content-Type",
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    },
+                    mode:'cors'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log("m: ", data.message);
+                        if(data.message === "delete 1 data"){
+                            //刪Storage的collection
+                            let collection = JSON.parse(sessionStorage.getItem('collection'));
+                            collection.films = collection.films.filter(x => x.id_movie !==id_movie);
+                            sessionStorage.setItem("collection", JSON.stringify(collection));
+
+                            //改變checkbox狀態(setState)
+                            let ar = this.state.datas.map(film => {
+                                if (film.id_movie == id_movie) {
+                                    film.collect = false;
+                                }
+                                return film;
+                            })
+                            this.setState({
+                                datas: ar
+                            });
+
+                            //改變購物車數字 collectionNum
+                            this.props.updatecollectionNum();
+                        }
+                    })
+                    .catch(err => console.log(`error with fetch: ` + err.message))
+            }else{
+                let ar = this.state.datas.map(film => {
+                    if (film.id_movie == id_movie) {
+                        film.collect = false;
+                    }
+                    return film;
+                })
+                this.setState({
+                    datas: ar
+                });
+
+                //改變購物車數字 collectionNum
+                this.props.updatecollectionNum();
+            }
+            
+        }else{
+            console.log("add")
+            if (id_user !== undefined) {
+                url = `https://localhost/tcff_php/api/cart/collection.php`;
+                let body = {
+                    id: id_user,
+                    id_movie: id_movie
+                }
+                fetch(url, {
+                        method: "POST",
+                        body: JSON.stringify(body)
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log("m: ", data.message);
+                        if (data.message === "add 1 collection") {
+                            //刪Storage的collection
+                            let collection = JSON.parse(sessionStorage.getItem('collection'));
+                            collection.films.push(data.collection_info[0]);
+                            sessionStorage.setItem("collection", JSON.stringify(collection));
+
+                            //改變checkbox狀態(setState)
+                            let ar = this.state.datas.map(film => {
+                                if (film.id_movie == id_movie) {
+                                    film.collect = true;
+                                }
+                                return film;
+                            })
+                            this.setState({
+                                datas: ar
+                            });
+
+                            //改變購物車數字 collectionNum
+                            this.props.updatecollectionNum();
+                        }
+                    })
+                    .catch(err => console.log(`error with fetch: ` + err.message))
+            } else {
+                let ar = this.state.datas.map(film => {
+                    if (film.id_movie == id_movie) {
+                        film.collect = true;
+                    }
+                    return film;
+                })
+                this.setState({
+                    datas: ar
+                });
+
+                //改變購物車數字 collectionNum
+                this.props.updatecollectionNum();
+            }
+            // url = `https://localhost/tcff_php/api/cart/collection.php/{id_movie}`;
+            // let ar = this.state.datas.map(film => {
+            //     if (film.id_movie == id_movie) {
+            //         film.collect = true;
+            //     }
+            //     return film;
+            // })
+            // this.setState({ datas: ar });
+        }
+    }
     handleMove(evt){
         let moveTo = evt.target.innerHTML;
         let index;
@@ -91,64 +219,6 @@ class Films extends Component {
                 );
             }
         }
-        // if (target === 'selYear') {
-        //     if (this.state.sortBy !== 'year') {
-        //         //依年代排序
-        //         newAr = this.state.datas.sort((a, b) => {
-        //             if (a.release_year > b.release_year) {
-        //                 return 1;
-        //             }
-        //             if (a.release_year < b.release_year) {
-        //                 return -1;
-        //             }
-        //             return 0;
-        //         });
-        //         //翻開分類第一本
-        //         let index = newAr.findIndex(a => a.release_year >= value);
-
-        //         this.fadeOut(
-        //             () => {
-        //                 this.setState({ datas: newAr, sortBy: 'year' }); //更新狀態重新渲染
-        //                 this.positioning(index); //移動
-        //                 this.fadeIn(index); //開書
-        //             }, index
-        //         );
-        //         //同個分類不同選項
-        //     } else {
-        //         let index = this.state.datas.findIndex(a => a.release_year >= value);
-        //         this.positioning(index);
-        //         this.pickBook(evt, index);
-        //     }
-        // } else if (target === 'selType') {
-        //     if (this.state.sortBy !== 'type') {
-        //         newAr = this.state.datas.sort((a, b) => {
-        //             if (a.theme > b.theme) {
-        //                 return 1;
-        //             }
-        //             if (a.theme < b.theme) {
-        //                 return -1;
-        //             }
-        //             return 0;
-        //         });
-        //         let index = newAr.findIndex(a => a.theme == value);
-        //         console.log(index);
-        //         this.fadeOut(
-        //             () => {
-        //                 console.log('index: ', index);
-        //                 this.setState({ datas: newAr, sortBy: 'type' });
-        //                 this.positioning(index);
-        //                 this.fadeIn(index);
-        //             }, index
-        //         );
-        //         console.log(target, newAr, this.state);
-        //     } else {
-        //         let index = this.state.datas.findIndex(a => a.theme == value);
-        //         console.log("pickbook_index: ", index)
-        //         console.log("newAr: ", newAr)
-        //         this.positioning(index);
-        //         this.pickBook(evt, index);
-        //     }
-        // }
     }
     positioning(index){
         let books = Array.from(document.querySelectorAll('.book'));
@@ -161,6 +231,10 @@ class Films extends Component {
         let centralline = containerwidth / 2;
         let span = sidewidth * 0.6; // 書與書的間隔
         let sideminimun = Math.floor(((containerwidth - bookwidth) / 2) / (span + sidewidth)); //兩旁能容納的本數
+        this.bookWidth = bookwidth;
+        this.sideWidth = sidewidth;
+        this.containerWidth = containerwidth;
+        this.sideMaxBooks = sideminimun;
         index = index === undefined ? middle : index; //點到翻開的書，初始值為最中間的那本
 
         //點到頭側的書
@@ -337,7 +411,13 @@ class Films extends Component {
         // console.log("fadeIn: index = ", index)
         // console.log(this.state.datas.length)
         // console.log(index, index !== undefined)
-        const show = (i,delay=80) => {
+        index = index !== undefined ? index : middle;
+        let minIndex = index - this.sideMaxBooks;
+        let maxIndex = index + this.sideMaxBooks;
+        minIndex = minIndex < 0 ? 0 : minIndex;
+        maxIndex = maxIndex > books.length-1 ? books.length-1 : maxIndex;
+        console.log(minIndex, maxIndex)
+        const show = (i,delay=120) => {
             books[i].classList.add('show');
             let isOpen = books[i].getAttribute('data-open');
             let side = books[i].querySelector('.side');
@@ -346,8 +426,9 @@ class Films extends Component {
                 side.style.transform = 'rotateY(0deg)';
                 front.style.transform = 'rotateY(90deg)';
                 books[i].setAttribute('data-open', false);
+                books[i].querySelector('img').classList.add('hide');
             }
-            if (i == (index !== undefined ? index : middle)) {
+            if (i === index) {
                 // console.log(i);
                 side.style.transform = 'rotateY(-90deg)';
                 front.style.transform = 'rotateY(0deg)';
@@ -356,7 +437,12 @@ class Films extends Component {
             }
             // console.log(i);
             // if(i == books.length) return;
-            return (i < books.length - 1) ? setTimeout(() => show(i+1), delay) : i
+            if(i < maxIndex && i > minIndex){
+                return (i < books.length - 1) ? setTimeout(() => show(i + 1), delay) : i
+            }else{
+                return (i < books.length - 1) ? show(i + 1) : i
+            }
+            
         }
         show(0);
         // for (let i = 0; i < books.length; i++) {
@@ -371,58 +457,119 @@ class Films extends Component {
         // }, middle * 80 + 80)
     }
     componentWillMount(){
-        // fetch(`${process.env.PUBLIC_URL}/json/films.json`)
-        // fetch(`http://192.168.39.110/tcff_php/api/movie/read.php?cf=false`)
-        fetch(`http://localhost/tcff_php/api/movie/read.php?cf=false`)
-        .then((res)=>res.json())
-        // .then(films => console.log(films))
-        .then((films)=> {
-            let types = films.reduce((a, x) => {
-                // console.log({
-                //     a:a,
-                //     x:x
-                // })
-                if (!a.includes(x.theme)) {
-                    a.push(x.theme);
-                }
-                return a;
-            }, []);
-            films = films.sort((a, b) => {
-                if (a.release_year > b.release_year) {
-                    return 1;
-                }
-                if (a.release_year < b.release_year) {
-                    return -1;
-                }
-                return 0;
-            })
-            types = types.sort((a,b) => {
-                if (a > b) {
-                    return 1;
-                }
-                if (a < b) {
-                    return -1;
-                }
-                return 0;
-            })
-            this.setState({
-                datas:films,
-                sortBy:'year',
-                types: types,
-                books:true
-            })
-        });
-        console.log('state: ', this.state);
+        let collection = sessionStorage.getItem("collection");
+        console.log(collection);
+        if(collection === null){
+            // fetch(`${process.env.PUBLIC_URL}/json/films.json`)
+            // fetch(`http://192.168.39.110/tcff_php/api/movie/read.php?cf=false`)
+            fetch(`http://localhost/tcff_php/api/movie/read.php?cf=false`)
+            .then((res)=>res.json())
+            // .then(films => console.log(films))
+            .then((films)=> {
+                let types = films.reduce((a, x) => {
+                    // console.log({
+                    //     a:a,
+                    //     x:x
+                    // })
+                    if (!a.includes(x.theme)) {
+                        a.push(x.theme);
+                    }
+                    return a;
+                }, []);
+                films = films.sort((a, b) => {
+                    if (a.release_year > b.release_year) {
+                        return 1;
+                    }
+                    if (a.release_year < b.release_year) {
+                        return -1;
+                    }
+                    return 0;
+                })
+                types = types.sort((a,b) => {
+                    if (a > b) {
+                        return 1;
+                    }
+                    if (a < b) {
+                        return -1;
+                    }
+                    return 0;
+                })
+                films.map(film => {
+                    film.collect = false;
+                })
+                this.setState({
+                    datas:films,
+                    sortBy:'year',
+                    types: types,
+                    books:true
+                })
+            });
+            console.log('state: ', this.state);
+        }else{
+            collection = JSON.parse(collection).films;
+            fetch(`http://localhost/tcff_php/api/movie/read.php?cf=false`)
+                .then((res) => res.json())
+                // .then(films => console.log(films))
+                .then((films) => {
+                    let types = films.reduce((a, x) => {
+                        // console.log({
+                        //     a:a,
+                        //     x:x
+                        // })
+                        if (!a.includes(x.theme)) {
+                            a.push(x.theme);
+                        }
+                        return a;
+                    }, []);
+                    films = films.sort((a, b) => {
+                        if (a.release_year > b.release_year) {
+                            return 1;
+                        }
+                        if (a.release_year < b.release_year) {
+                            return -1;
+                        }
+                        return 0;
+                    })
+                    types = types.sort((a, b) => {
+                        if (a > b) {
+                            return 1;
+                        }
+                        if (a < b) {
+                            return -1;
+                        }
+                        return 0;
+                    })
+                    films.map(film => {
+                        film.collect = false;
+                        collection.forEach(x => {
+                            if(x.id_movie === film.id_movie){
+                                film.collect = true;
+                                return;
+                            }
+                        })
+                    })
+                    this.setState({
+                        datas: films,
+                        sortBy: 'year',
+                        types: types,
+                        books: true
+                    })
+                });
+        }
     }
     componentDidUpdate(){
-        let allBook = document.querySelectorAll('.book');
-        let book = Array.from(allBook);
-        let allFront = document.querySelectorAll('.front');
-        let front = Array.from(allFront);
-        front.forEach((f) => f.style.transform = 'rotateY(90deg)');
+        console.log("update")
+        if(!this.firstUpdate){
+            let allBook = document.querySelectorAll('.book');
+            let book = Array.from(allBook);
+            let allFront = document.querySelectorAll('.front');
+            let front = Array.from(allFront);
+            front.forEach((f) => f.style.transform = 'rotateY(90deg)');
 
-        this.positioning();
-        this.fadeIn();
+            this.positioning();
+            this.fadeIn();
+            this.firstUpdate = true;
+        }
     }
     componentDidMount() {
         
@@ -511,6 +658,7 @@ class Films extends Component {
                                                     </div>
                                                     <div className="h2">
                                                         <h2 className="name">{data.name_zhtw}</h2>
+                                                        <h5 className="name">{data.name_en}</h5>
                                                     </div>
                                                     
                                                     <div className="h5">
@@ -528,8 +676,8 @@ class Films extends Component {
                                                             false ? <i class="far fa-heart"></i> : <i class="fas fa-heart"></i>
                                                         }                                                       
                                                     </button> */}
-                                                    <input type="checkbox" name="" id={"add-" + data.id_movie}/>
-                                                    <label htmlFor={"add-" + data.id_movie}>
+                                                    <input type="checkbox" name="" id={"add-" + data.id_movie} checked={data.collect} />
+                                                    <label htmlFor={"add-" + data.id_movie} onClick={this.handleCollect} data-id-movie={data.id_movie}>
                                                         <i className="fas fa-heart"></i>
                                                     </label>
                                                 </div>

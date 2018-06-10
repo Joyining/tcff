@@ -19,111 +19,111 @@
             align-items: center;
             display: none;
         }
-            .sortBy{
-                position: relative;
-                display: flex;
-                justify-content: center;
-                flex-wrap: wrap;
-                max-width: 700px;
-                margin: 30px auto;
+        .sortBy{
+            position: relative;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 700px;
+            margin: 30px auto;
 
-                >label{                    
-                    font-weight: 900;
-                    flex-basis: 100px;
-                    text-align: center;
-                    font-size: 1.6rem;
-                    // line-height: 4.6rem;
-                    background-color: transparent;
+            >label{                    
+                font-weight: 900;
+                flex-basis: 100px;
+                text-align: center;
+                font-size: 1.6rem;
+                // line-height: 4.6rem;
+                background-color: transparent;
+                color: $colorMedium;
+                border: 3px solid $colorMedium;
+                width: 100px;
+                padding: 8px 17px;
+                transition: all .5s;
+                cursor: pointer;
+                &.optionTheme::before{
+                    // content: "";
+                    // position: absolute;
+                    // background-color: $colorMedium;
+                    // top: 0;
+                    // right: 0;
+                    // width: 144px;
+                    // height: 52px;
+                }
+                &.optionYear{
+
+                }
+            }
+            .sortDetailTheme, .sortDetailYear{
+                display: none;
+                flex-basis: 100%;
+                justify-content: space-around;
+                align-items: center;
+                opacity: 0;
+                transition: all 1s;
+                margin: 30px 0;
+                &>div{
+                    // height: 50px;
+                }
+                label{
+                    padding: 10px 20px;
+                    // background-color: $colorMedium;
                     color: $colorMedium;
-                    border: 3px solid $colorMedium;
+                    font-weight: 900;
                     width: 100px;
-                    padding: 8px 17px;
+                    text-align: center;
+                    display: block;
                     transition: all .5s;
-                    cursor: pointer;
-                    &.optionTheme::before{
-                        // content: "";
-                        // position: absolute;
-                        // background-color: $colorMedium;
-                        // top: 0;
-                        // right: 0;
-                        // width: 144px;
-                        // height: 52px;
-                    }
-                    &.optionYear{
-
-                    }
-                }
-                .sortDetailTheme, .sortDetailYear{
-                    display: none;
-                    flex-basis: 100%;
-                    justify-content: space-around;
-                    align-items: center;
-                    opacity: 0;
-                    transition: all 1s;
-                    margin: 30px 0;
-                    &>div{
-                        // height: 50px;
-                    }
-                    label{
-                        padding: 10px 20px;
-                        // background-color: $colorMedium;
-                        color: $colorMedium;
-                        font-weight: 900;
-                        width: 100px;
-                        text-align: center;
-                        display: block;
-                        transition: all .5s;
-                        font-size: 1.3rem;
-                        box-sizing: border-box;
-                        border-bottom: 2px solid transparent;
-                        cursor: pointer;
-                    }
-                    input:checked+label{
-                        // background-color: $colorMedium;
-                        // color: $colorDark;
-                        // border-bottom: 2px solid $colorMedium;
-                        border-color: $colorMedium
-                    }
-                }
-                input{
-                    display: none;
-                    &#sortByYear:checked{
-                        &+label{
-                            background-color: $colorMedium;
-                            color: $colorDark;
-                        }
-                        &~.sortDetailYear {
-                            display: flex;
-                            opacity: 1;
-                        }
-                    }
-                    &#sortByTheme:checked {
-                        &+label {
-                            background-color: $colorMedium;
-                            color: $colorDark;
-                        }
-                        &~.sortDetailTheme {
-                            display: flex;
-                            opacity: 1;
-                        }
-                    }
-                }
-                .frame{
-                    display: none;
-                    position: absolute;
-                    top: 0;
-                    width: 50%;
-                    height: 100%;
+                    font-size: 1.3rem;
                     box-sizing: border-box;
-                    border: 3px solid red;
-                    &.byYear{
-                        left: 0;
+                    border-bottom: 4px solid transparent;
+                    cursor: pointer;
+                }
+                input:checked+label{
+                    // background-color: $colorMedium;
+                    // color: $colorDark;
+                    // border-bottom: 2px solid $colorMedium;
+                    border-color: $colorMedium
+                }
+            }
+            input{
+                display: none;
+                &#sortByYear:checked{
+                    &+label{
+                        background-color: $colorMedium;
+                        color: $colorDark;
                     }
-                    &.byTheme{
-                        right: 0;
+                    &~.sortDetailYear {
+                        display: flex;
+                        opacity: 1;
+                    }
+                }
+                &#sortByTheme:checked {
+                    &+label {
+                        background-color: $colorMedium;
+                        color: $colorDark;
+                    }
+                    &~.sortDetailTheme {
+                        display: flex;
+                        opacity: 1;
                     }
                 }
             }
+            .frame{
+                display: none;
+                position: absolute;
+                top: 0;
+                width: 50%;
+                height: 100%;
+                box-sizing: border-box;
+                border: 3px solid red;
+                &.byYear{
+                    left: 0;
+                }
+                &.byTheme{
+                    right: 0;
+                }
+            }
+        }
         #books{
             width: 100%;
             height: 480px;
@@ -264,6 +264,9 @@
                         }
                         .h2{
                             margin: 5px;
+                            h2{
+                                margin-bottom: 5px;
+                            }
                         }
                         .h5{
                             display: flex;

@@ -8,26 +8,34 @@ import Films from './films';
 class FilmsPage extends Component{
     constructor(props){
         super(props);
+        this.updatecollectionNum = this.updatecollectionNum.bind(this);
         this.state = {
-            collectionNum: "0"
+            collectionNum: 0
         }
     }
+    componentDidUpdate(){
+        console.log('page update');
+    }
     componentWillMount(){
+        let collection = JSON.parse(sessionStorage.getItem("collection"));
+        let collectionNum = collection.films.length + collection.cffilms.length;
         this.setState({
-            collectionNum: localStorage.getItem("collectionNum")
+            collectionNum: collectionNum
         })
     }
-    unpdatecollectionNum(){
+    updatecollectionNum(){
+        let collection = JSON.parse(sessionStorage.getItem("collection"));
+        let collectionNum = collection.films.length + collection.cffilms.length;
         this.setState({
-            collectionNum: localStorage.getItem("collectionNum")
+            collectionNum: collectionNum
         })
     }
     render(){
         return (
             <div>
-                <Header collectionNum={this.collectionNum} />
+                <Header collectionNum={this.state.collectionNum} />
                 <FastTicket />
-                <Films addToCart={this.unpdatecollectionNum} />
+                <Films updatecollectionNum={this.updatecollectionNum} />
                 <Footer />
             </div>
         );
