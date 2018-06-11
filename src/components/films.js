@@ -71,6 +71,11 @@ class Films extends Component {
                     })
                     .catch(err => console.log(`error with fetch: ` + err.message))
             }else{
+                //刪Storage的collection
+                let collection = JSON.parse(sessionStorage.getItem('collection'));
+                collection.films = collection.films.filter(x => x.id_movie !== id_movie);
+                sessionStorage.setItem("collection", JSON.stringify(collection));
+
                 let ar = this.state.datas.map(film => {
                     if (film.id_movie == id_movie) {
                         film.collect = false;
@@ -123,6 +128,22 @@ class Films extends Component {
                     })
                     .catch(err => console.log(`error with fetch: ` + err.message))
             } else {
+                //增加Storage的collection
+                let collection = sessionStorage.getItem('collection');
+                if(collection === null){
+                    collection = {
+                        films: [],
+                        cffilms: []
+                    }
+                    // collection.films.push(this.state.datas.filter(x => x.id_movie == id_movie));
+                }else{
+                    collection = JSON.parse(collection);
+                    // collection.films.push(this.state.datas.filter(x => x.id_movie == id_movie));
+                }
+                collection.films.push(this.state.datas.filter(x => x.id_movie == id_movie)[0]);
+                // collection.films.push(data.collection_info[0]);
+                sessionStorage.setItem("collection", JSON.stringify(collection));
+
                 let ar = this.state.datas.map(film => {
                     if (film.id_movie == id_movie) {
                         film.collect = true;

@@ -14,6 +14,10 @@ class MyFilmPage extends Component {
   constructor(props){
     super(props);
     this.changeUrl = this.changeUrl.bind(this);
+    this.updatecollectionNum = this.updatecollectionNum.bind(this);
+    this.state = {
+      collectionNum: 0
+    }
     // this.text = "props";
     // this.changeTicketNum = this.changeTicketNum.bind(this);
     // this.state = {
@@ -62,6 +66,31 @@ class MyFilmPage extends Component {
   //     });
   //   }
   // }
+  componentWillMount() {
+    let collection = JSON.parse(sessionStorage.getItem("collection"));
+    if (collection !== null) {
+      let collectionNum = collection.films.length + collection.cffilms.length;
+      this.setState({
+        collectionNum: collectionNum
+      })
+    }
+  }
+  componentDidUpdate(){
+    let collection = JSON.parse(sessionStorage.getItem("collection"));
+    if (collection !== null) {
+      let collectionNum = collection.films.length + collection.cffilms.length;
+      this.setState({
+        collectionNum: collectionNum
+      })
+    }
+  }
+  updatecollectionNum() {
+    let collection = JSON.parse(sessionStorage.getItem("collection"));
+    let collectionNum = collection.films.length + collection.cffilms.length;
+    this.setState({
+      collectionNum: collectionNum
+    })
+  }
   changeUrl(evt){
     console.log("evt: ", evt);
     console.log("url: ", this.props.match);
@@ -76,7 +105,7 @@ class MyFilmPage extends Component {
   render() {
     return (
         <div style={{position:'relative'}}>
-            <Header />
+          <Header collectionNum={this.state.collectionNum} />
             <FastTicket />
             <section className="container">
               <div className="myfilmPage">
@@ -97,10 +126,12 @@ class MyFilmPage extends Component {
               {/* <TabsRoute url={this.props.match.url}/> */}
               {/* <Route exact path={`/my-film/1`} render={(props) => <Tab1 num={this.text} tab="2" props={props} isAuthed={true} />} />
               <Route path={`/my-film/2`} render={(props) => <Tab2 extraProps={this.state.tab2} props={props} isAuthed={true} />}/> */}
-              <Route path={`/my-film/1`} component={Tab1} />
+              {/* <Route path={`/my-film/1`} component={Tab1} /> */}
+              <Route path={`/my-film/1`} render={() => <Tab1 updatecollectionNum={this.updatecollectionNum}/>} />
               <Route path={`/my-film/2`} component={Tab2} />
               <Route path={`/my-film/3`} component={Tab3} />
-              <Route path={`/my-film/4`} component={Tab4} />
+              <Route path={`/my-film/4`} render={() => <Tab4 updatecollectionNum={this.updatecollectionNum} />} />
+              {/* <Route path={`/my-film/4`} component={Tab4} /> */}
               </div>
             </section>
             <Footer />

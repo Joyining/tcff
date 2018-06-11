@@ -18,14 +18,21 @@ class FilmsPage extends Component{
     }
     componentWillMount(){
         let collection = JSON.parse(sessionStorage.getItem("collection"));
-        let collectionNum = collection.films.length + collection.cffilms.length;
-        this.setState({
-            collectionNum: collectionNum
-        })
+        if (collection !== null){
+            let collectionNum = collection.films.length + collection.cffilms.length;
+            this.setState({
+                collectionNum: collectionNum
+            })
+        }
     }
     updatecollectionNum(){
         let collection = JSON.parse(sessionStorage.getItem("collection"));
-        let collectionNum = collection.films.length + collection.cffilms.length;
+        let collectionNum = 0;
+        if(collection !== null){
+            collectionNum += collection.films.length;
+        // } else if (collection.cffilms !== null){
+            collectionNum += collection.cffilms.length;
+        }
         this.setState({
             collectionNum: collectionNum
         })

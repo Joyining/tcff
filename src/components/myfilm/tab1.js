@@ -21,6 +21,12 @@ class Tab1 extends Component {
       add_films: [],
       all_films: [],
       all_cffilms:[],
+      dialog: {
+        show: false,
+        id_movie: "",
+        name: "",
+        cf: 0
+      }
     };
     this.temp = [];
   }
@@ -62,7 +68,15 @@ class Tab1 extends Component {
           console.log('There has been a problem with your fetch operation: ', error.message);
         })
       }else{
-
+        let collection = sessionStorage.getItem("collection");
+        if(collection !== null){
+          let films = JSON.parse(collection).films;
+          let cffilms = JSON.parse(collection).cffilms;
+          this.setState({
+            films: films,
+            cffilms: cffilms
+          });
+        }
       }
 
       // let body = document.getElementsByTagName('body')[0];
@@ -76,6 +90,7 @@ class Tab1 extends Component {
     Array.from(document.querySelectorAll(".cb input")).forEach(cb => cb.checked = true);
     let collection = sessionStorage.getItem('collection');
     sessionStorage.setItem('cart', collection);
+    console.log()
   }
   cancelOverlay(event){
     let target = event.target;
@@ -176,47 +191,183 @@ class Tab1 extends Component {
     sessionStorage.setItem('cart', JSON.stringify(cart));
   }
   del_collection(event){
+    
+    if (event.currentTarget.classList.contains("trash")){
+      let dialog = this.state.dialog;
+      let id = event.currentTarget.getAttribute("data-id-movie");
+      let name = event.currentTarget.getAttribute("data-name");
+      let cf = event.currentTarget.getAttribute("data-cf");
+      dialog.show = true;
+      dialog.id_movie = id;
+      dialog.name = name;
+      dialog.cf = cf;
+      this.setState({ dialog: dialog })
+      // console.log("dialog", this.state.dialog);
+    } else if (event.currentTarget.classList.contains("doAction")){
+      let user = sessionStorage.getItem('user');
+      let id_user = user === null ? undefined : JSON.parse(user).id;
+      let url = "";
+      let dialog = this.state.dialog;
+      let id_movie = event.currentTarget.getAttribute("data-id-movie");
+      let cf = event.currentTarget.getAttribute("data-cf");
+
+      if (id_user !== undefined) {
+        url = `https://localhost/tcff_php/api/cart/collection.php/${id_movie}/${id_user}`;
+        fetch(url, {
+          method: "DELETE",
+          headers: {
+            "Access-Control-Request-Headers": "X-PINGOTHER, Content-Type",
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          },
+          mode: 'cors'
+        })
+          .then(res => res.json())
+          .then(data => {
+            console.log("m: ", data.message);
+            if (data.message === "delete 1 data") {
+              //刪Storage的collection
+              let collection = JSON.parse(sessionStorage.getItem('collection'));
+              collection.films = collection.films.filter(x => x.id_movie !== id_movie);
+              sessionStorage.setItem("collection", JSON.stringify(collection));
+
+              if (cf === "0") {
+                let ar = this.state.films;
+                //remove a film 
+                ar = ar.filter((obj) => {
+                  return (obj["id_movie"] != id_movie)
+                })
+                // console.log(id, ar);
+                //setState -> re-render
+                this.setState({
+                  films: ar
+                });
+              } else {
+                let ar = this.state.cffilms;
+                //remove a film 
+                ar = ar.filter((obj) => {
+                  return (obj["id_movie"] != id_movie)
+                })
+                // console.log(id, ar);
+                //setState -> re-render
+                this.setState({
+                  cffilms: ar
+                });
+              }
+
+              //加入片單中，選項回復未被選擇狀態
+              let item = Array.from(document.querySelectorAll('.item'))[id_movie - 1]; //item要照id排序才能選到正確的
+              if (item) {
+                item.classList.remove("selected");
+                item.classList.add("notSelected");
+              }
+
+              dialog.show = false;
+              this.setState({ dialog: dialog })
+              
+
+              //改變購物車數字 collectionNum
+              this.props.updatecollectionNum();
+            }
+          })
+          .catch(err => console.log(`error with fetch: ` + err.message))
+      } else {
+        if (cf === "0") {
+          let ar = this.state.films;
+          //remove a film 
+          ar = ar.filter((obj) => {
+            return (obj["id_movie"] != id_movie)
+          })
+          // console.log(id, ar);
+          //setState -> re-render
+          this.setState({
+            films: ar
+          });
+        } else {
+          let ar = this.state.cffilms;
+          //remove a film 
+          ar = ar.filter((obj) => {
+            return (obj["id_movie"] != id_movie)
+          })
+          // console.log(id, ar);
+          //setState -> re-render
+          this.setState({
+            cffilms: ar
+          });
+        }
+
+        //加入片單中，選項回復未被選擇狀態
+        let item = Array.from(document.querySelectorAll('.item'))[id_movie - 1]; //item要照id排序才能選到正確的
+        if (item) {
+          item.classList.remove("selected");
+          item.classList.add("notSelected");
+        }
+
+        dialog.show = false;
+        this.setState({ dialog: dialog })
+
+        //改變購物車數字 collectionNum
+        this.props.updatecollectionNum();
+      }
+
+      /////
+      // console.log(cf)
+      
+
+      
+    } else if (event.currentTarget.classList.contains("cancelAction") || event.currentTarget.classList.contains("fa-times")){
+      let dialog = this.state.dialog;
+      dialog.show = false;
+      this.setState({ dialog: dialog })
+    }
     // confirm
     //...
+    // let dialog = this.state.dialog;
+    // let id = event.target.getAttribute("data-id-movie");
+    // let name = event.target.getAttribute("data-name");
+    // dialog.show = true;
+    // dialog.id_movie = id;
+    // dialog.name = name;
+    // this.setState({ dialog: dialog})
 
     //remove item
     // let tr = event.target.closest('tr');
     // tr.remove();
-    let isFilms = event.target.closest("table").classList.contains("films");
-    let id = event.target.getAttribute("data-id-movie");
-    // console.log(isFilms);
+    // let isFilms = event.target.closest("table").classList.contains("films");
+    
+    // // console.log(isFilms);
 
-    if(isFilms){
-      let ar = this.state.films;
-      //remove a film 
-      ar = ar.filter((obj) => {
-        return (obj["id_movie"] != id)
-      })
-      // console.log(id, ar);
-      //setState -> re-render
-      this.setState({
-        films: ar
-      });
-    }else{
-      let ar = this.state.cffilms;
-      //remove a film 
-      ar = ar.filter((obj) => {
-        return (obj["id_movie"] != id)
-      })
-      // console.log(id, ar);
-      //setState -> re-render
-      this.setState({
-        cffilms: ar
-      });
-    }
+    // if(isFilms){
+    //   let ar = this.state.films;
+    //   //remove a film 
+    //   ar = ar.filter((obj) => {
+    //     return (obj["id_movie"] != id)
+    //   })
+    //   // console.log(id, ar);
+    //   //setState -> re-render
+    //   this.setState({
+    //     films: ar
+    //   });
+    // }else{
+    //   let ar = this.state.cffilms;
+    //   //remove a film 
+    //   ar = ar.filter((obj) => {
+    //     return (obj["id_movie"] != id)
+    //   })
+    //   // console.log(id, ar);
+    //   //setState -> re-render
+    //   this.setState({
+    //     cffilms: ar
+    //   });
+    // }
 
-    let item = Array.from(document.querySelectorAll('.item'))[id-1];
-    if(item){
-      item.classList.remove("selected");
-      item.classList.add("notSelected");
-    }
+    // //加入片單中，選項回復未被選擇狀態
+    // let item = Array.from(document.querySelectorAll('.item'))[id-1]; //item要照id排序才能選到正確的
+    // if(item){
+    //   item.classList.remove("selected");
+    //   item.classList.add("notSelected");
+    // }
 
-    console.log(item);
+    // console.log(item);
 
     //if removed, then send result to db
     //...
@@ -226,14 +377,15 @@ class Tab1 extends Component {
     overlay.classList.add('show');
     console.log(this.state.all_films.length, this.state.all_cffilms.length);
     if (!(this.state.all_films.length || this.state.all_cffilms.length)){
-      fetch(`${process.env.PUBLIC_URL}/json/films.json`)
+      // fetch(`${process.env.PUBLIC_URL}/json/films.json`)
+      fetch(`http://localhost/tcff_php/api/movie/read.php`)
         .then(res => res.json())
         .then(datas => {
           let films = [];
           let cffilms = [];
           console.log(datas);
           datas.map((data, idx) => {
-            if (idx < 60) {
+            if (data.cf === "0") {
               let select = false;
               this.state.films.forEach(film => {
                 let id = parseInt(film.id_movie);
@@ -244,7 +396,7 @@ class Tab1 extends Component {
                 if (id === idx+1) select = true;
               })
               let new_data = {
-                "name": data.name,
+                "name": data.name_zhtw,
                 "id": (idx+1),
                 "cf": false,
                 "select": select
@@ -261,7 +413,7 @@ class Tab1 extends Component {
                 if (id === idx+1) select = true;
               })
               let new_data = {
-                "name": data.name,
+                "name": data.name_zhtw,
                 "id": (idx + 1),
                 "cf": true,
                 "select": select
@@ -393,14 +545,14 @@ class Tab1 extends Component {
                       {
                         this.state.add_films.map((film, idx) => (
                           <li key={idx} data-id-movie={film.id_movie}>
-                            {film.name_zhtw}
+                            {film.name}
                           </li>
                         ))
                       }
                       {
                         this.state.add_cffilms.map((film, idx) => (
                           <li key={idx} data-id-movie={film.id_movie}>
-                            {film.name_zhtw}
+                            {film.name}
                           </li>
                         ))
                       }
@@ -443,7 +595,26 @@ class Tab1 extends Component {
                 </div>
               </div>
             </div>
-
+            {
+              this.state.dialog.show && 
+              (<div class='dialog-overlay'>
+                <div class='dialog'>
+                  <div className="head">
+                    <h3>刪除收藏</h3> 
+                    {/* <i class="fas fa-times" onClick={this.del_collection}></i> */}
+                </div>
+                  <div class='dialog-msg'>
+                    <p>確定要從片單刪除 {this.state.dialog.name}?</p> 
+                  </div>
+                  <div className="foot">
+                    <div class='controls'>
+                    <button class='button button-danger doAction' data-id-movie={this.state.dialog.id_movie} data-cf={this.state.dialog.cf} onClick={this.del_collection}>確定</button> 
+                    <button class='button button-default cancelAction' onClick={this.del_collection}>取消</button> 
+                    </div>
+                  </div>
+                </div>
+              </div>)
+            }
             <table className="films">
               <thead>
                   <tr>
@@ -471,7 +642,7 @@ class Tab1 extends Component {
                           <span className="film_auditorium">{film.auditorium}</span>
                       <span className="film_bookable">{film.bookable_seats_count > 20 ? "熱賣中" : film.bookable_seat_count}</span>
                         </div>
-                        <div className="trash" data-id-movie={film.id_movie} onClick={this.del_collection}>
+                        <div className="trash" data-id-movie={film.id_movie} data-name={film.name_zhtw} data-cf={0} onClick={this.del_collection}>
                         <i className="fas fa-trash-alt"></i>
                         </div>
                       </td>
@@ -500,7 +671,7 @@ class Tab1 extends Component {
                       <td className="title">
                     <span className="film_name">{film.name_zhtw + film.name_en + "已達成" + (film.cf_progress * 100) + '%'}</span>
                       {/* <span className="cf_progress">{"目前募資進度為" + (film.cf_progress * 100) + '%'}</span> */}
-                        <div className="trash" data-id-movie={film.id_movie} onClick={this.del_collection}>
+                    <div className="trash" data-id-movie={film.id_movie} data-name={film.name_zhtw} data-cf={1} onClick={this.del_collection}>
                       <i className="fas fa-trash-alt"></i>
                         </div>
                       </td>
