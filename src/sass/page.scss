@@ -118,7 +118,13 @@ header{
             height: $headerHeight * .5;
             margin: $headerHeight * .25 0;
             display: inline-block;
-            // border: 2px solid red;
+            text-align: center;
+            font-weight: bold;
+            // border: 2px solid $colorLight;
+            line-height: $headerHeight * .5;
+            &:link, &:visited{
+                color: $colorLight;
+            }
             .collection-num{
                 width: 23px;
                 height: 23px;
@@ -315,7 +321,8 @@ header{
             // padding: $headerHeight * .1;
             height: $headerHeight * .3;
             margin: $headerHeight * .15 0;
-            display: block;            
+            display: block;    
+            line-height: $headerHeight * .3;        
             .collection-num{
                 top:30px;
             }   

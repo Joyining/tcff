@@ -6,6 +6,7 @@ import Footer from "./components/footer";
 import FastTicket from "./components/fast-ticket";
 
 import MemberPage from './components/member-page';
+import MemberPage2 from "./components/member-page2";
 import HomePage from './components/home-page';
 import MyFilmPage from './components/my-film-page';
 import FilmsPage from './components/films-page';
@@ -26,6 +27,7 @@ class App extends Component {
             {/* 路由對照設定 */}
             <Route exact path="/" component={HomePage} />
             <Route path="/member" component={MemberPage} />
+            <Route path="/member2" component={MemberPage2} />
             <Route path="/my-film/:page" component={MyFilmPage} />
             <Route path="/films" component={FilmsPage} />
             <Route path="/cf-films" component={CfFilmsPage} />
