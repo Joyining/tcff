@@ -26,17 +26,18 @@
         }
     }
     #progressbar{
-        width: 100%;
-        height: 30px;
-        background-color: white;
-        border-radius: 10px;
+        margin: 0 auto;
+        width: 80%;
+        height: 25px;
+        background-color: #e2dfd8;
+        border-radius: 20px;
         overflow: hidden;
         border: 1px solid #602926;
         box-shadow: 0 0 2px inset;
         #bar{
             width: 0;
             height: 100%;
-            background-color: #602926;
+            background: linear-gradient(to top,rgba(92, 31, 31,1),rgba(255, 0, 0, 0));
             box-shadow: 0 0 2px inset;
         }
     }
@@ -98,7 +99,7 @@
         padding: 10px;
     }
     .BGC{
-        background-color: rgb(219, 143, 0);
+        background-color:#de912d;
     }
     .favorite{
         width: 150px;
@@ -156,6 +157,7 @@
         opacity: 0;
         transform: translate(-50%, -50%);
         transition: all 0.3s ease-in-out 0s;
+        
       }
       
       .mycontent:hover .mycontent-details{

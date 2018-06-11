@@ -76,6 +76,7 @@ class Cffilms extends Component {
                 <figure className="card">
                     <div className="mycontent cover">                        
                         <Link to={`cf-films-detail-page?id=${data.id_movie}&cf=true`}>
+                        <button className="detail"><div>電影資料</div></button>
                         <img className="post" src={`${process.env.PUBLIC_URL}/images/${data.release_year}_${data.name_en.split(' ').join('_').replace(':', '')}.jpg`} alt="" />
                         </Link>
                     </div>

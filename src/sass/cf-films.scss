@@ -50,12 +50,41 @@
     display: block;
     padding-top: 50px;
     .mycontent {
+        transition: all .5s;
         position: relative;
         width: 50%;
         max-width: 200px;
         margin: 0 auto;
         overflow: hidden;
+        .detail{
+            opacity: 0;
+            position: absolute;
+            top: 35%;
+            left: 15%;
+            transition: all .5s;
+            width: 150px;
+            color: #cbab9e;
+            background-color: #602926;
+            padding: 10px 20px 10px 20px;
+            text-align: center;
+            margin: 0 auto;
+            font-size: 18px;
+            margin-top: 30px;
+            border: 1px solid #cbab9e;
+            cursor: pointer;
+            font-family: "\5FAE\8EDF\6B63\9ED1\9AD4";
+        }
+        .detail:hover{
+            opacity: 1;
+            color: #602926;
+            background-color: #cbab9e;
+            border: 1px solid #602926;
+        }
+        
       }
+      .mycontent:hover .detail{
+        opacity: 1;
+    }
     .cover{
         width: 400px;
         height: 280px;
@@ -78,7 +107,7 @@
         margin-bottom: 10px;
         width: 70%;
         height: 15px;
-        background-color: white;
+        background-color: #e2dfd8;
         border-radius: 8px;
         overflow: hidden;
         border: 1px solid #602926;
@@ -86,12 +115,13 @@
         #bar{
             width: 0;
             height: 100%;
-            background-color: #602926;
-            box-shadow: 0 0 2px inset;
+            background: linear-gradient(to top,rgba(92, 31, 31,1),rgba(255, 0, 0, 0));
+            box-shadow: 0 0 2px ;
         }
     }
     
     .favorite{
+        transition: all .5s;
         width: 150px;
         color: #cbab9e;
         background-color: #602926;
@@ -103,6 +133,11 @@
         border: 1px solid #cbab9e;
         cursor: pointer;
         font-family: "\5FAE\8EDF\6B63\9ED1\9AD4";
+    }
+    .favorite:hover{
+        color: #602926;
+        background-color: #cbab9e;
+        border: 1px solid #602926;
     }
 }
 
