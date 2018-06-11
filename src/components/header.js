@@ -30,7 +30,8 @@ class Header extends Component {
         }
 
     updatecollectionNum() {
-        this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
+        this.setState({ 
+            collectionNum: localStorage.getItem("collectionsNum") });
     }
 
     menuClose(){
@@ -45,6 +46,16 @@ class Header extends Component {
     }
 
     componentDidMount(){
+        if(this.props.loginStatus==true){
+            console.log('login true');
+            let memberIcon = document.querySelector('#member');
+            memberIcon.style.display="none";
+
+        }else{
+            console.log("login false");
+        }
+
+
         document.addEventListener("DOMContentLoaded", function scrollDetection (event) {
             let lastScrollTop = 0;
             window.addEventListener("scroll", function () {
@@ -233,7 +244,10 @@ class Header extends Component {
             <div className="nav-icon web">
                 <Link to="/my-film/1" onClick={this.menuClose}><img className="transition" src={ticket} alt="" /><div className="collection-num">{this.props.collectionNum}</div></Link>
                 
-                <Link to="/member" onClick={this.menuClose}><img  className="transition" src={member} alt="" /></Link>
+                <Link to="/member" onClick={this.menuClose}>{this.props.login}<img  className="transition" id="member" src={member} alt="" /></Link>
+                {/* <Link to="/member" id="member" onClick={this.menuClose}><img  className="transition" src={member} alt="" /></Link> */}
+                {/* <Link to="/member" onClick={this.menuClose}>NAME</Link> */}
+
                 <div className="menu-icon transition">
                     <div className="line-1 no-animation transition"></div>
                     <div className="line-2 no-animation transition"></div>

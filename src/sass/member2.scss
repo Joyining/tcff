@@ -1,0 +1,134 @@
+@import "partials/basic";
+
+$headerHeight: 100px; 
+.container-member2{
+	margin: ($headerHeight * 2.2) auto;
+	// margin-bottom: ($headerHeight * 4);
+	// padding: 100px;
+	width: 80vw;
+    box-sizing: border-box;
+    border: 2px solid orange;
+	@include breakpoint("tablet") {
+		width: 90vw;
+		padding: 50px;
+	}
+	@include breakpoint("mobileonly") {
+		width: 90vw;
+		padding: 30px;
+    }
+
+    .transition{
+        transition: all 1s;
+    }
+
+    .card-container{
+        width: 400px;
+        height: 600px;
+        margin: 0 auto;
+        @include breakpoint('mobileonly'){
+            width: 300px;
+            height: 450px;
+        }
+    }
+    .card{
+        width: 400px;
+        height: 600px;
+        position: absolute;
+        color: white;
+        // backface-visibility: hidden;
+        transform-style:preserve-3d;
+        @include breakpoint('mobileonly'){
+            width: 300px;
+            height: 450px;
+        }
+        .inner-wrap{
+            width: 100%;
+            height: 100%;
+        }
+    &#card1{
+        &.active{
+            transform: rotateY(180deg);
+        }
+    }
+    &#card2{
+        // left: 550px;
+        // top: -50px;
+        z-index: -1;
+        animation: bgslide 1s forwards;
+        &.active{
+            // transform: rotateY(180deg);
+            animation: bgslideback 1s forwards;
+            z-index: 1;
+        }
+        @include breakpoint('mobileonly'){
+            display: none;
+        }
+    }
+    .inner{
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        &.front{
+        // transform: rotateY(180deg);
+        }
+        &.back{
+        transform: rotateY(180deg) translateY(-600px);
+        }
+        &.log{
+        background-color: blue;
+        }
+        &.reg{
+        background-color: darkblue;
+        }
+        &.bg{
+        background-color: green;
+        }
+        &.forget{
+        background-color: darkgreen;
+        }
+        .btn-group{
+            display: flex;
+            margin: 0 auto;
+            // border: 2px solid white;
+            justify-content: center;
+        }
+        .btn{
+        width: 30%;
+        height: 50px;
+        background-color: wheat;
+        color: black;
+        text-align: center;
+        line-height: 50px;
+        margin: 5px;
+        }
+    }
+
+    }
+
+}
+@keyframes bgslide{
+    from {
+        left:50%;
+        transform: translateX(-50%);
+        top: 0px; 
+    }
+    to{
+        left:55%;
+        transform: translateX(-55%);
+        top: -50px; 
+    }
+}
+
+@keyframes bgslideback{
+    from {
+        left:55%;
+        transform: translateX(-55%) rotateY(0deg);
+        top: -50px; 
+    }
+    to{
+        left:50%;
+        transform: translateX(-50%) rotateY(180deg);
+        top: 0px;  
+    }
+}
+

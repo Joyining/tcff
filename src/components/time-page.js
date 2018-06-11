@@ -11,7 +11,9 @@ class TimePage extends Component {
     this.state = {
       switch: ["切換日曆", "切換列表"],
       switchUrl: ["/time", "/time-list"],
-      collectionNum: "0" // only for testing 加到購物車
+      collectionNum: "0", // only for testing 加到購物車
+      loginStatus: false,
+      login: "",
     };
     // only for testing 加到購物車
     this.updatecollectionNum = this.updatecollectionNum.bind(this);
@@ -20,6 +22,20 @@ class TimePage extends Component {
   // only for testing 加到購物車
   componentWillMount() {
     this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
+
+    if (sessionStorage.getItem("user") !== "") {
+      console.log(typeof (sessionStorage.getItem('user')));
+      console.log(JSON.parse(sessionStorage.getItem('user')));
+      this.setState({
+        loginStatus: true,
+        login: JSON.parse(sessionStorage.getItem("user"))["email"].slice(0, 2).toUpperCase(),
+      });
+    } else {
+      this.setState({
+        loginStatus: false,
+        login: "",
+      })
+    }
   }
   // only for testing 加到購物車
   updatecollectionNum() {
@@ -33,7 +49,7 @@ class TimePage extends Component {
   render() {
     return (
       <div style={{ position: "relative" }}>
-        <Header collectionNum={this.state.collectionNum} />
+        <Header collectionNum={this.state.collectionNum} loginStatus={this.state.loginStatus} login={this.state.login} />
         <FastTicket />
         <Time updatecollectionNum={this.updatecollectionNum} />
         <TimeSwitch

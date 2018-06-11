@@ -9,25 +9,39 @@ class InfoPage extends Component {
     super(props);
     this.state = {
       collectionNum: "0",
+      loginStatus: false,
+      login: "",
     };
 
   }
   componentWillMount() {
     this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
+
+    if (sessionStorage.getItem("user") !== "") {
+      console.log(typeof (sessionStorage.getItem('user')));
+      console.log(JSON.parse(sessionStorage.getItem('user')));
+      this.setState({
+        loginStatus: true,
+        login: JSON.parse(sessionStorage.getItem("user"))["email"].slice(0, 2).toUpperCase(),
+      });
+    } else {
+      this.setState({
+        loginStatus: false,
+        login: "",
+      })
+    }
   }
   
   componentDidMount() {
     window.scrollTo(0, 0);
   }
   render() {
-    return (
-        <div style={{position:'relative'}}>
-            <Header collectionNum={this.state.collectionNum} />
-            <FastTicket />
-            <Info />
-            <Footer />
-        </div>
-    );
+    return <div style={{ position: "relative" }}>
+        <Header collectionNum={this.state.collectionNum} loginStatus={this.state.loginStatus} login={this.state.login} />
+        <FastTicket />
+        <Info />
+        <Footer />
+      </div>;
   }
 }
 

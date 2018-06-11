@@ -9,13 +9,30 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collectionNum: "0" // 加到每個page.js
+      collectionNum: "0", // 加到每個page.js
+      loginStatus: false,
+      login:"",
     };
   }
 
   // 加到每個page.js
   componentWillMount() {
     this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
+
+    if(sessionStorage.getItem("user")!==null){
+      console.log(typeof(sessionStorage.getItem('user')));
+      console.log(JSON.parse(sessionStorage.getItem('user')));
+      this.setState({
+        loginStatus: true,
+        login: JSON.parse(sessionStorage.getItem("user"))["email"].slice(0, 2).toUpperCase(),
+      });
+    }else{
+      this.setState({
+        loginStatus: false,
+        login: "",
+    })
+    }
+
   }
 
   // 加到每個page.js
@@ -26,7 +43,7 @@ class HomePage extends Component {
   render() {
     return <div>
         {/* 加到每個page.js */}
-        <Header collectionNum={this.state.collectionNum} />
+        <Header collectionNum={this.state.collectionNum} loginStatus={this.state.loginStatus} login={this.state.login}/>
         <Home />
         <FastTicket />
         <Footer />
