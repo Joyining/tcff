@@ -8,21 +8,28 @@ class InfoPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collectionNum: "0",
-      loginStatus: false,
-      login: "",
+      collectionNum: 0, // 加到每個page.js
+      loginStatus: false, // 加到每個page.js
+      login: "", // 加到每個page.js
     };
 
   }
   componentWillMount() {
-    this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
+    // 更新collectionNum數字
+    let collection = JSON.parse(sessionStorage.getItem("collection"));
+    if (collection !== null) {
+      let collectionNum = collection.films.length + collection.cffilms.length;
+      this.setState({
+        collectionNum: collectionNum
+      })
+    }
 
-    if (sessionStorage.getItem("user") !== "") {
-      console.log(typeof (sessionStorage.getItem('user')));
-      console.log(JSON.parse(sessionStorage.getItem('user')));
+    // 判斷是否為登入狀態
+    if (sessionStorage.getItem("user") !== null) {
       this.setState({
         loginStatus: true,
-        login: JSON.parse(sessionStorage.getItem("user"))["email"].slice(0, 2).toUpperCase(),
+        // 改變登入icon樣式
+        login: JSON.parse(sessionStorage.getItem("user"))["username"],
       });
     } else {
       this.setState({

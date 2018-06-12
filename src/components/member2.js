@@ -6,19 +6,20 @@ class Member2 extends Component {
     super(props);
 
     this.state = {
-      email: "",
-      password: "",
-      message: { email: "", password: "" },
+      // email: "",
+      // password: "",
+      // message: { email: "", password: "" },
 
-      account: "",
-      password_acc: "",
-      message: { account: "", password_acc: "" }
+      // account: "",
+      // password_acc: "",
+      // message: { account: "", password_acc: "" }
     };
     this.flipToReg = this.flipToReg.bind(this);
     this.fliptoForget = this.fliptoForget.bind(this);
     this.flipFromForgetToLog = this.flipFromForgetToLog.bind(this);
     this.flipFromForgetToReg = this.flipFromForgetToReg.bind(this);
     this.loginSubmit = this.loginSubmit.bind(this);
+    this.registerSubmit = this.registerSubmit.bind(this);
   }
   flipToReg() {
     console.log("flip to reg");
@@ -67,9 +68,127 @@ loginSubmit(evt) {
                 sessionStorage.setItem('user', JSON.stringify(data.user));
                 // alert('login success');
                 console.log(sessionStorage.getItem('user'));
+
+                // 更新collection
+                let collection = JSON.parse(sessionStorage.getItem("collection"));
+                if (collection !== null) {
+                  let userJson = JSON.parse(sessionStorage.getItem("user"));
+                  console.log(collection);
+                  console.log(collection['films'].length);
+                  // let collectionJson = JSON.parse(sessionStorage.getItem("collection"));
+                  let json = {};
+                  json["id"] = userJson.id;
+                  json["id_movie"] = [];
+                  for (let i = 0; i < collection["films"].length; i++) {
+                    console.log(collection["films"][i]["id_movie"]);
+                    json["id_movie"].push(collection["films"][i]["id_movie"]);
+                  }
+                  console.log(json);
+
+                  let url = `http://192.168.39.110/tcff_php/api/cart/collection.php`;
+                  fetch(url, { method: "PUT", body: JSON.stringify(json) })
+                    .then(res => res.json())
+                    .then(data => {
+                      if (data.collection_info) {
+                        console.log('put success');
+                        console.log(data.collection_info);
+                        let collectionInfos = data.collection_info;
+                        let films=[];
+                        let cfFilms=[];
+                        Array.from(collectionInfos).forEach(collectionInfo=>{
+                          console.log(collectionInfo);
+                          // let collectionInfoArr = JSON.parse(collectionInfo);
+                          if (collectionInfo.cf == "0") {
+                            films.push(collectionInfo);
+                          } else {
+                            cfFilms.push(collectionInfo);
+                          }
+                        })
+                        console.log(films);
+
+                        let newCollection={
+                          films: films,
+                          cffilms: cfFilms,
+                        }
+                        sessionStorage.setItem("collection", JSON.stringify(newCollection));
+                        // console.log(JSON.parse(sessionStorage.getItem("collection").films));
+                      } else if (data.message =="nothing to update"){
+                        fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=${JSON.parse(sessionStorage.getItem("user")).id}`)
+                          .then(res => res.json())
+                          .then(data => {
+                            console.log('顯示全部收藏');
+                            console.log(data);
+                            let films = [];
+                            let cfFilms = [];
+                            Array.from(data).forEach(el => {
+                              if (el.cf == "0") {
+                                films.push(el);
+                              } else {
+                                cfFilms.push(el);
+                              }
+                            })
+
+                            let newCollection = {
+                              films: films,
+                              cffilms: cfFilms,
+                            }
+                            sessionStorage.setItem("collection", JSON.stringify(newCollection));
+                          });
+                      }
+                    });
+                }else{
+                  fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=${JSON.parse(sessionStorage.getItem("user")).id}`)
+                    .then(res => res.json())
+                    .then(data => {
+                      console.log('顯示全部收藏');
+                      console.log(data);
+                      let films = [];
+                      let cfFilms = [];
+                      Array.from(data).forEach(el => {
+                        if (el.cf == "0") {
+                          films.push(el);
+                        } else {
+                          cfFilms.push(el);
+                        }
+                      })
+
+                      let newCollection = {
+                        films: films,
+                        cffilms: cfFilms,
+                      }
+                      sessionStorage.setItem("collection", JSON.stringify(newCollection));
+                    });
+                }
                 window.history.back();
             }
         });
+}
+
+registerSubmit(evt) {
+  let emailRegister = document.getElementById("email_reg");
+  let passwordRegister = document.getElementById("password_reg");
+  let nicknameRegister = document.getElementById("nickname_reg");
+  let json = {};
+  json["username"] = nicknameRegister.value;
+  json["email"] = emailRegister.value;
+  json["password"] = passwordRegister.value;
+  console.log("json:", json)
+  let url = `http://192.168.39.110/tcff_php/api/members/signup.php`;
+  let body = JSON.stringify(json);
+  console.log(body);
+  fetch(url, {
+    method: "POST",
+    body: JSON.stringify(json),
+  }).then(res => res.json())
+    .then(data => {
+      console.log('res', data);
+      if (data.success) {
+        // sessionStorage.setItem('user', JSON.stringify(data.user));
+        alert('register success');
+        console.log(sessionStorage.getItem('user'));
+        window.history.back();
+      }
+    });
 }
 
 
@@ -120,9 +239,17 @@ loginSubmit(evt) {
                 />
               </div>
               <div className="">
-                <label htmlFor="password_reg">密碼</label>
+                <label htmlFor="nickname_reg">暱稱</label>
                 <input
                   type="text"
+                  id="nickname_reg"
+                  placeholder="請輸入一個三個字元內的暱稱"
+                />
+              </div>
+              <div className="">
+                <label htmlFor="password_reg">密碼</label>
+                <input
+                  type="password"
                   id="password_reg"
                   placeholder="請輸入您的密碼"
                 />
@@ -130,13 +257,13 @@ loginSubmit(evt) {
               <div className="">
                 <label htmlFor="password_check">密碼確認</label>
                 <input
-                  type="text"
+                  type="password"
                   id="password_check"
                   placeholder="請再次輸入您的密碼"
                 />
               </div>
 
-              <button>註冊會員</button>
+              <input type="button" onClick={this.registerSubmit} value="註冊會員" />
               <div>已有帳號?</div>
               <div className="btn-group">
                 <div className="btn log-btn" onClick={this.flipToReg}>

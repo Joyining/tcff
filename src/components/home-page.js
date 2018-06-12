@@ -9,22 +9,28 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collectionNum: "0", // 加到每個page.js
-      loginStatus: false,
-      login:"",
+      collectionNum: 0, // 加到每個page.js
+      loginStatus: false, // 加到每個page.js
+      login: "", // 加到每個page.js
     };
   }
 
-  // 加到每個page.js
+  
   componentWillMount() {
-    this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
+    // 加到每個page.js
+    let collection = JSON.parse(sessionStorage.getItem("collection"));
+    if (collection !== null) {
+      let collectionNum = collection.films.length + collection.cffilms.length;
+      this.setState({
+        collectionNum: collectionNum
+      })
+    }
 
-    if(sessionStorage.getItem("user")!==null){
-      console.log(typeof(sessionStorage.getItem('user')));
-      console.log(JSON.parse(sessionStorage.getItem('user')));
+    // 加到每個page.js
+    if(sessionStorage.getItem("user")!==null){;
       this.setState({
         loginStatus: true,
-        login: JSON.parse(sessionStorage.getItem("user"))["email"].slice(0, 2).toUpperCase(),
+        login: JSON.parse(sessionStorage.getItem("user"))["username"],
       });
     }else{
       this.setState({
@@ -35,8 +41,9 @@ class HomePage extends Component {
 
   }
 
-  // 加到每個page.js
+  
   componentDidMount() {
+    // 加到每個page.js
     window.scrollTo(0, 0);
   }
 
@@ -44,6 +51,7 @@ class HomePage extends Component {
     return <div>
         {/* 加到每個page.js */}
         <Header collectionNum={this.state.collectionNum} loginStatus={this.state.loginStatus} login={this.state.login}/>
+
         <Home />
         <FastTicket />
         <Footer />

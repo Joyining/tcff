@@ -11,24 +11,29 @@ class TimePage extends Component {
     this.state = {
       switch: ["切換日曆", "切換列表"],
       switchUrl: ["/time", "/time-list"],
-      collectionNum: "0", // only for testing 加到購物車
+      collectionNum: 0, // only for testing 加到購物車
       loginStatus: false,
       login: "",
     };
     // only for testing 加到購物車
-    this.updatecollectionNum = this.updatecollectionNum.bind(this);
+    // this.updatecollectionNum = this.updatecollectionNum.bind(this);
   }
 
-  // only for testing 加到購物車
   componentWillMount() {
-    this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
+    let collection = JSON.parse(sessionStorage.getItem("collection"));
+    if (collection !== null) {
+      let collectionNum = collection.films.length + collection.cffilms.length;
+      this.setState({
+        collectionNum: collectionNum
+      })
+    }
 
-    if (sessionStorage.getItem("user") !== "") {
+    if (sessionStorage.getItem("user") !== null) {
       console.log(typeof (sessionStorage.getItem('user')));
       console.log(JSON.parse(sessionStorage.getItem('user')));
       this.setState({
         loginStatus: true,
-        login: JSON.parse(sessionStorage.getItem("user"))["email"].slice(0, 2).toUpperCase(),
+        login: JSON.parse(sessionStorage.getItem("user"))["username"],
       });
     } else {
       this.setState({
@@ -38,9 +43,9 @@ class TimePage extends Component {
     }
   }
   // only for testing 加到購物車
-  updatecollectionNum() {
-    this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
-  }
+  // updatecollectionNum() {
+  //   this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
+  // }
 
   componentDidMount() {
     window.scrollTo(0, 0);

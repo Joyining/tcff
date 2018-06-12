@@ -27,12 +27,15 @@ class Header extends Component {
     constructor(props){
         super(props);
         this.menuClose = this.menuClose.bind(this);
+        this.openMember=this.openMember.bind(this);
+        this.closeMember = this.closeMember.bind(this);
+        this.logout = this.logout.bind(this);
         }
 
-    updatecollectionNum() {
-        this.setState({ 
-            collectionNum: localStorage.getItem("collectionsNum") });
-    }
+    // updatecollectionNum() {
+    //     this.setState({ 
+    //         collectionNum: localStorage.getItem("collectionsNum") });
+    // }
 
     menuClose(){
         const menuWrap = document.querySelector(".menu-wrap");
@@ -45,6 +48,20 @@ class Header extends Component {
         });
     }
 
+    openMember(){
+        const memberPanel = document.querySelector('.member-panel');
+        memberPanel.classList.add('active');
+    }
+
+    closeMember() {
+        const memberPanel = document.querySelector('.member-panel');
+        memberPanel.classList.remove('active');
+    }
+
+    logout(){
+        sessionStorage.clear("user");
+    }
+
     componentDidMount(){
         if(this.props.loginStatus==true){
             console.log('login true');
@@ -53,6 +70,8 @@ class Header extends Component {
 
         }else{
             console.log("login false");
+            let nickname = document.querySelector("#nickname");
+            nickname.style.display = "none";
         }
 
 
@@ -244,9 +263,13 @@ class Header extends Component {
             <div className="nav-icon web">
                 <Link to="/my-film/1" onClick={this.menuClose}><img className="transition" src={ticket} alt="" /><div className="collection-num">{this.props.collectionNum}</div></Link>
                 
-                <Link to="/member" onClick={this.menuClose}>{this.props.login}<img  className="transition" id="member" src={member} alt="" /></Link>
-                {/* <Link to="/member" id="member" onClick={this.menuClose}><img  className="transition" src={member} alt="" /></Link> */}
-                {/* <Link to="/member" onClick={this.menuClose}>NAME</Link> */}
+                <a id="nickname" onMouseOver={this.openMember} onMouseOut={this.closeMember}>{this.props.login}</a>
+                <ul className="member-panel transition" onMouseOver={this.openMember} onMouseOut={this.closeMember}>
+                    <li><Link to="/" className="transition">查詢訂票紀錄</Link></li>
+                    <li><Link to="/" className="transition">修改會員資料</Link></li>
+                    <li><a className="transition" onClick={this.logout}>登出</a></li>
+                </ul>
+                <Link to="/member" id="member" onClick={this.menuClose}><img  className="transition" src={member} alt="" /></Link>
 
                 <div className="menu-icon transition">
                     <div className="line-1 no-animation transition"></div>
