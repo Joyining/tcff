@@ -38,6 +38,9 @@ class Member extends Component{
             case "account":
                 this.accountCheck();
                 break;
+            case "password_acc":
+                this.passwordAccCheck();
+                break;
             default:
                 break;
         } 
@@ -46,22 +49,42 @@ class Member extends Component{
     emailCheck(){
         const pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
         const error = this.state.message       
-        pattern.test(this.state.email) ? error.email = "" : error.email = "email格式不正確";
+        //pattern.test(this.state.email) ? error.email = "" : error.email = "email格式不正確";
+        pattern.test(this.state.mail_use) ? error.email = "" : error.email = "email格式不正確";
         this.setState({message:error});
+        console.log(pattern.test(this.state.mail_use), this.state.mail_use);
     }
     passwordCheck(){
-        const pwd = this.state.password;
+        const pwd = this.state.password_use;
         const error = this.state.message
-        pwd.length >=1 && pwd.length <=8 ? error.password = "" : error.password = "請輸入至少8字元";
-        this.setState({message:error})
+        pwd.length >=1 && pwd.length <6 ? error.password = "" : error.password = "請輸入至少6字元";
+        this.setState({message:error});
+        console.log(pwd,pwd.length);
     }
 
     accountCheck(){
         const pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
         const error = this.state.message
-        pattern.test(this.state.email) ? error.email = "" : error.email = "email格式不正確";
+        pattern.test(this.state.account_r) ? error.account = "" : error.account = "email格式不正確";
         this.setState({message:error})
     }
+
+    passwordAccCheck(){
+        const pwd = this.state.password_r;
+        const error = this.state.message
+        pwd.length >=1 && pwd.length <=6 ? error.password_acc = "" : error.password_acc = "請輸入至少6字元";
+        this.setState({message:error})
+    }
+
+    passwordAccCheckAgain(){
+        const pwd = this.state.password_acc;
+        const pwdagain = this.state.password_r ;
+        const error = this.state.message
+        pwdagain ? error.password_acc = "" : error.password_acc = "請輸入";
+        
+        this.setState({message:error})
+    }
+
 
 
 
@@ -121,10 +144,10 @@ class Member extends Component{
                                 </div>
                                 <div className="password_box_r">
                                     <div className="password_r_1">密碼：</div>
-                                    <input type="password" name="password_acc" className="password_r_2" placeholder="請輸入至少六字元"/>
+                                    <input type="password" name="password_acc" id="password_r"  className="password_r_2" placeholder="請輸入至少六字元"  value={this.state.password_r} onChange={this.handleChange} onBlur={this.validate}/>
                                 </div>
                                 <div className="worring_box_r">
-                                    <div className="worring_r">請輸入至少六字元</div>
+                                    <div className="worring_r">{this.state.message.password_acc}</div>
                                 </div>
                                 <div className="password_box_r">
                                     <div className="password_r_1 password_mo">再次確認密碼：</div>
