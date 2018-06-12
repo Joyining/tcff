@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-// import Film from './films-detail.json';
 // import '../sass/page.scss';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import '../sass/films-detail.scss';
-// import img01 from '../images/1997_Good Will Hunting_01.jpg';
-// import img02 from '../images/1997_Good Will Hunting_02.jpg';
-// import img03 from '../images/1997_Good Will Hunting_03.jpg';
-// import img04 from '../images/1997_Good Will Hunting_04.jpg';
-// import img05 from '../images/1997_Good Will Hunting_05.jpg';
 
 class Filmsdetail extends Component {
     constructor(props){
@@ -18,8 +12,141 @@ class Filmsdetail extends Component {
             films: [],
             slide: []
         }
+        this.handleCollect = this.handleCollect.bind(this);
     }
+    handleCollect(evt){
+        let isChecked = evt.currentTarget.previousElementSibling.checked;
+        console.log("isChecked", isChecked)
+        let id_movie = evt.currentTarget.getAttribute('data-id-movie');
+        let user = sessionStorage.getItem('user');
+        let id_user = user === null ? undefined : JSON.parse(user).id;
+        let url = "";
+        // let collectionNum = sessionStorage.getItem('collectionNum');
+        // console.log(evt.currentTarget.previousElementSibling);
+        
+        if(isChecked){
+            console.log("del");
+            if (id_user !== undefined){
+                url = `https://192.168.39.110/tcff_php/api/cart/collection.php/${id_movie}/${id_user}`;
+                fetch(url,{
+                    method:"DELETE",
+                    headers: {
+                        "Access-Control-Request-Headers": "X-PINGOTHER, Content-Type",
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    },
+                    mode:'cors'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log("m: ", data.message);
+                        if(data.message === "delete 1 data"){
+                            //刪Storage的collection
+                            let collection = JSON.parse(sessionStorage.getItem('collection'));
+                            collection.films = collection.films.filter(x => x.id_movie !==id_movie);
+                            sessionStorage.setItem("collection", JSON.stringify(collection));
 
+                            //改變checkbox狀態(setState)
+                            let ar = this.state.films.map(film => {
+                                if (film.id_movie == id_movie) {
+                                    film.collect = false;
+                                }
+                                return film;
+                            })
+                            this.setState({
+                                films: ar
+                            });
+
+                            //改變購物車數字 collectionNum
+                            this.props.updatecollectionNum();
+                        }
+                    })
+                    .catch(err => console.log(`error with fetch: ` + err.message))
+            }else{
+                //刪Storage的collection
+                let collection = JSON.parse(sessionStorage.getItem('collection'));
+                collection.films = collection.films.filter(x => x.id_movie !== id_movie);
+                sessionStorage.setItem("collection", JSON.stringify(collection));
+
+                let ar = this.state.films.map(film => {
+                    if (film.id_movie == id_movie) {
+                        film.collect = false;
+                    }
+                    return film;
+                })
+                this.setState({
+                    films: ar
+                });
+
+                //改變購物車數字 collectionNum
+                this.props.updatecollectionNum();
+            }
+            
+        }else{
+            console.log("add")
+            if (id_user !== undefined) {
+                url = `https://192.168.39.110/tcff_php/api/cart/collection.php`;
+                let body = {
+                    id: id_user,
+                    id_movie: id_movie
+                }
+                fetch(url, {
+                        method: "POST",
+                        body: JSON.stringify(body)
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log("m: ", data.message);
+                        if (data.message === "add 1 collection") {
+                            //刪Storage的collection
+                            let collection = JSON.parse(sessionStorage.getItem('collection'));
+                            collection.films.push(data.collection_info[0]);
+                            sessionStorage.setItem("collection", JSON.stringify(collection));
+
+                            //改變checkbox狀態(setState)
+                            let ar = this.state.films.map(film => {
+                                if (film.id_movie == id_movie) {
+                                    film.collect = true;
+                                }
+                                return film;
+                            })
+                            this.setState({
+                                films: ar
+                            });
+
+                            //改變購物車數字 collectionNum
+                            this.props.updatecollectionNum();
+                        }
+                    })
+                    .catch(err => console.log(`error with fetch: ` + err.message))
+            } else {
+                //增加Storage的collection
+                let collection = sessionStorage.getItem('collection');
+                if(collection === null){
+                    collection = {
+                        films: [],
+                        cffilms: []
+                    }
+                    // collection.films.push(this.state.datas.filter(x => x.id_movie == id_movie));
+                }else{
+                    collection = JSON.parse(collection);
+                    // collection.films.push(this.state.datas.filter(x => x.id_movie == id_movie));
+                }
+                collection.films.push(this.state.films.filter);
+                // collection.films.push(data.collection_info[0]);
+                sessionStorage.setItem("collection", JSON.stringify(collection));
+
+                let ar = this.state.films;
+                ar.collect = true;
+                this.setState({
+                    films: ar
+                });
+
+                //改變購物車數字 collectionNum
+                this.props.updatecollectionNum();
+            }
+            console.log("state", this.state.films)
+        }
+    }
     componentDidMount(){
 
         // 連結後端資料
@@ -100,57 +227,6 @@ class Filmsdetail extends Component {
             })
             console.log(this.slide)
          })})
-
-        //  sliider
-        
-        // var slides = [img01,img02,img03,img04,img05];
-        // var slideWidth = $(".slide_wrap").width();
-        // var slideNum=0;
-        // // console.log(slides[0]);
-        // //var sildeCount=$(".slides li").length;
-        // var slideCount = slides.length;
-        // console.log(slideWidth);
-
-        // for(let $i=0; $i< slideCount;$i++){
-        //     console.log(slides[$i])
-        //     $(".slides").append("<li><img src='"+ slides[$i] +"' alt=''></li>")
-        //     $(".pages").append("<li></li>");
-        // }
-
-        // // $(".slide li").width(slideWidth);
-        // // $(".slide_wrap ul.slides").width(slideWidth*slideCount);
-        // setWidth();
-
-        // $(".pages li").eq(0).css("background","white");
-        // $(".pages").on("mouseenter","li",function(){
-        //     slideNum=$(this).index();
-        //     moveSlide(slideNum);
-        // });
-        // $("#left").click(function(){
-        //     slideNum--;
-        //     if(slideNum<0)slideNum=slideCount-1;
-        //     moveSlide(slideNum);
-        // });
-        // $("#right").click(function(){
-        //     slideNum++;
-        //     if(slideNum>=slideCount)slideNum=0;
-        //     moveSlide(slideNum);
-        // });
-        // $(window).resize(function(){
-        //     setWidth();
-        // });
-        // function setWidth(){
-        //     slideWidth = $(".slide_wrap").width();
-        //     $(".slide li").width(slideWidth);
-        //     $(".slide_wrap ul.slides").width(slideWidth*slideCount);
-        //     moveSlide(slideNum);
-        // };
-        // function moveSlide(slideNum){
-        //      var slideMove = 0-slideNum*slideWidth;
-        //     $(".pages li").eq(slideNum).css("background","white")
-        //         .siblings().css("background","transparent");
-        //     $(".slides").css("left",slideMove);
-        // }        
     }
   render() {
          
@@ -199,8 +275,14 @@ class Filmsdetail extends Component {
                         <div className="fpg">
                             <div className="l_font">級別</div>
                             <div className="r_font">{this.state.films.rating}</div>
-                        </div>            
-                        <button className="favorite BGC"><div><i class="fas fa-plus-circle"></i>  加入我的票夾</div></button>
+                        </div>
+                        <input type="checkbox" id={`id_${this.state.films.id}`} checked={this.state.films.collect}/>
+                        <label htmlFor={`id_${this.state.films.id_movie}`} className="favorite" onClick={this.handleCollect} data-id-movie={this.state.films.id_movie}>
+                            <i class="fas fa-plus-circle"></i>
+                            {
+                                this.state.films.collect == true ? ' 已加入票夾' : ' 加入我的票夾'
+                            }
+                        </label>
                     </div>        
                 </div>
             

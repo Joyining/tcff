@@ -3,18 +3,6 @@ import React, { Component } from 'react';
 // import Cflist from './cf-films.json';
 import '../sass/cf-films.scss';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
-// import Titantic from '../images/1997_Titanic.jpg';
-// import Holland from '../images/1996_Mr_Holland_Opus.jpg';
-// import Terminator from '../images/1991_Terminator2.jpg';
-// import Future from '../images/1989_Back_to_the_Future_PartII.jpg';
-// import Rain from '../images/1988_Rain_Man.jpg';
-// import Die from '../images/1988_Die_Hard.jpg';
-// import Deer from '../images/1978_the_deer_hunter.jpg';
-// import Godfather from '../images/1974_the_godfather_part_II.jpg';
-// import Kramer from '../images/1979_kramer_vs._kramer.jpg';
-// import Breakfast from '../images/1961_breakfast_at_tiffany_s.jpg';
-// import Graduate from '../images/1967_the_graduate.jpg';
-// import Space from '../images/1968_2001_a_space_odyssey.jpg';
 
 class Cffilms extends Component {
     constructor(props){
@@ -22,8 +10,145 @@ class Cffilms extends Component {
         this.state = {
             Films:[]
         }
+        this.handleCollect = this.handleCollect.bind(this);
     }
+    handleCollect(evt){
+        let isChecked = evt.currentTarget.previousElementSibling.checked;
+        console.log("isChecked", isChecked)
+        let id_movie = evt.currentTarget.getAttribute('data-id-movie');
+        let user = sessionStorage.getItem('user');
+        let id_user = user === null ? undefined : JSON.parse(user).id;
+        let url = "";
+        // let collectionNum = sessionStorage.getItem('collectionNum');
+        // console.log(evt.currentTarget.previousElementSibling);
+        
+        if(isChecked){
+            console.log("del");
+            if (id_user !== undefined){
+                url = `https://192.168.39.110/tcff_php/api/cart/collection.php/${id_movie}/${id_user}`;
+                fetch(url,{
+                    method:"DELETE",
+                    headers: {
+                        "Access-Control-Request-Headers": "X-PINGOTHER, Content-Type",
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    },
+                    mode:'cors'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log("m: ", data.message);
+                        if(data.message === "delete 1 data"){
+                            //刪Storage的collection
+                            let collection = JSON.parse(sessionStorage.getItem('collection'));
+                            collection.cffilms = collection.cffilms.filter(x => x.id_movie !==id_movie);
+                            sessionStorage.setItem("collection", JSON.stringify(collection));
 
+                            //改變checkbox狀態(setState)
+                            let ar = this.state.Films.map(film => {
+                                if (film.id_movie == id_movie) {
+                                    film.collect = false;
+                                }
+                                return film;
+                            })
+                            this.setState({
+                                Films: ar
+                            });
+
+                            //改變購物車數字 collectionNum
+                            this.props.updatecollectionNum();
+                        }
+                    })
+                    .catch(err => console.log(`error with fetch: ` + err.message))
+            }else{
+                //刪Storage的collection
+                let collection = JSON.parse(sessionStorage.getItem('collection'));
+                collection.cffilms = collection.cffilms.filter(x => x.id_movie !== id_movie);
+                sessionStorage.setItem("collection", JSON.stringify(collection));
+
+                let ar = this.state.Films.map(film => {
+                    if (film.id_movie == id_movie) {
+                        film.collect = false;
+                    }
+                    return film;
+                })
+                this.setState({
+                    Films: ar
+                });
+
+                //改變購物車數字 collectionNum
+                this.props.updatecollectionNum();
+            }
+            
+        }else{
+            console.log("add")
+            if (id_user !== undefined) {
+                url = `https://192.168.39.110/tcff_php/api/cart/collection.php`;
+                let body = {
+                    id: id_user,
+                    id_movie: id_movie
+                }
+                fetch(url, {
+                        method: "POST",
+                        body: JSON.stringify(body)
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log("m: ", data.message);
+                        if (data.message === "add 1 collection") {
+                            //刪Storage的collection
+                            let collection = JSON.parse(sessionStorage.getItem('collection'));
+                            collection.cffilms.push(data.collection_info[0]);
+                            sessionStorage.setItem("collection", JSON.stringify(collection));
+
+                            //改變checkbox狀態(setState)
+                            let ar = this.state.Films.map(film => {
+                                if (film.id_movie == id_movie) {
+                                    film.collect = true;
+                                }
+                                return film;
+                            })
+                            this.setState({
+                                Films: ar
+                            });
+
+                            //改變購物車數字 collectionNum
+                            this.props.updatecollectionNum();
+                        }
+                    })
+                    .catch(err => console.log(`error with fetch: ` + err.message))
+            } else {
+                //增加Storage的collection
+                let collection = sessionStorage.getItem('collection');
+                if(collection === null){
+                    collection = {
+                        films: [],
+                        cffilms: []
+                    }
+                    // collection.films.push(this.state.datas.filter(x => x.id_movie == id_movie));
+                }else{
+                    collection = JSON.parse(collection);
+                    // collection.films.push(this.state.datas.filter(x => x.id_movie == id_movie));
+                }
+                collection.cffilms.push(this.state.Films.filter(x => x.id_movie == id_movie)[0]);
+                // collection.films.push(data.collection_info[0]);
+                sessionStorage.setItem("collection", JSON.stringify(collection));
+
+                let ar = this.state.Films.map(film => {
+                    if (film.id_movie == id_movie) {
+                        film.collect = true;
+                    }
+                    return film;
+                })
+                this.setState({
+                    Films: ar
+                });
+
+                //改變購物車數字 collectionNum
+                this.props.updatecollectionNum();
+            }
+            console.log("state", this.state.Films)
+        }
+    }
     componentDidMount(){
 
         // 連結後端資料
@@ -36,6 +161,9 @@ class Cffilms extends Component {
          .then((res) => res.json())
          .then((datas) => {
             console.log(datas) 
+            datas.map(x => {
+                x.collect = false;
+            })
             this.setState({
              Films: datas
          }, ()=>{
@@ -83,11 +211,19 @@ class Cffilms extends Component {
                     
                     <p className="first">{data.release_year}</p>
                     <p>{data.name_zhtw}</p>
+                    <h6>目前進度：{Math.round(data.progress*100)}%(尚未達標)</h6>
                     <div id="progressbar">
                         <div id="bar" style={{width:data.progress*100+'%'}}></div>
                     </div>
-                    <h6>目前進度：{data.progress*100}%(尚未達標)</h6>
-                    <button className="favorite"><div><i class="fas fa-plus-circle"></i>  參與募資</div></button>
+                    
+                    <input type="checkbox" id={`id_${data.id_movie}`} checked={data.collect} />
+                    <label htmlFor={`id_${data.id_movie}`} className="favorite" onClick={this.handleCollect} data-id-movie={data.id_movie}>
+                        <i className="fas fa-plus-circle"></i>
+                        {
+                            data.collect == true ? ' 已收藏' : ' 加入收藏'
+                        }
+                        
+                    </label>
                 </figure>
             
             )}
