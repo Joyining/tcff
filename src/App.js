@@ -5,7 +5,8 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import FastTicket from "./components/fast-ticket";
 
-import MemberPage from './components/member-page';
+import Member from './components/member-page';
+import MemberCenter from './components/membercenter-page';
 import MemberPage2 from "./components/member-page2";
 import HomePage from './components/home-page';
 import MyFilmPage from './components/my-film-page';
@@ -26,7 +27,8 @@ class App extends Component {
           <div>
             {/* 路由對照設定 */}
             <Route exact path="/" component={HomePage} />
-            <Route path="/member" component={MemberPage} />
+            <Route path="/member" component={Member} />
+            <Route path="/membercenter" component={MemberCenter} />
             <Route path="/member2" component={MemberPage2} />
             <Route path="/my-film/:page" component={MyFilmPage} />
             <Route path="/films" component={FilmsPage} />

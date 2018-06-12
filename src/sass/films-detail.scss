@@ -98,11 +98,8 @@
         border: 1px solid white;
         padding: 10px;
     }
-    .BGC{
-        background-color:#de912d;
-    }
     .favorite{
-        width: 150px;
+        width: 130px;
         border: 1px solid white;
         padding: 10px;
         font-size: 15px;
@@ -112,6 +109,16 @@
         font-family: "\5FAE\8EDF\6B63\9ED1\9AD4";
     }
     
+}
+input{
+    display: none;
+    &:checked+label{
+        color: white;
+        background-color: #de912d;
+        svg{
+            display: none;
+        }
+    }
 }
 .box{    
     margin-top: 200px;
