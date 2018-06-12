@@ -1,0 +1,81 @@
+@import "partials/basic";
+
+
+.container-membercenter{
+    width: 80vw;
+    // background-color:#80ffff ;
+    margin: 220px  auto;
+    padding: 100px ;
+    
+    .banner_up{
+        width: 100%;
+        background-color: $colorMedium;
+        height: 100px ;
+    }
+
+    .them{
+        display: flex ;
+        flex-direction: row ;
+        @include breakpoint("mobileonly"){
+            flex-direction: column ;
+        }
+        
+    }
+
+    .photo{
+        width:60% ;
+        height: 600px;
+        background-color: $colorLight ;
+        border-right: 5px solid $colorDark ;
+        @include breakpoint("tablet"){
+            height: 400px;
+        }
+        @include breakpoint("mobileonly"){
+            width:100% ;
+        }
+    }
+
+    .btns{
+        width:60% ;
+        height: 600px;
+        background-color: $colorLight;
+        border-right: 5px solid $colorDark ;
+        display: flex ;
+        flex-direction: column ;
+        @include breakpoint("tablet"){
+            height: 400px;
+        }
+        @include breakpoint("mobileonly"){
+            width:100% ;
+            height: auto;
+        }
+
+        .box{
+            width: 80%;
+            height: 50px;
+            background-color: blue ;
+            margin: 10% auto;
+            @include breakpoint("mobileonly"){
+                width: 80%;
+                height: 55px;
+                background-color: blue ;
+                margin: 2% auto;
+            }
+        }
+    }
+
+    
+
+    .commit01{
+        width:60% ;
+        height: 600px;
+        background-color: $colorLight;
+        @include breakpoint("tablet"){
+            height: 400px;
+        }
+        @include breakpoint("mobileonly"){
+            display: none ;
+        }
+    }
+
+}

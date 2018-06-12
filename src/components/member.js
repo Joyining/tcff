@@ -59,7 +59,7 @@ class Member extends Component{
         const error = this.state.message
         pwd.length >=1 && pwd.length <6 ? error.password = "" : error.password = "請輸入至少6字元";
         this.setState({message:error});
-        console.log(pwd,pwd.length);
+        console.log(this.setState({message:error}));
     }
 
     accountCheck(){
