@@ -36,7 +36,7 @@ class Films extends Component {
         if(isChecked){
             console.log("del");
             if (id_user !== undefined){
-                url = `https://localhost/tcff_php/api/cart/collection.php/${id_movie}/${id_user}`;
+                url = `http://192.168.39.110/tcff_php/api/cart/collection.php/${id_movie}/${id_user}`;
                 fetch(url,{
                     method:"DELETE",
                     headers: {
@@ -93,7 +93,7 @@ class Films extends Component {
         }else{
             console.log("add")
             if (id_user !== undefined) {
-                url = `https://localhost/tcff_php/api/cart/collection.php`;
+                url = `http://192.168.39.110/tcff_php/api/cart/collection.php`;
                 let body = {
                     id: id_user,
                     id_movie: id_movie
@@ -105,10 +105,20 @@ class Films extends Component {
                     .then(res => res.json())
                     .then(data => {
                         console.log("m: ", data.message);
+                        console.log("data",data)
                         if (data.message === "add 1 collection") {
                             //刪Storage的collection
-                            let collection = JSON.parse(sessionStorage.getItem('collection'));
-                            collection.films.push(data.collection_info[0]);
+                            let collection = sessionStorage.getItem('collection');
+                            if(collection === null){
+                                collection = {
+                                    films: [data.collection_info[0]],
+                                    cffilms: []
+                                }
+                            }else{
+                                collection = JSON.parse(collection)
+                                collection.films.push(data.collection_info[0]);
+                            }
+                            // collection.films.push(data.collection_info[0]);
                             sessionStorage.setItem("collection", JSON.stringify(collection));
 
                             //改變checkbox狀態(setState)
@@ -157,7 +167,7 @@ class Films extends Component {
                 //改變購物車數字 collectionNum
                 this.props.updatecollectionNum();
             }
-            // url = `https://localhost/tcff_php/api/cart/collection.php/{id_movie}`;
+            // url = `http://192.168.39.110/tcff_php/api/cart/collection.php/{id_movie}`;
             // let ar = this.state.datas.map(film => {
             //     if (film.id_movie == id_movie) {
             //         film.collect = true;
@@ -483,7 +493,7 @@ class Films extends Component {
         if(collection === null){
             // fetch(`${process.env.PUBLIC_URL}/json/films.json`)
             // fetch(`http://192.168.39.110/tcff_php/api/movie/read.php?cf=false`)
-            fetch(`http://localhost/tcff_php/api/movie/read.php?cf=false`)
+            fetch(`http://192.168.39.110/tcff_php/api/movie/read.php?cf=false`)
             .then((res)=>res.json())
             // .then(films => console.log(films))
             .then((films)=> {
