@@ -1,6 +1,15 @@
 import React, {Component} from 'react' ;
 import '../sass/member2.scss';
 
+// import {
+//   BrowserRouter as Router,
+//   Route,
+//   Link,
+//   NavLink
+// } from "react-router-dom";
+
+import { withRouter } from "react-router";
+
 class Member2 extends Component {
   constructor(props) {
     super(props);
@@ -29,11 +38,7 @@ class Member2 extends Component {
   fliptoForget(){
       console.log("flip to forget");
       let card2 = document.querySelector("#card2");
-    //   let cardContainer = document.querySelector(".card-container");
       card2.classList.toggle("active");
-    //   cardContainer.classList.toggle("active");
-    //   let card1 = document.querySelector("#card1");
-    //   card1.style.opacity=".5";
   };
 flipFromForgetToLog(){
     console.log("flip from forget to login");
@@ -54,28 +59,24 @@ loginSubmit(evt) {
     let json = {};
     json["email"] = emailLogin.value;
     json["password"] = passwordLogin.value;
-    // console.log("json:", json)
     let url = `http://192.168.39.110/tcff_php/api/members/login.php`;
     let body = JSON.stringify(json);
-    // console.log(body);
     fetch(url, {
         method: "POST",
         body: JSON.stringify(json),
     }).then(res => res.json())
         .then(data => {
-            // console.log('res', data);
             if (data.success) {
                 sessionStorage.setItem('user', JSON.stringify(data.user));
-                // alert('login success');
                 console.log(sessionStorage.getItem('user'));
 
                 // 更新collection
                 let collection = JSON.parse(sessionStorage.getItem("collection"));
+                // 未登入狀態collection已有片
                 if (collection !== null) {
                   let userJson = JSON.parse(sessionStorage.getItem("user"));
                   console.log(collection);
                   console.log(collection['films'].length);
-                  // let collectionJson = JSON.parse(sessionStorage.getItem("collection"));
                   let json = {};
                   json["id"] = userJson.id;
                   json["id_movie"] = [];
@@ -89,6 +90,7 @@ loginSubmit(evt) {
                   fetch(url, { method: "PUT", body: JSON.stringify(json) })
                     .then(res => res.json())
                     .then(data => {
+                      // 該帳號之前登入時有收藏影片
                       if (data.collection_info) {
                         console.log('put success');
                         console.log(data.collection_info);
@@ -97,7 +99,6 @@ loginSubmit(evt) {
                         let cfFilms=[];
                         Array.from(collectionInfos).forEach(collectionInfo=>{
                           console.log(collectionInfo);
-                          // let collectionInfoArr = JSON.parse(collectionInfo);
                           if (collectionInfo.cf == "0") {
                             films.push(collectionInfo);
                           } else {
@@ -111,7 +112,6 @@ loginSubmit(evt) {
                           cffilms: cfFilms,
                         }
                         sessionStorage.setItem("collection", JSON.stringify(newCollection));
-                        // console.log(JSON.parse(sessionStorage.getItem("collection").films));
                       } else if (data.message =="nothing to update"){
                         fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=${JSON.parse(sessionStorage.getItem("user")).id}`)
                           .then(res => res.json())
@@ -159,7 +159,16 @@ loginSubmit(evt) {
                       sessionStorage.setItem("collection", JSON.stringify(newCollection));
                     });
                 }
-                window.history.back();
+                // let films = [];
+                // let cfFilms = [];
+                // let newCollection = {
+                //   films: films,
+                //   cffilms: cfFilms,
+                // }
+                // sessionStorage.setItem("collection", JSON.stringify(newCollection));
+
+                this.props.history.goBack();
+                // window.history.back();
             }
         });
 }
@@ -186,7 +195,8 @@ registerSubmit(evt) {
         // sessionStorage.setItem('user', JSON.stringify(data.user));
         alert('register success');
         console.log(sessionStorage.getItem('user'));
-        window.history.back();
+        this.props.history.push("/member");
+        this.flipToReg();
       }
     });
 }
@@ -301,4 +311,4 @@ registerSubmit(evt) {
   }
 }
 
-export default Member2;
+export default withRouter(Member2);

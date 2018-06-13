@@ -3,6 +3,7 @@ import Header from './header';
 import Footer from './footer';
 import FastTicket from './fast-ticket';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
+import { browserHistory } from 'react-router'
 import TabsRoute from './tabs-route';
 import './myfilm/my-film.scss';
 import Tab1 from './myfilm/tab1';
