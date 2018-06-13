@@ -46,12 +46,9 @@ class Filmsdetail extends Component {
                             sessionStorage.setItem("collection", JSON.stringify(collection));
 
                             //改變checkbox狀態(setState)
-                            let ar = this.state.films.map(film => {
-                                if (film.id_movie == id_movie) {
-                                    film.collect = false;
-                                }
-                                return film;
-                            })
+                            let ar = this.state.films;
+                                    ar.collect = false;
+
                             this.setState({
                                 films: ar
                             });
@@ -67,12 +64,9 @@ class Filmsdetail extends Component {
                 collection.films = collection.films.filter(x => x.id_movie !== id_movie);
                 sessionStorage.setItem("collection", JSON.stringify(collection));
 
-                let ar = this.state.films.map(film => {
-                    if (film.id_movie == id_movie) {
-                        film.collect = false;
-                    }
-                    return film;
-                })
+                let ar = this.state.films;
+                        ar.collect = false;
+
                 this.setState({
                     films: ar
                 });
@@ -103,12 +97,9 @@ class Filmsdetail extends Component {
                             sessionStorage.setItem("collection", JSON.stringify(collection));
 
                             //改變checkbox狀態(setState)
-                            let ar = this.state.films.map(film => {
-                                if (film.id_movie == id_movie) {
-                                    film.collect = true;
-                                }
-                                return film;
-                            })
+                            let ar = this.state.films;
+                                    ar.collect = true;
+
                             this.setState({
                                 films: ar
                             });
@@ -162,6 +153,26 @@ class Filmsdetail extends Component {
             this.setState({
              films: datas
          }, () => {
+            fetch(`http://192.168.39.110/tcff_php/api/movie/read.php`)
+            .then((res) => res.json())
+            .then((datas) => {
+               console.log(datas) 
+               console.log("state",this.state.films)
+               let films = this.state.films;
+               let id_movie = films.id_movie;
+               films.progress = datas[id_movie] == undefined ? 0 : datas[id_movie];
+               films.collect = false;
+                let collection = JSON.parse(sessionStorage.getItem("collection"));
+                if(collection.films !== null){
+                    let ids = collection.films.reduce((a,x) => {
+                        a.push(x.id_movie);
+                        return a;
+                    },[])
+                    if(ids.includes(id_movie)) films.collect = true;
+                }
+               this.setState({Films:films});
+               console.log("films",films)
+               })
 
              //  sliiderShow 圖片滑動
             let path = `${this.state.films.release_year}_${this.state.films.name_en.split(' ').join('_').replace(':', '_')}`;
@@ -276,7 +287,7 @@ class Filmsdetail extends Component {
                             <div className="l_font">級別</div>
                             <div className="r_font">{this.state.films.rating}</div>
                         </div>
-                        <input type="checkbox" id={`id_${this.state.films.id}`} checked={this.state.films.collect}/>
+                        <input type="checkbox" id={`id_${this.state.films.id_movie}`} checked={this.state.films.collect}/>
                         <label htmlFor={`id_${this.state.films.id_movie}`} className="favorite" onClick={this.handleCollect} data-id-movie={this.state.films.id_movie}>
                             <i class="fas fa-plus-circle"></i>
                             {
