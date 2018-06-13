@@ -1,7 +1,7 @@
 import React, {
     Component
 } from 'react';
-import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, NavLink, withRouter } from "react-router-dom";
 import './tab3.scss';
 
 class Tab3 extends Component {
@@ -148,6 +148,7 @@ class Tab3 extends Component {
                             }
                             sessionStorage.removeItem('cart');
                             // window.location.href = '/my-film/4';
+                            this.props.history.push("/my-film/4");
                         })
                     
                 } else if (datas.message === "seats have been booked"){
@@ -242,4 +243,4 @@ class Tab3 extends Component {
     }
 }
 
-export default Tab3;
+export default withRouter(Tab3);

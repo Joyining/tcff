@@ -16,6 +16,7 @@
     .them{
         display: flex ;
         flex-direction: row ;
+        background-color: $colorLight;
         @include breakpoint("mobileonly"){
             flex-direction: column ;
         }
@@ -25,43 +26,75 @@
     .photo{
         width:60% ;
         height: 600px;
-        background-color: $colorLight ;
         border-right: 5px solid $colorDark ;
+        border-top: 5px solid $colorDark ;
         @include breakpoint("tablet"){
-            height: 400px;
+            height: 500px;
         }
         @include breakpoint("mobileonly"){
             width:100% ;
+            height: auto;
+            border-right: none ;
+            border-bottom: 2px solid $colorDark ;
+        }
+
+        .pic{
+            max-width: 60%;
+            margin: 20% auto 0 ;
+            @include breakpoint("mobileonly"){
+                margin: 5% auto  ;
+                max-width: 80%;
+            }
         }
     }
 
     .btns{
         width:60% ;
         height: 600px;
-        background-color: $colorLight;
         border-right: 5px solid $colorDark ;
+        border-top: 5px solid $colorDark ;
         display: flex ;
         flex-direction: column ;
         @include breakpoint("tablet"){
-            height: 400px;
+            height: 500px;
         }
         @include breakpoint("mobileonly"){
             width:100% ;
             height: auto;
+            border-right: none ;
+            border-top: none ;
         }
 
-        .box{
-            width: 80%;
-            height: 50px;
-            background-color: blue ;
-            margin: 10% auto;
+        .box_unclick{
+            cursor: pointer; 
+            margin: 10% auto;        
+            @include text-rec(80% , 18px, $colorMedium, $colorDarker, transparent);    
+            height: 60px;
+            line-height: 60px ;
             @include breakpoint("mobileonly"){
                 width: 80%;
                 height: 55px;
-                background-color: blue ;
+                background-color: $colorMedium ;
+                color: $colorDarker;
+                margin: 2% auto;
+            }
+        } 
+   
+        .box_click{
+            cursor: pointer; 
+            margin: 10% auto;
+            @include text-rec(80% , 18px, $colorDarker, $colorLight, transparent);
+            height: 60px;
+            line-height: 60px ;
+            @include breakpoint("mobileonly"){
+                width: 80%;
+                height: 55px;
+                background-color: $colorMedium ;
+                color: $colorDarker;
                 margin: 2% auto;
             }
         }
+
     }
 
     
@@ -70,12 +103,72 @@
         width:60% ;
         height: 600px;
         background-color: $colorLight;
+        border-top: 5px solid $colorDark ;
+        position: relative ;
         @include breakpoint("tablet"){
-            height: 400px;
+            height: 500px;
         }
         @include breakpoint("mobileonly"){
             display: none ;
         }
+
+        .modify{
+            position: absolute ;
+            // background-color: aqua ;
+            display: flex ;
+            flex-direction: row ;
+            flex-wrap:wrap ;
+            width: 100% ;
+            top: 5%;
+            bottom: 10%;
+            @media screen and (max-width:1399px){
+                flex-direction: column ;
+                flex-wrap:nowrap ;
+            } 
+
+            .month{
+                cursor: pointer; 
+                width: 100px ;
+                height: 100px ;
+                margin: 
+                 auto ;               
+                background-color: $colorDark;
+                border-top: 15px solid $colorDarker;
+                @media screen and (max-width:1399px){
+                    width: 80% ;
+                    height: 100px ;
+                    margin: 2%  auto ;
+                    border-top: none;
+                } 
+
+                .month_word_m{
+                    text-align: center ;
+                    line-height: 20px ;
+                    color: $colorLight ;
+                }
+
+                .month_word{
+                    margin: 10px auto ;
+                    text-align: center ;
+                    font-size: 50px ;
+                    color: $colorLight ;
+                    @media screen and (max-width:1399px){
+                        display: none ;
+                    } 
+                }
+            }
+
+        }
+
+        .ticketbox{
+            position: absolute ;
+            background-color: orange ;
+            display: none ;
+        }
+    }
+
+    .display{
+        display: none ;
     }
 
 }

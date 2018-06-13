@@ -46,12 +46,9 @@ class Cffilmsdetail extends Component {
                             sessionStorage.setItem("collection", JSON.stringify(collection));
 
                             //改變checkbox狀態(setState)
-                            let ar = this.state.films.map(film => {
-                                if (film.id_movie == id_movie) {
-                                    film.collect = false;
-                                }
-                                return film;
-                            })
+                            let ar = this.state.films;
+                                    ar.collect = false;
+                                
                             this.setState({
                                 films: ar
                             });
@@ -67,12 +64,9 @@ class Cffilmsdetail extends Component {
                 collection.cffilms = collection.cffilms.filter(x => x.id_movie !== id_movie);
                 sessionStorage.setItem("collection", JSON.stringify(collection));
 
-                let ar = this.state.films.map(film => {
-                    if (film.id_movie == id_movie) {
-                        film.collect = false;
-                    }
-                    return film;
-                })
+                let ar = this.state.films;
+                        ar.collect = false;
+    
                 this.setState({
                     films: ar
                 });
@@ -103,12 +97,9 @@ class Cffilmsdetail extends Component {
                             sessionStorage.setItem("collection", JSON.stringify(collection));
 
                             //改變checkbox狀態(setState)
-                            let ar = this.state.films.map(film => {
-                                if (film.id_movie == id_movie) {
-                                    film.collect = true;
-                                }
-                                return film;
-                            })
+                            let ar = this.state.films;
+                                    ar.collect = true;
+                                
                             this.setState({
                                 films: ar
                             });
@@ -169,10 +160,17 @@ class Cffilmsdetail extends Component {
                console.log(datas) 
                console.log("state",this.state.films)
                let films = this.state.films;
-               let id_movie = films.id;
+               let id_movie = films.id_movie;
                films.progress = datas[id_movie] == undefined ? 0 : datas[id_movie];
                films.collect = false;
-               
+                let collection = JSON.parse(sessionStorage.getItem("collection"));
+                if(collection.cffilms !== null){
+                    let cf_ids = collection.cffilms.reduce((a,x) => {
+                        a.push(x.id_movie);
+                        return a;
+                    },[])
+                    if(cf_ids.includes(id_movie)) films.collect = true;
+                }
                this.setState({Films:films});
                console.log("films",films)
                })
@@ -288,7 +286,7 @@ class Cffilmsdetail extends Component {
                             <div className="l_font">級別</div>
                             <div className="r_font">{this.state.films.rating}</div>
                         </div>            
-                        <input type="checkbox" id={`id_${this.state.films.id}`} checked={this.state.films.collect}/>
+                        <input type="checkbox" id={`id_${this.state.films.id_movie}`} checked={this.state.films.collect}/>
                         <label htmlFor={`id_${this.state.films.id_movie}`} className="favorite" onClick={this.handleCollect} data-id-movie={this.state.films.id_movie}>
                             <i class="fas fa-plus-circle"></i>  
                             {
