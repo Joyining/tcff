@@ -151,19 +151,34 @@ class Cffilms extends Component {
     }
     componentDidMount(){
 
+        console.log("didMount state",this.state)
         // 連結後端資料
         console.log("match",this.props);
         console.log("query",window.location.search)
         let q = window.location.search;
         let id = q.slice(q.search('=') +1)
+        let collection = JSON.parse(sessionStorage.getItem("collection"));
         console.log("id",id)
         fetch(`http://192.168.39.110/tcff_php/api/movie/read.php?cf=true`)
          .then((res) => res.json())
          .then((datas) => {
             console.log(datas) 
-            datas.map(x => {
-                x.collect = false;
-            })
+            if(collection.cffilms === null){
+                datas.map(x => {
+                    x.collect = false;
+                })
+            }else{
+                let cf_ids = collection.cffilms.reduce((a,x) => {
+                    a.push(x.id_movie);
+                    return a;
+                },[])
+                datas.map(x => {                    
+                    x.collect = false;
+                    if(cf_ids.includes(x.id_movie)) x.collect = true;
+                    return x;
+                })
+            }
+
             this.setState({
              Films: datas
          }, ()=>{
