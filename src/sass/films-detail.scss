@@ -108,18 +108,19 @@
         cursor: pointer;
         font-family: "\5FAE\8EDF\6B63\9ED1\9AD4";
     }
-    
-}
-input{
-    display: none;
-    &:checked+label{
-        color: white;
-        background-color: #de912d;
-        svg{
-            display: none;
+    input{
+        display: none;
+        &:checked+label{
+            color: white;
+            background-color: #de912d;
+            svg{
+                display: none;
+            }
         }
     }
+    
 }
+
 .box{    
     margin-top: 200px;
 }
@@ -196,7 +197,7 @@ input{
       }
       p{
         color: #8e5f59;
-    }
+      }
     
     .mycontain{
         display: flex;
