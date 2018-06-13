@@ -122,7 +122,7 @@ class Filmsdetail extends Component {
                     collection = JSON.parse(collection);
                     // collection.films.push(this.state.datas.filter(x => x.id_movie == id_movie));
                 }
-                collection.films.push(this.state.films.filter);
+                collection.films.push(this.state.films);
                 // collection.films.push(data.collection_info[0]);
                 sessionStorage.setItem("collection", JSON.stringify(collection));
 
@@ -150,30 +150,20 @@ class Filmsdetail extends Component {
          .then((res) => res.json())
          .then((datas) => {
             console.log(datas) 
+            let id_movie = datas.id_movie;
+            datas.collect = false;
+            let collection = JSON.parse(sessionStorage.getItem("collection"));
+            if(collection !== null){
+                let ids = collection.films.reduce((a,x) => {
+                    a.push(x.id_movie);
+                    return a;
+                },[])
+                if(ids.includes(id_movie)) datas.collect = true;
+            }
             this.setState({
              films: datas
          }, () => {
-            fetch(`http://192.168.39.110/tcff_php/api/movie/read.php`)
-            .then((res) => res.json())
-            .then((datas) => {
-               console.log(datas) 
-               console.log("state",this.state.films)
-               let films = this.state.films;
-               let id_movie = films.id_movie;
-               films.progress = datas[id_movie] == undefined ? 0 : datas[id_movie];
-               films.collect = false;
-                let collection = JSON.parse(sessionStorage.getItem("collection"));
-                if(collection.films !== null){
-                    let ids = collection.films.reduce((a,x) => {
-                        a.push(x.id_movie);
-                        return a;
-                    },[])
-                    if(ids.includes(id_movie)) films.collect = true;
-                }
-               this.setState({Films:films});
-               console.log("films",films)
-               })
-
+            
              //  sliiderShow 圖片滑動
             let path = `${this.state.films.release_year}_${this.state.films.name_en.split(' ').join('_').replace(':', '_')}`;
             console.log(path);
