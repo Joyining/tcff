@@ -2,6 +2,8 @@ import React, {
     Component
 } from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
+// import { browserHistory } from 'react-router'
+import { withRouter } from "react-router-dom";
 import './tab4.scss';
 
 class Tab4 extends Component {
@@ -14,6 +16,13 @@ class Tab4 extends Component {
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getOrders = this.getOrders.bind(this);
+        this.push = this.push.bind(this);
+    }
+    push(evt){
+        evt.preventDefault();
+        // this.props.history.pushState(null,"/films")
+        // browserHistory.push('/films')
+        this.props.history.push("/films");
     }
     getOrders(evt){
         // let id = sessionStorage.getItem('sessionId');
@@ -224,7 +233,7 @@ class Tab4 extends Component {
                         <p>
                             您的兌票序號為ABCD123456
                         </p>
-                        <Link className="" to={`/`}>回首頁</Link>
+                        <Link className="" to={`/`} onClick={this.push}>回首頁</Link>
                         <form action="" id="logIn">
                             <input type="text" id="email"/>
                             <input type="password" id="password"/>
@@ -240,4 +249,4 @@ class Tab4 extends Component {
     }
 }
 
-export default Tab4;
+export default withRouter(Tab4);
