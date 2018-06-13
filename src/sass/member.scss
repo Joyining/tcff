@@ -1,12 +1,12 @@
 @import "partials/basic";
 
 .container-member{
-    width: 38%;
+    width: 100%;
     height: 800px;
     // background-color:$colorLight ;
     padding: 10px 0 ;
     position: relative ;
-    margin: -8% auto;
+    // margin: -8% auto;
     // overflow: hidden;
 
 .place{
@@ -104,7 +104,7 @@
     }
 
     .front , .back{
-        // backface-visibility: hidden; 
+        backface-visibility: hidden; 
     }
 
     .back_r{
@@ -398,7 +398,7 @@
         height:600px ;
         top:  50% ;
         left: 50%;
-        transform: translateX(-50%) translateY(40%) rotateY(180deg) ;
+        transform: translateX(-70%) translateY(40%) rotateY(180deg) ;
         // transform: translateX(-50%) translateY(17%);
         position: absolute ;
         background-color: $colorLight; 
@@ -429,10 +429,10 @@
                 padding: 50px 50px 0 10px ;
             }
             .account_r{
-                width: 80%;
+                // width: 80%;
                 height: 35px;
                 margin:  0;
-                @include text-rec(50% , 18px , none , $colorDark ,transparent) ;
+                @include text-rec(75% , 18px , none , $colorDark ,transparent) ;
                 text-align: right ;
                 // background-color: aliceblue ;
             }
@@ -448,19 +448,14 @@
                 padding: 10px 50px 0 10px  ;
             }
             .password_r_1{
-                width: 80%;
+                // width: 80%;
                 height: 35px;
                 margin:  0;
-                @include text-rec(50% , 18px , none , $colorDark ,transparent) ;
+                @include text-rec(75% , 18px , none , $colorDark ,transparent) ;
                 text-align: right ;
                 // background-color: aliceblue ;
-                .password_mo{
-                    @include text-rec(50% , 18px , none , $colorDark ,transparent) ;
-                    @include breakpoint("mobileonly"){
-                        @include text-rec(50% , 10px , none , $colorDark ,transparent) ;
-                    }
-                }
             }
+
             .password_r_2{
                 height: 25px;
                 width: 80%;
@@ -509,9 +504,11 @@
             .worring_r{
                 @include text-rec(30% , 12px , transparent , red ,transparent) ;
                 text-align: right ;
+                line-height: 10px ;
                 @include breakpoint("mobileonly"){
                     overflow: hidden ;
-                    padding-left: 35% ;
+                    padding-left: 38% ;
+                    line-height: 10px ;
                 }
             }
             .display{

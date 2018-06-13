@@ -118,7 +118,14 @@ header{
             height: $headerHeight * .5;
             margin: $headerHeight * .25 0;
             display: inline-block;
-            // border: 2px solid red;
+            text-align: center;
+            font-weight: bold;
+            line-height: $headerHeight * .5;
+            color: $colorLight;
+            cursor: pointer;
+            &:link, &:visited{
+                color: $colorLight;
+            }
             .collection-num{
                 width: 23px;
                 height: 23px;
@@ -132,7 +139,7 @@ header{
                 font-size: .8rem;
                 line-height: 23px;
                 text-align: center;
-            }         
+            }        
         }
         img{
             height: 100%;
@@ -140,6 +147,34 @@ header{
             display: inline-block;
             vertical-align: middle;
         }
+        .member-panel{
+            display: none;
+            position: absolute;
+            width: 180px;
+            background-color: $colorMedium;
+            top: 70px;
+            right: 60px;
+
+            a{
+                width: 100%;
+                box-sizing: border-box;
+                font-weight: bold;
+                margin: 5px auto;
+                color: $colorDark;
+
+                &:link, &:visited{
+                    color: $colorDark;
+                }
+                &:hover{
+                    color: $colorDarker;
+                }
+            }
+            &.active{
+                display: block;
+            }
+
+        }
+
     }
 
     .nav-icon.mobile{
@@ -295,6 +330,10 @@ header{
         .nav-icon.web .menu-icon, .nav-icon.mobile .menu-icon{
             opacity: 1;
         }
+        .member-panel.active{
+            top: 45px;
+        }
+
         .menu-icon{
             position: relative;
             z-index: 200;
@@ -315,7 +354,8 @@ header{
             // padding: $headerHeight * .1;
             height: $headerHeight * .3;
             margin: $headerHeight * .15 0;
-            display: block;            
+            display: block;    
+            line-height: $headerHeight * .3;        
             .collection-num{
                 top:30px;
             }   
