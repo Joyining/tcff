@@ -130,7 +130,7 @@ class Member extends Component{
                 <div className="container-member">
 
                         <div className="turn_b front">
-                            <div className="login_b place back_animate"></div>
+                            
 
                         {/* 會員註冊 */}
                             <div className="registered_f back_animate back_r ">
@@ -164,6 +164,8 @@ class Member extends Component{
                                     <button className="registered_r sign_up_r mouse"><div>登入</div></button>                    
                                 </div>
                             </div>
+
+                            <div className="login_b place back_animate"></div>
                         </div>
 
                         <div className="turn place">

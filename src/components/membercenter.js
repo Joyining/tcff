@@ -3,6 +3,8 @@ import '../sass/membercenter.scss';
 import $ from 'jquery';
 import { width } from 'window-size';
 
+import memberCenterPic from "../images/member_center.svg";
+
 class MemberCenter extends Component{
    
     componentDidMount(){
@@ -48,14 +50,86 @@ class MemberCenter extends Component{
                     <div className="banner_up">122</div>
                     <div className="them">
                         
-                        <div className="photo">  </div>
-                        <div className="btns">
-                             <div className="box">123 </div>
-                             <div className="box">341 </div>
-                             <div className="box">1645 </div>
-                             <div className="box">1545 </div>
+                        <div className="photo">
+                            <figure className="pic">
+                                <img src={memberCenterPic}/>
+                            </figure>
                         </div>
-                        <div className="commit01">155</div>
+                        <div className="btns">
+                             <div className="box_click">訂單查詢</div>
+                             <div className="box_unclick">修改會員資料</div>
+                             <div className="box_unclick">修改密碼</div>
+                             <div className="box_unclick">客服中心</div>
+                        </div>
+                        <div className="commit01">
+                            <div className="modify">
+                               <div className="month">
+                                   <div className="month_word">1</div>
+                                    <p className="month_word_m">Month</p>
+                                    <p className="month_word_m display">Month2</p>
+                               </div>
+                               <div className="month">
+                                    <div className="month_word">2</div>
+                                    <p className="month_word_m">Month</p>
+                                    <p className="month_word_m display">Month2</p>
+                               </div>
+                               <div className="month">
+                                    <div className="month_word">3</div>
+                                    <p className="month_word_m">Month</p>
+                                    <p className="month_word_m display">Month2</p>
+                               </div>
+                               <div className="month">
+                                    <div className="month_word">4</div>
+                                    <p className="month_word_m">Month</p>
+                                    <p className="month_word_m display">Month2</p>
+                               </div>
+
+
+                               <div className="month">
+                                    <div className="month_word">5</div>
+                                    <p className="month_word_m">Month</p>
+                                    <p className="month_word_m display">Month2</p>
+                               </div>
+                               <div className="month">
+                                    <div className="month_word">6</div>
+                                    <p className="month_word_m">Month</p>
+                                    <p className="month_word_m display">Month2</p>
+                               </div>
+                               <div className="month">
+                                    <div className="month_word">7</div>
+                                    <p className="month_word_m">Month</p>
+                                    <p className="month_word_m display">Month2</p>
+                               </div>
+                               <div className="month">
+                                    <div className="month_word">8</div>
+                                    <p className="month_word_m">Month</p>
+                                    <p className="month_word_m display">Month2</p>
+                               </div>
+
+
+                               <div className="month">
+                                    <div className="month_word">9</div>
+                                    <p className="month_word_m">Month</p>
+                                    <p className="month_word_m display">Month2</p>
+                               </div>
+                               <div className="month">
+                                    <div className="month_word">10</div>
+                                    <p className="month_word_m">Month</p>
+                                    <p className="month_word_m display">Month2</p>
+                               </div>
+                               <div className="month">
+                                    <div className="month_word">11</div>
+                                    <p className="month_word_m">Month</p>
+                                    <p className="month_word_m display">Month2</p>
+                               </div>
+                               <div className="month">
+                                    <div className="month_word">12</div>
+                                    <p className="month_word_m">Month</p>
+                                    <p className="month_word_m display">Month2</p>
+                               </div>
+                            </div>
+                            <div className="ticketbox">111</div>
+                        </div>
                     </div>
                 
             </section>
