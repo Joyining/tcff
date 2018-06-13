@@ -1,41 +1,41 @@
 import React, { Component } from 'react';
 import '../sass/films.scss';
 import { Link } from "react-router-dom";
-// import Cb from "./myfilm/cb";
 
 class Films extends Component {
     constructor(props) {
         super(props);
+
         this.fadeOut = this.fadeOut.bind(this);
         this.fadeIn = this.fadeIn.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.pickBook = this.pickBook.bind(this);        
         this.handleSort = this.handleSort.bind(this);        
         this.handleMove = this.handleMove.bind(this);
-        this.handleCollect = this.handleCollect.bind(this);        
+        this.handleCollect = this.handleCollect.bind(this); 
+
         this.state = {
             books:false,
             types:[],
             moveTo: "",
         };
+
         this.sideMaxBooks = 0;
         this.sideWidth = 0;
         this.bookWidth = 0;
         this.containerWidth = 0;
         this.firstUpdate = false;
     }    
-    handleCollect(evt){
+    handleCollect(evt){//收藏
         let isChecked = evt.currentTarget.previousElementSibling.checked;
         let id_movie = evt.currentTarget.getAttribute('data-id-movie');
         let user = sessionStorage.getItem('user');
         let id_user = user === null ? undefined : JSON.parse(user).id;
-        let url = "";
-        // let collectionNum = sessionStorage.getItem('collectionNum');
-        // console.log(evt.currentTarget.previousElementSibling);
+        let url = "";        
         
-        if(isChecked){
-            console.log("del");
-            if (id_user !== undefined){
+        if(isChecked){//刪除收藏
+            console.log("刪除收藏");
+            if (id_user !== undefined){//已登入
                 url = `http://192.168.39.110/tcff_php/api/cart/collection.php/${id_movie}/${id_user}`;
                 fetch(url,{
                     method:"DELETE",
@@ -70,12 +70,13 @@ class Films extends Component {
                         }
                     })
                     .catch(err => console.log(`error with fetch: ` + err.message))
-            }else{
+            }else{//未登入(不用寫入db)
                 //刪Storage的collection
                 let collection = JSON.parse(sessionStorage.getItem('collection'));
                 collection.films = collection.films.filter(x => x.id_movie !== id_movie);
                 sessionStorage.setItem("collection", JSON.stringify(collection));
 
+                //改變checkbox狀態(setState)
                 let ar = this.state.datas.map(film => {
                     if (film.id_movie == id_movie) {
                         film.collect = false;
@@ -90,14 +91,15 @@ class Films extends Component {
                 this.props.updatecollectionNum();
             }
             
-        }else{
-            console.log("add")
-            if (id_user !== undefined) {
+        }else{//加入收藏
+            console.log("加入收藏")
+            if (id_user !== undefined) {//已登入
                 url = `http://192.168.39.110/tcff_php/api/cart/collection.php`;
                 let body = {
                     id: id_user,
                     id_movie: id_movie
                 }
+                //先寫入db
                 fetch(url, {
                         method: "POST",
                         body: JSON.stringify(body)
@@ -105,11 +107,11 @@ class Films extends Component {
                     .then(res => res.json())
                     .then(data => {
                         console.log("m: ", data.message);
-                        console.log("data",data)
+
                         if (data.message === "add 1 collection") {
-                            //刪Storage的collection
+                            //加入Storage的collection
                             let collection = sessionStorage.getItem('collection');
-                            if(collection === null){
+                            if(collection === null){//第一次加入
                                 collection = {
                                     films: [data.collection_info[0]],
                                     cffilms: []
@@ -118,7 +120,6 @@ class Films extends Component {
                                 collection = JSON.parse(collection)
                                 collection.films.push(data.collection_info[0]);
                             }
-                            // collection.films.push(data.collection_info[0]);
                             sessionStorage.setItem("collection", JSON.stringify(collection));
 
                             //改變checkbox狀態(setState)
@@ -137,23 +138,21 @@ class Films extends Component {
                         }
                     })
                     .catch(err => console.log(`error with fetch: ` + err.message))
-            } else {
+            } else {//未登入(不用寫入db)
                 //增加Storage的collection
                 let collection = sessionStorage.getItem('collection');
-                if(collection === null){
+                if(collection === null){//第一次加入
                     collection = {
                         films: [],
                         cffilms: []
                     }
-                    // collection.films.push(this.state.datas.filter(x => x.id_movie == id_movie));
                 }else{
                     collection = JSON.parse(collection);
-                    // collection.films.push(this.state.datas.filter(x => x.id_movie == id_movie));
                 }
                 collection.films.push(this.state.datas.filter(x => x.id_movie == id_movie)[0]);
-                // collection.films.push(data.collection_info[0]);
                 sessionStorage.setItem("collection", JSON.stringify(collection));
 
+                //改變checkbox狀態(setState)
                 let ar = this.state.datas.map(film => {
                     if (film.id_movie == id_movie) {
                         film.collect = true;
@@ -167,42 +166,31 @@ class Films extends Component {
                 //改變購物車數字 collectionNum
                 this.props.updatecollectionNum();
             }
-            // url = `http://192.168.39.110/tcff_php/api/cart/collection.php/{id_movie}`;
-            // let ar = this.state.datas.map(film => {
-            //     if (film.id_movie == id_movie) {
-            //         film.collect = true;
-            //     }
-            //     return film;
-            // })
-            // this.setState({ datas: ar });
         }
     }
-    handleMove(evt){
+    handleMove(evt){//換小分類
         let moveTo = evt.target.innerHTML;
         let index;
-        console.log(moveTo.slice(0, -1));
+
+        //求分類第一本index
         if(evt.target.classList[0] === "detailYear"){
             index = this.state.datas.findIndex(a => a.release_year >= moveTo.slice(0,-1));
         }else{
             index = this.state.datas.findIndex(a => a.theme >= moveTo);
         }
-        console.log(index);
-        // let index = this.state.datas.findIndex(a => a.release_year >= value);
+
+        //位移，開書
         this.positioning(index);
         this.pickBook(evt, index);
-        // setTimeout(() => this.setState({ moveTo: moveTo }), 1000);
+
     }
-    handleSort(evt){
-        console.log("id: ",evt.target.previousSibling.id);
+    handleSort(evt){//換大分類
         let target = evt.target;
-        // let htmlFor = target.getAttribute('htmlFor');
         let sortBy = target.classList[0];
         let parent = target.parentNode;
-        // let value = evt.target.value;
-        // let isChecked = target.previousSibling.checked;
+
         let isChecked = (sortBy === "optionYear" ? "year" : "theme") === this.state.sortBy;
 
-        console.log(sortBy, parent, isChecked);
         let newAr = [];
         if(isChecked === false){
             if (sortBy === "optionYear"){
@@ -216,8 +204,7 @@ class Films extends Component {
                     }
                     return 0;
                 });
-                //翻開分類第一本
-                // let index = newAr.findIndex(a => a.release_year >= value);
+                //翻開正中間                
                 let index = 30;
 
                 this.fadeOut(
@@ -237,9 +224,9 @@ class Films extends Component {
                     }
                     return 0;
                 });
-                // let index = newAr.findIndex(a => a.theme == value);
+                //翻開正中間
                 let index = 30;
-                console.log(index);
+
                 this.fadeOut(
                     () => {
                         console.log('index: ', index);
@@ -251,7 +238,7 @@ class Films extends Component {
             }
         }
     }
-    positioning(index){
+    positioning(index){//書的位移
         let books = Array.from(document.querySelectorAll('.book'));
         let middle = Math.ceil(books.length / 2);
         //封面寬
@@ -308,7 +295,7 @@ class Films extends Component {
             })
         }
     }
-    fadeOut(callBack, p){
+    fadeOut(callBack, p){//換分類時淡出
         let books = Array.from(document.querySelectorAll(".book"));
         const addFadeOut = (i) => {
             books[i].classList.add('fadeOut');
@@ -327,99 +314,20 @@ class Films extends Component {
             if (callBack) callBack(p);
         }, 1000)
     }
-    handleChange(evt){
-        let target = evt.target.id;
-        let value = evt.target.value;
-        let newAr = [];
-        if(target === 'selYear'){
-            if(this.state.sortBy !== 'year'){
-                //依年代排序
-                newAr = this.state.datas.sort((a, b) => {
-                    if (a.release_year > b.release_year) {
-                        return 1;
-                    }
-                    if (a.release_year < b.release_year) {
-                        return -1;
-                    }
-                    return 0;
-                });
-                //翻開分類第一本
-                let index = newAr.findIndex(a => a.release_year >= value);
+    pickBook(evt, i) {//開書
 
-                this.fadeOut(
-                    () => {
-                        this.setState({ datas: newAr, sortBy: 'year' }); //更新狀態重新渲染
-                        this.positioning(index); //移動
-                        this.fadeIn(index); //開書
-                    } , index
-                );
-            //同個分類不同選項
-            }else{
-                let index = this.state.datas.findIndex(a => a.release_year >= value);
-                this.positioning(index);
-                this.pickBook(evt, index);
-            }
-        } else if (target === 'selType'){
-            if (this.state.sortBy !== 'type') {
-                newAr = this.state.datas.sort((a, b) => {
-                    if (a.theme > b.theme) {
-                        return 1;
-                    }
-                    if (a.theme < b.theme) {
-                        return -1;
-                    }
-                    return 0;
-                });
-                let index = newAr.findIndex(a => a.theme == value);
-                console.log(index);
-                this.fadeOut(
-                    () => {
-                        console.log('index: ', index);
-                        this.setState({ datas: newAr, sortBy: 'type' });
-                        this.positioning(index);
-                        this.fadeIn(index);
-                    }, index
-                );
-                console.log(target, newAr, this.state);
-            }else{
-                let index = this.state.datas.findIndex(a => a.theme == value);
-                console.log("pickbook_index: ", index)
-                console.log("newAr: ", newAr)
-                this.positioning(index);
-                this.pickBook(evt, index);
-            }
-        }
-
-
-    }
-    pickBook(evt, i) {
-        // console.log('evt: ', evt);
-        // console.log('evt.target: ', evt.target);
-        // console.log('parentNode: ', evt.target.parentNode);
-        // console.log('firstChild: ', evt.target.firstChild);
-        // console.log('lastChild: ', evt.target.lastChild);
-        // console.log('childNodes: ', evt.target.childNodes);
-        // console.log('nextSibling: ', evt.target.nextSibling);
-        // console.log('parentElement: ', evt.target.parentElement);
-        // console.log('previousSibling: ', evt.target.previousSibling);
-        // console.log('removeChild: ', evt.target.removeChild);
-        // console.log('parentElement == parentNode : ', evt.target.parentElement == evt.target.parentNode);
-        // evt.target.parentElement.classList.add('opened');
-        console.log('target', evt.target)
-        console.log('current target',evt.currentTarget)
         let books = Array.from(document.querySelectorAll(".book"));
 
         let index = (i === undefined) ? books.indexOf(evt.currentTarget.parentElement) : i;
-        console.log("index i evt: ", index, i, evt);
+
+        //位移
         this.positioning(index);
+
+        //開書闔書
         books.map((book, idx) => {
             let isOpen = book.getAttribute('data-open');
-            // let parent = book.parentElement;
             let side = book.querySelector('.side');
             let front = book.querySelector('.front');
-
-            // console.log(isOpen);
-            // console.log(idx, index);
 
             if (isOpen == 'false') {
                 if (idx == index) {
@@ -436,72 +344,60 @@ class Films extends Component {
             }
         })
     }
-    fadeIn(index){
+    fadeIn(index){//書的進場(換分類/進此頁)
         let books = Array.from(document.querySelectorAll('.book'));
         let middle = Math.ceil(books.length / 2);
-        // console.log("fadeIn: index = ", index)
-        // console.log(this.state.datas.length)
-        // console.log(index, index !== undefined)
+
+        //沒給index就翻最中間的書
         index = index !== undefined ? index : middle;
+
+        //求可視範圍書本index
         let minIndex = index - this.sideMaxBooks;
         let maxIndex = index + this.sideMaxBooks;
         minIndex = minIndex < 0 ? 0 : minIndex;
         maxIndex = maxIndex > books.length-1 ? books.length-1 : maxIndex;
-        console.log(minIndex, maxIndex)
+
         const show = (i,delay=120) => {
             books[i].classList.add('show');
             let isOpen = books[i].getAttribute('data-open');
             let side = books[i].querySelector('.side');
             let front = books[i].querySelector('.front');
+
+            //闔上書本
             if (isOpen === 'true'){
                 side.style.transform = 'rotateY(0deg)';
                 front.style.transform = 'rotateY(90deg)';
                 books[i].setAttribute('data-open', false);
                 books[i].querySelector('img').classList.add('hide');
             }
+            //打開指定的書
             if (i === index) {
-                // console.log(i);
                 side.style.transform = 'rotateY(-90deg)';
                 front.style.transform = 'rotateY(0deg)';
                 books[i].setAttribute('data-open', true);
                 books[i].querySelector('img').classList.remove('hide');
             }
-            // console.log(i);
-            // if(i == books.length) return;
+
+            //可視範圍內書本才做動畫
             if(i < maxIndex && i > minIndex){
                 return (i < books.length - 1) ? setTimeout(() => show(i + 1), delay) : i
-            }else{
+            }else{ //範圍外
                 return (i < books.length - 1) ? show(i + 1) : i
             }
             
         }
-        show(0);
-        // for (let i = 0; i < books.length; i++) {
-        //     setTimeout(() => {
-        //         books[i].classList.add('show');
-        //     }, i * 80)
-        // }
-        // setTimeout(() => {
-        //     side.style.transform = 'rotateY(-90deg)';
-        //     front.style.transform = 'rotateY(0deg)';
-        //     books[middle].setAttribute('data-open', true);
-        // }, middle * 80 + 80)
+        show(0); //遞迴呼叫
     }
-    componentWillMount(){
+    componentWillMount(){//fetch data
         let collection = sessionStorage.getItem("collection");
-        console.log(collection);
+        //Storage中沒有collection
         if(collection === null){
             // fetch(`${process.env.PUBLIC_URL}/json/films.json`)
             // fetch(`http://192.168.39.110/tcff_php/api/movie/read.php?cf=false`)
             fetch(`http://192.168.39.110/tcff_php/api/movie/read.php?cf=false`)
             .then((res)=>res.json())
-            // .then(films => console.log(films))
             .then((films)=> {
                 let types = films.reduce((a, x) => {
-                    // console.log({
-                    //     a:a,
-                    //     x:x
-                    // })
                     if (!a.includes(x.theme)) {
                         a.push(x.theme);
                     }
@@ -525,28 +421,25 @@ class Films extends Component {
                     }
                     return 0;
                 })
-                films.map(film => {
+
+                //全部影片都未收藏
+                films = films.map(film => {
                     film.collect = false;
+                    return film;
                 })
                 this.setState({
-                    datas:films,
+                    datas: films,
                     sortBy:'year',
                     types: types,
-                    books:true
+                    books: true
                 })
             });
-            console.log('state: ', this.state);
-        }else{
+        }else{ //已有收藏
             collection = JSON.parse(collection).films;
             fetch(`http://192.168.39.110/tcff_php/api/movie/read.php?cf=false`)
                 .then((res) => res.json())
-                // .then(films => console.log(films))
                 .then((films) => {
                     let types = films.reduce((a, x) => {
-                        // console.log({
-                        //     a:a,
-                        //     x:x
-                        // })
                         if (!a.includes(x.theme)) {
                             a.push(x.theme);
                         }
@@ -570,7 +463,7 @@ class Films extends Component {
                         }
                         return 0;
                     })
-                    films.map(film => {
+                    films = films.map(film => {
                         film.collect = false;
                         collection.forEach(x => {
                             if(x.id_movie === film.id_movie){
@@ -578,6 +471,7 @@ class Films extends Component {
                                 return;
                             }
                         })
+                        return film
                     })
                     this.setState({
                         datas: films,
@@ -588,8 +482,8 @@ class Films extends Component {
                 });
         }
     }
-    componentDidUpdate(){
-        console.log("update")
+    componentDidUpdate(){//書本初始狀態(位移、淡入、調整書背書面角度)
+        console.log("films Did Update")
         if(!this.firstUpdate){
             let allBook = document.querySelectorAll('.book');
             let book = Array.from(allBook);
@@ -601,18 +495,6 @@ class Films extends Component {
             this.fadeIn();
             this.firstUpdate = true;
         }
-    }
-    componentDidMount() {
-        
-        // let allBook = document.querySelectorAll('.book');
-        // let book = Array.from(allBook);
-        // let allFront = document.querySelectorAll('.front');
-        // let front = Array.from(allFront);
-        // front.forEach((f) => f.style.transform = 'rotateY(90deg)');
-
-        // this.positioning();
-        // this.fadeIn();
-        // console.log(this.state.datas.map((data, idx) => `${process.env.PUBLIC_URL}/images/${data.year}_${data.name.split(' ').join('_')}.jpg`))
     }
     render() {
         console.log('render', this.state)        

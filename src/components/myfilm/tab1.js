@@ -6,7 +6,8 @@ import '../myfilm/tab1.scss';
 class Tab1 extends Component {
   constructor(props){
     super(props);
-    // this.changeTab = this.changeTab.bind(this);
+
+    //綁定this
     this.del_collection = this.del_collection.bind(this);
     this.add_collection = this.add_collection.bind(this);
     this.add_item = this.add_item.bind(this);
@@ -15,7 +16,8 @@ class Tab1 extends Component {
     this.cancelOverlay = this.cancelOverlay.bind(this); 
     this.nextStep = this.nextStep.bind(this); 
     this.checkIfEmpty = this.checkIfEmpty.bind(this); 
-    // this.tab = document.querySelectorAll(".myfilmPage>div")
+
+    //state
     this.state = {
       films:[],
       cffilms:[],
@@ -31,23 +33,27 @@ class Tab1 extends Component {
       },
       isCollectionEmpty: true
     };
+
+    //暫存element
     this.temp = [];
-    // this.isCollectionEmpty = true;
   }
-  componentDidMount(){
+  componentWillMount(){
+    //調整視窗位置
     window.scrollTo(0, 0);
 
+    //登入狀態
     if (sessionStorage.getItem('user') !== null){
       let id = JSON.parse(sessionStorage.getItem('user')).id;
-      // fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=` + id)
+
+      //查詢收藏
       fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=` + id)
       // fetch(`${process.env.PUBLIC_URL}/json/collection.json`)
-        // .then(res => console.log(res.text()))
         .then(res => res.json())
         .then(datas => {
+
           let films = [];
           let cffilms = [];
-          console.log(datas);
+
           datas.forEach(data => {
             if(data.cf == 1){
               cffilms.push(data);
@@ -55,87 +61,67 @@ class Tab1 extends Component {
               films.push(data);
             }
           })
-          console.log(films,cffilms);
-          this.setState({
-            films: films,
-            cffilms: cffilms
-          });
+
           let collection = {
             films: films,
             cffilms: cffilms
           };
-          this.checkIfEmpty();
-          sessionStorage.setItem("collection", JSON.stringify(collection));
 
-          // console.log(this.state);
+          //改變頁面呈現
+          this.setState(collection);
+          //更新Storage
+          sessionStorage.setItem("collection", JSON.stringify(collection));
+          //檢查isCollectionEmpty
+          this.checkIfEmpty();
+
         })
         .catch(function (error) {
           console.log('There has been a problem with your fetch operation: ', error.message);
         })
-      }else{
-        let collection = sessionStorage.getItem("collection");
-        let id_movie = [];
-        let url = `http://192.168.39.110/tcff_php/api/cart/collection.php/`;
+
+    }else{ //未登入狀態
+      let collection = sessionStorage.getItem("collection");
+      let id_movie = [];
+      
+      if(collection !== null){
+        let films = JSON.parse(collection).films;
+        let cffilms = JSON.parse(collection).cffilms;
+
+        //整合所有加入的電影id
+        let id_movie = films.concat(cffilms).reduce((a,x) => {
+                a.push(x.id_movie)
+                return a
+              },[]);
         
-        if(collection !== null){
-          let films = JSON.parse(collection).films;
-          let cffilms = JSON.parse(collection).cffilms;
-          // console.log(films,cffilms)
-          let films_id = films.reduce((a,x) => {
-                  a.push(x.id_movie)
-                  // console.log(a,x,x.id_movie)
-                  return a
-                },[])
-          // console.log(films_id)
-          let cffilms_id = cffilms.reduce((a, x) => {
-                  a.push(x.id_movie)
-                  return a
-                }, [])
-          // console.log(films_id,cffilms_id)
-          id_movie = films_id.concat(cffilms_id);
-          id_movie = id_movie.join("_");
-          console.log(id_movie);
-          url += id_movie;
-          // console.log(url)
-          fetch(url)
-            .then(res => res.json())
-            .then(datas => {
-              console.log(datas);
-              let films = datas.filter(x => x.cf === '0');
-              let cffilms = datas.filter(x => x.cf === '1');
-              // console.log(films,cffilms)
-              let collection = {
-                films: films,
-                cffilms: cffilms
-              }
-              sessionStorage.setItem("collection", JSON.stringify(collection));
-              this.checkIfEmpty();
+        //查詢電影詳細資料(訂位、募資狀況)
+        fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php/${id_movie.join("_")}`)
+          .then(res => res.json())
+          .then(datas => {
 
-              this.setState(collection)
-            })
-            .catch(err => console.log(err.message))
-          // this.setState({
-          //   films: films,
-          //   cffilms: cffilms
-          // });
-        }
+            let films = datas.filter(x => x.cf === '0');
+            let cffilms = datas.filter(x => x.cf === '1');
+
+            let collection = {
+              films: films,
+              cffilms: cffilms
+            }
+
+            //替換Storage的collection
+            sessionStorage.setItem("collection", JSON.stringify(collection));
+            //檢查isCollectionEmpty
+            this.checkIfEmpty();
+            //更新頁面
+            this.setState(collection)
+          })
+          .catch(err => console.log("fetch problem: " + err.message));
       }
-
-      // let body = document.getElementsByTagName('body')[0];
-      // let fragment = document.createDocumentFragment();
-      // let str_el = "";
-      // fragment.appendChild(str_el);
-      // body.appendChild(fragment);
-  }
-  componentWillUpdate(){
-    // this.checkIfEmpty();
+    }
   }
   componentDidUpdate(){
-    console.log('didupdate');
+    console.log('Tab1 Did Update!');
+
+    //collection全選
     Array.from(document.querySelectorAll(".cb input")).forEach(cb => cb.checked = true);
-    // let collection = sessionStorage.getItem('collection');
-    // sessionStorage.setItem('cart', collection);
-    console.log()
   }
   checkIfEmpty(){
     let empty = this.state.isCollectionEmpty;
@@ -185,8 +171,8 @@ class Tab1 extends Component {
                   }
                 }else{
                   collection = JSON.parse(collection);
-                  collection.films.push(films);
-                  collection.cffilms.push(cffilms);
+                  collection.films = collection.films.concat(films);
+                  collection.cffilms = collection.cffilms.concat(cffilms);
                 }
                 sessionStorage.setItem("collection", JSON.stringify(collection));
                 this.checkIfEmpty();
@@ -210,28 +196,35 @@ class Tab1 extends Component {
                 this.temp.length = 0;     
               }
             })
-          }else{
-            fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php/`+add_id.join("_"))
-              .then(res => res.json())
-              .then(datas => {
-                console.log(datas);
-                let films = datas.filter(x => x.cf === '0');
-                let cffilms = datas.filter(x => x.cf === '1');
-                // console.log(films,cffilms)
-                let collection = {
+        }else{
+          fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php/` + add_id.join("_"))
+            .then(res => res.json())
+            .then(datas => {
+              console.log(datas);
+              let films = datas.filter(x => x.cf === '0');
+              let cffilms = datas.filter(x => x.cf === '1');
+              // console.log(films,cffilms)
+              let collection = sessionStorage.getItem("collection");
+              if (collection === null) {
+                collection = {
                   films: films,
                   cffilms: cffilms
                 }
-                sessionStorage.setItem("collection", JSON.stringify(collection));
-                this.checkIfEmpty();
+              } else {
+                collection = JSON.parse(collection);
+                collection.films = collection.films.concat(films);
+                collection.cffilms = collection.cffilms.concat(cffilms);
+              }
+              sessionStorage.setItem("collection", JSON.stringify(collection));
+              this.checkIfEmpty();
 
-                collection.add_films = [];
-                collection.add_cffilms = [];
-                this.temp.length = 0;
-                this.setState(collection)
-              })
-              .catch(err => console.log(err.message))
-          }
+              collection.add_films = [];
+              collection.add_cffilms = [];
+              this.temp.length = 0;
+              this.setState(collection)
+            })
+            .catch(err => console.log(err.message))
+        }
       }
 
       // add_ar.forEach(ar => {
@@ -648,26 +641,6 @@ class Tab1 extends Component {
       })
     }
   }
-  // changeTab(event){
-  //   let target = event.target;
-  //   let tabs = document.querySelectorAll(".tab")
-  //   // event.stopPropagation();
-  //   Array.from(tabs).forEach(function(tab){
-  //     tab.classList.remove('active'); // tab content
-  //   })
-  //   // console.log("parent", target.parentElement.parentElement)
-  //   let index = Array.from(document.querySelectorAll(".step")).indexOf(target);
-  //   // target.parentElement.parentElement.classList.add("active");
-  //   tabs[index].classList.add("active");
-  //   Array.prototype.forEach.call(document.querySelectorAll('.step'), function(el){
-  //     el.classList.remove('active');
-  //   })
-  //   // console.log(tab);
-  //   // tab.classList.remove('active');
-  //   console.log(tabs);
-  //   target.classList.add('active'); //step
-
-  // }
   nextStep(evt){
     let user = sessionStorage.getItem("user");
     if(user === null){

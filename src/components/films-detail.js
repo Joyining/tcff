@@ -27,7 +27,7 @@ class Filmsdetail extends Component {
         if(isChecked){
             console.log("del");
             if (id_user !== undefined){
-                url = `https://192.168.39.110/tcff_php/api/cart/collection.php/${id_movie}/${id_user}`;
+                url = `http://192.168.39.110/tcff_php/api/cart/collection.php/${id_movie}/${id_user}`;
                 fetch(url,{
                     method:"DELETE",
                     headers: {
@@ -78,7 +78,7 @@ class Filmsdetail extends Component {
         }else{
             console.log("add")
             if (id_user !== undefined) {
-                url = `https://192.168.39.110/tcff_php/api/cart/collection.php`;
+                url = `http://192.168.39.110/tcff_php/api/cart/collection.php`;
                 let body = {
                     id: id_user,
                     id_movie: id_movie

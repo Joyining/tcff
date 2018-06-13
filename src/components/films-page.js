@@ -30,7 +30,6 @@ class FilmsPage extends Component{
         let collectionNum = 0;
         if(collection !== null){
             collectionNum += collection.films.length;
-        // } else if (collection.cffilms !== null){
             collectionNum += collection.cffilms.length;
         }
         this.setState({
