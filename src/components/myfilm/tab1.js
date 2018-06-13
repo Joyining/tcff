@@ -40,7 +40,7 @@ class Tab1 extends Component {
     if (sessionStorage.getItem('user') !== null){
       let id = JSON.parse(sessionStorage.getItem('user')).id;
       // fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=` + id)
-      fetch(`http://localhost/tcff_php/api/cart/collection.php?id=` + id)
+      fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=` + id)
       // fetch(`${process.env.PUBLIC_URL}/json/collection.json`)
         // .then(res => console.log(res.text()))
         .then(res => res.json())
@@ -347,7 +347,7 @@ class Tab1 extends Component {
       
       //登入
       if (id_user !== undefined) {
-        url = `http://localhost/tcff_php/api/cart/collection.php/${id_movie}/${id_user}`;
+        url = `http://192.168.39.110/tcff_php/api/cart/collection.php/${id_movie}/${id_user}`;
         fetch(url, {
           method: "DELETE",
           headers: {
@@ -525,7 +525,7 @@ class Tab1 extends Component {
     console.log(this.state.all_films.length, this.state.all_cffilms.length);
     if (!(this.state.all_films.length || this.state.all_cffilms.length)){
       // fetch(`${process.env.PUBLIC_URL}/json/films.json`)
-      fetch(`http://localhost/tcff_php/api/movie/read.php`)
+      fetch(`http://192.168.39.110/tcff_php/api/movie/read.php`)
         .then(res => res.json())
         .then(datas => {
           let films = [];
