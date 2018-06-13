@@ -37,12 +37,12 @@ class Tab1 extends Component {
     //暫存element
     this.temp = [];
   }
-  componentWillMount(){
+  componentWillMount(){//fetch data
     //調整視窗位置
     window.scrollTo(0, 0);
 
-    //登入狀態
-    if (sessionStorage.getItem('user') !== null){
+    
+    if (sessionStorage.getItem('user') !== null) { //登入狀態
       let id = JSON.parse(sessionStorage.getItem('user')).id;
 
       //查詢收藏
@@ -81,7 +81,6 @@ class Tab1 extends Component {
 
     }else{ //未登入狀態
       let collection = sessionStorage.getItem("collection");
-      let id_movie = [];
       
       if(collection !== null){
         let films = JSON.parse(collection).films;

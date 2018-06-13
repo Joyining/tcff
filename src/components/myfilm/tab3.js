@@ -9,39 +9,6 @@ class Tab3 extends Component {
         super(props);
         this.nextStep = this.nextStep.bind(this);
         this.state = {
-            // films: [
-            //     {
-            //         id_movie: 1,
-            //         name: "驚魂記",
-            //         session: "2018-07-14 19:00 台北光點",
-            //         quantity: 3,
-            //         seats: ['A1','A2','A3'],
-            //     },
-            //     {
-            //         id_movie: 2,
-            //         name: "畢業生",
-            //         session: "2018-07-14 19:00 台北光點",
-            //         quantity: 2,
-            //         seats: ['D1', 'D2'],
-            //     },
-            //     {
-            //         id_movie: 4,
-            //         name: "真善美",
-            //         session: "2018-07-14 19:00 台北光點",
-            //         quantity: 4,
-            //         seats: ['E5', 'E6', 'E7', 'E8'],
-            //     },
-            //     {
-            //         id_movie: 15,
-            //         name: "最長的一天",
-            //         quantity: 5
-            //     },
-            //     {
-            //         id_movie: 30,
-            //         name: "克萊門夫婦",
-            //         quantity: 5
-            //     }
-            // ]
             films: []
         }
         this.price = 250;
