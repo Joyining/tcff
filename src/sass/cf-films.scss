@@ -99,12 +99,13 @@
         margin: 0 auto;    
     }
     h6{
+        margin-top: 10px;
         color: #602926;
     }
     #progressbar{
         margin: 0 auto;
         margin-top: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 30px;
         width: 70%;
         height: 15px;
         background-color: #e2dfd8;
@@ -119,7 +120,16 @@
             box-shadow: 0 0 2px ;
         }
     }
-    
+    input{
+        display: none;
+        &:checked+label{
+            color: white;
+            background-color: #de912d;
+            /*svg{
+                display: none;
+            }*/
+        }
+    }
     .favorite{
         transition: all .5s;
         width: 150px;
@@ -134,11 +144,7 @@
         cursor: pointer;
         font-family: "\5FAE\8EDF\6B63\9ED1\9AD4";
     }
-    .favorite:hover{
-        color: #602926;
-        background-color: #cbab9e;
-        border: 1px solid #602926;
-    }
+    
 }
 
 .first{

@@ -8,17 +8,35 @@ class CffilmsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collectionNum: "0",
+      collectionNum: 0,
     };
 
+    this.updatecollectionNum = this.updatecollectionNum.bind(this);
   }
   // only for testing 加到購物車
   componentWillMount() {
-    this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
+    // this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
+    let collection = JSON.parse(sessionStorage.getItem("collection"));
+        if (collection !== null){
+            let collectionNum = collection.films.length + collection.cffilms.length;
+            this.setState({
+                collectionNum: collectionNum
+            })
+        }
   }
   // only for testing 加到購物車
   updatecollectionNum() {
-    this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
+    // this.setState({ collectionNum: localStorage.getItem("collectionsNum") });
+    let collection = JSON.parse(sessionStorage.getItem("collection"));
+        let collectionNum = 0;
+        if(collection !== null){
+            collectionNum += collection.films.length;
+        // } else if (collection.cffilms !== null){
+            collectionNum += collection.cffilms.length;
+        }
+        this.setState({
+            collectionNum: collectionNum
+        })
   }
   componentDidMount() {
     window.scrollTo(0, 0);
@@ -27,9 +45,9 @@ class CffilmsPage extends Component {
   render() {
     return (
         <div style={{position:'relative'}}>
-            <Header />
+            <Header collectionNum={this.state.collectionNum} />
             <FastTicket />
-            <Cffilms />
+            <Cffilms updatecollectionNum={this.updatecollectionNum} />
             <Footer />
         </div>
     );

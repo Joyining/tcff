@@ -76,13 +76,13 @@ class MyFilmPage extends Component {
     }
   }
   componentDidUpdate(){
-    let collection = JSON.parse(sessionStorage.getItem("collection"));
-    if (collection !== null) {
-      let collectionNum = collection.films.length + collection.cffilms.length;
-      this.setState({
-        collectionNum: collectionNum
-      })
-    }
+    // let collection = JSON.parse(sessionStorage.getItem("collection"));
+    // if (collection !== null) {
+    //   let collectionNum = collection.films.length + collection.cffilms.length;
+    //   this.setState({
+    //     collectionNum: collectionNum
+    //   })
+    // }
   }
   updatecollectionNum() {
     let collection = JSON.parse(sessionStorage.getItem("collection"));

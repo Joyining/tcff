@@ -105,10 +105,20 @@ class Films extends Component {
                     .then(res => res.json())
                     .then(data => {
                         console.log("m: ", data.message);
+                        console.log("data",data)
                         if (data.message === "add 1 collection") {
                             //刪Storage的collection
-                            let collection = JSON.parse(sessionStorage.getItem('collection'));
-                            collection.films.push(data.collection_info[0]);
+                            let collection = sessionStorage.getItem('collection');
+                            if(collection === null){
+                                collection = {
+                                    films: [data.collection_info[0]],
+                                    cffilms: []
+                                }
+                            }else{
+                                collection = JSON.parse(collection)
+                                collection.films.push(data.collection_info[0]);
+                            }
+                            // collection.films.push(data.collection_info[0]);
                             sessionStorage.setItem("collection", JSON.stringify(collection));
 
                             //改變checkbox狀態(setState)

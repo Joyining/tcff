@@ -81,6 +81,7 @@ class Tab3 extends Component {
                 })
                 film = {
                     session: x.id_session,
+                    id_movie: x.id_movie,
                     seats: seats,
                     quantity: x.quantity
                 };
@@ -111,8 +112,44 @@ class Tab3 extends Component {
             .then(datas => {
                 console.log("state&datas",this.state,datas);
                 if(datas.message === "booking success"){
-                    window.history.pushState(null, '', '4');
-                    // location.href = '/my-film/4';
+                    // window.history.pushState(null, '', '4');
+                    let url = "";
+                    let id = JSON.parse(sessionStorage.getItem('user')).id;
+                    url = 'http://192.168.39.110/tcff_php/api/cart/collection.php/';
+                    let booked_id_movie = this.state.films.reduce((a,x) => {
+                        a.push(x.id_movie);
+                        return a;
+                    },[])
+                    console.log(`${url}${booked_id_movie.join('_')}/${id}`)
+                    fetch(`${url}${booked_id_movie.join('_')}/${id}`, {
+                        method: "DELETE"
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log("m: ", data.message);
+                            console.log(data)
+                            if (data.message === "delete collections"){
+                                let collection = JSON.parse(sessionStorage.getItem('collection'));
+                                let films = collection.films;
+                                let cffilms = collection.cffilms;
+                                films = films.filter(x => !booked_id_movie.includes(x.id_movie))
+                                cffilms = cffilms.filter(x => !booked_id_movie.includes(x.id_movie))
+                                collection = {
+                                    films:films,
+                                    cffilms:cffilms
+                                }
+
+                                console.log("booked_id_movie", booked_id_movie)
+                                console.log("films", films)
+                                console.log("cffilms", cffilms)
+                                console.log("collection", collection)
+                                sessionStorage.setItem("collection", JSON.stringify(collection));
+
+                            }
+                            sessionStorage.removeItem('cart');
+                            // window.location.href = '/my-film/4';
+                        })
+                    
                 } else if (datas.message === "seats have been booked"){
                     let str = '';
                     for(let id_movie in datas.repeat_seats){
