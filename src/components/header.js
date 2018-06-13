@@ -19,7 +19,8 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  NavLink
+  NavLink,
+  withRouter
 } from "react-router-dom";
 
 class Header extends Component {
@@ -60,6 +61,9 @@ class Header extends Component {
 
     logout(){
         sessionStorage.clear("user");
+        const memberPanel = document.querySelector('.member-panel');
+        memberPanel.classList.remove('active');
+        this.props.history.push("/member");
     }
 
     componentDidMount(){
@@ -395,4 +399,4 @@ class Header extends Component {
     }
 }
 
-export default Header;
+export default withRouter(Header);
