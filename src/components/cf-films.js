@@ -163,7 +163,7 @@ class Cffilms extends Component {
          .then((res) => res.json())
          .then((datas) => {
             console.log(datas) 
-            if(collection.cffilms === null){
+            if(collection === null){
                 datas.map(x => {
                     x.collect = false;
                 })
@@ -226,7 +226,7 @@ class Cffilms extends Component {
                     
                     <p className="first">{data.release_year}</p>
                     <p>{data.name_zhtw}</p>
-                    <h6>目前進度：{Math.round(data.progress*100)}%(尚未達標)</h6>
+                    <h6>目前進度：{Math.round(data.progress*100)}%</h6>
                     <div id="progressbar">
                         <div id="bar" style={{width:data.progress*100+'%'}}></div>
                     </div>
