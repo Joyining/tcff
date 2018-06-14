@@ -7,6 +7,7 @@ import ticket from '../images/ticket2.svg';
 import member from '../images/member2.svg';
 import calendar from '../images/calendar.svg';
 import fastTicket from '../images/fast-ticket.svg';
+import fastTicketMobile from "../images/FastTicketMobile.svg";
 
 import menuBgImg01 from "../images/2001_a_space_odyssey_01.jpg";
 import menuBgImg02 from "../images/2001_a_space_odyssey_02.jpg";
@@ -31,6 +32,7 @@ class Header extends Component {
         this.openMember=this.openMember.bind(this);
         this.closeMember = this.closeMember.bind(this);
         this.logout = this.logout.bind(this);
+        this.toggleMember = this.toggleMember.bind(this);
         }
 
     // updatecollectionNum() {
@@ -58,6 +60,10 @@ class Header extends Component {
         const memberPanel = document.querySelector('.member-panel');
         memberPanel.classList.remove('active');
     }
+    toggleMember() {
+        const memberPanelMobile = document.querySelector('.member-panel-mobile');
+        memberPanelMobile.classList.toggle("active");
+    }
 
     logout(){
         sessionStorage.clear("user");
@@ -69,13 +75,17 @@ class Header extends Component {
     componentDidMount(){
         if(this.props.loginStatus==true){
             console.log('login true');
-            let memberIcon = document.querySelector('#member');
-            memberIcon.style.display="none";
+            let memberIconWeb = document.querySelector("#memberWeb");
+            let memberIconMobile = document.querySelector("#memberMobile");
+            memberIconWeb.style.display = "none";
+            memberIconMobile.style.display = "none";
 
         }else{
             console.log("login false");
-            let nickname = document.querySelector("#nickname");
-            nickname.style.display = "none";
+            let nicknameWeb = document.querySelector("#nicknameWeb");
+            let nicknameMobile = document.querySelector("#nicknameMobile");
+            nicknameWeb.style.display = "none";
+            nicknameMobile.style.display = "none";
         }
 
 
@@ -245,7 +255,7 @@ class Header extends Component {
             </div>
             <ul className="nav-text transition">
                 <li className="nav-text-li transition">
-                    <a href="" className="transition">節目資訊</a>
+                    <div className="transition">節目資訊</div>
                     <ul className="panel transition">
                         <li><Link to="/films" className="transition">確認放映</Link></li>
                         <li><Link to="/cf-films" className="transition">募資影片</Link></li>
@@ -253,7 +263,7 @@ class Header extends Component {
                     </ul>
                 </li>
                 <li className="nav-text-li transition">
-                    <a href="" className="transition">影展資訊</a>
+                    <div className="transition">影展資訊</div>
                     <ul className="panel transition">
                         <li><Link to="/info" className="transition">關於影展</Link></li>
                         <li><Link to="/info" className="transition">場地資訊</Link></li>
@@ -267,13 +277,13 @@ class Header extends Component {
             <div className="nav-icon web">
                 <Link to="/my-film/1" onClick={this.menuClose}><img className="transition" src={ticket} alt="" /><div className="collection-num">{this.props.collectionNum}</div></Link>
                 
-                <a id="nickname" onMouseOver={this.openMember} onMouseOut={this.closeMember}>{this.props.login}</a>
+                <a id="nicknameWeb" onMouseOver={this.openMember} onMouseOut={this.closeMember}>{this.props.login}</a>
                 <ul className="member-panel transition" onMouseOver={this.openMember} onMouseOut={this.closeMember}>
                     <li><Link to="/" className="transition">查詢訂票紀錄</Link></li>
                     <li><Link to="/" className="transition">修改會員資料</Link></li>
                     <li><a className="transition" onClick={this.logout}>登出</a></li>
                 </ul>
-                <Link to="/member" id="member" onClick={this.menuClose}><img  className="transition" src={member} alt="" /></Link>
+                <Link to="/member" id="memberWeb" onClick={this.menuClose}><img  className="transition" src={member} alt="" /></Link>
 
                 <div className="menu-icon transition">
                     <div className="line-1 no-animation transition"></div>
@@ -284,9 +294,19 @@ class Header extends Component {
             <div className="nav-icon mobile">
                 <div className="icon">
                     <Link to="/time" onClick={this.menuClose}><img src={calendar} alt="" /></Link>
-                    <Link to="/my-film/1" onClick={this.menuClose}><img className="transition" src={ticket} alt="" /></Link>
-                    <Link to="/my-film/1" onClick={this.menuClose}><img src={fastTicket} alt="" /></Link>
-                    <Link to="/member" onClick={this.menuClose}><img className="transition" src={member} alt="" /></Link>
+
+                    <Link to="/my-film/1" onClick={this.menuClose}><img className="transition" src={ticket} alt="" /><div className="collection-num">{this.props.collectionNum}</div></Link>
+                    
+                    <Link to="/my-film/1" onClick={this.menuClose}><img src={fastTicketMobile} alt="" /></Link>
+                    
+                    <a id="nicknameMobile" onClick={this.toggleMember}>{this.props.login}</a>
+                        <ul className="member-panel-mobile transition" onMouseOver={this.openMember} onMouseOut={this.closeMember}>
+                        <li><Link to="/" className="transition">查詢訂票紀錄</Link></li>
+                        <li><Link to="/" className="transition">修改會員資料</Link></li>
+                        <li><a className="transition" onClick={this.logout}>登出</a></li>
+                    </ul>
+                    <Link to="/member" id="memberMobile" onClick={this.menuClose}><img className="transition" src={member} alt="" /></Link>
+
                     <div className="menu-icon transition">
                         <div className="line-1 no-animation transition"></div>
                         <div className="line-2 no-animation transition"></div>
