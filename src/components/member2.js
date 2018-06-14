@@ -15,14 +15,18 @@ class Member2 extends Component {
     super(props);
 
     this.state = {
-      // email: "",
-      // password: "",
-      // message: { email: "", password: "" },
+      email: "",
+      password_log: "",
+      message: { email: "", password_log: "" },
 
-      // account: "",
-      // password_acc: "",
-      // message: { account: "", password_acc: "" }
+      account: "",
+      password_reg: "",
+      password_again:"" ,
+      message: { account: "", password_acc: "" }
     };
+    this.handleChange = this.handleChange.bind(this);   
+    this.validate = this.validate.bind(this);  
+
     this.flipToReg = this.flipToReg.bind(this);
     this.fliptoForget = this.fliptoForget.bind(this);
     this.flipFromForgetToLog = this.flipFromForgetToLog.bind(this);
@@ -30,12 +34,82 @@ class Member2 extends Component {
     this.loginSubmit = this.loginSubmit.bind(this);
     this.registerSubmit = this.registerSubmit.bind(this);
   }
-  flipToReg() {
+
+  handleChange(event){
+    const state = this.state;
+    state[event.target.id] = event.target.value;         
+    this.setState(state);
+}
+
+validate(event){
+    switch (event.target.name){
+        case "email":
+            this.emailCheck();
+            break;
+        case "password":
+            this.passwordCheck();
+            break;
+        case "account":
+            this.accountCheck();
+            break;
+        case "password_reg":
+            this.passwordAccCheck();
+            break;
+        case "password_acc_ag":
+            this.passwordAccCheckAgain();
+            break;
+        default:
+            break;
+    } 
+}
+
+emailCheck(){
+    const pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    const error = this.state.message;     
+    //pattern.test(this.state.email) ? error.email = "" : error.email = "email格式不正確";
+    pattern.test(this.state.email_log) ? error.email = "" : error.email = "email格式不正確";
+    this.setState({message:error});
+    console.log(pattern.test(this.state.email_log), this.state.email_log);
+}
+passwordCheck(){
+    const pwd = this.state.password_log;
+    const error = this.state.message;
+    pwd.length >=6 ? error.password = "" : error.password = "請輸入至少6字元";
+    this.setState({message:error});
+    console.log(pwd,pwd.length, error);
+}
+
+accountCheck(){
+  const pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+  const error = this.state.message
+  pattern.test(this.state.email_reg) ? error.account = "" : error.account = "email格式不正確";
+  this.setState({message:error})
+}
+
+passwordAccCheck(){
+  console.log(pwd)
+  const pwd = this.state.password_reg;
+  const error = this.state.message
+  pwd.length <=6 ? error.password_acc = "" : error.password_acc= "請輸入至少6字元";
+  this.setState({message:error})
+}
+
+passwordAccCheckAgain(){
+  const pwd = this.state.password_acc_again;
+  const pwdagain = this.state.password_r ;
+  const error = this.state.message ;
+  pwdagain ? error.password_acc_again = "" : error.password_acc_again = "請輸入";
+  
+  this.setState({message:error})
+}
+
+
+flipToReg() {
     console.log("flip to reg");
     let card1 = document.querySelector("#card1");
     card1.classList.toggle("active");
   }
-  fliptoForget(){
+fliptoForget(){
       console.log("flip to forget");
       let card2 = document.querySelector("#card2");
       card2.classList.toggle("active");
@@ -209,99 +283,98 @@ registerSubmit(evt) {
         <div className="card-container">
           <div className="card log-reg transition" id="card1">
             {/* <div className="inner-wrap"> */}
-            <form action="" className="inner front log" id="login">
-              <div className="title">會員登入</div>
-              <div className="">
-                <label htmlFor="email_log">帳號</label>
-                <input
-                  type="text"
-                  id="email_log"
-                  placeholder="請輸入您的email帳號"
-                />
-              </div>
-              <div className="">
-                <label htmlFor="password_log">密碼</label>
-                <input
-                  type="password"
-                  id="password_log"
-                  placeholder="請輸入您的密碼"
-                />
-              </div>
 
-              <input type="button" onClick={this.loginSubmit} value="登入"/>
-              <div className="btn-group">
-                <div className="btn reg-btn" onClick={this.flipToReg}>
-                  註冊
+            {/* 會員登入 */}
+            <form action="" className="inner front log" id="login">
+                <div className="login_word">會 員 登 入</div>
+
+                <div className="account_box">
+                    <div htmlFor="email"  className="account_1"><label>帳號：</label></div>
+                    <input type="text" id="email_log" name="email" className="account_2"  placeholder="請輸入您的email帳號"  value={this.state.email_log} onChange={this.handleChange} onBlur={this.validate} />
                 </div>
-                <div className="btn forget-btn" onClick={this.fliptoForget}>
-                  忘記密碼
+                <div className="worring_box_l hide_use">
+                    <div className="worring_l" id="worring_mail" >{this.state.message.email}</div>
                 </div>
-              </div>
+
+                <div className="password_box pass hide_use">
+                    <div  htmlFor="password_log" className="password_1"><label >密碼：</label></div>
+                  <input  type="password"  id="password_log" name="password" className="password_2" placeholder="請輸入您的密碼" value={this.state.password_log} onChange={this.handleChange} onBlur={this.validate} />
+                </div>
+                <div className="worring_box_l hide_use">
+                    <div className="worring_l" id="worring_password">{this.state.message.password}</div>
+                </div>
+
+                <button className="login_btn mouse hide_use" onClick={this.loginSubmit}><div >登入</div></button>
+
+                <div className="btn_box">
+                  <div className="registered sign_up mouse" onClick={this.flipToReg}><div>註冊</div></div>
+                  <div className="registered forget_p mouse" onClick={this.fliptoForget}><div>忘記密碼</div></div>
+                </div>
             </form>
+
+            {/* 會員註冊 */}
             <form className="inner back reg" id="register">
-              <div className="title">會員註冊</div>
-              <div className="">
-                <label htmlFor="email_reg">帳號</label>
-                <input
-                  type="text"
-                  id="email_reg"
-                  placeholder="請輸入您的email帳號"
-                />
+              <div className="registered_word">會 員 註 冊</div>
+              <div className="account_box_r">
+                <div htmlFor="email_reg" className="account_r"><label>帳號：</label></div>
+                <input  type="text" id="email_reg" name="account" className="account_r_2" placeholder="請輸入您的email帳號"  onBlur={this.validate} value={this.state.email_reg} onChange={this.handleChange} />
               </div>
-              <div className="">
+              <div className="worring_box_r">
+                <div className="worring_r">{this.state.message.account}</div>
+               </div>
+              {/* <div className="">
                 <label htmlFor="nickname_reg">暱稱</label>
                 <input
                   type="text"
                   id="nickname_reg"
                   placeholder="請輸入一個三個字元內的暱稱"
                 />
+              </div> */}
+              <div className="password_box_r">
+                <div className="password_r_1"  htmlFor="password_reg"><label>密碼：</label></div>
+                <input  type="password"  id="password_reg"  name="password_reg" className="password_r_2"  placeholder="請輸入您的密碼"  value={this.state.password_reg} onChange={this.handleChange} onBlur={this.validate} />
               </div>
-              <div className="">
-                <label htmlFor="password_reg">密碼</label>
-                <input
-                  type="password"
-                  id="password_reg"
-                  placeholder="請輸入您的密碼"
-                />
-              </div>
-              <div className="">
-                <label htmlFor="password_check">密碼確認</label>
-                <input
-                  type="password"
-                  id="password_check"
-                  placeholder="請再次輸入您的密碼"
-                />
+              <div className="worring_box_r">
+                <div className="worring_r">{this.state.message.password_acc}</div>
               </div>
 
-              <input type="button" onClick={this.registerSubmit} value="註冊會員" />
-              <div>已有帳號?</div>
-              <div className="btn-group">
-                <div className="btn log-btn" onClick={this.flipToReg}>
-                  登入
-                </div>
+              <div className="password_box_r">
+                <div  className="password_r_1 password_mo" htmlFor="password_check"><label>密碼確認：</label></div>
+                <input  type="password"  id="password_check" name="password_acc_ag" className="password_r_2" placeholder="請再次輸入您的密碼"  />
+              </div>
+              <div className="worring_box_r">
+                 <div className="worring_r">{this.state.message.password_acc_ag}</div>
+              </div>
+
+              <div className="btn_box_r">
+                 <button className="registered_btn mouse" onClick={this.registerSubmit}><div>註冊</div></button>
+              </div>
+
+              <div className="word_r">已有帳號?</div>
+              <div className="btn_box_r">
+                  <button className="registered_r sign_up_r mouse" onClick={this.flipToReg}><div>登入</div></button>                    
               </div>
             </form>
             {/* </div> */}
           </div>
 
+           {/* 忘記密碼 */}
           <div className="card bg-forget transition" id="card2">
-            <div className="inner front bg">background</div>
+            <div className="inner front bg"> </div>
             <form className="inner back forget" id="forget">
-                <div className="title">忘記密碼</div>
-                <div className="">
-                    <label htmlFor="email_forget">您的註冊帳號</label>
-                    <input
-                        type="text"
-                        id="email_forget"
-                        placeholder="請輸入您註冊的email帳號"
-                    />
-                </div>
-                <button>確認送出</button>
-                <div className="btn-group">
-                    <div className="btn reg-btn" onClick={this.flipFromForgetToReg}>註冊</div>
-                    <div className="btn log-btn"onClick={this.flipFromForgetToLog}>登入</div>
+                <div className="login_word_p hide_use ">忘 記 密 碼</div>
+
+                <div className="account_box_p hide_use">
+                    <div htmlFor="email_forget" className="account_1_p"><label>註冊帳號：</label></div>
+                    <input type="text" id="email_forget" className="account_2_p"  placeholder="請輸入email"  />
                 </div>
 
+                <button className="login_btn_p mouse hide_use"><div>確認送出</div></button>
+
+                <div className="btn_box_p hide_use">
+                    <button  className="registered_p sign_up mouse" onClick={this.flipFromForgetToReg}> <div>註冊</div></button>
+                    <button  className="registered_p login_btn_t mouse" onClick={this.flipFromForgetToLog}><div>登入</div></button>
+                </div>
 
             </form>
           </div>

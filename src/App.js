@@ -28,8 +28,8 @@ class App extends Component {
             {/* 路由對照設定 */}
             <Route exact path="/" component={HomePage} />
             {/* <Route path="/member" component={MemberPage} /> */}
-            <Route path="/member2" component={MemberPage2} />
-            <Route path="/member" component={Member} />
+            <Route path="/member" component={MemberPage2} />
+            {/* <Route path="/member" component={Member} /> */}
             <Route path="/membercenter" component={MemberCenter} />
             {/* <Route path="/member2" component={MemberPage2} /> */}
             <Route path="/my-film/:page" component={MyFilmPage} />
