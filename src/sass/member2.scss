@@ -7,7 +7,7 @@ $headerHeight: 100px;
 	// padding: 100px;
 	width: 80vw;
     box-sizing: border-box;
-    border: 2px solid orange;
+    // border: 2px solid orange;
 	@include breakpoint("tablet") {
 		width: 90vw;
 		padding: 50px;
@@ -75,16 +75,16 @@ $headerHeight: 100px;
         transform: rotateY(180deg) translateY(-600px);
         }
         &.log{
-        background-color: blue;
+        background-color: $colorLight;
         }
         &.reg{
-        background-color: darkblue;
+        background-color: $colorLight;
         }
         &.bg{
-        background-color: green;
+        background-color: $colorDarker;
         }
         &.forget{
-        background-color: darkgreen;
+        background-color: $colorLight;
         }
         .btn-group{
             display: flex;
@@ -106,6 +106,315 @@ $headerHeight: 100px;
     }
 
 }
+
+.mouse{ 
+    cursor: pointer; 
+}
+
+
+// --------------**會員登入**--------------*
+    .login_word{
+        margin: 0 auto ;
+        padding: 20px 0 10px 0 ;
+        height: 50px ;           
+        @include text-rec(80% , 24px , none , $colorDark ,transparent) ;
+        border-bottom: 3px solid $colorDark ;
+        font-weight: bold ;
+    }
+    .account_box{
+        display: flex ;
+        flex-direction: row ;
+        padding: 50px 50px 0 10px ;
+    }
+    .account_1{
+        width: 80%;
+        height: 35px;
+        margin:  0;
+        @include text-rec(30% , 18px , none , $colorDark ,transparent) ;
+        text-align: right ;
+    }
+    .account_2{
+        height: 25px;
+        width: 80%;
+        // margin: 55px auto 0;
+        border: 2px solid $colorMedium ;
+    }
+    .password_box{
+        display: flex ;
+        flex-direction: row ;
+        padding: 50px 50px 0 10px  ;                
+    }
+
+    .pass{
+        padding: 20px 50px 0 10px  ;
+    }
+
+    .password_1{
+        width: 80%;
+        height: 35px;
+        margin:  0;
+        @include text-rec(30% , 18px , none , $colorDark ,transparent) ;
+        text-align: right ;
+        // background-color: aliceblue ;
+    }
+    .password_2{
+        height: 25px;
+        width: 80%;
+        // margin: 55px auto 0;
+        border: 2px solid $colorMedium ;
+    }
+    .login_btn{
+        // width: 100px;
+        height: 30px;
+        margin: 50px 35% ;
+        padding:0 0 30px 0;
+        @include text-rec(30% , 18px , $colorDark , $colorLight ,transparent) ;   
+        @include breakpoint("mobileonly"){
+            @include text-rec(200px , 18px , $colorDark , $colorLight ,transparent) ;
+            margin: 50px 25% ;
+            width: 50%;
+        }             
+    }
+    .btn_box{
+        display: flex ;
+        flex-direction:row ;
+        justify-content: center ;
+        padding: 30px 0 ;
+        @include breakpoint("mobileonly"){
+            flex-direction:column ;
+            padding: 0 ;
+         }
+
+    }
+
+    .worring_box_l{
+        margin: -10px -50px 30px -50px;
+        height: 24px;
+        width: 100%;
+        // overflow: hidden ;
+    }
+
+    .worring_l{
+        @include text-rec(none , 12px , transparent , red ,transparent) ;
+        text-align: right ;
+        // display: none ;                
+    }
+
+    .registered{
+        margin: 0 20px 0 20px  ;
+        box-sizing: border-box;
+        @include text-rec(100px , 18px , transparent , $colorDark ,$colorDark) ;
+        @include breakpoint("mobileonly"){
+            @include text-rec(200px , 18px , transparent , $colorDark ,$colorDark) ;
+            margin: 5px 25% ;
+            width: 50%;
+         }
+    }
+
+//-----------**************-----------
+
+
+// --------------**會員註冊**--------------*
+.registered_word{
+    margin: 0 auto ;
+    padding: 20px 0 10px 0 ;
+    height: 50px ;           
+    @include text-rec(80% , 24px , none , $colorDark ,transparent) ;
+    border-bottom: 3px solid $colorDark ;
+    font-weight: bold ;
+}
+.account_box_r{
+    display: flex ;
+    flex-direction: row ;
+    padding: 50px 50px 0 0px ;
+}
+.account_r{
+    // width: 80%;
+    height: 35px;
+    margin:  0;
+    @include text-rec(50% , 18px , none , $colorDark ,transparent) ;
+    text-align: right ;
+    // background-color: aliceblue ;
+}
+.account_r_2{
+    height: 25px;
+    width: 80%;
+    // margin: 55px auto 0;
+    border: 2px solid $colorMedium ;
+}
+.password_box_r{
+    display: flex ;
+    flex-direction: row ;
+    padding: 10px 50px 0 0  ;
+}
+.password_r_1{
+    // width: 80%;
+    height: 35px;
+    margin:  0;
+    @include text-rec(50% , 18px , none , $colorDark ,transparent) ;
+    text-align: right ;
+    // background-color: aliceblue ;
+}
+
+.password_r_2{
+    height: 25px;
+    width: 80%;
+    // margin: 55px auto 0;
+    border: 2px solid $colorMedium ;
+}
+.registered_btn{
+    width: 100px;
+    height: 30px;
+    margin: 50px auto ;
+    @include text-rec(30% , 18px , $colorDark , $colorLight ,transparent) ;                
+    @include breakpoint("mobileonly"){
+        width: 50%;
+    }
+}
+.btn_box_r{
+    display: flex ;
+    flex-direction: row ;
+    justify-content: center ;
+    padding: 0  ;
+}
+.registered_r{
+    margin: 0 20px 0 20px  ;
+    @include text-rec(100px , 18px , transparent , $colorDark ,$colorDark) ;
+}
+.word_r{
+    padding: 0 10% ;
+    @include text-rec(80% , 12px , transparent , $colorDark ,transparent) ;
+}
+.worring_box_r{
+    margin: 0 60% ;
+    height: 24px;
+    width: 100%;
+    // overflow: hidden ;
+    @include breakpoint("tablet"){
+        overflow: hidden ;
+        margin: 0 ;
+        padding-left: 50px ;
+     }
+    @include breakpoint("mobileonly"){
+        overflow: hidden ;
+        margin: 0 ;
+        padding-right: 50px ;
+     } 
+}
+.worring_r{
+    @include text-rec(30% , 12px , transparent , red ,transparent) ;
+    text-align: right ;
+    line-height: 10px ;
+    @include breakpoint("mobileonly"){
+        overflow: hidden ;
+        padding-left: 38% ;
+        line-height: 10px ;
+    }
+}
+.display{
+    display: none ;
+}
+
+//-----------**************-----------
+
+// --------------**忘記密碼**--------------*
+
+.login_word_p{
+    margin: 0 auto ;
+    padding: 20px 0 10px 0 ;
+    height: 50px ;           
+    @include text-rec(80% , 24px , none , $colorDark ,transparent) ;
+    border-bottom: 3px solid $colorDark ;
+    font-weight: bold ;
+}
+.account_box_p{
+    display: flex ;
+    flex-direction: row ;
+    padding: 50px 50px 0 10px ;
+}
+.account_1_p{
+    height: 35px;
+    margin: 35px 0;
+    @include text-rec(50% , 18px , none , $colorDark ,transparent) ;
+    text-align: right ;
+}
+.account_2_p{
+    height: 25px;
+    width: 70%;
+    margin: 40px 0;
+    border: 2px solid $colorMedium ;
+}
+.password_box_p{
+    display: flex ;
+    flex-direction: row ;
+    padding: 50px 50px 0 10px  ;
+}
+.password_1_p{
+    width: 80%;
+    height: 35px;
+    margin:  0;
+    @include text-rec(30% , 18px , none , $colorDark ,transparent) ;
+    text-align: right ;
+}
+.password_2_p{
+    height: 25px;
+    width: 80%;
+    // margin: 55px auto 0;
+    border: 2px solid $colorMedium ;
+}
+.login_btn_p{
+//    width: 100px;
+   height: 30px;
+   margin: 50px 35% ;
+   padding:0 0 30px 0;
+   @include text-rec(30% , 18px , $colorDark , $colorLight ,transparent) ;
+   @include breakpoint("mobileonly"){
+        @include text-rec(200px , 18px , $colorDark , $colorLight ,transparent) ;
+         margin: 50px 25% ;
+         width: 50%  ;
+    }    
+}
+
+.btn_box_p{
+    display: flex ;
+    flex-direction: row ;
+    justify-content: center ;
+    // margin: 30px 0 ;
+    @include breakpoint("mobileonly"){
+        flex-direction:column ;
+        padding: 0 ;
+     }
+}
+.registered_p{
+    margin: 0 20px 0 20px  ;
+    @include text-rec(100px , 18px , transparent , $colorDark ,$colorDark) ;
+    @include breakpoint("mobileonly"){
+        @include text-rec(200px , 18px , transparent , $colorDark ,$colorDark) ;
+        margin: 5px 25% ;
+        width: 50%;
+     }
+}
+.word_m{
+    padding: 0 50% 0 25% ;
+    @include text-rec(80% , 12px , transparent , $colorDark ,transparent) ;
+}
+
+.worring_box_p{
+    margin: -30px -50px 30px -50px;
+    height: 24px;
+    width: 100%;
+    // overflow: hidden ;
+}
+.worring_p{
+    @include text-rec(none , 12px , transparent , red ,transparent) ;
+    text-align: right ;
+    // display: none ;                
+}
+
+//-----------**************-----------
+
+// --------------*動畫設定**--------------*
+
 @keyframes bgslide{
     from {
         left:50%;
