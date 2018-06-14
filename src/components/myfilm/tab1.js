@@ -562,38 +562,43 @@ class Tab1 extends Component {
           let films = [];
           let cffilms = [];
           console.log(datas);
+          datas = datas.sort((a,b) => {
+            if (a.name_zhtw.length > b.name_zhtw.length) {
+              return 1;
+            }
+            if (a.name_zhtw.length < b.name_zhtw.length) {
+              return -1;
+            }
+            return 0;
+          })
           datas.map((data, idx) => {
             let select = false;
             let collect = false;
             if (data.cf === "0") {
-              this.state.films.forEach(film => {
-                let id = parseInt(film.id_movie);
-                if (id === idx+1) collect = true;
+              this.state.films.forEach(film => {                
+                if (film.id_movie === data.id_movie) collect = true;
               })
-              this.state.cffilms.forEach(film => {
-                let id = parseInt(film.id_movie);
-                if (id === idx+1) collect = true;
+              this.state.cffilms.forEach(film => {                
+                if (film.id_movie === data.id_movie) collect = true;
               })
               let new_data = {
                 "name": data.name_zhtw,
-                "id": (idx+1),
+                "id": (data.id_movie),
                 "cf": false,
                 "select": select,
                 "collect": collect
               }
               films.push(new_data);
             } else {
-              this.state.cffilms.forEach(film => {
-                let id = parseInt(film.id_movie);
-                if (id === idx+1) collect = true;
+              this.state.cffilms.forEach(film => {                
+                if (film.id_movie === data.id_movie) collect = true;
               })
-              this.state.cffilms.forEach(film => {
-                let id = parseInt(film.id_movie);
-                if (id === idx+1) collect = true;
+              this.state.cffilms.forEach(film => {                
+                if (film.id_movie === data.id_movie) collect = true;
               })
               let new_data = {
                 "name": data.name_zhtw,
-                "id": (idx + 1),
+                "id": (data.id_movie),
                 "cf": true,
                 "select": select,
                 "collect": collect
@@ -618,25 +623,21 @@ class Tab1 extends Component {
         let select = false;
         let collect = false;
         if (data.cf === false) {
-          this.state.films.forEach(film => {
-            let id = parseInt(film.id_movie);
-            if (id === data.id) collect = true;
+          this.state.films.forEach(film => {            
+            if (film.id_movie === data.id) collect = true;
           })
-          this.state.cffilms.forEach(film => {
-            let id = parseInt(film.id_movie);
-            if (id === data.id) collect = true;
+          this.state.cffilms.forEach(film => {            
+            if (film.id_movie === data.id) collect = true;
           })
           data.select = select;
           data.collect = collect;
           films.push(data);
         } else {
-          this.state.cffilms.forEach(film => {
-            let id = parseInt(film.id_movie);
-            if (id === data.id) collect = true;
+          this.state.cffilms.forEach(film => {            
+            if (film.id_movie === data.id) collect = true;
           })
-          this.state.cffilms.forEach(film => {
-            let id = parseInt(film.id_movie);
-            if (id === data.id) collect = true;
+          this.state.cffilms.forEach(film => {            
+            if (film.id_movie === data.id) collect = true;
           })
           data.select = select;
           data.collect = collect;
