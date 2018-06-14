@@ -255,7 +255,7 @@ class Header extends Component {
             </div>
             <ul className="nav-text transition">
                 <li className="nav-text-li transition">
-                    <a href="" className="transition">節目資訊</a>
+                    <div className="transition">節目資訊</div>
                     <ul className="panel transition">
                         <li><Link to="/films" className="transition">確認放映</Link></li>
                         <li><Link to="/cf-films" className="transition">募資影片</Link></li>
@@ -263,7 +263,7 @@ class Header extends Component {
                     </ul>
                 </li>
                 <li className="nav-text-li transition">
-                    <a href="" className="transition">影展資訊</a>
+                    <div className="transition">影展資訊</div>
                     <ul className="panel transition">
                         <li><Link to="/info" className="transition">關於影展</Link></li>
                         <li><Link to="/info" className="transition">場地資訊</Link></li>

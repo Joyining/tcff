@@ -67,12 +67,13 @@ header{
                 background-color: $colorMedium;
                 
             }
-            a{
+            a, div{
                 font-weight: bold;
                 display: block;
                 width: 100%;
+                cursor: pointer;
             }
-            a:link, a:visited{
+            a:link, a:visited, div{
                 color: $colorLight;
             }
             a:hover{

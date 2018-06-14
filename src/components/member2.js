@@ -22,7 +22,7 @@ class Member2 extends Component {
       account: "",
       password_reg: "",
       password_again:"" ,
-      message: { account: "", password_acc: "" }
+      message: { account: "", password_acc: "", nickname:"" }
     };
     this.handleChange = this.handleChange.bind(this);   
     this.validate = this.validate.bind(this);  
@@ -35,7 +35,7 @@ class Member2 extends Component {
     this.registerSubmit = this.registerSubmit.bind(this);
   }
 
-  handleChange(event){
+handleChange(event){
     const state = this.state;
     state[event.target.id] = event.target.value;         
     this.setState(state);
@@ -297,73 +297,74 @@ registerSubmit(evt) {
 
             {/* 會員登入 */}
             <form action="" className="inner front log" id="login">
-                <div className="login_word">會 員 登 入</div>
+                <div className="title">會 員 登 入</div>
 
-                <div className="account_box">
-                    <div htmlFor="email"  className="account_1"><label>帳號：</label></div>
+                <div className="input_box">
+                    <label htmlFor="email"  className="account_1">帳號：</label>
                     <input type="text" id="email_log" name="email" className="account_2"  placeholder="請輸入您的email帳號"  value={this.state.email_log} onChange={this.handleChange} onBlur={this.validate} />
                 </div>
-                <div className="worring_box_l hide_use">
+                <div className="warning_box hide_use">
                     <div className="worring_l" id="worring_mail" >{this.state.message.email}</div>
                 </div>
 
-                <div className="password_box pass hide_use">
-                    <div  htmlFor="password_log" className="password_1"><label >密碼：</label></div>
+                <div className="input_box pass hide_use">
+                  <label htmlFor="password_log" className="password_1">密碼：</label>
                   <input  type="password"  id="password_log" name="password" className="password_2" placeholder="請輸入您的密碼" value={this.state.password_log} onChange={this.handleChange} onBlur={this.validate} />
                 </div>
-                <div className="worring_box_l hide_use">
+                <div className="warning_box hide_use">
                     <div className="worring_l" id="worring_password">{this.state.message.password}</div>
                 </div>
 
-                <button className="login_btn mouse hide_use" onClick={this.loginSubmit}><div >登入</div></button>
+                <button className="btn mouse hide_use" onClick={this.loginSubmit}>登入</button>
 
-                <div className="btn_box">
-                  <div className="registered sign_up mouse" onClick={this.flipToReg}><div>註冊</div></div>
-                  <div className="registered forget_p mouse" onClick={this.fliptoForget}><div>忘記密碼</div></div>
+                <div className="btn_group">
+                  <div className="btn_switch sign_up mouse" onClick={this.flipToReg}>註冊</div>
+                  <div className="btn_switch forget_p mouse" onClick={this.fliptoForget}>忘記密碼</div>
                 </div>
             </form>
 
             {/* 會員註冊 */}
             <form className="inner back reg" id="register">
-              <div className="registered_word">會 員 註 冊</div>
-              <div className="account_box_r">
-                <div htmlFor="email_reg" className="account_r"><label>帳號：</label></div>
+              <div className="title">會 員 註 冊</div>
+              <div className="input_box">
+                <label htmlFor="email_reg" className="account_r">帳號：</label>
                 <input  type="text" id="email_reg" name="account" className="account_r_2" placeholder="請輸入您的email帳號"  onBlur={this.validate} value={this.state.email_reg} onChange={this.handleChange} />
               </div>
-              <div className="worring_box_r">
+              <div className="warning_box">
                 <div className="worring_r">{this.state.message.account}</div>
                </div>
-              {/* <div className="">
-                <label htmlFor="nickname_reg">暱稱</label>
+              <div className="input_box">
+                <label htmlFor="nickname_reg">暱稱：</label>
                 <input
                   type="text"
                   id="nickname_reg"
-                  placeholder="請輸入一個三個字元內的暱稱"
+                  placeholder="請輸入您的暱稱"
                 />
-              </div> */}
-              <div className="password_box_r">
-                <div className="password_r_1"  htmlFor="password_reg"><label>密碼：</label></div>
+              </div>
+              <div className="warning_box">
+                <div className="worring_r">{this.state.message.nickname}</div>
+              </div>
+              <div className="input_box">
+                <label className="password_r_1"  htmlFor="password_reg">密碼：</label>
                 <input  type="password"  id="password_reg"  name="password_reg" className="password_r_2"  placeholder="請輸入您的密碼"  value={this.state.password_reg} onChange={this.handleChange} onBlur={this.validate} />
               </div>
-              <div className="worring_box_r">
+              <div className="warning_box">
                 <div className="worring_r">{this.state.message.password_acc}</div>
               </div>
 
-              <div className="password_box_r">
-                <div  className="password_r_1 password_mo" htmlFor="password_check"><label>密碼確認：</label></div>
+              <div className="input_box">
+                <label className="password_r_1 password_mo" htmlFor="password_check">密碼確認：</label>
                 <input  type="password"  id="password_check" name="password_acc_ag" className="password_r_2" placeholder="請再次輸入您的密碼"  />
               </div>
-              <div className="worring_box_r">
+              <div className="warning_box">
                  <div className="worring_r">{this.state.message.password_acc_ag}</div>
               </div>
 
-              <div className="btn_box_r">
-                 <button className="registered_btn mouse" onClick={this.registerSubmit}><div>註冊</div></button>
-              </div>
+              <button className="btn mouse" onClick={this.registerSubmit}>註冊</button>
 
-              <div className="word_r">已有帳號?</div>
-              <div className="btn_box_r">
-                  <button className="registered_r sign_up_r mouse" onClick={this.flipToReg}><div>登入</div></button>                    
+              <div className="already_register">已有帳號?</div>
+              <div className="btn_group">
+                  <div className="btn_switch sign_up_r mouse" onClick={this.flipToReg}><div>登入</div></div>            
               </div>
             </form>
             {/* </div> */}
@@ -373,18 +374,18 @@ registerSubmit(evt) {
           <div className="card bg-forget transition" id="card2">
             <div className="inner front bg"> </div>
             <form className="inner back forget" id="forget">
-                <div className="login_word_p hide_use ">忘 記 密 碼</div>
+              <div className="title hide_use ">忘 記 密 碼</div>
 
-                <div className="account_box_p hide_use">
-                    <div htmlFor="email_forget" className="account_1_p"><label>註冊帳號：</label></div>
+                <div className="input_box hide_use">
+                    <label htmlFor="email_forget" className="account_1_p">註冊帳號：</label>
                     <input type="text" id="email_forget" className="account_2_p"  placeholder="請輸入email"  />
                 </div>
 
-                <button className="login_btn_p mouse hide_use"><div>確認送出</div></button>
+                <button className="btn mouse hide_use">確認送出</button>
 
-                <div className="btn_box_p hide_use">
-                    <button  className="registered_p sign_up mouse" onClick={this.flipFromForgetToReg}> <div>註冊</div></button>
-                    <button  className="registered_p login_btn_t mouse" onClick={this.flipFromForgetToLog}><div>登入</div></button>
+                <div className="btn_group hide_use">
+                    <div className="btn_switch sign_up mouse" onClick={this.flipFromForgetToReg}> <div>註冊</div></div>
+                    <div className="btn_switch login_btn_t mouse" onClick={this.flipFromForgetToLog}><div>登入</div></div>
                 </div>
 
             </form>
