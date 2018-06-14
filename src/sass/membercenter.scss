@@ -47,6 +47,13 @@
                 max-width: 80%;
             }
         }
+
+        .pic_change{
+            margin: 0 35% ;
+            @include text-rec(30% , 16px, $colorMedium, $colorDark, transparent);    
+            line-height: 10px ;
+            // background-color: $colorMedium ;
+        }
     }
 
     .btns{
@@ -126,19 +133,18 @@
                 flex-wrap:nowrap ;
             } 
 
-            .oders{
-                cursor: pointer; 
+            .oders{                
                 width: 80% ;
-                height: 50px ;
+                // height: 40% ;
                 margin: 2% auto ;               
                 background-color: $colorDark;
                 text-align: center ;
                 font-size: 20px ;
                 color: $colorLight ;
-                line-height: 40px ;
+                line-height: 220% ;
                 @media screen and (max-width:1399px){
                     width: 80% ;
-                    height: 100px ;
+                    // height: 100px ;
                     margin: 2%  auto ;
                     border-top: none;
                 } 
@@ -166,6 +172,7 @@
                 }
 
                 .oders_post{
+                    cursor: pointer; 
                     width: 80% ;
                     height: 50px ;
                     margin: 0 auto ;             
