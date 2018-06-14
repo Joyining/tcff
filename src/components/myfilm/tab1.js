@@ -6,7 +6,8 @@ import '../myfilm/tab1.scss';
 class Tab1 extends Component {
   constructor(props){
     super(props);
-    // this.changeTab = this.changeTab.bind(this);
+
+    //綁定this
     this.del_collection = this.del_collection.bind(this);
     this.add_collection = this.add_collection.bind(this);
     this.add_item = this.add_item.bind(this);
@@ -15,7 +16,8 @@ class Tab1 extends Component {
     this.cancelOverlay = this.cancelOverlay.bind(this); 
     this.nextStep = this.nextStep.bind(this); 
     this.checkIfEmpty = this.checkIfEmpty.bind(this); 
-    // this.tab = document.querySelectorAll(".myfilmPage>div")
+
+    //state
     this.state = {
       films:[],
       cffilms:[],
@@ -29,113 +31,120 @@ class Tab1 extends Component {
         name: "",
         cf: 0
       },
-      isCollectionEmpty: true
+      isCollectionEmpty: true,
+      filmsLoad: false
     };
+
+    //暫存element
     this.temp = [];
-    // this.isCollectionEmpty = true;
   }
-  componentDidMount(){
+  componentWillMount(){//fetch data
+    console.log("will mount")
+    //調整視窗位置
     window.scrollTo(0, 0);
 
-    if (sessionStorage.getItem('user') !== null){
-      let id = JSON.parse(sessionStorage.getItem('user')).id;
-      // fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=` + id)
-      fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=` + id)
-      // fetch(`${process.env.PUBLIC_URL}/json/collection.json`)
-        // .then(res => console.log(res.text()))
-        .then(res => res.json())
-        .then(datas => {
-          let films = [];
-          let cffilms = [];
-          console.log(datas);
-          datas.forEach(data => {
-            if(data.cf == 1){
-              cffilms.push(data);
-            }else{
-              films.push(data);
-            }
-          })
-          console.log(films,cffilms);
-          this.setState({
-            films: films,
-            cffilms: cffilms
-          });
-          let collection = {
-            films: films,
-            cffilms: cffilms
-          };
-          this.checkIfEmpty();
-          sessionStorage.setItem("collection", JSON.stringify(collection));
-
-          // console.log(this.state);
-        })
-        .catch(function (error) {
-          console.log('There has been a problem with your fetch operation: ', error.message);
-        })
-      }else{
-        let collection = sessionStorage.getItem("collection");
-        let id_movie = [];
-        let url = `http://192.168.39.110/tcff_php/api/cart/collection.php/`;
+    
+    if (sessionStorage.getItem('user') !== null) { //登入狀態
+      if(sessionStorage.getItem("collection") === null){
+        let id = JSON.parse(sessionStorage.getItem('user')).id;
         
-        if(collection !== null){
-          let films = JSON.parse(collection).films;
-          let cffilms = JSON.parse(collection).cffilms;
-          // console.log(films,cffilms)
-          let films_id = films.reduce((a,x) => {
-                  a.push(x.id_movie)
-                  // console.log(a,x,x.id_movie)
-                  return a
-                },[])
-          // console.log(films_id)
-          let cffilms_id = cffilms.reduce((a, x) => {
-                  a.push(x.id_movie)
-                  return a
-                }, [])
-          // console.log(films_id,cffilms_id)
-          id_movie = films_id.concat(cffilms_id);
-          id_movie = id_movie.join("_");
-          console.log(id_movie);
-          url += id_movie;
-          // console.log(url)
-          fetch(url)
-            .then(res => res.json())
-            .then(datas => {
-              console.log(datas);
-              let films = datas.filter(x => x.cf === '0');
-              let cffilms = datas.filter(x => x.cf === '1');
-              // console.log(films,cffilms)
-              let collection = {
-                films: films,
-                cffilms: cffilms
-              }
-              sessionStorage.setItem("collection", JSON.stringify(collection));
-              this.checkIfEmpty();
+        //查詢收藏
+        fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=` + id)
+        // fetch(`${process.env.PUBLIC_URL}/json/collection.json`)
+          .then(res => res.json())
+          .then(datas => {
 
-              this.setState(collection)
+            let films = [];
+            let cffilms = [];
+
+            datas.forEach(data => {
+              if(data.cf == 1){
+                cffilms.push(data);
+              }else{
+                films.push(data);
+              }
             })
-            .catch(err => console.log(err.message))
-          // this.setState({
-          //   films: films,
-          //   cffilms: cffilms
-          // });
-        }
+
+            let collection = {
+              films: films,
+              cffilms: cffilms
+            };
+
+            //改變頁面呈現
+            this.setState(collection);
+            //更新Storage
+            sessionStorage.setItem("collection", JSON.stringify(collection));
+            //檢查isCollectionEmpty
+            this.checkIfEmpty();
+
+          })
+          .catch(function (error) {
+            console.log('There has been a problem with your fetch operation: ', error.message);
+          })
+      }else{
+        let collection = JSON.parse(sessionStorage.getItem("collection"));
+
+        //改變頁面呈現
+        this.setState({
+          films: collection.films,
+          cffilms: collection.cffilms
+        });
+        //更新Storage
+        sessionStorage.setItem("collection", JSON.stringify({
+          films: collection.films,
+          cffilms: collection.cffilms
+        }));
+        //檢查isCollectionEmpty
+        this.checkIfEmpty();
+
       }
 
-      // let body = document.getElementsByTagName('body')[0];
-      // let fragment = document.createDocumentFragment();
-      // let str_el = "";
-      // fragment.appendChild(str_el);
-      // body.appendChild(fragment);
+    }else{ //未登入狀態
+      let collection = sessionStorage.getItem("collection");
+      
+      if(collection !== null){
+        let films = JSON.parse(collection).films;
+        let cffilms = JSON.parse(collection).cffilms;
+
+        //整合所有加入的電影id
+        let id_movie = films.concat(cffilms).reduce((a,x) => {
+                a.push(x.id_movie)
+                return a
+              },[]);
+        
+        //查詢電影詳細資料(訂位、募資狀況)
+        fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php/${id_movie.join("_")}`)
+          .then(res => res.json())
+          .then(datas => {
+
+            let films = datas.filter(x => x.cf === '0');
+            let cffilms = datas.filter(x => x.cf === '1');
+
+            let collection = {
+              films: films,
+              cffilms: cffilms
+            }
+
+            //替換Storage的collection
+            sessionStorage.setItem("collection", JSON.stringify(collection));
+            //檢查isCollectionEmpty
+            this.checkIfEmpty();
+            //更新頁面
+            this.setState(collection)
+          })
+          .catch(err => console.log("fetch problem: " + err.message));
+      }
+    }
   }
-  componentWillUpdate(){
-    // this.checkIfEmpty();
+  componentDidMount(){
+    //collection全選
+    Array.from(document.querySelectorAll(".cb input")).forEach(cb => cb.checked = true);
   }
   componentDidUpdate(){
-    console.log('didupdate');
+    console.log('Tab1 Did Update!');
+
+    //collection全選
     Array.from(document.querySelectorAll(".cb input")).forEach(cb => cb.checked = true);
-    // let collection = sessionStorage.getItem('collection');
-    // sessionStorage.setItem('cart', collection);
-    console.log()
   }
   checkIfEmpty(){
     let empty = this.state.isCollectionEmpty;
@@ -185,8 +194,8 @@ class Tab1 extends Component {
                   }
                 }else{
                   collection = JSON.parse(collection);
-                  collection.films.push(films);
-                  collection.cffilms.push(cffilms);
+                  collection.films = collection.films.concat(films);
+                  collection.cffilms = collection.cffilms.concat(cffilms);
                 }
                 sessionStorage.setItem("collection", JSON.stringify(collection));
                 this.checkIfEmpty();
@@ -210,28 +219,35 @@ class Tab1 extends Component {
                 this.temp.length = 0;     
               }
             })
-          }else{
-            fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php/`+add_id.join("_"))
-              .then(res => res.json())
-              .then(datas => {
-                console.log(datas);
-                let films = datas.filter(x => x.cf === '0');
-                let cffilms = datas.filter(x => x.cf === '1');
-                // console.log(films,cffilms)
-                let collection = {
+        }else{
+          fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php/` + add_id.join("_"))
+            .then(res => res.json())
+            .then(datas => {
+              console.log(datas);
+              let films = datas.filter(x => x.cf === '0');
+              let cffilms = datas.filter(x => x.cf === '1');
+              // console.log(films,cffilms)
+              let collection = sessionStorage.getItem("collection");
+              if (collection === null) {
+                collection = {
                   films: films,
                   cffilms: cffilms
                 }
-                sessionStorage.setItem("collection", JSON.stringify(collection));
-                this.checkIfEmpty();
+              } else {
+                collection = JSON.parse(collection);
+                collection.films = collection.films.concat(films);
+                collection.cffilms = collection.cffilms.concat(cffilms);
+              }
+              sessionStorage.setItem("collection", JSON.stringify(collection));
+              this.checkIfEmpty();
 
-                collection.add_films = [];
-                collection.add_cffilms = [];
-                this.temp.length = 0;
-                this.setState(collection)
-              })
-              .catch(err => console.log(err.message))
-          }
+              collection.add_films = [];
+              collection.add_cffilms = [];
+              this.temp.length = 0;
+              this.setState(collection)
+            })
+            .catch(err => console.log(err.message))
+        }
       }
 
       // add_ar.forEach(ar => {
@@ -374,8 +390,13 @@ class Tab1 extends Component {
                 })
                 // console.log(id, ar);
                 //setState -> re-render
+                let all_films = this.state.all_films.map(x => {
+                  if(x.id === id_movie) x.collect = false;
+                  return x;
+                })
                 this.setState({
-                  films: ar
+                  films: ar,
+                  all_films: all_films
                 });
               } else {
                 let ar = this.state.cffilms;
@@ -385,8 +406,13 @@ class Tab1 extends Component {
                 })
                 // console.log(id, ar);
                 //setState -> re-render
+                let all_cffilms = this.state.all_cffilms.map(x => {
+                  if (x.id === id_movie) x.collect = false;
+                  return x;
+                })
                 this.setState({
-                  cffilms: ar
+                  cffilms: ar,
+                  all_cffilms: all_cffilms
                 });
               }
 
@@ -413,6 +439,10 @@ class Tab1 extends Component {
           ar = ar.filter((obj) => {
             return (obj["id_movie"] != id_movie)
           })
+          let all_films = this.state.all_films.map(x => {
+            if (x.id === id_movie) x.collect = false;
+            return x;
+          })
           // console.log(id, ar);
           //setState -> re-render
           let collection = JSON.parse(sessionStorage.getItem("collection"));
@@ -421,7 +451,8 @@ class Tab1 extends Component {
 
           this.checkIfEmpty();
           this.setState({
-            films: ar
+            films: ar,
+            all_films: all_films
           });
         } else {
           let ar = this.state.cffilms;
@@ -430,6 +461,10 @@ class Tab1 extends Component {
             return (obj["id_movie"] != id_movie)
           })
 
+          let all_cffilms = this.state.all_cffilms.map(x => {
+            if (x.id === id_movie) x.collect = false;
+            return x;
+          })
           let collection = JSON.parse(sessionStorage.getItem("collection"));
           collection.films = ar;
           sessionStorage.setItem("collection", JSON.stringify(collection));
@@ -438,7 +473,8 @@ class Tab1 extends Component {
           // console.log(id, ar);
           //setState -> re-render
           this.setState({
-            cffilms: ar
+            cffilms: ar,
+            all_cffilms: all_cffilms
           });
         }
 
@@ -455,11 +491,6 @@ class Tab1 extends Component {
         //改變購物車數字 collectionNum
         this.props.updatecollectionNum();
       }
-
-      /////
-      // console.log(cf)
-      
-
       
     } else if (event.currentTarget.classList.contains("cancelAction") || event.currentTarget.classList.contains("fa-times")){
       let dialog = this.state.dialog;
@@ -522,8 +553,8 @@ class Tab1 extends Component {
   add_collection(event) {
     let overlay = document.getElementsByClassName('overlay')[0];
     overlay.classList.add('show');
-    console.log(this.state.all_films.length, this.state.all_cffilms.length);
-    if (!(this.state.all_films.length || this.state.all_cffilms.length)){
+    // console.log(this.state.all_films.length, this.state.all_cffilms.length);
+    if (!this.state.filmsLoad){//第一次要fetch全部電影列表
       // fetch(`${process.env.PUBLIC_URL}/json/films.json`)
       fetch(`http://192.168.39.110/tcff_php/api/movie/read.php`)
         .then(res => res.json())
@@ -531,39 +562,46 @@ class Tab1 extends Component {
           let films = [];
           let cffilms = [];
           console.log(datas);
+          datas = datas.sort((a,b) => {
+            if (a.name_zhtw.length > b.name_zhtw.length) {
+              return 1;
+            }
+            if (a.name_zhtw.length < b.name_zhtw.length) {
+              return -1;
+            }
+            return 0;
+          })
           datas.map((data, idx) => {
+            let select = false;
+            let collect = false;
             if (data.cf === "0") {
-              let select = false;
-              this.state.films.forEach(film => {
-                let id = parseInt(film.id_movie);
-                if (id === idx+1) select = true;
+              this.state.films.forEach(film => {                
+                if (film.id_movie === data.id_movie) collect = true;
               })
-              this.state.cffilms.forEach(film => {
-                let id = parseInt(film.id_movie);
-                if (id === idx+1) select = true;
+              this.state.cffilms.forEach(film => {                
+                if (film.id_movie === data.id_movie) collect = true;
               })
               let new_data = {
                 "name": data.name_zhtw,
-                "id": (idx+1),
+                "id": (data.id_movie),
                 "cf": false,
-                "select": select
+                "select": select,
+                "collect": collect
               }
               films.push(new_data);
             } else {
-              let select = false;
-              this.state.cffilms.forEach(film => {
-                let id = parseInt(film.id_movie);
-                if (id === idx+1) select = true;
+              this.state.cffilms.forEach(film => {                
+                if (film.id_movie === data.id_movie) collect = true;
               })
-              this.state.cffilms.forEach(film => {
-                let id = parseInt(film.id_movie);
-                if (id === idx+1) select = true;
+              this.state.cffilms.forEach(film => {                
+                if (film.id_movie === data.id_movie) collect = true;
               })
               let new_data = {
                 "name": data.name_zhtw,
-                "id": (idx + 1),
+                "id": (data.id_movie),
                 "cf": true,
-                "select": select
+                "select": select,
+                "collect": collect
               }
               cffilms.push(new_data);
             }
@@ -571,45 +609,52 @@ class Tab1 extends Component {
           console.log(films,cffilms);
           this.setState({
             all_films: films,
-            all_cffilms: cffilms
+            all_cffilms: cffilms,
+            filmsLoad: true
           });
           console.log(this.state);
           // let items = document.querySelectorAll(".item");
           // Array.from(items).forEach(item => item.classList.add('notSelected'));
         })
-      }
+    }else{
+      let films = [];
+      let cffilms = [];
+      this.state.all_films.concat(this.state.all_cffilms).map((data, idx) => {
+        let select = false;
+        let collect = false;
+        if (data.cf === false) {
+          this.state.films.forEach(film => {            
+            if (film.id_movie === data.id) collect = true;
+          })
+          this.state.cffilms.forEach(film => {            
+            if (film.id_movie === data.id) collect = true;
+          })
+          data.select = select;
+          data.collect = collect;
+          films.push(data);
+        } else {
+          this.state.cffilms.forEach(film => {            
+            if (film.id_movie === data.id) collect = true;
+          })
+          this.state.cffilms.forEach(film => {            
+            if (film.id_movie === data.id) collect = true;
+          })
+          data.select = select;
+          data.collect = collect;
+          cffilms.push(data);
+        }
+      })
+      console.log(films, cffilms);
+      this.setState({
+        all_films: films,
+        all_cffilms: cffilms
+      });
+    }
     if (this.state.add_films.length || this.state.add_cffilms.length){
       // console.log('refresh');
       let ar = this.state.add_films.concat(this.state.add_cffilms);
 
     }
-      // console.log(this.temp);
-      // let colNum = [];
-      // this.state.films.map((film, idx) => {
-      //   // console.log(idx);
-      //   colNum.push(parseInt(film.id_movie));
-      // })
-      // this.state.cffilms.map((film, idx) => {
-      //   // console.log(idx);
-      //   colNum.push(parseInt(film.id_movie));
-      // })
-      // console.log(colNum);
-      // let items = document.querySelectorAll(".item");
-      // console.log(items);
-      // Array.from(items).map((item, idx) => {
-      //   let id = parseInt(item.getAttribute("data-id-movie"));
-      //   // console.log("id", id);
-      //   colNum.forEach(num => {
-      //     if(id === num){
-      //       item.classList.remove("notSelected");
-      //       item.classList.add("selected");
-      //       console.log(item)
-      //       console.log(id)
-
-      //     }
-      //   })
-      // })
-
   }
   add_item(event){
     let target = event.target;
@@ -648,26 +693,6 @@ class Tab1 extends Component {
       })
     }
   }
-  // changeTab(event){
-  //   let target = event.target;
-  //   let tabs = document.querySelectorAll(".tab")
-  //   // event.stopPropagation();
-  //   Array.from(tabs).forEach(function(tab){
-  //     tab.classList.remove('active'); // tab content
-  //   })
-  //   // console.log("parent", target.parentElement.parentElement)
-  //   let index = Array.from(document.querySelectorAll(".step")).indexOf(target);
-  //   // target.parentElement.parentElement.classList.add("active");
-  //   tabs[index].classList.add("active");
-  //   Array.prototype.forEach.call(document.querySelectorAll('.step'), function(el){
-  //     el.classList.remove('active');
-  //   })
-  //   // console.log(tab);
-  //   // tab.classList.remove('active');
-  //   console.log(tabs);
-  //   target.classList.add('active'); //step
-
-  // }
   nextStep(evt){
     let user = sessionStorage.getItem("user");
     if(user === null){
@@ -718,9 +743,45 @@ class Tab1 extends Component {
         this.props.history.push("/my-film/2");
       }
       console.log("checkedItem",checkedItem.length)
-    }else{
+    }else{//從tab2回來的，cart沒清掉
       evt.preventDefault();
       console.log("cart", JSON.parse(cart));
+      cart = [];
+      let checkedItem = document.querySelectorAll(".checkItem input:checked");
+      if (checkedItem.length === 0) {
+        alert('請先勾選欲購買之商品!!');
+      } else {
+        Array.from(checkedItem).forEach(x => {
+          let id = x.id.slice(6);
+          id_movie.push(id)
+        })
+        console.log(id_movie);
+        //collection分開丟入cart
+        let films = this.state.films.reduce((a, x) => {
+          if (id_movie.includes(x.id_movie)) a.push(x);
+          return a
+        }, []);
+        let cffilms = this.state.cffilms.reduce((a, x) => {
+          if (id_movie.includes(x.id_movie)) a.push(x);
+          return a
+        }, []);
+        let cart = {
+          films: films,
+          cffilms: cffilms
+        }
+
+        //collection合併cart
+        // let collection = this.state.films.concat(this.state.cffilms);
+        // let cart = collection.filter(x => {
+        //   return id_movie.includes(x.id_movie);
+        // })
+
+        // console.log(collection);
+        sessionStorage.setItem('cart', JSON.stringify(cart));
+        // window.history.pushState({},'/2');
+        // window.location.href = '/my-film/2';
+        this.props.history.push("/my-film/2");
+      }
       // window.history.pushState({}, '/2');
       // window.location.href = '/my-film/2';
     }
@@ -779,7 +840,7 @@ class Tab1 extends Component {
                       <div className="items">
                         {
                           this.state.all_films.map((film, idx) => (
-                            <div key={idx} className={`item ${film.select ? 'selected' : 'notSelected'}`} data-id-movie={film.id} onClick={this.add_item}>
+                        <div key={idx} className={`item ${film.select ? 'selected' : 'notSelected'} ${film.collect ? 'hide' : ''}`} data-id-movie={film.id} onClick={this.add_item}>
                               {film.name}
                             </div>
                           ))
@@ -793,7 +854,7 @@ class Tab1 extends Component {
                       <div className="items">
                         {
                           this.state.all_cffilms.map((film, idx) => (
-                            <div key={idx} className={`item ${film.select ? 'selected' : 'notSelected'}`} data-id-movie={film.id} onClick={this.add_item}>
+                        <div key={idx} className={`item ${film.select ? 'selected' : 'notSelected'} ${film.collect ? 'hide' : ''}`} data-id-movie={film.id} onClick={this.add_item}>
                               {film.name}
                             </div>
                           ))

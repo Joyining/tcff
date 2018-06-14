@@ -10,7 +10,9 @@ class FilmsPage extends Component{
         super(props);
         this.updatecollectionNum = this.updatecollectionNum.bind(this);
         this.state = {
-            collectionNum: 0
+            collectionNum: 0,
+            loginStatus: false,
+            login: "", 
         }
     }
     componentDidUpdate(){
@@ -24,13 +26,26 @@ class FilmsPage extends Component{
                 collectionNum: collectionNum
             })
         }
+
+        //login state
+        if (sessionStorage.getItem("user") !== null) {
+            ;
+            this.setState({
+                loginStatus: true,
+                login: JSON.parse(sessionStorage.getItem("user"))["username"],
+            });
+        } else {
+            this.setState({
+                loginStatus: false,
+                login: "",
+            })
+        }
     }
     updatecollectionNum(){
         let collection = JSON.parse(sessionStorage.getItem("collection"));
         let collectionNum = 0;
         if(collection !== null){
             collectionNum += collection.films.length;
-        // } else if (collection.cffilms !== null){
             collectionNum += collection.cffilms.length;
         }
         this.setState({
@@ -40,7 +55,7 @@ class FilmsPage extends Component{
     render(){
         return (
             <div>
-                <Header collectionNum={this.state.collectionNum} />
+                <Header collectionNum={this.state.collectionNum} loginStatus={this.state.loginStatus} login={this.state.login} />
                 <FastTicket />
                 <Films updatecollectionNum={this.updatecollectionNum} />
                 <Footer />

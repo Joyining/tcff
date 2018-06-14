@@ -271,6 +271,9 @@
                         background-color: rgba(216, 81, 104, 0.5);
                         cursor: pointer;
                     }
+                    &.hide{
+                        display: none;
+                    }
                 }
             }
         }

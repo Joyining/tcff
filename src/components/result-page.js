@@ -2,23 +2,20 @@ import React, { Component } from 'react';
 import Header from './header';
 import Footer from './footer';
 import FastTicket from './fast-ticket';
-import TimeList from "./time-list";
-import TimeSwitch from "./time-switch";
+import Result from './result'
 
-class TimeListPage extends Component {
+class ResultPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      switch: ['切換日曆', '切換列表'],
-      switchUrl: ['/time', '/time-list'],
-      collectionNum: 0, 
-      loginStatus: false,
-      login: "",
+      collectionNum: 0, // 加到每個page.js
+      loginStatus: false, // 加到每個page.js
+      login: "", // 加到每個page.js
     };
-  }
 
+  }
   componentWillMount() {
-    // 加到每個page.js
+    // 更新collectionNum數字
     let collection = JSON.parse(sessionStorage.getItem("collection"));
     if (collection !== null) {
       let collectionNum = collection.films.length + collection.cffilms.length;
@@ -27,11 +24,11 @@ class TimeListPage extends Component {
       })
     }
 
-    // 加到每個page.js
+    // 判斷是否為登入狀態
     if (sessionStorage.getItem("user") !== null) {
-      ;
       this.setState({
         loginStatus: true,
+        // 改變登入icon樣式
         login: JSON.parse(sessionStorage.getItem("user"))["username"],
       });
     } else {
@@ -41,20 +38,18 @@ class TimeListPage extends Component {
       })
     }
   }
-
+  
   componentDidMount() {
     window.scrollTo(0, 0);
   }
-
   render() {
     return <div style={{ position: "relative" }}>
-        <Header collectionNum={this.state.collectionNum} loginStatus={this.state.loginStatus} login={this.state.login}/>
+        <Header collectionNum={this.state.collectionNum} loginStatus={this.state.loginStatus} login={this.state.login} />
         <FastTicket />
-        <TimeList />
-        <TimeSwitch switch={this.state.switch[0]} switchUrl={this.state.switchUrl[0]} />
+        <Result />
         <Footer />
       </div>;
   }
 }
 
-export default TimeListPage;
+export default ResultPage;

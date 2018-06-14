@@ -108,6 +108,10 @@
         cursor: pointer;
         font-family: "\5FAE\8EDF\6B63\9ED1\9AD4";
     }
+    .bgc{
+        color: white;
+        background-color: #de912d;
+    }
     input{
         display: none;
         &:checked+label{

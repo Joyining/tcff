@@ -19,6 +19,7 @@ import TimeListPage from "./components/time-list-page";
 import InfoPage from './components/info-page';
 import NewsPage from './components/news-page';
 import ArticlePage from './components/article-page';
+import ResultPage from './components/result-page';
 
 class App extends Component {
 
@@ -42,6 +43,7 @@ class App extends Component {
             <Route path="/info" component={InfoPage} />
             <Route path="/news" component={NewsPage} />
             <Route path="/article" component={ArticlePage} />
+            <Route path="/result" component={ResultPage} />
           </div>
         </Router>;
   }
