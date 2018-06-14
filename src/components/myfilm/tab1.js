@@ -39,46 +39,65 @@ class Tab1 extends Component {
     this.temp = [];
   }
   componentWillMount(){//fetch data
+    console.log("will mount")
     //調整視窗位置
     window.scrollTo(0, 0);
 
     
     if (sessionStorage.getItem('user') !== null) { //登入狀態
-      let id = JSON.parse(sessionStorage.getItem('user')).id;
+      if(sessionStorage.getItem("collection") === null){
+        let id = JSON.parse(sessionStorage.getItem('user')).id;
+        
+        //查詢收藏
+        fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=` + id)
+        // fetch(`${process.env.PUBLIC_URL}/json/collection.json`)
+          .then(res => res.json())
+          .then(datas => {
 
-      //查詢收藏
-      fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=` + id)
-      // fetch(`${process.env.PUBLIC_URL}/json/collection.json`)
-        .then(res => res.json())
-        .then(datas => {
+            let films = [];
+            let cffilms = [];
 
-          let films = [];
-          let cffilms = [];
+            datas.forEach(data => {
+              if(data.cf == 1){
+                cffilms.push(data);
+              }else{
+                films.push(data);
+              }
+            })
 
-          datas.forEach(data => {
-            if(data.cf == 1){
-              cffilms.push(data);
-            }else{
-              films.push(data);
-            }
+            let collection = {
+              films: films,
+              cffilms: cffilms
+            };
+
+            //改變頁面呈現
+            this.setState(collection);
+            //更新Storage
+            sessionStorage.setItem("collection", JSON.stringify(collection));
+            //檢查isCollectionEmpty
+            this.checkIfEmpty();
+
           })
+          .catch(function (error) {
+            console.log('There has been a problem with your fetch operation: ', error.message);
+          })
+      }else{
+        let collection = JSON.parse(sessionStorage.getItem("collection"));
 
-          let collection = {
-            films: films,
-            cffilms: cffilms
-          };
+        //改變頁面呈現
+        this.setState({
+          films: collection.films,
+          cffilms: collection.cffilms
+        });
+        //更新Storage
+        sessionStorage.setItem("collection", JSON.stringify({
+          films: collection.films,
+          cffilms: collection.cffilms
+        }));
+        //檢查isCollectionEmpty
+        this.checkIfEmpty();
 
-          //改變頁面呈現
-          this.setState(collection);
-          //更新Storage
-          sessionStorage.setItem("collection", JSON.stringify(collection));
-          //檢查isCollectionEmpty
-          this.checkIfEmpty();
-
-        })
-        .catch(function (error) {
-          console.log('There has been a problem with your fetch operation: ', error.message);
-        })
+      }
 
     }else{ //未登入狀態
       let collection = sessionStorage.getItem("collection");
@@ -116,6 +135,10 @@ class Tab1 extends Component {
           .catch(err => console.log("fetch problem: " + err.message));
       }
     }
+  }
+  componentDidMount(){
+    //collection全選
+    Array.from(document.querySelectorAll(".cb input")).forEach(cb => cb.checked = true);
   }
   componentDidUpdate(){
     console.log('Tab1 Did Update!');
@@ -539,38 +562,43 @@ class Tab1 extends Component {
           let films = [];
           let cffilms = [];
           console.log(datas);
+          datas = datas.sort((a,b) => {
+            if (a.name_zhtw.length > b.name_zhtw.length) {
+              return 1;
+            }
+            if (a.name_zhtw.length < b.name_zhtw.length) {
+              return -1;
+            }
+            return 0;
+          })
           datas.map((data, idx) => {
             let select = false;
             let collect = false;
             if (data.cf === "0") {
-              this.state.films.forEach(film => {
-                let id = parseInt(film.id_movie);
-                if (id === idx+1) collect = true;
+              this.state.films.forEach(film => {                
+                if (film.id_movie === data.id_movie) collect = true;
               })
-              this.state.cffilms.forEach(film => {
-                let id = parseInt(film.id_movie);
-                if (id === idx+1) collect = true;
+              this.state.cffilms.forEach(film => {                
+                if (film.id_movie === data.id_movie) collect = true;
               })
               let new_data = {
                 "name": data.name_zhtw,
-                "id": (idx+1),
+                "id": (data.id_movie),
                 "cf": false,
                 "select": select,
                 "collect": collect
               }
               films.push(new_data);
             } else {
-              this.state.cffilms.forEach(film => {
-                let id = parseInt(film.id_movie);
-                if (id === idx+1) collect = true;
+              this.state.cffilms.forEach(film => {                
+                if (film.id_movie === data.id_movie) collect = true;
               })
-              this.state.cffilms.forEach(film => {
-                let id = parseInt(film.id_movie);
-                if (id === idx+1) collect = true;
+              this.state.cffilms.forEach(film => {                
+                if (film.id_movie === data.id_movie) collect = true;
               })
               let new_data = {
                 "name": data.name_zhtw,
-                "id": (idx + 1),
+                "id": (data.id_movie),
                 "cf": true,
                 "select": select,
                 "collect": collect
@@ -595,25 +623,21 @@ class Tab1 extends Component {
         let select = false;
         let collect = false;
         if (data.cf === false) {
-          this.state.films.forEach(film => {
-            let id = parseInt(film.id_movie);
-            if (id === data.id) collect = true;
+          this.state.films.forEach(film => {            
+            if (film.id_movie === data.id) collect = true;
           })
-          this.state.cffilms.forEach(film => {
-            let id = parseInt(film.id_movie);
-            if (id === data.id) collect = true;
+          this.state.cffilms.forEach(film => {            
+            if (film.id_movie === data.id) collect = true;
           })
           data.select = select;
           data.collect = collect;
           films.push(data);
         } else {
-          this.state.cffilms.forEach(film => {
-            let id = parseInt(film.id_movie);
-            if (id === data.id) collect = true;
+          this.state.cffilms.forEach(film => {            
+            if (film.id_movie === data.id) collect = true;
           })
-          this.state.cffilms.forEach(film => {
-            let id = parseInt(film.id_movie);
-            if (id === data.id) collect = true;
+          this.state.cffilms.forEach(film => {            
+            if (film.id_movie === data.id) collect = true;
           })
           data.select = select;
           data.collect = collect;

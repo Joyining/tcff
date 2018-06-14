@@ -15,15 +15,32 @@ class MyFilmPage extends Component {
     this.changeUrl = this.changeUrl.bind(this);
     this.updatecollectionNum = this.updatecollectionNum.bind(this);
     this.state = {
-      collectionNum: 0
+      collectionNum: 0,
+      loginStatus: false, 
+      login: "", 
     }
   }
   componentWillMount() {
+    //collection number
     let collection = JSON.parse(sessionStorage.getItem("collection"));
     if (collection !== null) {
       let collectionNum = collection.films.length + collection.cffilms.length;
       this.setState({
         collectionNum: collectionNum
+      })
+    }
+
+    //login state
+    if (sessionStorage.getItem("user") !== null) {
+      ;
+      this.setState({
+        loginStatus: true,
+        login: JSON.parse(sessionStorage.getItem("user"))["username"],
+      });
+    } else {
+      this.setState({
+        loginStatus: false,
+        login: "",
       })
     }
   }
@@ -48,7 +65,7 @@ class MyFilmPage extends Component {
   render() {
     return (
         <div style={{position:'relative'}}>
-          <Header collectionNum={this.state.collectionNum} />
+        <Header collectionNum={this.state.collectionNum} loginStatus={this.state.loginStatus} login={this.state.login} />
             <FastTicket />
             <section className="container">
               <div className="myfilmPage">

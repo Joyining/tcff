@@ -95,9 +95,19 @@ class Cffilms extends Component {
                     .then(data => {
                         console.log("m: ", data.message);
                         if (data.message === "add 1 collection") {
-                            //刪Storage的collection
-                            let collection = JSON.parse(sessionStorage.getItem('collection'));
-                            collection.cffilms.push(data.collection_info[0]);
+                            //加Storage的collection
+                            let collection = sessionStorage.getItem('collection');
+
+                            if (collection === null) {//第一次加入
+                                collection = {
+                                    cffilms: [data.collection_info[0]],
+                                    films: []
+                                }
+                            } else {
+                                collection = JSON.parse(collection)
+                                collection.cffilms.push(data.collection_info[0]);
+                            }
+
                             sessionStorage.setItem("collection", JSON.stringify(collection));
 
                             //改變checkbox狀態(setState)
@@ -157,24 +167,33 @@ class Cffilms extends Component {
         console.log("query",window.location.search)
         let q = window.location.search;
         let id = q.slice(q.search('=') +1)
-        let collection = JSON.parse(sessionStorage.getItem("collection"));
+        let collection = sessionStorage.getItem("collection");
         console.log("id",id)
         fetch(`http://192.168.39.110/tcff_php/api/movie/read.php?cf=true`)
          .then((res) => res.json())
          .then((datas) => {
             console.log(datas) 
-            if(collection === null){
-                datas.map(x => {
-                    x.collect = false;
-                })
+            if(collection !== null){
+                collection = JSON.parse(collection);
+                if (collection.cffilms.length > 0) {
+                    let cf_ids = collection.cffilms.reduce((a, x) => {
+                        a.push(x.id_movie);
+                        return a;
+                    }, [])
+                    datas = datas.map(x => {
+                        x.collect = false;
+                        if (cf_ids.includes(x.id_movie)) x.collect = true;
+                        return x;
+                    })
+                }else{
+                    datas = datas.map(x => {
+                        x.collect = false;
+                        return x;
+                    })
+                }
             }else{
-                let cf_ids = collection.cffilms.reduce((a,x) => {
-                    a.push(x.id_movie);
-                    return a;
-                },[])
-                datas.map(x => {                    
+                datas = datas.map(x => {
                     x.collect = false;
-                    if(cf_ids.includes(x.id_movie)) x.collect = true;
                     return x;
                 })
             }

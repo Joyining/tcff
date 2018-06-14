@@ -16,7 +16,7 @@ class Tab4 extends Component {
     }
     componentDidUpdate(){
         //處理資料
-        // this.processOrders();
+        this.processOrders();
         
     }
     componentDidMount() {
@@ -24,22 +24,23 @@ class Tab4 extends Component {
         window.scrollTo(0, 0);     
 
         //取得訂單紀錄
-        // this.fetchOrders();
+        this.fetchOrders();
     }
     fetchOrders(){
         let data = [];
-        fetch(`${process.env.PUBLIC_URL}/json/orders_raw.json`)
+        // fetch(`${process.env.PUBLIC_URL}/json/orders_raw.json`)
+        fetch(`http://192.168.39.110/tcff_php/api/members/orders.php?id=` + JSON.parse(sessionStorage.getItem("user")).id)
             .then(res => res.json())
             .then(datas => {
                 console.log("datas", datas.length);
-                datas = datas.filter((d) => {
-                    return d.id_member == 15;
-                })
+                // datas = datas.filter((d) => {
+                //     return d.id_member == 15;
+                // })
                 let cffilms = datas.filter((d) => {
                     return d.id_session == 0;
                 })
                 let films = datas.filter((d) => {
-                    return d.id_movie == 0;
+                    return d.id_session != 0;
                 })
                 console.log("datas", datas.length);
                 this.setState({ films: films, cffilms: cffilms });

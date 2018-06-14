@@ -152,8 +152,8 @@ class Cffilmsdetail extends Component {
          .then((datas) => {
             console.log(datas) 
             this.setState({
-             films: datas
-         }, () => {
+                films: datas
+            }, () => {
             fetch(`http://192.168.39.110/tcff_php/api/movie/cfRead.php`)
             .then((res) => res.json())
             .then((datas) => {
