@@ -8,7 +8,6 @@ class Films extends Component {
 
         this.fadeOut = this.fadeOut.bind(this);
         this.fadeIn = this.fadeIn.bind(this);
-        this.handleChange = this.handleChange.bind(this);
         this.pickBook = this.pickBook.bind(this);        
         this.handleSort = this.handleSort.bind(this);        
         this.handleMove = this.handleMove.bind(this);
