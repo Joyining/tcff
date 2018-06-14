@@ -102,6 +102,18 @@ header{
             }
         }
     }
+    .collection-num{
+        width: 23px;
+        height: 23px;
+        border-radius: 50%;
+        background-color: #db8f00;
+        position: absolute;
+        color: $colorDarker;
+        font-weight: bold;
+        font-size: .8rem;
+        line-height: 23px;
+        text-align: center;
+    }    
     .nav-icon.web{
         display: flex;
         justify-content: space-around;
@@ -127,18 +139,8 @@ header{
                 color: $colorLight;
             }
             .collection-num{
-                width: 23px;
-                height: 23px;
-                border-radius: 50%;
-                background-color: #db8f00;
-                position: absolute;
                 top:52px;
                 right: 115px;
-                color: $colorDarker;
-                font-weight: bold;
-                font-size: .8rem;
-                line-height: 23px;
-                text-align: center;
             }        
         }
         img{
@@ -189,6 +191,17 @@ header{
             height: $headerHeight;
             padding: 5px 0;
         }
+        #nicknameMobile{
+            text-align: center;
+            font-weight: bold;
+            color: $colorLight;
+            display: inline-block; 
+            padding: 8% $headerHeight * .1;
+            cursor: pointer;
+            &:link, &:visited{
+                color: $colorLight;
+            }
+        }
         .icon{
             display: flex;
             justify-content: space-evenly; 
@@ -206,7 +219,6 @@ header{
                 display: inline-block;
                 vertical-align: middle;
             }
-
             .menu-icon {
                 margin: (($headerHeight - ($headerHeight * .6))/2);
                 margin-left: 5px;
@@ -224,6 +236,35 @@ header{
         }
         .text li a{
             color: $colorMedium;
+        }
+        .collection-num{
+            bottom:37%;
+            right: 61%;
+        }
+        .member-panel-mobile{
+            display: none;
+            position: absolute;
+            width: 180px;
+            background-color: $colorDark;
+            bottom: 90px;
+            right: 60px;
+            a{
+                width: 100%;
+                box-sizing: border-box;
+                font-weight: bold;
+                color: $colorLight;
+                height: $headerHeight * .5;
+                text-align: center;
+                line-height: $headerHeight * .5;
+                border: 2px solid $colorDarker;
+                &:link, &:visited{
+                    color: $colorLight;
+                }
+            }
+            &.active{
+                display: block;
+            }
+
         }
     }
 
@@ -332,6 +373,9 @@ header{
         }
         .member-panel.active{
             top: 45px;
+        }
+        .member-panel-mobile{
+            display: none;
         }
 
         .menu-icon{

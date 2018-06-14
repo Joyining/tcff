@@ -94,53 +94,59 @@ loginSubmit(evt) {
                   fetch(url, { method: "PUT", body: JSON.stringify(json) })
                     .then(res => res.json())
                     .then(data => {
-                      // 該帳號之前登入時有收藏影片
+                      // 該帳號之前登入時收藏的影片有目前collection沒收到的
                       if (data.collection_info) {
-                        console.log('put success');
+                        console.log("put success");
                         console.log(data.collection_info);
                         let collectionInfos = data.collection_info;
-                        let films=[];
-                        let cfFilms=[];
-                        Array.from(collectionInfos).forEach(collectionInfo=>{
-                          console.log(collectionInfo);
-                          if (collectionInfo.cf == "0") {
-                            films.push(collectionInfo);
-                          } else {
-                            cfFilms.push(collectionInfo);
+                        let films = [];
+                        let cfFilms = [];
+                        Array.from(collectionInfos).forEach(
+                          collectionInfo => {
+                            console.log(collectionInfo);
+                            if (
+                              collectionInfo.cf == "0"
+                            ) {
+                              films.push(collectionInfo);
+                            } else {
+                              cfFilms.push(
+                                collectionInfo
+                              );
+                            }
                           }
-                        })
+                        );
                         console.log(films);
 
-                        let newCollection={
-                          films: films,
-                          cffilms: cfFilms,
-                        }
+                        let newCollection = { films: films, cffilms: cfFilms };
                         sessionStorage.setItem("collection", JSON.stringify(newCollection));
-                      } else if (data.message =="nothing to update"){
+                        this.props.history.goBack();
+                      } // 該帳號之前登入時收藏的影片"沒有"目前collection沒收到的
+                      else if (data.message == "nothing to update") {
                         fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=${JSON.parse(sessionStorage.getItem("user")).id}`)
                           .then(res => res.json())
                           .then(data => {
-                            console.log('顯示全部收藏');
+                            console.log("顯示全部收藏");
                             console.log(data);
                             let films = [];
                             let cfFilms = [];
-                            Array.from(data).forEach(el => {
-                              if (el.cf == "0") {
-                                films.push(el);
-                              } else {
-                                cfFilms.push(el);
+                            Array.from(data).forEach(
+                              el => {
+                                if (el.cf == "0") {
+                                  films.push(el);
+                                } else {
+                                  cfFilms.push(el);
+                                }
                               }
-                            })
+                            );
 
-                            let newCollection = {
-                              films: films,
-                              cffilms: cfFilms,
-                            }
+                            let newCollection = { films: films, cffilms: cfFilms };
                             sessionStorage.setItem("collection", JSON.stringify(newCollection));
+                            this.props.history.goBack();
                           });
                       }
                     });
-                }else{
+                }// 未登入狀態collection沒有片
+                else{
                   fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=${JSON.parse(sessionStorage.getItem("user")).id}`)
                     .then(res => res.json())
                     .then(data => {
@@ -161,6 +167,7 @@ loginSubmit(evt) {
                         cffilms: cfFilms,
                       }
                       sessionStorage.setItem("collection", JSON.stringify(newCollection));
+                      this.props.history.goBack();
                     });
                 }
                 // let films = [];
@@ -171,7 +178,7 @@ loginSubmit(evt) {
                 // }
                 // sessionStorage.setItem("collection", JSON.stringify(newCollection));
 
-                this.props.history.goBack();
+                // this.props.history.goBack();
                 // window.history.back();
             }
         });
