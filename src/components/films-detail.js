@@ -27,7 +27,7 @@ class Filmsdetail extends Component {
         if(isChecked){
             console.log("del");
             if (id_user !== undefined){
-                url = `https://192.168.39.110/tcff_php/api/cart/collection.php/${id_movie}/${id_user}`;
+                url = `http://192.168.39.110/tcff_php/api/cart/collection.php/${id_movie}/${id_user}`;
                 fetch(url,{
                     method:"DELETE",
                     headers: {
@@ -78,7 +78,7 @@ class Filmsdetail extends Component {
         }else{
             console.log("add")
             if (id_user !== undefined) {
-                url = `https://192.168.39.110/tcff_php/api/cart/collection.php`;
+                url = `http://192.168.39.110/tcff_php/api/cart/collection.php`;
                 let body = {
                     id: id_user,
                     id_movie: id_movie
@@ -167,7 +167,7 @@ class Filmsdetail extends Component {
              //  sliiderShow 圖片滑動
             let path = `${this.state.films.release_year}_${this.state.films.name_en.split(' ').join('_').replace(':', '_')}`;
             console.log(path);
-            let trailer = `${this.state.films.trailer}`;
+            let trailer = "https://www.youtube.com/embed/" + this.state.films.trailer.slice(-11) + "?autoplay=1";
             let slide = [];
             for(let i=1;i<=6;i++){
                 let url = `${process.env.PUBLIC_URL}/images/` + path + "_0" + i + '.jpg';
@@ -187,7 +187,7 @@ class Filmsdetail extends Component {
 
                 for(let $i=0; $i< slideCount;$i++){
                     // console.log(slides[$i]);
-                    $(".slides").append(`<li><a href='` + trailer + `'><div class='play_video' ></div></a><img src="${slides[$i]}" alt=''></li>`)
+                    $(".slides").append(`<li><a href=${trailer} target="_blank"><div class='play_video' ></div></a><img src="${slides[$i]}" alt=''></li>`)
                     $(".pages").append("<li></li>");
                 }
 
@@ -278,7 +278,7 @@ class Filmsdetail extends Component {
                             <div className="r_font">{this.state.films.rating}</div>
                         </div>
                         <input type="checkbox" id={`id_${this.state.films.id_movie}`} checked={this.state.films.collect}/>
-                        <label htmlFor={`id_${this.state.films.id_movie}`} className="favorite" onClick={this.handleCollect} data-id-movie={this.state.films.id_movie}>
+                        <label htmlFor={`id_${this.state.films.id_movie}`} className="favorite bgc" onClick={this.handleCollect} data-id-movie={this.state.films.id_movie}>
                             <i class="fas fa-plus-circle"></i>
                             {
                                 this.state.films.collect == true ? ' 已加入票夾' : ' 加入我的票夾'

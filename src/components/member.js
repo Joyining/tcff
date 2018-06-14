@@ -48,7 +48,7 @@ class Member extends Component{
 
     emailCheck(){
         const pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-        const error = this.state.message       
+        const error = this.state.message;     
         //pattern.test(this.state.email) ? error.email = "" : error.email = "email格式不正確";
         pattern.test(this.state.mail_use) ? error.email = "" : error.email = "email格式不正確";
         this.setState({message:error});
@@ -56,10 +56,10 @@ class Member extends Component{
     }
     passwordCheck(){
         const pwd = this.state.password_use;
-        const error = this.state.message
-        pwd.length >=1 && pwd.length <6 ? error.password = "" : error.password = "請輸入至少6字元";
+        const error = this.state.message;
+        pwd.length >=6 ? error.password = "" : error.password = "請輸入至少6字元";
         this.setState({message:error});
-        console.log(this.setState({message:error}));
+        console.log(pwd,pwd.length, error);
     }
 
     accountCheck(){
@@ -89,6 +89,9 @@ class Member extends Component{
 
 
     componentDidMount(){
+
+        console.log(this.state)
+
         $('.forget_p').click(function(){
             $('.turn').toggleClass('flip');
         })
