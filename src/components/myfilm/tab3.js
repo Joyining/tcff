@@ -63,8 +63,8 @@ class Tab3 extends Component {
         });
         let id = JSON.parse(sessionStorage.getItem('user')).id;
         body.id = id;
-        // fetch(`http://192.168.39.110/tcff_php/api/cart/booking.php`, {
-        fetch(`http://localhost/tcff_php/api/cart/booking.php`,{
+        fetch(`http://192.168.39.110/tcff_php/api/cart/booking.php`, {
+        // fetch(`http://localhost/tcff_php/api/cart/booking.php`,{
             method: "POST",
             body: JSON.stringify(body),
             headers: new Headers({
@@ -132,6 +132,7 @@ class Tab3 extends Component {
             })
             .catch(function (error) {
                 console.log('There has been a problem with your fetch operation: ', error.message);
+                console.log('body ', error.message);
             })
         console.log("body",JSON.stringify(body));
     }
