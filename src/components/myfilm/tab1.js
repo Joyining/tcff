@@ -15,7 +15,8 @@ class Tab1 extends Component {
     this.checkItem = this.checkItem.bind(this); 
     this.cancelOverlay = this.cancelOverlay.bind(this); 
     this.nextStep = this.nextStep.bind(this); 
-    this.checkIfEmpty = this.checkIfEmpty.bind(this); 
+    this.checkIfEmpty = this.checkIfEmpty.bind(this);
+    this.spread = this.spread.bind(this);
 
     //state
     this.state = {
@@ -286,11 +287,11 @@ class Tab1 extends Component {
 
   }
   checkAll(event){
-    let target = event.target;
-    let section = target.previousSibling.id.slice(0,-2);
+    let target = event.currentTarget;
     let isCheck = !target.previousSibling.checked;
-    let table = target.closest("table");
+    let table = target.closest(".table");
     let cbs = table.querySelectorAll(".checkItem input");
+    console.log(cbs,table,target)
     //if isCheck=true, let all item checked
     //vice versa
     Array.from(cbs).forEach(function(cb){
@@ -312,14 +313,14 @@ class Tab1 extends Component {
     // sessionStorage.setItem("cart",JSON.stringify(cart));
   }
   checkItem(event) {
-    let target = event.target;
-    let inputFor = target.getAttribute("for");
+    let target = event.currentTarget;
     let isCheck = target.previousSibling.checked;
-    console.log(isCheck);
-    let tbody = target.closest("tbody");
-    let allItemChecked = isCheck ? tbody.querySelectorAll('input:checked').length - 1 : tbody.querySelectorAll('input:checked').length+1;
-    let allItem = tbody.querySelectorAll('input').length;
-    let checkAll = target.closest("table").querySelector('thead input');    
+
+    let tbody = target.closest(".body");
+    let allItemChecked = isCheck ? tbody.querySelectorAll('.checkItem input:checked').length - 1 : tbody.querySelectorAll('.checkItem input:checked').length+1;
+    let allItem = tbody.querySelectorAll('.checkItem input').length;
+    let checkAll = target.closest(".table").querySelector('.colTitle input');  
+    console.log()  
     //if all item checked, let checkAll box checked
     //vice versa
     checkAll.checked = (allItemChecked === allItem);
@@ -693,6 +694,12 @@ class Tab1 extends Component {
       })
     }
   }
+  spread(evt){
+    console.log(evt.currentTarget)
+    console.log(evt.currentTarget.nextSibling)
+    evt.currentTarget.nextSibling.classList.toggle("show");
+    evt.currentTarget.querySelector("svg").classList.toggle("show");
+  }
   nextStep(evt){
     let user = sessionStorage.getItem("user");
     if(user === null){
@@ -875,10 +882,9 @@ class Tab1 extends Component {
                 <div class='dialog'>
                   <div className="head">
                     <h3>刪除收藏</h3> 
-                    {/* <i class="fas fa-times" onClick={this.del_collection}></i> */}
                 </div>
                   <div class='dialog-msg'>
-                    <p>確定要從片單刪除 {this.state.dialog.name}?</p> 
+                    <p>確定要刪除<span>{this.state.dialog.name}</span>?</p> 
                   </div>
                   <div className="foot">
                     <div class='controls'>
@@ -889,87 +895,126 @@ class Tab1 extends Component {
                 </div>
               </div>)
             }
-            {
-              this.state.isCollectionEmpty === false && (
-            
-            <table className="films">
-              <thead>
-                  <tr>
-                    <th className = "check"> 
-                      <Cb id={`filmsCb`}  click={this.checkAll} />
-                    </th >
-                    <th className="title">我的片單(確認放映)</th>
-                  </tr>
-              </thead>
-              <tbody>
-                {
-                  this.state.films.map((film, idx) => (
-                    <tr key={idx}>
-                      <td className="check checkItem">
-                      {film.bookable_seats_count > 0 ? (
-                          // <input type="checkbox" />
-                          <Cb id={`movie_${film.id_movie}`} click={this.checkItem} />
-                        ) : ""}
-                      </td>
-                    <td className={`title ${film.bookable_seats_count > 0 ? "" : "forbid"}`}>
-                      {/* <td className={`title`}> */}
-                        <div className="text">
-                          <span className="film_name">{film.name_zhtw + film.name_en}</span>
-                          <span className="film_date">{film.date + film.day + film.time}</span>
-                          <span className="film_auditorium">{film.auditorium}</span>
-                      <span className="film_bookable">{film.bookable_seats_count > 20 ? "熱賣中" : film.bookable_seat_count}</span>
+            {this.state.isCollectionEmpty === false && (            
+                <div className="table films">
+                  <div className="head" onClick={this.spread}>
+                      < h2 className = "row title" >我的票夾</h2>
+                      <i class="fas fa-caret-down"></i>
+                  </div>
+                  <div className="body show">
+                    <div className="row colTitle">
+                      <div className = "check checkAll"> 
+                        <Cb id={`filmsCb`}  click={this.checkAll} />
                         </div>
-                        <div className="trash" data-id-movie={film.id_movie} data-name={film.name_zhtw} data-cf={0} onClick={this.del_collection}>
-                        <i className="fas fa-trash-alt"></i>
+                        <div className="title">
+                          < div className = "col" >
+                            <h4>片名</h4>
+                          </div>
+                          < div className = "col" >
+                            <h4>場次</h4>
+                          </div>
+                          < div className = "col" >
+                            <h4>地點</h4>
+                          </div>
+                          < div className = "col" >
+                            <h4>空位</h4>
+                          </div>
+                          </div>
+                          
+                          < div className = "delCol" >
+                            <h4>刪除</h4>
+                          </div>
+                      </div>
+                    {
+                      this.state.films.map((film, idx) => (
+                        <div key={idx} className="row">
+                          <div className="check checkItem">
+                          {film.bookable_seats_count > 0 ? (
+                              <Cb id={`movie_${film.id_movie}`} click={this.checkItem} />
+                            ) : ""}
+                          </div>
+                          <div className={`title ${film.bookable_seats_count > 0 ? "" : "forbid"}`}>
+                            <div className="col">
+                              <span className="film_name">{film.name_zhtw}</span>
+                              <span className="film_name">{film.name_en}</span>
+                              </div>
+                            < div className = "col" >
+                              <span className="film_date">{film.date.split("-").join("/")}</span>
+                              <span className="film_date">{film.time.slice(0,-3)}</span>
+                              </div>
+                            < div className = "col" >
+                              <span className="film_auditorium">{film.auditorium}</span>                          
+                            </div>
+                            <div className="col">
+                              <span className={`film_bookable ${film.bookable_seats_count < 20 ? "danger" : ""}`}>{film.bookable_seats_count}</span>
+                              </div>
+                          </div>
+                            <div className="trash" data-id-movie={film.id_movie} data-name={film.name_zhtw} data-cf={0} onClick={this.del_collection}>
+                              < i className="fas fa-trash-alt"></i>
+                            </div>
                         </div>
-                      </td>
-                    </tr>
-                  ))
-                }                
-              </tbody>
-            </table>
+                      ))
+                    }                
+                  </div>
+                </div>
               )}
-            {
-              this.state.isCollectionEmpty === false && (
-            <table className="cffilms">
-              <thead>
-                <tr>
-                  < th className = "check" > < Cb id = {`cffilmsCb`} click={this.checkAll} /></th >
-                  <th className="title">我的片單(募資中)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  this.state.cffilms.map((film, idx) => (
-                    <tr key={idx}>
-                      <td className="check checkItem">
-                          < Cb id = {
-                            `movie_${film.id_movie}` 
-                        } click={this.checkItem}
-                          />
-                      </td>
-                      <td className="title">
-                    <span className="film_name">{film.name_zhtw + film.name_en + "已達成" + (film.cf_progress * 100) + '%'}</span>
-                      {/* <span className="cf_progress">{"目前募資進度為" + (film.cf_progress * 100) + '%'}</span> */}
-                    <div className="trash" data-id-movie={film.id_movie} data-name={film.name_zhtw} data-cf={1} onClick={this.del_collection}>
-                      <i className="fas fa-trash-alt"></i>
+            {this.state.isCollectionEmpty === false && (
+                <div className="table cffilms">
+                  < div className = "head"  onClick={this.spread}>                  
+                      <h2 className="row title">參與募資</h2>
+                      <i class="fas fa-caret-down"></i>
+                  </div>
+                  <div className="body show">
+                    < div className = "row colTitle" >
+                      <div className = "check checkAll"> 
+                          <Cb id={`cffilmsCb`}  click={this.checkAll} />
+                          </div>
+                          <div className="title">
+                            < div className = "col" >
+                              <h4>片名</h4>
+                            </div>
+                            < div className = "col" >
+                              <h4>進度</h4>
+                            </div>
+                            </div>                        
+                            < div className = "delCol" >
+                              <h4>刪除</h4>
+                            </div>
                         </div>
-                      </td>
-                    </tr>
-                  ))
-                }     
-              </tbody>
-            </table>
-              )
-            }
-            {
-              this.state.isCollectionEmpty === true && (
+                    {
+                      this.state.cffilms.map((film, idx) => (
+                        <div className="row" key={idx}>
+                          <div className="check checkItem">
+                              < Cb id = {
+                                `movie_${film.id_movie}` 
+                            } click={this.checkItem}
+                              />
+                          </div>
+                          <div className="title">
+                            < div className = "col" >
+                              <span className="film_name">{film.name_zhtw}</span>
+                              <span className="film_name">{film.name_en}</span>
+                              </div>
+                            < div className = "col" >
+                              <span className="film_name">{(film.cf_progress * 100) + '%'}</span>
+                            </div>
+                              
+                          </div>
+                          <div className="trash" data-id-movie={film.id_movie} data-name={film.name_zhtw} data-cf={1} onClick={this.del_collection}>
+                            <i className="fas fa-trash-alt"></i>
+                            </div>
+                        </div>
+                      ))
+                    }     
+                  </div>
+                </div>
+              )}
+            {this.state.isCollectionEmpty === true && (
                 <h2 className="empty_info">目前沒有收藏喔!馬上加入喜愛的影片吧!!</h2>
-              )
-            }
+              )}
             <div className="buttons">
               
-              <button type="button" onClick={this.add_collection}>+ 加入更多片單</button>
+              <button type="button" onClick={this.add_collection}><i class="fas fa-plus"></i>加入更多</button>
               {
                 this.state.isCollectionEmpty === false && (
                   <Link to="/my-film/2" onClick={this.nextStep}>下一步</Link>

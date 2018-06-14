@@ -1,33 +1,58 @@
+@import "../../sass/partials/basic";
+
 .myfilmPage{
     // filter: blur(5px);
     // overflow: auto;
-    height: 100%;
+    margin: ($headerHeight * 2.2) auto 0;
+    box-sizing: border-box;
+    max-width: 1600px;
+    padding: 5%;
+    // height: 100%;
     .progressBar{
-        margin: 10px auto;
-        background-color: #ccc;
+        margin: 0 auto 50px;
+        // background-color: #ccc;
         display: flex;
-        @media (max-width: 1080px) {
+        @include breakpoint("mobileonly") {
             flex-wrap: wrap;
         }
         &>a{
-            padding-left: 10px;
-            height: 45px;
-            line-height: 45px;
-            color: white;
+            // padding-left: 10px;
+            // height: 45px;
+            // line-height: 45px;
+            font-weight: 900;
+            padding: 12px 0;
+            color: $colorDark;
             flex:1;
-            display: block;
-            border: 2px solid lightblue;
-            background-color: #333;
-            @media (max-width: 1080px) {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            // border: 2px solid lightblue;
+            background-color: $colorLight;
+            @include breakpoint("mobileonly") {
                 width: 100%;
                 flex: none;
             }
             span{
-                margin-left: 5px;
+                // margin-left: 5px;
+                text-align: center;
+                &:first-child{
+                    border-bottom: 2px solid $colorDark;
+                    padding-bottom: 3px;
+                }
+                &:nth-child(2){
+                    // margin-top: 10px;
+                    padding-top: 10px;
+                    width: 100%;
+                    letter-spacing: 1px;
+                }
             }
             &.active{
-                background-color: #fff;
-                color: #333;
+                background-color: $colorDarker;
+                color: $colorMedium;
+                // box-shadow: 3px 3px $colorMedium;
+                span:first-child{
+                    border-color: $colorMedium;
+                }
             }
         }
     }
