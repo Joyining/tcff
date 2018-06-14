@@ -39,46 +39,65 @@ class Tab1 extends Component {
     this.temp = [];
   }
   componentWillMount(){//fetch data
+    console.log("will mount")
     //調整視窗位置
     window.scrollTo(0, 0);
 
     
     if (sessionStorage.getItem('user') !== null) { //登入狀態
-      let id = JSON.parse(sessionStorage.getItem('user')).id;
+      if(sessionStorage.getItem("collection") === null){
+        let id = JSON.parse(sessionStorage.getItem('user')).id;
+        
+        //查詢收藏
+        fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=` + id)
+        // fetch(`${process.env.PUBLIC_URL}/json/collection.json`)
+          .then(res => res.json())
+          .then(datas => {
 
-      //查詢收藏
-      fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php?id=` + id)
-      // fetch(`${process.env.PUBLIC_URL}/json/collection.json`)
-        .then(res => res.json())
-        .then(datas => {
+            let films = [];
+            let cffilms = [];
 
-          let films = [];
-          let cffilms = [];
+            datas.forEach(data => {
+              if(data.cf == 1){
+                cffilms.push(data);
+              }else{
+                films.push(data);
+              }
+            })
 
-          datas.forEach(data => {
-            if(data.cf == 1){
-              cffilms.push(data);
-            }else{
-              films.push(data);
-            }
+            let collection = {
+              films: films,
+              cffilms: cffilms
+            };
+
+            //改變頁面呈現
+            this.setState(collection);
+            //更新Storage
+            sessionStorage.setItem("collection", JSON.stringify(collection));
+            //檢查isCollectionEmpty
+            this.checkIfEmpty();
+
           })
+          .catch(function (error) {
+            console.log('There has been a problem with your fetch operation: ', error.message);
+          })
+      }else{
+        let collection = JSON.parse(sessionStorage.getItem("collection"));
 
-          let collection = {
-            films: films,
-            cffilms: cffilms
-          };
+        //改變頁面呈現
+        this.setState({
+          films: collection.films,
+          cffilms: collection.cffilms
+        });
+        //更新Storage
+        sessionStorage.setItem("collection", JSON.stringify({
+          films: collection.films,
+          cffilms: collection.cffilms
+        }));
+        //檢查isCollectionEmpty
+        this.checkIfEmpty();
 
-          //改變頁面呈現
-          this.setState(collection);
-          //更新Storage
-          sessionStorage.setItem("collection", JSON.stringify(collection));
-          //檢查isCollectionEmpty
-          this.checkIfEmpty();
-
-        })
-        .catch(function (error) {
-          console.log('There has been a problem with your fetch operation: ', error.message);
-        })
+      }
 
     }else{ //未登入狀態
       let collection = sessionStorage.getItem("collection");
@@ -116,6 +135,10 @@ class Tab1 extends Component {
           .catch(err => console.log("fetch problem: " + err.message));
       }
     }
+  }
+  componentDidMount(){
+    //collection全選
+    Array.from(document.querySelectorAll(".cb input")).forEach(cb => cb.checked = true);
   }
   componentDidUpdate(){
     console.log('Tab1 Did Update!');

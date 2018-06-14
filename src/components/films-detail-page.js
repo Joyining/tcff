@@ -56,7 +56,7 @@ class FilmsdetailPage extends Component {
   render() {
     return (
         <div style={{position:'relative'}}>
-            <Header collectionNum={this.state.collectionNum} />
+            <Header collectionNum={this.state.collectionNum} loginStatus={this.state.loginStatus} login={this.state.login} />
             <FastTicket />
             <Filmsdetail updatecollectionNum={this.updatecollectionNum} />
             <Footer />
