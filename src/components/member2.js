@@ -84,6 +84,10 @@ loginSubmit(evt) {
                     console.log(collection["films"][i]["id_movie"]);
                     json["id_movie"].push(collection["films"][i]["id_movie"]);
                   }
+                  for (let i = 0; i < collection["cffilms"].length; i++) {
+                    console.log(collection["cffilms"][i]["id_movie"]);
+                    json["id_movie"].push(collection["cffilms"][i]["id_movie"]);
+                  }
                   console.log(json);
 
                   let url = `http://192.168.39.110/tcff_php/api/cart/collection.php`;
