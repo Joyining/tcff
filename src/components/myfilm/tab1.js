@@ -17,6 +17,7 @@ class Tab1 extends Component {
     this.nextStep = this.nextStep.bind(this); 
     this.checkIfEmpty = this.checkIfEmpty.bind(this);
     this.spread = this.spread.bind(this);
+    this.changeTab = this.changeTab.bind(this);
 
     //state
     this.state = {
@@ -151,8 +152,10 @@ class Tab1 extends Component {
     let empty = this.state.isCollectionEmpty;
     let collection = sessionStorage.getItem("collection");
     if(collection === null) empty = true;
+    else if (JSON.parse(collection).films.concat(JSON.parse(collection).cffilms).length === 0) empty = true;
     else empty = false;
     // if (this.state.films.length === 0 && this.state.cffilms.length === 0) empty = true;
+    console.log("empty: ",empty)
     this.setState({isCollectionEmpty: empty});
   }
   cancelOverlay(event){
@@ -700,6 +703,21 @@ class Tab1 extends Component {
     evt.currentTarget.nextSibling.classList.toggle("show");
     evt.currentTarget.querySelector("svg").classList.toggle("show");
   }
+  changeTab(evt){
+    let target = evt.currentTarget;
+    let className = target.getAttribute("data-tab");
+    let tabs = target.parentNode.nextSibling;
+    //改tag的active
+    Array.from(target.parentNode.childNodes).forEach(el => {
+      if (el.classList.contains("active")) el.classList.remove("active");
+      if (el===target) el.classList.add("active");
+    })
+    //改tab的active
+    Array.from(tabs.childNodes).forEach(el => {
+      if(el.classList.contains("active")) el.classList.remove("active");
+      if(el.classList.contains(className)) el.classList.add("active");
+    })
+  }
   nextStep(evt){
     let user = sessionStorage.getItem("user");
     if(user === null){
@@ -802,62 +820,25 @@ class Tab1 extends Component {
           <div className="tab tab1 active"> 
             <div className="overlay">
               <div className="wrap">
-                <h3>加入更多片單</h3>
                 <div className="panel">
-                  <div className="selected">
-                    <div className="title">
-                      目前收藏
+                  <div className="title">
+                    <span className="active" data-tab="films" onClick={this.changeTab}>確定放映</span>
+                    <span data-tab="cffilms" onClick={this.changeTab}>募資</span>
+                    <span data-tab="collect" onClick={this.changeTab}>加入收藏 <i>{this.state.add_films.concat(this.state.add_cffilms).length}</i></span>
                     </div>
-                    <ul>
-                      {
-                        this.state.films.map((film, idx) => (
-                          <li key={idx}>
-                            {film.name_zhtw}
-                          </li>
-                        ))
-                      }
-                      {
-                        this.state.cffilms.map((film, idx) => (
-                          <li key={idx}>
-                            {film.name_zhtw}
-                          </li>
-                        ))
-                      }
-                      {
-                        this.state.add_films.map((film, idx) => (
-                          <li key={idx} data-id-movie={film.id_movie}>
-                            {film.name}
-                          </li>
-                        ))
-                      }
-                      {
-                        this.state.add_cffilms.map((film, idx) => (
-                          <li key={idx} data-id-movie={film.id_movie}>
-                            {film.name}
-                          </li>
-                        ))
-                      }
-                    </ul>
-                  </div>
-                  <div className="options">
-                    <div className="films">
-                      <div className="title">
-                        確定放映
-                      </div>
+                  <div className="tabs">
+                    <div className="films active">
                       <div className="items">
                         {
                           this.state.all_films.map((film, idx) => (
-                        <div key={idx} className={`item ${film.select ? 'selected' : 'notSelected'} ${film.collect ? 'hide' : ''}`} data-id-movie={film.id} onClick={this.add_item}>
-                              {film.name}
-                            </div>
+                            <div key={idx} className={`item ${film.select ? 'selected' : 'notSelected'} ${film.collect ? 'hide' : ''}`} data-id-movie={film.id} onClick={this.add_item}>
+                                  {film.name}
+                                </div>
                           ))
                         }
-                      </div>
+                        </div>
                     </div>
                     <div className="cffilms">
-                      <div className="title">
-                        募資
-                      </div>
                       <div className="items">
                         {
                           this.state.all_cffilms.map((film, idx) => (
@@ -865,14 +846,23 @@ class Tab1 extends Component {
                               {film.name}
                             </div>
                           ))
-                        }
-                      </div>
-                      <div id="cancelOverlay">
-                        <input type="button" value="取消" onClick={this.cancelOverlay} />
-                        <input type="button" value="確定" onClick={this.cancelOverlay} />
-                      </div>
+                        }    
+                        </div>                  
                     </div>
-                  </div>
+                    <ul className="collect">
+                      {
+                        this.state.add_films.concat(this.state.add_cffilms).map((film, idx) => (
+                          <div key={idx} className="add" data-id-movie={film.id_movie}>
+                            {film.name}
+                          </div>
+                        ))
+                      }
+                    </ul>
+                  </div>                 
+                </div>
+                <div id="cancelOverlay">
+                  <input type="button" value="取消" onClick={this.cancelOverlay} />
+                  <input type="button" value="確定" onClick={this.cancelOverlay} />
                 </div>
               </div>
             </div>
@@ -907,6 +897,9 @@ class Tab1 extends Component {
                         <Cb id={`filmsCb`}  click={this.checkAll} />
                         </div>
                         <div className="title">
+                          < div className="col" >
+                            <h4>海報</h4>
+                          </div>
                           < div className = "col" >
                             <h4>片名</h4>
                           </div>
@@ -934,6 +927,9 @@ class Tab1 extends Component {
                             ) : ""}
                           </div>
                           <div className={`title ${film.bookable_seats_count > 0 ? "" : "forbid"}`}>
+                            <div className="col">
+                              <img className="" src={`${process.env.PUBLIC_URL}/images/${film.release_year}_${film.name_en.split(' ').join('_').replace(':', '_')}.jpg`} /> 
+                              </div>
                             <div className="col">
                               <span className="film_name">{film.name_zhtw}</span>
                               <span className="film_name">{film.name_en}</span>
@@ -970,6 +966,9 @@ class Tab1 extends Component {
                           <Cb id={`cffilmsCb`}  click={this.checkAll} />
                           </div>
                           <div className="title">
+                            < div className="col" >
+                              <h4>海報</h4>
+                            </div>
                             < div className = "col" >
                               <h4>片名</h4>
                             </div>
@@ -991,6 +990,9 @@ class Tab1 extends Component {
                               />
                           </div>
                           <div className="title">
+                            <div className="col">
+                              <img className="" src={`${process.env.PUBLIC_URL}/images/${film.release_year}_${film.name_en.split(' ').join('_').replace(':', '_')}.jpg`} />
+                            </div>
                             < div className = "col" >
                               <span className="film_name">{film.name_zhtw}</span>
                               <span className="film_name">{film.name_en}</span>
@@ -1010,9 +1012,11 @@ class Tab1 extends Component {
                 </div>
               )}
             {this.state.isCollectionEmpty === true && (
-                <h2 className="empty_info">目前沒有收藏喔!馬上加入喜愛的影片吧!!</h2>
+                <div className="empty_info">
+                  <h2 className=""><span>目前沒有任何收藏</span><span>馬上加入喜愛的影片吧!!</span></h2>
+                  </div>
               )}
-            <div className="buttons">
+            <div className={`buttons ${this.state.isCollectionEmpty ? "center" : ""}`}>
               
               <button type="button" onClick={this.add_collection}><i class="fas fa-plus"></i>加入更多</button>
               {

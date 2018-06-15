@@ -30,7 +30,7 @@ class Tab3 extends Component {
             return a + parseInt(x.innerHTML);
         }, 0)
         console.log(total);
-        document.querySelector('.totalPrice span').innerHTML = total;
+        document.querySelector('.totalPrice :last-child').innerHTML = total;
         // console.log(document.querySelector('.totalPrice span'));
     }
     nextStep(evt){
@@ -139,43 +139,42 @@ class Tab3 extends Component {
     render() {
         return (
             <div className="tab tab3">
-                選擇付款方式
-                <table>
-                    <thead>
-                        <tr>
-                            <th colSpan="5">
-                                確認訂購明細
-                                </th>
-                        </tr>
-                        <tr align="center">
-                            <td>片名</td>
-                            <td>場次時間</td>
-                            <td>座位</td>
-                            <td>張數</td>
-                            <td>小計</td>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div className="table">
+                    <div className="head">
+                        <div className="row">
+                            確認訂購明細
+                        </div>
+                        <div className="row">
+                            <h4 className="col">片名</h4>
+                            <h4 className="col">場次時間</h4>
+                            <h4 className="col">座位</h4>
+                            <h4 className="col">張數</h4>
+                            <h4 className="col">小計</h4>
+                        </div>
+                    </div>
+                    <div className="body">
                         {
                             this.state.films.map((film, idx) => (
-                                <tr align="right">
-                                    <td>{film.name_zhtw}</td>
-                                    <td>{film.hasOwnProperty('seats') ? `${film.date} ${film.time.slice(0,-3)} ${film.auditorium}` : "募資"}</td>
-                                    <td>{film.hasOwnProperty('seats') ? film.seats.join(',') : '募資'}</td>
-                                    <td>{film.quantity}</td>
-                                    <td className="price">{film.quantity * this.price}</td>
-                                </tr>
+                                <div className="row">
+                                    <div className="col">{film.name_zhtw}</div>
+                                    {film.hasOwnProperty('seats') && (<div className="col"><span>{film.date.split("-0").join("/")} {film.time.slice(0, -3)}</span> <span>{film.auditorium}</span></div>)}
+                                    {!film.hasOwnProperty('seats') && (<div className="col"></div>)}
+                                    <div className="col">{film.hasOwnProperty('seats') ? film.seats.join(',') : ''}</div>
+                                    <div className="col">{film.quantity}</div>
+                                    <div className="col price">{film.quantity * this.price}</div>
+                                </div>
                             ))
                         }
-                        <tr>
-                            <td colSpan="5" className="totalPrice" align="right">total<span>0</span></td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        
-                    </tfoot>
-                </table>
-                <table>
+                        <div className="row totalPrice">
+                            <div className="col"></div>
+                            <div className="col"></div>
+                            <div className="col"></div>
+                            <div className="col"></div>
+                            <div className="col"></div>
+                        </div>
+                    </div>
+                </div>
+                <div className="com">
                     <thead>
                         <tr>
                             <th colSpan="5">
@@ -201,7 +200,7 @@ class Tab3 extends Component {
                             </td>
                         </tr>
                     </tbody>
-                </table>
+                </div>
                 <div className="buttons">
                     <Link className="prevStep" to={`/my-film/2`} onClick={this.prevStep}>上一步</Link>
                     <Link className="nextStep" to={`/my-film/4`} onClick={this.nextStep}>下一步</Link>

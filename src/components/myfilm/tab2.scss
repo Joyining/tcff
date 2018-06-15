@@ -1,172 +1,191 @@
+@import "../../sass/partials/basic";
+
 .tab2{
-    table{        
+    div.table{
         width: 100%;
         margin-bottom: 20px;
-        th{
-            font-size: 28px;
-            background-color: lightcoral;
-        }
-        td{
-            background-color: #ccc;
-            font-size: 20px;
-            border: 1px solid black;
-            @media (max-width: 480px) {
-                border: none;
-                background-color: rgba(0,0,0,0);
+        .head{
+            position: relative;
+            cursor: pointer;
+            .row{
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
+                border-bottom: 2px solid $colorDarker;
+                color: $colorDarker;
+                background-color: $colorMedium;
+                font-weight: 900;
+
+                .col{
+                    flex: 1;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    h4{                    
+                        font-size: 28px;
+                    }
+                }
             }
         }
-    }
-    .rwd-table {
-        background: #fff;
-        overflow: hidden;
-    }
+        .body{        
+            div.row{
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
+                border-bottom: 2px solid $colorLight;
+                color: $colorLight;
+                font-weight: 500;
+                height: 120px;
+                &:hover{
+                    background-color: $colorLight;
+                    color: $colorDark;
+                    label span{
+                        // background-color: $colorDark;
+                        border-color: $colorMedium;
+                    }
+                }
+                .col{
+                    flex: 1;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    
+                    height: 120px;
+                    font-size: 20px;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
 
-    .rwd-table tr:nth-of-type(2n){
-        background: #eee;
-    }
-    .rwd-table th, 
-    .rwd-table td {
-        margin: 0.5em 1em;
-    }
-    .rwd-table {
-        min-width: 100%;
-    }
-
-    .rwd-table th {
-        display: none;
-    }
-
-    .rwd-table td {
-        display: block;
-    }
-
-    .rwd-table td:before {
-    content: attr(data-th) " : ";
-        font-weight: bold;
-        width: 3.5em;
-        display: inline-block;
-    }
-
-    .rwd-table th, .rwd-table td {
-        text-align: left;
-    }
-
-    .rwd-table th, .rwd-table td:before {
-        color: #D20B2A;
-        font-weight: bold;
-    }
-
-    @media (min-width: 480px) {
-        .rwd-table td:before {
-            display: none;
+                        transform-origin: 50% 80%;
+                        transition: all .5s;
+                        &:hover{
+                            transform: scale(2);
+                        }
+                    }
+                    @include breakpoint("mobileonly") {
+                        // width: 50%;
+                    }
+                    span{
+                        width: 100%;
+                        padding: 5px 0;
+                    }
+                    input[type="button"]{
+                        background-color: $colorDarker;
+                        color: $colorLight;
+                        font-size: 20px;
+                        border: none;
+                        padding: 10px 20px;
+                        border: 1px solid $colorLight;
+                        font-weight: 600;
+                        letter-spacing: 1px;
+                        cursor: pointer;
+                        &:active{
+                            background-color: lighten($colorDarker,10%);
+                        }
+                        &:hover{
+                            background-color: lighten($colorDarker,10%);
+                        }
+                    }
+                    input[type="number"]{
+                        padding: 5px 0 5px 8px;
+                        width: 100px;
+                        font-size: 20px;
+                        // text-align: center;
+                    }
+                }               
+            }
         }
-        .rwd-table th, .rwd-table td {
-            display: table-cell;
-            padding: 0.25em 0.5em;
-        }
-        .rwd-table th:first-child, 
-        .rwd-table td:first-child {
-            padding-left: 0;
-        }
-        .rwd-table th:last-child, 
-        .rwd-table td:last-child {
-            padding-right: 0;
-        }
-        .rwd-table th, 
-        .rwd-table td {
-            padding: 1em !important;
+    } 
+    .buttons{
+        a:first-child{
+            background-color: darken($colorLight,10%);
+            color: $colorDark;
         }
     }
     .overlay{
         position: fixed;
-        // width: 100%;
-        // height: 100%;
         z-index: 101;
-        background-color: rgba(0,0,0,.5);
-        // filter: blur(10px);
+        background-color: rgba(0,0,0,.8);
         top: 0;
         left: 0;
         bottom: 0;
         right: 0;
-        // overflow: auto;
-        // display: flex;
+        
+        display: flex;
+
         justify-content: center;
         align-items: center;
-        // display: none;
+        @include breakpoint("mobileonly"){
+            justify-content: flex-start;
+            overflow: auto;
+        }
+
         transform: translateX(-100%);
         transition: all .5s;
         &.show{
-            display: flex;
             transform: translateX(0);
         }
         .wrap{
-            width: 100%;
-            height: 100%;
-            // background-color: #eee;
-            overflow: auto;
-            // margin: 0 auto;
-            .panel{
-                display: flex;
-                .selected{
-                    flex: 2;
-                    ul{
-                        padding-left: 15px;
-                        li{
-                            font-size: 24px;
-                            color: white;
-                            font-weight: 400;
-                            margin: 8px 0;
-                        }
-                    }
-                }
-                .options{
-                    flex: 8;
-                }
-            }
-            #cancelOverlay{
-                position: absolute;
-                bottom: 50px;
-                left: 50%;
-                transform: translateX(-50%);
-                // margin: 0 auto;
-                input{
-                    padding: 10px 20px;
-                    margin: 15px;
-                }
-
-            }
+            overflow: auto;    
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; 
+            height: 100%;  
+            overflow-x: scroll;
             h3{
                 text-align: center;
-                padding: 15px 0;
-                font-weight: 700;
-                background-color: #666;
-            }
-            .title{
-                font-size: 24px;
-                text-align: center;
-                padding: 15px 0;
-                border: 5px solid lightsteelblue;
-                border-radius: 5px;
-                background-color: lightgray;
-            }
-            .items{
+                padding: 30px 0;
+                font-size: 36px;
+                background-color: $colorDarker;
+                color: $colorLight;
+                margin: 30px 0 0;
+                letter-spacing: 2px;
+            }      
+            .seat-map{
+                width: 100%;
+                overflow: auto;
+                table{
+                    overflow: auto;
+                }
+            }                  
+            #cancelOverlay {
+                width: 100%;
                 display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-                .item{
+                justify-content: center;
+                align-items: center;
+                padding-top: 50px; 
+                padding-bottom: 50px; 
+                input {
+                    background-color: $colorDarker;
+                    color: $colorLight;
+                    border: none;
                     padding: 10px 20px;
-                    // flex: 1;
-                    flex-basis: 1;
-                    border: 2px solid lightblue;
-                    border-radius: 5px;
-                    &.selected{
-                        background-color: rgba(73, 56, 59, 0.5);
-                        color: white;
+                    width: 120px;
+                    height: 50px;
+                    margin: 0 20px;
+                    font-size: 20px;
+                    font-weight: 600;
+                    letter-spacing: 1px;
+                    cursor: pointer;
+                    &:first-child{
+                        background-color: $colorLight;
+                        color: $colorDarker;
+                        &:hover{
+                            background-color: darken($colorLight,10%);
+                        }
                     }
-                    &.notSelected{
-                        color: white;
-                        background-color: rgba(216, 81, 104, 0.5);
-                        cursor: pointer;
+                    &:nth-child(2):hover{
+                        background-color: lighten($colorDarker,10%);
+                        color: $colorLight;
                     }
                 }
             }

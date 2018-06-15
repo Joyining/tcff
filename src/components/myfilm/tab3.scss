@@ -1,18 +1,95 @@
+@import "../../sass/partials/basic";
+
 .tab3{
-    table{        
+    .table{
         width: 100%;
         margin-bottom: 20px;
-        th{
-            font-size: 28px;
-            background-color: lightcoral;
+        .head{
+            .row{
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
+                // padding-right: 100px;
+                border-bottom: 2px solid $colorDarker;
+                color: $colorDarker;
+                // background-color: $colorMedium;
+                font-weight: 900;
+                &:first-child{     
+                    background-color: lighten($colorDark,15%);
+                    justify-content: center;                    
+                    text-align: center;
+                    border: none;
+                    font-size: 30px;
+                    font-weight: 900;
+                }
+
+                .col{
+                    flex: 1;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    font-size: 28px;
+                    &:last-child{
+                        justify-content: flex-end;
+                        box-sizing: border-box;
+                        padding-right: 30px;
+                    }
+                }    
+            }
         }
-        td{
-            background-color: #ccc;
-            font-size: 20px;
-            border: 1px solid black;
-        }
-        .totalPrice{
-            text-align: right;
+        .body{
+            .row{
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
+                // padding-right: 100px;
+                border-bottom: 2px solid $colorDarker;
+                color: $colorDarker;
+                // background-color: $colorMedium;
+                font-weight: 900;
+                &:hover{
+                    background-color: darken($colorLight,15%);
+                    // color: $colorDark;
+                }
+                .col{
+                    flex: 1;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    text-align: center;
+                    font-size: 20px;
+                    box-sizing: border-box;
+                    span{
+                        width: 100%;
+                        padding: 5px;
+                    }
+                    &:last-child{
+                        justify-content: flex-end;
+                        box-sizing: border-box;
+                        padding-right: 30px;
+                    }
+                }
+                &.totalPrice{
+                    color: lighten($colorDarker, 10%);
+                    .col:last-child{
+                        font-size: 26px;
+                        justify-content: flex-end;
+                        &::before{
+                            content: "總計";
+                            margin-right: 10px;
+                        }
+                    }
+
+                }
+            }
         }
     }
 }

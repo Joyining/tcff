@@ -67,8 +67,8 @@ class Tab2 extends Component {
         //張數限制在1-10
         let value = (event.target.value < 1) ? 1 : event.target.value;
         value = (event.target.value > 10) ? 10 : value;
-        let isFilms = event.target.closest("table").classList.contains("films");
-        let id = event.target.closest("tr").getAttribute('data-id-movie');
+        let isFilms = event.target.getAttribute("data-isfilm") === "true";
+        let id = event.target.closest(".row").getAttribute('data-id-movie');
 
         if(isFilms){//確映
             let ar = this.state.films.map(film => {
@@ -90,7 +90,7 @@ class Tab2 extends Component {
         //顯示蓋板
         this.overlay.classList.add('show');
 
-        let id_movie = event.target.closest('tr').getAttribute('data-id-movie');        
+        let id_movie = event.target.closest('.row').getAttribute('data-id-movie');        
         let ar = this.state.films.filter((film) => film.id_movie === id_movie);
 
         this.picked = this.state.films.reduce((a, film) => {
@@ -272,60 +272,68 @@ class Tab2 extends Component {
     render() {
         return (
             <div className="tab tab2">
-                選擇張數及劃位
                 <div className="overlay">
                     <div className="wrap">
-                        <h3>劃位</h3>
-                        <div>
-                            座位圖
-                                <SeatMap id_movie={this.state.seatOfFilm.id_movie} seatOfFilm={this.state.seatOfFilm} pickSeat={this.pickSeat} />
-                            </div>
+                        <h3>{this.state.seatOfFilm.name_zhtw}</h3>
+                        <SeatMap id_movie={this.state.seatOfFilm.id_movie} seatOfFilm={this.state.seatOfFilm} pickSeat={this.pickSeat} />
                         <div id="cancelOverlay">
                             <input type="button" value="取消" onClick={this.confirmSeats} />
                             <input type="button" value="確定" onClick={this.confirmSeats} />
                             </div>                             
                         </div>
+                    </div>               
+                
+                <div className="table">
+                    <div className="head">
+                        <div className="row">
+                            < div className="col" >
+                                <h4>海報</h4>
+                            </div>
+                            < div className="col" >
+                                <h4>片名</h4>
+                            </div>
+                            < div className="col" >
+                                <h4>場次</h4>
+                            </div>
+                            < div className="col" >
+                                <h4>劃位</h4>
+                            </div>
+                            < div className="col" >
+                                <h4>位號</h4>
+                            </div>
+                            < div className="col" >
+                                <h4>數量</h4>
+                            </div>
+                            < div className="col" >
+                                <h4>小計</h4>
+                            </div>
+                        </div>
                     </div>
-
-                <table className="films rwd-table">
-                    <thead>
-                        <tr>
-                            <th colSpan="6">欲購買的場次</th>
-                            </tr>
-                    </thead>
-                    <tbody>
+                    <div className="body">                        
                         {
                             this.state.completeLoad && this.state.films.map((film, idx) => (
-                                <tr data-id-movie={film.id_movie} key={idx}>
-                                    <td data-th="片名">{film.name_zhtw}</td>
-                                    <td data-th="場次">{film.date + film.time.slice(0,-3) + film.auditorium}</td>
-                                    <td data-th="數量"><input type="number" value={film.quantity} min="1" max="10" onChange={this.changeTicketNum} /></td>
-                                    <td data-th="小計">{this.price * film.quantity}</td>
-                                    <td data-th="位號">{film.seats.join(",")}</td>
-                                    <td data-th="劃位"><input type="button" value="自行劃位" onClick={this.seatAssign} /></td>
-                                    </tr>
-                            ))
-                        }                       
-                        </tbody>
-                </table>
-                <table className="cffilms rwd-table">
-                    <thead>
-                        <tr>
-                            <th colSpan="3">參與募資的電影</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            this.state.completeLoad && this.state.cffilms.map((film, idx) => (
-                                <tr data-id-movie={film.id_movie} key={idx}>
-                                    <td data-th="片名">{film.name_zhtw}</td>
-                                    <td data-th="數量"><input type="number" value={film.quantity} min="1" max="10" onChange={this.changeTicketNum} /></td>
-                                    <td data-th="小計">{this.price * film.quantity}</td>
-                                </tr>
+                                <div key={idx} data-id-movie={film.id_movie} className="row">
+                                    <div className="col">
+                                        <img className="" src={`${process.env.PUBLIC_URL}/images/${film.release_year}_${film.name_en.split(' ').join('_').replace(':', '_')}.jpg`} />
+                                    </div>
+                                    <div data-th="片名" className="col">{film.name_zhtw}</div>
+                                    <div data-th="場次" className="col">
+                                        <span>{film.date.split("-0").join("/")}</span>
+                                        <span>{film.time.slice(0, -3)}</span>
+                                        <span>{film.auditorium}</span>
+                                    </div>
+                                    <div data-th="劃位" className="col"><input type="button" value="自行劃位" onClick={this.seatAssign} /></div>
+                                    <div data-th="位號" className="col">{film.seats.join(",")}</div>
+                                    <div data-th="數量" className="col"><input type="number" data-isfilm={true} value={film.quantity} min="1" max="10" onChange={this.changeTicketNum} /></div>
+                                    <div data-th="小計" className="col">{this.price * film.quantity}</div>
+                                </div>
                             ))
                         }
-                        </tbody>
-                </table>
+                    </div>
+                </div>
+
+
+
                 <div className="buttons">
                     <Link className="prevStep" to={`/my-film/1`} onClick={this.prevStep}>上一步</Link>
                     <Link className="nextStep" to={`/my-film/3`} onClick={this.nextStep}>下一步</Link>

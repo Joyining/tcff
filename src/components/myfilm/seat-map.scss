@@ -1,32 +1,26 @@
+@import "../../sass/partials/basic";
+
 .seat-map{
     table{
         border: 2px solid #ccc;
-        max-width: 80vh;
-        margin: 100px auto;
         border-collapse: separate;
         border-spacing: 5px;
-        background-color: cadetblue;
-        // max-height: 80vh;
-        // box-shadow: 5px 5px 5px lightcoral;
+        background-color: lighten($colorMedium,5%);
         thead{
-            // display: flex;
-            // justify-content: center;
-            // margin: 0 auto;
             tr{
-                // display: flex;
-                // justify-content: center;
-
                 th{
                     background-color: rgba(0,0,0,0);
                     height: 80px;
-                    // margin: 0 auto;
-                    // display: block;
-                    span{
-                        background-color: #ccc;
+                    span{//SCREEN
+                        background-color: $colorMedium;
+                        border: 1px solid $colorDark;
+                        color: $colorDarker;
                         display: block;
                         margin: 0 auto;
                         width: 60%;
                         padding: 10px;
+                        font-size: 20px;
+                        font-weight: 700;
 
                     }
                 }
@@ -38,39 +32,39 @@
         }
     }
     td{
-        width: 10px;
-        height: 10px;
-        border: 1px solid white;
+        width: 45px;
+        min-width: 45px;
+        height: 45px;
+        text-align: center;
+        line-height: 45px;
+        border: 3px solid lighten($colorMedium,10%);
         margin: 5px;
-        color: black;
+        font-size: 20px;
+        color: $colorLight;
         font-weight: 600;
-        padding: 15px;
-        background-color: lightblue;
-        // border-radius: 50%;
         &.available{
-            background-color: teal;
+            background-color: $colorDark;
             cursor: pointer;
             transition: all .5s;
             &:hover{
-                background-color: lighten(teal, 10%);
-                // color: crimson;
+                background-color: lighten($colorDark, 15%);
             }
             &.picked{
-                background-color: rgb(235, 91, 48);
-                color: black;
+                background-color: $colorDarker;
+                color: $colorLight;
             }
         }
         &.occupied{
-            background-color: rgba(0,0,0,.5);
+            background-color: #666;
             cursor: auto;
-            color: rgba(255,255,255,.5);
+            color: #888;
         }
         &.empty{
             opacity: 0;
         }
         &.row{
             background-color: rgba(0,0,0,0);
-            color: black;
+            color: darken($colorDarker,10%);
             
         }
     }
