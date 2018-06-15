@@ -53,6 +53,13 @@
     text-align: center;
     color: white;
     margin-top: 50px;
+    .big{
+        width: 1000px;
+        margin: 0 auto;
+    }
+    .flex{
+        display: flex;
+    }
     // 片名區
     .myfilmname{
         width:700px;
@@ -345,7 +352,7 @@ li{
     margin: 0 auto;
     color: #602926;
     margin-top: 10px;
-    h2{
+    h3{
         padding: 20px 60px;
         margin-top: -80px;
     }
@@ -354,11 +361,11 @@ li{
     border-bottom: 80px solid #cbab9e;
 	border-left: 50px solid transparent;
 	height: 0;
-	width: 600px;
+	width: 500px;
     margin: 0 auto;
     color: #602926;
     margin-top: 10px;
-    h2{
+    h3{
         padding: 20px 60px;    
     }
 }
@@ -374,7 +381,21 @@ li{
     background-size: 100%;
     z-index: 1;
 }
-
+@media screen and (max-width: 1260px){
+    .box3{
+        .big{
+            width: 800px;
+        }
+    }
+    #trapezoid_left{        
+        width: 400px;
+       
+    }
+    #trapezoid_right{
+        width:300px;
+        
+    }
+}
 @media screen and (max-width: 1030px){
     .container-filmsDetail{
         width: 90vw;        
@@ -395,6 +416,10 @@ li{
         }
     }
     .box3{
+        .big{
+            width: 700px;
+            
+        }
         .myfilmname{
             width:400px;
         }           
@@ -418,13 +443,41 @@ li{
     }
     
 }
+@media screen and (max-width: 840px){
+    .box3{
+        .flex{
+            display: block;
+        }
+        .big{
+            width: 600px;            
+        }
+    }
+    #trapezoid_left{
+        border-top: 80px solid #cbab9e;
+        border-right: 0 solid transparent;
+        width: 350px;
+    }
+    #trapezoid_right{
+        border-bottom: 80px solid #cbab9e;
+        border-left: 0 solid transparent;
+        width: 350px;
+    }
+}
+@media screen and (max-width: 690px){
+    .box3{
+        width: 100%;
+        .big{
+            width: 100%;
+        }
+    }
+}
      @media screen and (max-width: 550px){
         .container-filmsDetail{
             width: 90vw;
             padding: 30px;
         }
         .box3{
-            width: 100%;
+            
             .myfilmname{
                 width:300px;
                 #h01{
@@ -454,10 +507,10 @@ li{
             border-left: 0 solid transparent;
             
         }
-        #trapezoid_right h2{
+        #trapezoid_right h3{
             padding: 20px 40px;    
         }
-        #trapezoid_left h2{
+        #trapezoid_left h3{
             padding: 20px 40px;
             margin-top: -75px;
         }

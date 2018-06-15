@@ -3,7 +3,7 @@
 
 .container-membercenter{
     width: 80vw;
-    // background-color:#80ffff ;
+    background-color:#80ffff ;
     margin: 220px  auto;
     padding: 100px ;
     
@@ -29,9 +29,6 @@
         // height: 600px;
         border-right: 5px solid $colorDark ;
         border-top: 5px solid $colorDark ;
-        @include breakpoint("tablet"){
-            height: 500px;
-        }
         @include breakpoint("mobileonly"){
             width:100% ;
             height: auto;
@@ -49,9 +46,11 @@
         }
 
         .pic_change{
-            margin: 0 35% ;
-            @include text-rec(30% , 16px, $colorMedium, $colorDark, transparent);    
-            line-height: 10px ;
+            margin: 0 25% ;
+            @include text-rec(50% , 16px, $colorMedium, $colorDark, transparent);    
+            line-height: 20px ;
+            box-sizing: border-box ;
+            height: auto;
             // background-color: $colorMedium ;
         }
     }
@@ -64,13 +63,12 @@
         display: flex ;
         flex-direction: column ;
         @include breakpoint("tablet"){
-            height: 500px;
+            height: auto;
         }
         @include breakpoint("mobileonly"){
             width:100% ;
             height: auto;
             border-right: none ;
-            border-top: none ;
         }
 
         .box_unclick{
@@ -95,13 +93,31 @@
             height: 60px;
             line-height: 60px ;
             @include breakpoint("mobileonly"){
-                width: 80%;
-                height: 55px;
+                // width: 80%;
+                // height: 55px;
                 background-color: $colorMedium ;
                 color: $colorDarker;
-                margin: 2% auto;
+                // margin: 2% auto;
             }
         }
+
+        .click_box_change{
+            cursor: pointer; 
+            margin: 10px auto;
+            @include text-rec(80% , 18px, $colorDarker, $colorLight, transparent);
+            height: 60px;
+            line-height: 60px ;
+        }
+
+        .oders_post_down_mobile{
+            cursor: pointer; 
+            margin: 2% auto;
+            @include text-rec(80% , 18px, $colorDarker, $colorLight, transparent);
+            height: 55px;
+            line-height: 60px ;
+        }
+
+
 
     }
 
@@ -180,7 +196,7 @@
                     // background-color: $colorDark;
                 }
 
-                .oders_post_down{
+                .oders_post_down , .oders_post_down_mobile{
                     color: $colorLight ;
                     margin: 2px auto ; 
                     width: 80%; 

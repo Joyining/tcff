@@ -21,10 +21,12 @@ class Member2 extends Component {
 
       account: "",
       password_reg: "",
-      password_again:"" ,
-      message: { account: "", password_acc: "", nickname:"" }
+      password_again:"",
+      nickname:"",
+      message: { account: "", password_acc: "", password_acc_again: "",nickname:"" }
     };
     this.handleChange = this.handleChange.bind(this);   
+    this.handleChange2 = this.handleChange2.bind(this);   
     this.validate = this.validate.bind(this);  
 
     this.flipToReg = this.flipToReg.bind(this);
@@ -39,7 +41,20 @@ handleChange(event){
     const state = this.state;
     state[event.target.id] = event.target.value;         
     this.setState(state);
-}
+  }
+  handleChange2(event){
+    const state = this.state;
+    const pw = state.password_log;
+
+    console.log(state.password_log===event.target.value);
+    const password_acc_ag = document.querySelector('#password_acc_ag');
+
+    if(state.password_log===event.target.value){
+      password_acc_ag.innerHTML = '';
+    } else {
+      password_acc_ag.innerHTML = '請輸入註冊密碼';
+    }
+  }
 
 validate(event){
     switch (event.target.name){
@@ -58,6 +73,9 @@ validate(event){
         case "password_acc_ag":
             this.passwordAccCheckAgain();
             break;
+        case "nickname":
+          this.nicknameCheck();
+          break;
         default:
             break;
     } 
@@ -69,14 +87,14 @@ emailCheck(){
     //pattern.test(this.state.email) ? error.email = "" : error.email = "email格式不正確";
     pattern.test(this.state.email_log) ? error.email = "" : error.email = "email格式不正確";
     this.setState({message:error});
-    console.log(pattern.test(this.state.email_log), this.state.email_log);
+    // console.log(pattern.test(this.state.email_log), this.state.email_log);
 }
 passwordCheck(){
     const pwd = this.state.password_log;
     const error = this.state.message;
-    pwd.length >=6 ? error.password = "" : error.password = "請輸入至少6字元";
+    pwd.length >=6 ? error.password = "" : error.password = "密碼至少有6個字元";
     this.setState({message:error});
-    console.log(pwd,pwd.length, error);
+    // console.log(pwd,pwd.length, error);
 }
 
 accountCheck(){
@@ -90,17 +108,24 @@ passwordAccCheck(){
   console.log(pwd)
   const pwd = this.state.password_reg;
   const error = this.state.message
-  pwd.length <=6 ? error.password_acc = "" : error.password_acc= "請輸入至少6字元";
+  pwd.length >=6 ? error.password_acc = "" : error.password_acc= "請輸入至少6字元";
   this.setState({message:error})
 }
 
+// not working
 passwordAccCheckAgain(){
-  const pwd = this.state.password_acc_again;
-  const pwdagain = this.state.password_r ;
+  const pwdagain = this.state.password_again;
+  const pwd = this.state.password_reg ;
   const error = this.state.message ;
-  pwdagain ? error.password_acc_again = "" : error.password_acc_again = "請輸入";
-  
+  pwdagain === pwd ? error.password_acc_again = "" : error.password_acc_again = "再次輸入的密碼不正確";
   this.setState({message:error})
+}
+
+nicknameCheck() {
+  const nickname = this.state.nickname;
+  const error = this.state.message;
+  nickname.length >= 1 ? (error.nickname = "") : (error.nickname = "請輸入您的暱稱");
+  this.setState({ message: error })
 }
 
 
@@ -244,16 +269,8 @@ loginSubmit(evt) {
                       this.props.history.goBack();
                     });
                 }
-                // let films = [];
-                // let cfFilms = [];
-                // let newCollection = {
-                //   films: films,
-                //   cffilms: cfFilms,
-                // }
-                // sessionStorage.setItem("collection", JSON.stringify(newCollection));
-
-                // this.props.history.goBack();
-                // window.history.back();
+            }else{
+              alert("帳號或密碼有誤，請重新登入");
             }
         });
 }
@@ -261,7 +278,7 @@ loginSubmit(evt) {
 registerSubmit(evt) {
   let emailRegister = document.getElementById("email_reg");
   let passwordRegister = document.getElementById("password_reg");
-  let nicknameRegister = document.getElementById("nickname_reg");
+  let nicknameRegister = document.getElementById("nickname");
   let json = {};
   json["username"] = nicknameRegister.value;
   json["email"] = emailRegister.value;
@@ -278,10 +295,12 @@ registerSubmit(evt) {
       console.log('res', data);
       if (data.success) {
         // sessionStorage.setItem('user', JSON.stringify(data.user));
-        alert('register success');
+        alert('註冊成功');
         console.log(sessionStorage.getItem('user'));
         this.props.history.push("/member");
         this.flipToReg();
+      } else {
+        alert("註冊所需資訊有誤，請重新輸入");
       }
     });
 }
@@ -315,7 +334,7 @@ registerSubmit(evt) {
                     <div className="worring_l" id="worring_password">{this.state.message.password}</div>
                 </div>
 
-                <button className="btn mouse hide_use" onClick={this.loginSubmit}>登入</button>
+                <div className="btn mouse hide_use" id="login-btn" onClick={this.loginSubmit}>登入</div>
 
                 <div className="btn_group">
                   <div className="btn_switch sign_up mouse" onClick={this.flipToReg}>註冊</div>
@@ -337,30 +356,30 @@ registerSubmit(evt) {
                 <label htmlFor="nickname_reg">暱稱：</label>
                 <input
                   type="text"
-                  id="nickname_reg"
+                  id="nickname"
                   placeholder="請輸入您的暱稱"
+                  name="nickname" value={this.state.nickname} onChange={this.handleChange} onBlur={this.validate}
                 />
+
+              </div> 
+              <div className="password_box_r">
+                <div className="password_r_1"  htmlFor="password_reg"><label>密碼：</label></div>
+                <input  type="password"  id="password_log" name="password" className="password_2" placeholder="請輸入您的密碼" value={this.state.password_log} onChange={this.handleChange} onBlur={this.validate} />
               </div>
-              <div className="warning_box">
-                <div className="worring_r">{this.state.message.nickname}</div>
-              </div>
-              <div className="input_box">
-                <label className="password_r_1"  htmlFor="password_reg">密碼：</label>
-                <input  type="password"  id="password_reg"  name="password_reg" className="password_r_2"  placeholder="請輸入您的密碼"  value={this.state.password_reg} onChange={this.handleChange} onBlur={this.validate} />
-              </div>
-              <div className="warning_box">
-                <div className="worring_r">{this.state.message.password_acc}</div>
+              <div className="worring_box_r">
+                <div className="worring_r">{this.state.message.password}</div>
               </div>
 
-              <div className="input_box">
-                <label className="password_r_1 password_mo" htmlFor="password_check">密碼確認：</label>
-                <input  type="password"  id="password_check" name="password_acc_ag" className="password_r_2" placeholder="請再次輸入您的密碼"  />
+              <div className="password_box_r">
+                <div  className="password_r_1 password_mo" htmlFor="password_check"><label>密碼確認：</label></div>
+                <input  type="password"  id="password_check" name="password_acc_ag" className="password_r_2" placeholder="請再次輸入您的密碼"  onChange={this.handleChange2} onBlur={this.handleChange2} />
               </div>
-              <div className="warning_box">
-                 <div className="worring_r">{this.state.message.password_acc_ag}</div>
+              <div className="worring_box_r">
+                 <div className="worring_r" id="password_acc_ag">{this.state.message.password_acc_ag}</div>
+
               </div>
 
-              <button className="btn mouse" onClick={this.registerSubmit}>註冊</button>
+              <div className="btn mouse" onClick={this.registerSubmit}>註冊</div>
 
               <div className="already_register">已有帳號?</div>
               <div className="btn_group">
@@ -381,7 +400,7 @@ registerSubmit(evt) {
                     <input type="text" id="email_forget" className="account_2_p"  placeholder="請輸入email"  />
                 </div>
 
-                <button className="btn mouse hide_use">確認送出</button>
+                <div className="btn mouse hide_use">確認送出</div>
 
                 <div className="btn_group hide_use">
                     <div className="btn_switch sign_up mouse" onClick={this.flipFromForgetToReg}> <div>註冊</div></div>
