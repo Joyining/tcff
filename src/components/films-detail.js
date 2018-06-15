@@ -367,13 +367,15 @@ class Filmsdetail extends Component {
                 </section>
 
 
-                <div className="box3 flex">
-                    <div id="trapezoid_left">
-                        <h2>{this.state.films.date} {this.state.films.day}</h2>
-                    </div>            
-                    <div id="trapezoid_right">                 
-                        <h2>{this.state.films.auditorium}</h2>       
-                    </div>        
+                <div className="box3">
+                    <div className="big flex">
+                        <div id="trapezoid_left">
+                            <h3>{this.state.films.date} {this.state.films.day}</h3>
+                        </div>            
+                        <div id="trapezoid_right">                 
+                            <h3>{this.state.films.auditorium}</h3>       
+                        </div>
+                    </div>       
                 </div>
 
         </div>
