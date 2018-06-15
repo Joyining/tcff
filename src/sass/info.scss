@@ -13,6 +13,14 @@
         flex-direction: row ;
         position: sticky;
         top:100px;
+        z-index: 5;
+    }
+
+    .pics_box2{
+        display:flex;
+        flex-direction: row ;
+        position: sticky;
+        top:100px;
         z-index: 1;
     }
 
@@ -40,45 +48,90 @@
         // height: 850px;
     }
 
+    // 關於
     .tcff_about{
         position: relative ;
         // background-color:#80ff00 ;
     }
-
+    // 場地
     .tcff_place{
         position: relative;
-        background-color:#bd94eb ;
+        // background-color:#bd94eb ;
 
         .place_pic{
             width: 50%;
             overflow: hidden;
+            z-index: 1 ;
         }
 
         .place_title{
             margin: 20px auto ;
             @include text-rec(80%, 1.5rem, transparent, $colorDarker, $colorDarker);
         }
-    }
 
+        .place_info{
+            display: flex ;
+            flex-direction: column ;
+            width: 100% ;
+            margin: 0 25% ;
+            font-size: 18px ;
+            line-height: 50px ;
+        }
+    }
+    // 售票
     .tcff_ticket{
         position: relative;
-        background-color:#ff8080 ;
-    }
+        // background-color:#ff8080 ;
 
+        .ticket_title{
+            margin: 20px auto ;
+            @include text-rec(80%, 1.5rem, transparent, $colorDarker, $colorDarker);
+        }
+
+        .tcff_ticket_worring{
+            font-weight: bold ;
+            text-decoration: underline ;
+            text-align: center ;
+        }
+
+        .tcff_ticket_word{
+            display: flex ;
+            flex-direction: column ;
+            margin: 10px auto ;
+        }
+
+        .tcff_ticket_bigword{
+            font-size: 24px ;
+            font-weight: bold ;
+        }
+
+        .bold{
+            font-weight: bold;
+            text-decoration: underline ;
+        }
+    }
+    // QA
     .tcff_ticket_qa{
         position: relative;
         background-color:#0080ff ;
+
+        .tcff_ticket_qa_up{
+            display: flex ;
+            flex-direction: row ;
+            width: 20%;
+        }
     }
 
-
-    .ingo_title{
+    // 裡面大標
+    .info_title{
         margin: 20px auto ;
         @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
     }
+    //下面外框
     .word{
         width: 100%;
         padding: 0 50px ;
-        background-color:#a0dedb ;
+        // background-color:#a0dedb ;
         // overflow:auto;
         box-sizing: border-box ;
         @include paragraph($colorDarker);

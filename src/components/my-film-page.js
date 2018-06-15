@@ -67,20 +67,19 @@ class MyFilmPage extends Component {
         <div style={{position:'relative'}}>
         <Header collectionNum={this.state.collectionNum} loginStatus={this.state.loginStatus} login={this.state.login} />
             <FastTicket />
-            <section className="container">
               <div className="myfilmPage">
                 <div className="progressBar">
               <NavLink activeClassName="active" to={`/my-film/1`}>              
-                    STEP1. <span>勾選欲購買之場次</span>
+                    <span>STEP.1</span> <span>勾選欲購買之場次</span>
                 </NavLink>
               <NavLink activeClassName="active" to={`/my-film/2`}>              
-                    STEP2. <span>選擇張數及劃位</span>
+                    <span>STEP.2</span> <span>選擇張數及劃位</span>
                 </NavLink>
               <NavLink activeClassName="active" to={`/my-film/3`}>              
-                    STEP3. <span>選擇付款方式</span>
+                    <span>STEP.3</span> <span>選擇付款方式</span>
                 </NavLink>
               <NavLink activeClassName="active" to={`/my-film/4`} >              
-                    STEP4. <span>完成結帳</span>
+                    <span>STEP.4</span> <span>完成結帳</span>
                 </NavLink>
                 </div>
               {/* <TabsRoute url={this.props.match.url}/> */}
@@ -93,7 +92,6 @@ class MyFilmPage extends Component {
               <Route path={`/my-film/4`} render={() => <Tab4 updatecollectionNum={this.updatecollectionNum} />} />
               {/* <Route path={`/my-film/4`} component={Tab4} /> */}
               </div>
-            </section>
             <Footer />
         </div>
     );
