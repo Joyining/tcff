@@ -19,6 +19,14 @@ class MemberCenter extends Component{
             }
         })
 
+        $('.oders_post_down_mobile').hide();
+
+        $(function(){
+            $('#change_color').click(function(){
+                $(this).toggleClass('click_box_change');
+                return false ;
+            })
+        })
         
 
     }
@@ -36,13 +44,38 @@ class MemberCenter extends Component{
                             <figure className="pic">
                                 <img src={memberCenterPic}/>
                                 <button className="pic_change">更換照片</button>
-                            </figure>                            
-                            <div className="btns">
+                            </figure>              
+
+                            <ul  className="btns">
+                                <li>
+                                    <ul className="box_click" id="change_color">
+                                        訂單查詢
+                                        <li className="oders_post_down_mobile oders_word ">1235</li>
+                                    </ul>
+
+                                    <ul className="box_unclick"  id="change_color">
+                                        修改會員資料
+                                        <li className="oders_post_down_mobile oders_word ">1235</li>
+                                    </ul>
+
+                                    <ul className="box_unclick"  id="change_color">
+                                        修改密碼
+                                        <li className="oders_post_down_mobile oders_word ">1235</li>
+                                    </ul>
+                                    
+                                    <ul className="box_unclick"  id="change_color">
+                                         客服中心
+                                        <li className="oders_post_down_mobile oders_word display">1235</li>
+                                    </ul>
+                                    
+                                </li>    
+                            </ul>              
+                            {/* <div className="btns">
                                 <div className="box_click">訂單查詢</div>
                                 <div className="box_unclick">修改會員資料</div>
                                 <div className="box_unclick">修改密碼</div>
                                 <div className="box_unclick">客服中心</div>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="commit01">

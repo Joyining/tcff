@@ -1,0 +1,24 @@
+@import "partials/basic";
+
+.container-info{
+    background-color: $colorMedium;
+    margin: ($headerHeight * 2.2) auto;
+	// margin-bottom: ($headerHeight * 4);
+	padding: 100px;
+	width: 80vw;
+	box-sizing: border-box;
+	@include breakpoint("tablet") {
+		width: 90vw;
+		padding: 50px;
+	}
+	@include breakpoint("mobileonly") {
+		width: 90vw;
+		padding: 30px;
+    }
+    .title{
+    @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
+    }
+    .about{
+    @include paragraph($colorDarker);
+    }
+}

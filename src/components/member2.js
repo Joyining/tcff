@@ -25,6 +25,7 @@ class Member2 extends Component {
       message: { account: "", password_acc: "" }
     };
     this.handleChange = this.handleChange.bind(this);   
+    this.handleChange2 = this.handleChange2.bind(this);   
     this.validate = this.validate.bind(this);  
 
     this.flipToReg = this.flipToReg.bind(this);
@@ -39,7 +40,20 @@ class Member2 extends Component {
     const state = this.state;
     state[event.target.id] = event.target.value;         
     this.setState(state);
-}
+  }
+  handleChange2(event){
+    const state = this.state;
+    const pw = state.password_log;
+
+    console.log(state.password_log===event.target.value);
+    const password_acc_ag = document.querySelector('#password_acc_ag');
+
+    if(state.password_log===event.target.value){
+      password_acc_ag.innerHTML = '';
+    } else {
+      password_acc_ag.innerHTML = '請輸入註冊密碼';
+    }
+  }
 
 validate(event){
     switch (event.target.name){
@@ -90,18 +104,10 @@ passwordAccCheck(){
   console.log(pwd)
   const pwd = this.state.password_reg;
   const error = this.state.message
-  pwd.length <=6 ? error.password_acc = "" : error.password_acc= "請輸入至少6字元";
+  pwd.length <=6 ? error.password_reg = "" : error.password_reg= "請輸入至少6字元";
   this.setState({message:error})
 }
 
-passwordAccCheckAgain(){
-  const pwd = this.state.password_acc_again;
-  const pwdagain = this.state.password_r ;
-  const error = this.state.message ;
-  pwdagain ? error.password_acc_again = "" : error.password_acc_again = "請輸入";
-  
-  this.setState({message:error})
-}
 
 
 flipToReg() {
@@ -336,18 +342,18 @@ registerSubmit(evt) {
               </div> */}
               <div className="password_box_r">
                 <div className="password_r_1"  htmlFor="password_reg"><label>密碼：</label></div>
-                <input  type="password"  id="password_reg"  name="password_reg" className="password_r_2"  placeholder="請輸入您的密碼"  value={this.state.password_reg} onChange={this.handleChange} onBlur={this.validate} />
+                <input  type="password"  id="password_log" name="password" className="password_2" placeholder="請輸入您的密碼" value={this.state.password_log} onChange={this.handleChange} onBlur={this.validate} />
               </div>
               <div className="worring_box_r">
-                <div className="worring_r">{this.state.message.password_acc}</div>
+                <div className="worring_r">{this.state.message.password}</div>
               </div>
 
               <div className="password_box_r">
                 <div  className="password_r_1 password_mo" htmlFor="password_check"><label>密碼確認：</label></div>
-                <input  type="password"  id="password_check" name="password_acc_ag" className="password_r_2" placeholder="請再次輸入您的密碼"  />
+                <input  type="password"  id="password_check" name="password_acc_ag" className="password_r_2" placeholder="請再次輸入您的密碼"  onChange={this.handleChange2} onBlur={this.handleChange2} />
               </div>
               <div className="worring_box_r">
-                 <div className="worring_r">{this.state.message.password_acc_ag}</div>
+                 <div className="worring_r" id="password_acc_ag">{this.state.message.password_acc_ag}</div>
               </div>
 
               <div className="btn_box_r">

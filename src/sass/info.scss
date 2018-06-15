@@ -1,24 +1,88 @@
 @import "partials/basic";
 
+
 .container-info{
-    background-color: $colorMedium;
-    margin: ($headerHeight * 2.2) auto;
-	// margin-bottom: ($headerHeight * 4);
-	padding: 100px;
-	width: 80vw;
-	box-sizing: border-box;
-	@include breakpoint("tablet") {
-		width: 90vw;
-		padding: 50px;
-	}
-	@include breakpoint("mobileonly") {
-		width: 90vw;
-		padding: 30px;
+    width: 80vw;
+    // background-color:#80ffff ;
+    margin: 220px  auto;
+    padding: 100px ;
+
+
+    .pics_box{
+        display:flex;
+        flex-direction: row ;
+        position: sticky;
+        top:100px;
+        z-index: 1;
     }
-    .title{
-    @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
+
+    .up_pic{
+        max-height:300px ;
+        width: 100%;
+        box-sizing: border-box ;
+        background-color: $colorDark ;
+        margin: 0 auto ;
     }
-    .about{
-    @include paragraph($colorDarker);
+
+
+    .up_in_pic{
+        width: 80%;
+        margin: 0 auto ;
     }
+
+    .up_in_pic_info{
+        padding: 10% 0 ;
+        width: 100%;
+    }
+
+
+    .down_box{
+        // height: 850px;
+    }
+
+    .tcff_about{
+        position: relative ;
+        // background-color:#80ff00 ;
+    }
+
+    .tcff_place{
+        position: relative;
+        background-color:#bd94eb ;
+
+        .place_pic{
+            width: 50%;
+            overflow: hidden;
+        }
+
+        .place_title{
+            margin: 20px auto ;
+            @include text-rec(80%, 1.5rem, transparent, $colorDarker, $colorDarker);
+        }
+    }
+
+    .tcff_ticket{
+        position: relative;
+        background-color:#ff8080 ;
+    }
+
+    .tcff_ticket_qa{
+        position: relative;
+        background-color:#0080ff ;
+    }
+
+
+    .ingo_title{
+        margin: 20px auto ;
+        @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
+    }
+    .word{
+        width: 100%;
+        padding: 0 50px ;
+        background-color:#a0dedb ;
+        // overflow:auto;
+        box-sizing: border-box ;
+        @include paragraph($colorDarker);
+    }
+
+
 }
