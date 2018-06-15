@@ -44,25 +44,25 @@ class Info extends Component {
                 <figure className="up_in_pic up_in_pic_info" width="1000%">
                    <a href="#about_tcff"><img src={newsPicLogo}/></a>
                 </figure>
-                <span>關於影展</span>
+                <span className="tcff_btns">關於影展</span>
               </li>
               <li className="up_pic">
                 <figure className="up_in_pic">
                    <a href="#place_tcff"><img src={newsPicChair}/></a>                   
                 </figure>
-                <span>場地資訊</span>
+                <span className="tcff_btns">場地資訊</span>
               </li>
               <li className="up_pic">
                 <figure className="up_in_pi ">
                    <a href="#ticket_tcff"><img src={newsPicTicket}/></a>
                 </figure>
-                <span>售票資訊</span>
+                <span className="tcff_btns">售票資訊</span>
               </li>
               <li className="up_pic">
                 <figure className="up_in_pic">
                    <a href="#ticket_qa_tcff"><img src={newsPicChair}/></a>
                 </figure>
-                <span>售票Q&A</span>
+                <span className="tcff_btns">售票Q&A</span>
               </li>
             </ul>
 

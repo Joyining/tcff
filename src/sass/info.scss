@@ -14,6 +14,14 @@
         position: sticky;
         top:100px;
         z-index: 5;
+
+        .tcff_btns{
+            margin: 0 35% ;
+            width:  100% ;
+            background-color: $colorDark ;
+            font-size: 20px ;
+            color: $colorLight;
+        }
     }
 
     .pics_box2{
@@ -130,8 +138,8 @@
     //下面外框
     .word{
         width: 100%;
-        padding: 0 50px ;
-        // background-color:#a0dedb ;
+        padding: 20px 50px ;
+        background-color:   $colorMedium ;
         // overflow:auto;
         box-sizing: border-box ;
         @include paragraph($colorDarker);
