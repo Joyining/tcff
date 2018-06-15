@@ -103,6 +103,18 @@
                         animation-delay: .4s;
                     }
                 }
+                @include breakpoint('mobileonly'){
+                    span{
+                        transform: translate(0, 0) scale(1);
+                        color: $colorLight;
+                    }
+                     &.animate{
+                        span{
+                            opacity: 1;
+                            animation: none;
+                        }
+                     }
+                }
 
             }
             .content{
@@ -367,6 +379,9 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
+            @include breakpoint('mobileonly'){
+                display: none;
+            }
             .cube{
                 transform-style: preserve-3d;
                 width: 100px;
@@ -457,9 +472,15 @@
                 margin: 0 auto;
                 opacity: 0;
                 font-weight: bold;
+                @include breakpoint('mobileonly'){
+                    opacity: 1;
+                }
                 &.animate{
                     animation: cf-button-show 1s forwards;
                     animation-delay: 5s;
+                    @include breakpoint('mobileonly'){
+                        animation: none;
+                    }
                 }
                 &:link, &:visited{
                     color: $colorDarker;
@@ -511,9 +532,15 @@
             // top: -2%;
             transform: translateX(-50%);
             // filter: grayscale(50%);
+            @include breakpoint('mobileonly'){
+                opacity: 1;
+            }
             &.animate{
                 animation: cf-button-show 1s forwards;
                 animation-delay: 5s;
+                @include breakpoint('mobileonly'){
+                    animation: none;
+                }
             }
             @include breakpoint("mobileonly"){
                 flex-wrap: wrap;
