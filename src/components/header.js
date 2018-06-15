@@ -279,8 +279,7 @@ class Header extends Component {
                 
                 <a id="nicknameWeb" onMouseOver={this.openMember} onMouseOut={this.closeMember}>{this.props.login}</a>
                 <ul className="member-panel transition" onMouseOver={this.openMember} onMouseOut={this.closeMember}>
-                    <li><Link to="/" className="transition">查詢訂票紀錄</Link></li>
-                    <li><Link to="/" className="transition">修改會員資料</Link></li>
+                    <li><Link to="/membercenter" className="transition">會員中心</Link></li>
                     <li><a className="transition" onClick={this.logout}>登出</a></li>
                 </ul>
                 <Link to="/member" id="memberWeb" onClick={this.menuClose}><img  className="transition" src={member} alt="" /></Link>
@@ -301,8 +300,7 @@ class Header extends Component {
                     
                     <a id="nicknameMobile" onClick={this.toggleMember}>{this.props.login}</a>
                         <ul className="member-panel-mobile transition" onMouseOver={this.openMember} onMouseOut={this.closeMember}>
-                        <li><Link to="/" className="transition">查詢訂票紀錄</Link></li>
-                        <li><Link to="/" className="transition">修改會員資料</Link></li>
+                        <li><Link to="/membercenter" className="transition">會員中心</Link></li>
                         <li><a className="transition" onClick={this.logout}>登出</a></li>
                     </ul>
                     <Link to="/member" id="memberMobile" onClick={this.menuClose}><img className="transition" src={member} alt="" /></Link>
