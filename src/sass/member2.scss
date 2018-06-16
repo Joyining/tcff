@@ -7,14 +7,15 @@ $headerHeight: 100px;
 	// padding: 100px;
 	width: 80vw;
     box-sizing: border-box;
-    border: 2px solid orange;
+    // border: 2px solid orange;
 	@include breakpoint("tablet") {
 		width: 90vw;
-		padding: 50px;
+		// padding: 50px;
 	}
 	@include breakpoint("mobileonly") {
+        // margin: 0 auto;
 		width: 90vw;
-		padding: 30px;
+		// padding: 30px;
     }
 
     .transition{
@@ -26,8 +27,8 @@ $headerHeight: 100px;
         height: 600px;
         margin: 0 auto;
         @include breakpoint('mobileonly'){
-            width: 300px;
-            height: 450px;
+            width: 100%;
+            // height: 450px;
         }
     }
     .card{
@@ -38,8 +39,7 @@ $headerHeight: 100px;
         // backface-visibility: hidden;
         transform-style:preserve-3d;
         @include breakpoint('mobileonly'){
-            width: 300px;
-            height: 450px;
+            width: 90%;
         }
         .inner-wrap{
             width: 100%;
@@ -51,8 +51,6 @@ $headerHeight: 100px;
         }
     }
     &#card2{
-        // left: 550px;
-        // top: -50px;
         z-index: -1;
         animation: bgslide 1s forwards;
         &.active{
@@ -61,51 +59,95 @@ $headerHeight: 100px;
             z-index: 1;
         }
         @include breakpoint('mobileonly'){
-            display: none;
+            // animation: bgslide-mobile 1s forwards;
+            right:2%;
+            top: -3%;
         }
     }
     .inner{
         width: 100%;
         height: 100%;
         backface-visibility: hidden;
-        &.front{
-        // transform: rotateY(180deg);
-        }
         &.back{
         transform: rotateY(180deg) translateY(-600px);
         }
         &.log{
-        background-color: blue;
+        background-color: $colorLight;
         }
         &.reg{
-        background-color: darkblue;
+        background-color: $colorLight;
         }
         &.bg{
-        background-color: green;
+        background-color: $colorDarker;
         }
         &.forget{
-        background-color: darkgreen;
+        background-color: $colorLight;
         }
-        .btn-group{
+        .btn_group{
             display: flex;
             margin: 0 auto;
-            // border: 2px solid white;
+            // border: 2px solid red;
             justify-content: center;
         }
+        .title{
+            margin: 0 auto  30px auto ;
+            // padding: 20px 0 10px 0 ;
+            // height: 50px ;           
+            @include text-rec(80% , 24px , none , $colorDark ,transparent) ;
+            border-bottom: 3px solid $colorDark ;
+            font-weight: bold ;
+        }
+        .input_box{
+            display: flex;
+            // justify-content: space-between;
+            margin: 5px auto;
+            width: 80%;
+        }
+        label{
+            height: 35px;
+            margin:  0;
+            @include text-rec(30% , 18px , none , $colorDark ,transparent) ;
+            text-align: right ;
+            width: 30%;
+            @include breakpoint('mobileonly'){
+                font-size: 14px;
+            }
+        }
+        input{
+            width: 70%;
+            font-family: "微軟正黑體";
+        }
+
+        .warning_box{
+            @include text-rec(none , 12px , transparent , red ,transparent) ;
+            text-align: right ;
+            margin-right: 30px;               
+        }
         .btn{
-        width: 30%;
-        height: 50px;
-        background-color: wheat;
-        color: black;
-        text-align: center;
-        line-height: 50px;
-        margin: 5px;
+        margin: 30px auto;
+        font-family: "微軟正黑體";
+        display: block;
+        @include text-rec(30% , 18px , $colorDark , $colorLight ,transparent) ;   
+         
+        }
+        .btn_switch{
+            margin: 0 20px 0 20px  ;
+            box-sizing: border-box;
+            @include text-rec(100px , 18px , transparent , $colorDark ,$colorDark) ;
+        }
+        .already_register{
+            // padding: 0 10% ;
+            @include text-rec(100% , 12px , transparent , $colorDark ,transparent) ;
         }
     }
-
     }
 
 }
+
+.mouse{ 
+    cursor: pointer; 
+}
+
 @keyframes bgslide{
     from {
         left:50%;
@@ -129,6 +171,17 @@ $headerHeight: 100px;
         left:50%;
         transform: translateX(-50%) rotateY(180deg);
         top: 0px;  
+    }
+}
+
+@keyframes bgslide-mobile{
+    from {
+        right:0%;
+        top: 0%; 
+    }
+    to{
+        right:2%;
+        top: -3%;
     }
 }
 

@@ -8,7 +8,9 @@ class CffilmsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collectionNum: 0,
+      collectionNum: 0, // 加到每個page.js
+      loginStatus: false, // 加到每個page.js
+      login: "", // 加到每個page.js
     };
 
     this.updatecollectionNum = this.updatecollectionNum.bind(this);
@@ -23,6 +25,17 @@ class CffilmsPage extends Component {
                 collectionNum: collectionNum
             })
         }
+        if(sessionStorage.getItem("user")!==null){;
+            this.setState({
+              loginStatus: true,
+              login: JSON.parse(sessionStorage.getItem("user"))["username"],
+            });
+          }else{
+            this.setState({
+              loginStatus: false,
+              login: "",
+          })
+          }
   }
   // only for testing 加到購物車
   updatecollectionNum() {
@@ -45,7 +58,7 @@ class CffilmsPage extends Component {
   render() {
     return (
         <div style={{position:'relative'}}>
-            <Header collectionNum={this.state.collectionNum} />
+            <Header collectionNum={this.state.collectionNum} loginStatus={this.state.loginStatus} login={this.state.login} />
             <FastTicket />
             <Cffilms updatecollectionNum={this.updatecollectionNum} />
             <Footer />

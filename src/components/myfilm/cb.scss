@@ -1,43 +1,44 @@
+@import "../../sass/partials/basic";
+
 .cb{
-    position: relative;
-    display: flex;
-    margin: .6em 0;
-    align-items: center;
-    color: #9e9e9e;
-    transition: color 250ms cubic-bezier(.4,.0,.23,1);
+    
     label{
-        // display: block;
-        // width: 25px;
-        // height: 25px;
-        // border: 2px solid black;
-        // cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+      transition: color 250ms cubic-bezier(.4, .0, .23, 1);
+      span{
         display: flex;
         justify-content: center;
         align-items: center;
-        // margin-right: 1em;
-        width: 1em;
-        height: 1em;
+
+        width: 1.3rem;
+        height: 1.3rem;
         background: transparent;
         border: 2px solid #9E9E9E;
-        border-radius: 2px;
+        border-radius: 3px;
         cursor: pointer;  
         transition: all 250ms cubic-bezier(.4,.0,.23,1);
+        box-sizing: border-box;
+      }
     }
     input{
         display: none;
-        &:checked+label{
+        &:checked+label span{
             // background-color: red;
             // border: .5em solid #FFEB3B;
-            border: 4px solid #FFEB3B;
+            border: .65rem solid $colorLight;
             animation: shrink-bounce 200ms cubic-bezier(.4,.0,.23,1);
         }
-        &:checked+label:before{
+        &:checked+label span:before{
             content: "";
             position: absolute;
-            top: .6em;
-            left: .2em;
-            border-right: 3px solid transparent;
-            border-bottom: 3px solid transparent;
+            // top: .6rem;
+            bottom: .2rem;
+            left: .2rem;
+            border-right: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+            border-radius: 1px;
             transform: rotate(45deg);
             transform-origin: 0% 100%;
             animation: checkbox-check 125ms 250ms cubic-bezier(.4,.0,.23,1) forwards;
@@ -59,18 +60,18 @@
   0%{
     width: 0;
     height: 0;
-    border-color: #212121;
+    border-color: $colorDarker;
     transform: translate3d(0,0,0) rotate(45deg);
   }
   33%{
-    width: .2em;
+    width: .5em;
     height: 0;
     transform: translate3d(0,0,0) rotate(45deg);
   }
   100%{    
-    width: .2em;
-    height: .5em;    
-    border-color: #212121;
+    width: .5em;
+    height: .8em;    
+    border-color: $colorDarker;
     transform: translate3d(0,-.5em,0) rotate(45deg);
   }
 }

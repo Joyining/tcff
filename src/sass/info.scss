@@ -1,24 +1,149 @@
 @import "partials/basic";
 
+
 .container-info{
-    background-color: $colorMedium;
-    margin: ($headerHeight * 2.2) auto;
-	// margin-bottom: ($headerHeight * 4);
-	padding: 100px;
-	width: 80vw;
-	box-sizing: border-box;
-	@include breakpoint("tablet") {
-		width: 90vw;
-		padding: 50px;
-	}
-	@include breakpoint("mobileonly") {
-		width: 90vw;
-		padding: 30px;
+    width: 80vw;
+    // background-color:#80ffff ;
+    margin: 220px  auto;
+    padding: 100px ;
+
+
+    .pics_box{
+        display:flex;
+        flex-direction: row ;
+        position: sticky;
+        top:100px;
+        z-index: 5;
+
+        .tcff_btns{
+            margin: 0 35% ;
+            width:  100% ;
+            background-color: $colorDark ;
+            font-size: 20px ;
+            color: $colorLight;
+        }
     }
-    .title{
-    @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
+
+    .pics_box2{
+        display:flex;
+        flex-direction: row ;
+        position: sticky;
+        top:100px;
+        z-index: 1;
     }
-    .about{
-    @include paragraph($colorDarker);
+
+    .up_pic{
+        max-height:300px ;
+        width: 100%;
+        box-sizing: border-box ;
+        background-color: $colorDark ;
+        margin: 0 auto ;
     }
+
+
+    .up_in_pic{
+        width: 80%;
+        margin: 0 auto ;
+    }
+
+    .up_in_pic_info{
+        padding: 10% 0 ;
+        width: 100%;
+    }
+
+
+    .down_box{
+        // height: 850px;
+    }
+
+    // 關於
+    .tcff_about{
+        position: relative ;
+        // background-color:#80ff00 ;
+    }
+    // 場地
+    .tcff_place{
+        position: relative;
+        // background-color:#bd94eb ;
+
+        .place_pic{
+            width: 50%;
+            overflow: hidden;
+            z-index: 1 ;
+        }
+
+        .place_title{
+            margin: 20px auto ;
+            @include text-rec(80%, 1.5rem, transparent, $colorDarker, $colorDarker);
+        }
+
+        .place_info{
+            display: flex ;
+            flex-direction: column ;
+            width: 100% ;
+            margin: 0 25% ;
+            font-size: 18px ;
+            line-height: 50px ;
+        }
+    }
+    // 售票
+    .tcff_ticket{
+        position: relative;
+        // background-color:#ff8080 ;
+
+        .ticket_title{
+            margin: 20px auto ;
+            @include text-rec(80%, 1.5rem, transparent, $colorDarker, $colorDarker);
+        }
+
+        .tcff_ticket_worring{
+            font-weight: bold ;
+            text-decoration: underline ;
+            text-align: center ;
+        }
+
+        .tcff_ticket_word{
+            display: flex ;
+            flex-direction: column ;
+            margin: 10px auto ;
+        }
+
+        .tcff_ticket_bigword{
+            font-size: 24px ;
+            font-weight: bold ;
+        }
+
+        .bold{
+            font-weight: bold;
+            text-decoration: underline ;
+        }
+    }
+    // QA
+    .tcff_ticket_qa{
+        position: relative;
+        background-color:#0080ff ;
+
+        .tcff_ticket_qa_up{
+            display: flex ;
+            flex-direction: row ;
+            width: 20%;
+        }
+    }
+
+    // 裡面大標
+    .info_title{
+        margin: 20px auto ;
+        @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
+    }
+    //下面外框
+    .word{
+        width: 100%;
+        padding: 20px 50px ;
+        background-color:   $colorMedium ;
+        // overflow:auto;
+        box-sizing: border-box ;
+        @include paragraph($colorDarker);
+    }
+
+
 }

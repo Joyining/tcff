@@ -179,6 +179,7 @@ class Home extends Component {
 
   // home01 carousel rotate
   rotateCarousel(){
+    console.log("rotateCarousel");
     const container = document.querySelector('.container-home');
     // console.log(`container width: ${containerWidth}`);
     let containerWidth = container.clientWidth;
@@ -242,13 +243,16 @@ class Home extends Component {
 
   }
 
+  componentWillMount(){
+    // console.log(this.rotateCarousel);
+    // this.rotateCarousel;
+  }
+
   componentDidMount(){
-    // console.log('home mount');
     window.addEventListener('scroll', this.scrollDetection, false);
-    window.addEventListener("load", this.eclipseSizing, false);
-    window.addEventListener("resize", this.eclipseSizing, false);
-    window.addEventListener("load", this.rotateCarousel, false);
-    window.addEventListener("resize", this.rotateCarousel, false);
+    this.rotateCarousel();
+    this.eclipseSizing();
+    this.scrollDetection();
 
     let titleText = ()=>{
       const movies = [
@@ -290,10 +294,6 @@ class Home extends Component {
 
   componentWillUnmount(){
     window.removeEventListener('scroll', this.scrollDetection, false);
-    window.removeEventListener("load", this.eclipseSizing, false);
-    window.removeEventListener("resize", this.eclipseSizing, false);
-    window.removeEventListener("load", this.rotateCarousel, false);
-    window.removeEventListener("resize", this.rotateCarousel, false);
   }
   
 
@@ -305,7 +305,6 @@ class Home extends Component {
               <Link to="/films" className="carousel_cell transition">
                 <img src={Home01Img01} alt="" />
               </Link>
-              {/* <Home01Img home01Slide={this.state.home01Slide[0]} /> */}
               <Home01Text home01Slide={this.state.home01Slide[0]} />
               <Link to="/films" className="carousel_cell transition">
                 <img src={Home01Img02} alt="" />
