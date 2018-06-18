@@ -2,7 +2,6 @@
 
 #container{
     // background-color: #eee;
-    // box-shadow: 2px 2px 5px #aaa;
     max-width: 1600px;
     // height: 500px;
     margin: 150px auto;
@@ -57,6 +56,7 @@
                 display: none;
                 flex-basis: 100%;
                 justify-content: space-around;
+                flex-wrap: wrap;
                 align-items: center;
                 opacity: 0;
                 transition: all 1s;
@@ -130,11 +130,10 @@
             overflow: hidden;
             padding: 15px;
             box-sizing: border-box;
+            box-shadow: 5px 5px 15px 2px rgba(20%, 20%, 40%, 0.5) inset;
             position: relative;
-            // background-color: $colorDarker;
             background-color: $colorMedium;
             // margin-bottom: 50px;
-            
             .book{
                 height: 450px;
                 transform-style: preserve-3d;
@@ -258,6 +257,9 @@
                         -moz-transition: max-height 1s;
                         -ms-transition: max-height 1s;
                         -o-transition: max-height 1s;
+                        @include breakpoint("mobileonly") {
+                            max-height: 500px;
+                        }
                         // padding: 20px 0;
                         .h4{
                             margin: 10px;
@@ -289,6 +291,9 @@
                         -o-transition: max-height 1s;
                         display: flex;
                         justify-content: center;
+                        @include breakpoint("mobileonly") {
+                            max-height: 500px;
+                        }
                         a{
                             @include text-rec(50%, 1.2rem, $colorDarker, $colorLight, transparent);
                             display: block;
@@ -361,28 +366,7 @@
                 }
             }
         }
-        
-
-        h1 span {
-            // color: darken(yellow, 15%);
-            // background-color: #fff;
-            // color: $colorDarker; 
-            // transform: rotate(90deg);
-            // margin-right: 5px;
-        }
-
-        h3 {
-            // position: absolute;
-            // font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            // color: lightyellow;
-            // bottom: 30px;
-            // text-align: center; 
-            // margin: 0 auto;
-            // transform: rotate(90deg);
-            // text-transform: capitalize;
-        }
-    }
-    
+    }    
 }
 
 

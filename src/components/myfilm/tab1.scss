@@ -51,6 +51,9 @@
                 &:hover{
                     background-color: $colorLight;
                     color: $colorDark;
+                    a.col:active, a.col:visited{
+                        color: $colorDark;
+                    }
                     label span{
                         // background-color: $colorDark;
                         border-color: $colorMedium;
@@ -102,6 +105,13 @@
                     @include breakpoint("mobileonly"){
                         // flex-wrap: wrap;
                     }
+                    a.col:hover{
+                        transition: all .2s;
+                        &:hover {
+                            font-size: 18px;
+                            border-bottom: 2px solid $colorDark;
+                        }
+                    }
                     .col{
                         flex: 1;
                         display: flex;
@@ -109,6 +119,10 @@
                         justify-content: center;
                         align-items: center;
                         text-align: center;
+
+                        &:visited, &:active{
+                            color: $colorLight;
+                        }                        
                         
                         height: 120px;
                         img{
@@ -249,7 +263,7 @@
         .overlay {
             position: fixed;
             z-index: 101;
-            background-color: rgba(25, 0, 0, 0.8);
+            background-color: rgba(10, 0, 0, 0.8);
             top: 0;
             left: 0;
             bottom: 0;
@@ -367,16 +381,30 @@
                             // padding: 5% 5%;
                             box-sizing: border-box;
                             justify-content: center;
+                            overflow: auto;
                             align-items: center;
+                            flex-flow: row wrap;
+                            .search {
+                                width: 100%;
+                                // padding: 50px auto;
+                                margin: 50px;
+                                input {
+                                    width: 150px;
+                                    height: 20px;
+                                    border: none;
+                                    background-color: $colorLight;
+                                    padding: 5px 10px;
+                                }
+                            }
                             .items{
                                 display: flex;
                                 flex-direction: column;
-                                // justify-content: space-evenly;
-                                align-content: space-around;
-                                overflow: auto;
+                                justify-content: flex-start;
+                                align-content: flex-start;
                                 width: 100%;
                                 height: 100%;
-                                flex-wrap: wrap;
+                                flex-wrap: wrap-reverse;
+                                overflow: auto;
                                 .item {
                                     margin: 5px 8px;
                                     padding: 10px 20px;
@@ -390,11 +418,22 @@
                                         background-color: rgba(73, 56, 59, 0.5);
                                         border: 1px solid rgba(41, 15, 19, 0.8);
                                         color: $colorLight;
+                                        &:hover{
+                                            background-color: rgba(73, 56, 59, 0.8);
+                                        }
                                     }
                                     &.notSelected {
                                         color: $colorLight;
                                         background-color: rgba(216, 81, 104, 0.4);
-                                        
+                                        &:hover {
+                                            background-color: rgba(216, 81, 104, 0.8);
+                                        }
+                                    }
+                                    &.search{
+                                        display: block;
+                                    }
+                                    &.unsearch{
+                                        display: none;
                                     }
                                     &.hide {
                                         display: none;

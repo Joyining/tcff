@@ -18,6 +18,7 @@ class Tab1 extends Component {
     this.checkIfEmpty = this.checkIfEmpty.bind(this);
     this.spread = this.spread.bind(this);
     this.changeTab = this.changeTab.bind(this);
+    this.search = this.search.bind(this);
 
     //state
     this.state = {
@@ -34,7 +35,8 @@ class Tab1 extends Component {
         cf: 0
       },
       isCollectionEmpty: true,
-      filmsLoad: false
+      filmsLoad: false,
+      searchText: ""
     };
 
     //暫存element
@@ -148,96 +150,56 @@ class Tab1 extends Component {
     //collection全選
     Array.from(document.querySelectorAll(".cb input")).forEach(cb => cb.checked = true);
   }
-  checkIfEmpty(){
-    let empty = this.state.isCollectionEmpty;
+  checkIfEmpty(){//檢查collection是否為空    
+    let empty;
     let collection = sessionStorage.getItem("collection");
+    //未加入過
     if(collection === null) empty = true;
+    //登入後沒有收藏
     else if (JSON.parse(collection).films.concat(JSON.parse(collection).cffilms).length === 0) empty = true;
+    //有收藏
     else empty = false;
-    // if (this.state.films.length === 0 && this.state.cffilms.length === 0) empty = true;
-    console.log("empty: ",empty)
+
     this.setState({isCollectionEmpty: empty});
   }
-  cancelOverlay(event){
+  cancelOverlay(event){//選完加入影片按 確定 /取消
     let target = event.target;
-    //cancel overlay
     let overlay = document.getElementsByClassName('overlay')[0];
-    overlay.classList.remove('show');
-
-    //set result into state
-    //...
-    // let newFilms = [];
 
     if (target.value === "確定") {
-      let origin_ar = this.state.films;
+      //此次增加的影片
       let add_ar = this.state.add_films.concat(this.state.add_cffilms);
+
+      //增加的電影id
       let add_id = add_ar.reduce((a,x) => {
         a.push(x.id_movie);
         return a;
       }, [])
-      if(add_id.length > 0){
-        if (sessionStorage.getItem("user") !== null){
-          let body = {
-            id: JSON.parse(sessionStorage.getItem("user")).id,
-            id_movie: add_id.join("_")
-          }
-          fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php`, {
-            method: "POST",
-            body: JSON.stringify(body)
-          }).then(res => res.json())
-            .then(datas => {
-              if (datas.message === "add collections"){
-                //更新至storage
-                let collection = sessionStorage.getItem("collection");
-                let films = datas.collection_info.filter(x => x.cf === "0");
-                let cffilms = datas.collection_info.filter(x => x.cf === "1");
-                if(collection === null ){
-                  collection = {
-                    films: films,
-                    cffilms: cffilms
-                  }
-                }else{
-                  collection = JSON.parse(collection);
-                  collection.films = collection.films.concat(films);
-                  collection.cffilms = collection.cffilms.concat(cffilms);
-                }
-                sessionStorage.setItem("collection", JSON.stringify(collection));
-                this.checkIfEmpty();
 
-                let sttfilms = this.state.films;
-                let sttcffilms = this.state.cffilms;
-                console.log("before state", sttfilms, sttcffilms)
-                console.log("before add", films, cffilms)
-                sttfilms = sttfilms.concat(films);
-                sttcffilms = sttcffilms.concat(cffilms);
-                console.log("after state", sttfilms, sttcffilms)
+      //沒有新增就直接退出
+      if (add_id.length === 0) return overlay.classList.remove('show');
 
-                console.log("before state", this.state)
-                this.setState({
-                  films: sttfilms,
-                  cffilms: sttcffilms,
-                  add_films: [],
-                  add_cffilms: []
-                }, () => { console.log("after state", this.state)})         
-
-                this.temp.length = 0;     
-              }
-            })
-        }else{
-          fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php/` + add_id.join("_"))
-            .then(res => res.json())
-            .then(datas => {
-              console.log(datas);
-              let films = datas.filter(x => x.cf === '0');
-              let cffilms = datas.filter(x => x.cf === '1');
-              // console.log(films,cffilms)
+      if (sessionStorage.getItem("user") !== null){//加入會員收藏
+        let body = {
+          id: JSON.parse(sessionStorage.getItem("user")).id,
+          id_movie: add_id.join("_")
+        }
+        fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php`, {
+          method: "POST",
+          body: JSON.stringify(body)
+        }).then(res => res.json())
+          .then(datas => {
+            if (datas.message === "add collections"){
+              //更新至storage
               let collection = sessionStorage.getItem("collection");
-              if (collection === null) {
+              let films = datas.collection_info.filter(x => x.cf === "0");
+              let cffilms = datas.collection_info.filter(x => x.cf === "1");
+              if(collection === null ){
                 collection = {
                   films: films,
                   cffilms: cffilms
                 }
-              } else {
+              }else{
                 collection = JSON.parse(collection);
                 collection.films = collection.films.concat(films);
                 collection.cffilms = collection.cffilms.concat(cffilms);
@@ -245,77 +207,85 @@ class Tab1 extends Component {
               sessionStorage.setItem("collection", JSON.stringify(collection));
               this.checkIfEmpty();
 
-              collection.add_films = [];
-              collection.add_cffilms = [];
-              this.temp.length = 0;
-              this.setState(collection)
-            })
-            .catch(err => console.log(err.message))
-        }
+              //更新state並清空此次新增
+              let sttfilms = this.state.films;
+              let sttcffilms = this.state.cffilms;
+
+              sttfilms = sttfilms.concat(films);
+              sttcffilms = sttcffilms.concat(cffilms);
+
+              this.setState({
+                films: sttfilms,
+                cffilms: sttcffilms,
+                add_films: [],
+                add_cffilms: []
+              })         
+
+              //清空暫存.item element
+              this.temp.length = 0;     
+            }
+          })
+      }else{//沒登入，純查詢電影訂位狀況
+        fetch(`http://192.168.39.110/tcff_php/api/cart/collection.php/` + add_id.join("_"))
+          .then(res => res.json())
+          .then(datas => {
+            //存到storage
+            let films = datas.filter(x => x.cf === '0');
+            let cffilms = datas.filter(x => x.cf === '1');
+
+            let collection = sessionStorage.getItem("collection");
+            if (collection === null) {
+              collection = {
+                films: films,
+                cffilms: cffilms
+              }
+            } else {
+              collection = JSON.parse(collection);
+              collection.films = collection.films.concat(films);
+              collection.cffilms = collection.cffilms.concat(cffilms);
+            }
+            sessionStorage.setItem("collection", JSON.stringify(collection));
+            this.checkIfEmpty();
+
+            //更新state / 清空此次新增 / 清空暫存.item element
+            collection.add_films = [];
+            collection.add_cffilms = [];
+            this.temp.length = 0;
+            this.setState(collection)
+          })
+          .catch(err => console.log(err.message))
       }
 
-      // add_ar.forEach(ar => {
-      //   origin_ar.push(ar);
-      // })
-      //清空增加的清單
-      // add_ar.length = 0;
-      //setState -> re-render
-      // this.setState({
-      //   films: origin_ar,
-      //   add_films: add_ar
-      // });
-      // this.setState(add_ar);
-
-      // console.log(this.state);
-      // this.temp.length = 0;
-    // console.log(target.value)
-      // console.log("send and fetch")
-    } else {
-      // let add_ar = this.state.add_films;
-      // add_ar.length = 0;
+    } else {//"取消"
+      //清空此次新增
       this.setState({
         add_films: [],
         add_cffilms: []
       });
-      this.temp.map(item => {
+      //還原選擇狀態(css class)
+      this.temp.forEach(item => {
         item.classList.remove("selected");
         item.classList.add("notSelected");
       })
     }
-    console.log("temp", this.temp);
 
-    //send collection to db
-    //...
-
-
+    //移除overlay
+    overlay.classList.remove('show');
   }
-  checkAll(event){
+
+  //Input Checkbox
+  checkAll(event){//全選全不選
     let target = event.currentTarget;
     let isCheck = !target.previousSibling.checked;
     let table = target.closest(".table");
     let cbs = table.querySelectorAll(".checkItem input");
-    console.log(cbs,table,target)
-    //if isCheck=true, let all item checked
-    //vice versa
+
+    //全選 或 全不選
     Array.from(cbs).forEach(function(cb){
       cb.checked = isCheck;
     })
-    // let collection = JSON.parse(sessionStorage.getItem('collection'));
-    // let cart = JSON.parse(sessionStorage.getItem('cart'));
-    // console.log("section", section);
-    // //collection 都加入 cart
-    // if(isCheck){
-    //   collection[section].forEach(x => {
-    //     if(cart[section].includes(x)) return;
-    //     else cart[section].push(x);
-    //   })
-    // //cart清空
-    // }else{
-    //   cart[section].length = 0;
-    // }
-    // sessionStorage.setItem("cart",JSON.stringify(cart));
   }
-  checkItem(event) {
+  checkItem(event) {//單選，全選checkbox也會變
     let target = event.currentTarget;
     let isCheck = target.previousSibling.checked;
 
@@ -323,40 +293,24 @@ class Tab1 extends Component {
     let allItemChecked = isCheck ? tbody.querySelectorAll('.checkItem input:checked').length - 1 : tbody.querySelectorAll('.checkItem input:checked').length+1;
     let allItem = tbody.querySelectorAll('.checkItem input').length;
     let checkAll = target.closest(".table").querySelector('.colTitle input');  
-    console.log()  
-    //if all item checked, let checkAll box checked
-    //vice versa
+
     checkAll.checked = (allItemChecked === allItem);
-
-
-    // let collection = JSON.parse(sessionStorage.getItem('collection'));
-    // let cart = JSON.parse(sessionStorage.getItem('cart'));
-    // let id = target.getAttribute('data-id-movie');
-    // let section = target.closest('table').classList[0];
-    // if(isCheck){
-    //   cart[section] = cart[section].filter((x) => {
-    //     return x.id_movie !== id;
-    //   })
-    // }else{
-    //   cart[section].push(collection[section].filter((x)=> x.id_movie === id));
-    // }
-    // sessionStorage.setItem('cart', JSON.stringify(cart));
   }
-  del_collection(event){
+  del_collection(event){//刪除收藏(垃圾桶onClick)
     //打開confirm box傳值進去
     if (event.currentTarget.classList.contains("trash")){
       let dialog = this.state.dialog;
       let id = event.currentTarget.getAttribute("data-id-movie");
       let name = event.currentTarget.getAttribute("data-name");
       let cf = event.currentTarget.getAttribute("data-cf");
+
       dialog.show = true;
       dialog.id_movie = id;
       dialog.name = name;
       dialog.cf = cf;
       this.setState({ dialog: dialog })
-      // console.log("dialog", this.state.dialog);
 
-    //確定刪除
+    //刪除確定
     } else if (event.currentTarget.classList.contains("doAction")){
       let user = sessionStorage.getItem('user');
       let id_user = user === null ? undefined : JSON.parse(user).id;
@@ -365,7 +319,7 @@ class Tab1 extends Component {
       let id_movie = event.currentTarget.getAttribute("data-id-movie");
       let cf = event.currentTarget.getAttribute("data-cf");
       
-      //登入
+      //已登入
       if (id_user !== undefined) {
         url = `http://192.168.39.110/tcff_php/api/cart/collection.php/${id_movie}/${id_user}`;
         fetch(url, {
@@ -495,64 +449,12 @@ class Tab1 extends Component {
         //改變購物車數字 collectionNum
         this.props.updatecollectionNum();
       }
-      
-    } else if (event.currentTarget.classList.contains("cancelAction") || event.currentTarget.classList.contains("fa-times")){
+    //刪除取消  
+    } else if (event.currentTarget.classList.contains("cancelAction")){
       let dialog = this.state.dialog;
       dialog.show = false;
       this.setState({ dialog: dialog })
     }
-    // confirm
-    //...
-    // let dialog = this.state.dialog;
-    // let id = event.target.getAttribute("data-id-movie");
-    // let name = event.target.getAttribute("data-name");
-    // dialog.show = true;
-    // dialog.id_movie = id;
-    // dialog.name = name;
-    // this.setState({ dialog: dialog})
-
-    //remove item
-    // let tr = event.target.closest('tr');
-    // tr.remove();
-    // let isFilms = event.target.closest("table").classList.contains("films");
-    
-    // // console.log(isFilms);
-
-    // if(isFilms){
-    //   let ar = this.state.films;
-    //   //remove a film 
-    //   ar = ar.filter((obj) => {
-    //     return (obj["id_movie"] != id)
-    //   })
-    //   // console.log(id, ar);
-    //   //setState -> re-render
-    //   this.setState({
-    //     films: ar
-    //   });
-    // }else{
-    //   let ar = this.state.cffilms;
-    //   //remove a film 
-    //   ar = ar.filter((obj) => {
-    //     return (obj["id_movie"] != id)
-    //   })
-    //   // console.log(id, ar);
-    //   //setState -> re-render
-    //   this.setState({
-    //     cffilms: ar
-    //   });
-    // }
-
-    // //加入片單中，選項回復未被選擇狀態
-    // let item = Array.from(document.querySelectorAll('.item'))[id-1]; //item要照id排序才能選到正確的
-    // if(item){
-    //   item.classList.remove("selected");
-    //   item.classList.add("notSelected");
-    // }
-
-    // console.log(item);
-
-    //if removed, then send result to db
-    //...
   }
   add_collection(event) {
     let overlay = document.getElementsByClassName('overlay')[0];
@@ -718,6 +620,24 @@ class Tab1 extends Component {
       if(el.classList.contains(className)) el.classList.add("active");
     })
   }
+  search(evt){
+    let value = evt.target.value
+    this.setState({searchText:value});
+    let filteredArr = this.state.all_films.filter(x => x.name.includes(value));
+    console.log(filteredArr);
+    // console.log(evt.target.nextSibling.querySelectorAll(".item"));
+    evt.target.parentNode.nextSibling.querySelectorAll(".item").forEach(x => {
+      x.classList.remove("search");
+      x.classList.remove("unsearch");
+      if(value !== ""){
+        if(x.innerHTML.includes(value)){
+          x.classList.add("search");
+        } else{
+          x.classList.add("unsearch");
+        }
+      }
+    })
+  }
   nextStep(evt){
     let user = sessionStorage.getItem("user");
     if(user === null){
@@ -828,6 +748,10 @@ class Tab1 extends Component {
                     </div>
                   <div className="tabs">
                     <div className="films active">
+                    <div className="search">
+                      <label>搜尋片名</label>
+                      <input type="text" onChange={this.search} value={this.state.searchText}/>
+                      </div>
                       <div className="items">
                         {
                           this.state.all_films.map((film, idx) => (
@@ -839,6 +763,10 @@ class Tab1 extends Component {
                         </div>
                     </div>
                     <div className="cffilms">
+                    < div className = "search" >
+                      <label>搜尋片名</label>
+                      <input type="text" onChange={this.search} value={this.state.searchText}/>
+                      </div>
                       <div className="items">
                         {
                           this.state.all_cffilms.map((film, idx) => (
@@ -930,10 +858,10 @@ class Tab1 extends Component {
                             <div className="col">
                               <img className="" src={`${process.env.PUBLIC_URL}/images/${film.release_year}_${film.name_en.split(' ').join('_').replace(':', '_')}.jpg`} /> 
                               </div>
-                            <div className="col">
-                              <span className="film_name">{film.name_zhtw}</span>
-                              <span className="film_name">{film.name_en}</span>
-                              </div>
+                              <Link className="col" to={`/films-detail-page?id=${film.id_movie}`}>
+                                <span className="film_name">{film.name_zhtw}</span>
+                                <span className="film_name">{film.name_en}</span>
+                              </Link>
                             < div className = "col" >
                               <span className="film_date">{film.date.split("-").join("/")}</span>
                               <span className="film_date">{film.time.slice(0,-3)}</span>
