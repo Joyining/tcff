@@ -1,0 +1,42 @@
+@import "partials/basic";
+
+.breadcrumb-wrap{
+    display: flex;
+    // margin-top:($headerHeight * 2);
+    position: absolute;
+    // top: $headerHeight * 2;
+    width: 60vw;
+    left: 20vw;
+    top: -8vh;
+    // border: 2px solid blue;
+    a{
+        display: block;
+        // margin-right: 10px;
+        box-sizing: border-box;
+        @include text-rec(initial, 1rem, $colorLight, $colorDarker, transparent);
+        height: initial;
+        text-align: left;
+        font-weight: bold;
+        &:link, &:visited{
+            color: $colorDarker;
+        }
+    }
+    a:nth-child(1){
+        clip-path: polygon(0% 0%, 73% 0, 100% 53%, 75% 100%, 0% 100%);
+        width: 60px;
+        // text-align: left;
+        padding-left: 5px;
+        // padding: 0 10px;
+    }
+    a:nth-child(2){
+        width: 120px;
+        clip-path: polygon(85% 0%, 100% 50%, 85% 100%, 0% 100%, 15% 50%, 0% 0%);
+        // text-align: left;
+        padding-left: 25px;
+    }
+    a:nth-child(3){
+        width: 250px;
+        clip-path: polygon(92% 0%, 100% 50%, 92% 100%, 0% 100%, 8% 50%, 0% 0%);
+        padding-left: 25px;
+    }
+}

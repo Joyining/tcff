@@ -187,11 +187,13 @@ class Home extends Component {
     if(/Android|webOS|iPhone|iPad|BlackBerry|Windows Phone|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent)){
       rotateFn = "rotateX";
       sceneWidth = containerWidth * 0.8;
+      // sceneWidth = containerWidth;
       sceneHeight = containerWidth * 0.5;
       sceneSize = sceneHeight;
     } else{
       rotateFn = "rotateY";
       sceneWidth = containerWidth * .42;
+      // sceneWidth = containerWidth ;
       sceneHeight = containerWidth * .3;
       sceneSize = sceneWidth;
     }

@@ -15,18 +15,19 @@ class Member2 extends Component {
     super(props);
 
     this.state = {
-      email: "",
-      password_log: "",
-      message: { email: "", password_log: "" },
+      email_login: "",
+      password_login: "",
+      message: { email_login: "", password_login: "" },
 
-      account: "",
+      email_reg: "",
       password_reg: "",
       password_again:"",
       nickname:"",
-      message: { account: "", password_acc: "", password_acc_again: "",nickname:"" }
+      message: { email_reg: "", password_reg: "", password_again: "",nickname:"" }
     };
     this.handleChange = this.handleChange.bind(this);   
-    this.handleChange2 = this.handleChange2.bind(this);   
+    this.handleChange2 = this.handleChange2.bind(this);  
+    this.handleChange3 = this.handleChange3.bind(this);  
     this.validate = this.validate.bind(this);  
 
     this.flipToReg = this.flipToReg.bind(this);
@@ -44,33 +45,43 @@ handleChange(event){
   }
   handleChange2(event){
     const state = this.state;
-    const pw = state.password_log;
+    const pw = state.password_login;
 
-    console.log(state.password_log===event.target.value);
-    const password_acc_ag = document.querySelector('#password_acc_ag');
+    console.log(state.password_login===event.target.value);
+    const password_again = document.querySelector('#password_again_warning');
 
-    if(state.password_log===event.target.value){
-      password_acc_ag.innerHTML = '';
+    if(state.password_login===event.target.value){
+      password_again.innerHTML = '';
     } else {
-      password_acc_ag.innerHTML = '請輸入註冊密碼';
+      password_again.innerHTML = '請輸入註冊密碼';
+    }
+  }
+  handleChange3(event) {
+    const state = this.state;
+    const pw = state.password_login;
+    const password_login_warning = document.querySelector('#password_login_warning');
+    if (pw.length>=6) {
+      password_login_warning.innerHTML = '';
+    } else {
+      password_login_warning.innerHTML = '密碼至少有6個字元';
     }
   }
 
 validate(event){
     switch (event.target.name){
-        case "email":
+        case "email_login":
             this.emailCheck();
             break;
-        case "password":
+        case "password_login":
             this.passwordCheck();
             break;
-        case "account":
+        case "email_reg":
             this.accountCheck();
             break;
         case "password_reg":
             this.passwordAccCheck();
             break;
-        case "password_acc_ag":
+        case "password_again":
             this.passwordAccCheckAgain();
             break;
         case "nickname":
@@ -82,17 +93,20 @@ validate(event){
 }
 
 emailCheck(){
+  // console.log('email check');
     const pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     const error = this.state.message;     
     //pattern.test(this.state.email) ? error.email = "" : error.email = "email格式不正確";
-    pattern.test(this.state.email_log) ? error.email = "" : error.email = "email格式不正確";
+    pattern.test(this.state.email_login) ? error.email_login = "" : error.email_login = "email格式不正確";
     this.setState({message:error});
     // console.log(pattern.test(this.state.email_log), this.state.email_log);
 }
 passwordCheck(){
-    const pwd = this.state.password_log;
+  console.log('password login check');
+    const pwd = this.state.password_login;
     const error = this.state.message;
-    pwd.length >=6 ? error.password = "" : error.password = "密碼至少有6個字元";
+  console.log(pwd.length>=6);
+    pwd.length >=6 ? error.password_login = "" : error.password_login = "密碼至少有6個字元";
     this.setState({message:error});
     // console.log(pwd,pwd.length, error);
 }
@@ -100,7 +114,7 @@ passwordCheck(){
 accountCheck(){
   const pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
   const error = this.state.message
-  pattern.test(this.state.email_reg) ? error.account = "" : error.account = "email格式不正確";
+  pattern.test(this.state.email_reg) ? error.email_reg = "" : error.email_reg = "email格式不正確";
   this.setState({message:error})
 }
 
@@ -108,7 +122,7 @@ passwordAccCheck(){
   console.log(pwd)
   const pwd = this.state.password_reg;
   const error = this.state.message
-  pwd.length >=6 ? error.password_acc = "" : error.password_acc= "請輸入至少6字元";
+  pwd.length >= 6 ? error.password_reg = "" : error.password_reg= "請輸入至少6字元";
   this.setState({message:error})
 }
 
@@ -117,7 +131,7 @@ passwordAccCheckAgain(){
   const pwdagain = this.state.password_again;
   const pwd = this.state.password_reg ;
   const error = this.state.message ;
-  pwdagain === pwd ? error.password_acc_again = "" : error.password_acc_again = "再次輸入的密碼不正確";
+  pwdagain === pwd ? error.password_again = "" : error.password_again = "再次輸入的密碼不正確";
   this.setState({message:error})
 }
 
@@ -138,11 +152,15 @@ fliptoForget(){
       console.log("flip to forget");
       let card2 = document.querySelector("#card2");
       card2.classList.toggle("active");
+      let card1 = document.querySelector("#card1");
+      card1.classList.toggle("mobile-show");
   };
 flipFromForgetToLog(){
     console.log("flip from forget to login");
     let card2 = document.querySelector("#card2");
     card2.classList.toggle("active");
+    let card1 = document.querySelector("#card1");
+    card1.classList.toggle("mobile-show");
 }
 flipFromForgetToReg() {
     console.log("flip from forget to reg");
@@ -150,11 +168,12 @@ flipFromForgetToReg() {
     card2.classList.toggle("active");
     let card1 = document.querySelector("#card1");
     card1.classList.toggle("active");
+    card1.classList.toggle("mobile-show");
 }
 
 loginSubmit(evt) {
-    let emailLogin = document.getElementById("email_log");
-    let passwordLogin = document.getElementById("password_log");
+    let emailLogin = document.getElementById("email_login");
+    let passwordLogin = document.getElementById("password_login");
     let json = {};
     json["email"] = emailLogin.value;
     json["password"] = passwordLogin.value;
@@ -319,26 +338,26 @@ registerSubmit(evt) {
                 <div className="title">會 員 登 入</div>
 
                 <div className="input_box">
-                    <label htmlFor="email"  className="account_1">帳號：</label>
-                    <input type="text" id="email_log" name="email" className="account_2"  placeholder="請輸入您的email帳號"  value={this.state.email_log} onChange={this.handleChange} onBlur={this.validate} />
+                    <label htmlFor="email_login"  className="">帳號：</label>
+                    <input type="text" id="email_login" name="email_login" placeholder="請輸入您的email帳號"  value={this.state.email_login} onChange={this.handleChange} onBlur={this.validate} />
                 </div>
-                <div className="warning_box hide_use">
-                    <div className="worring_l" id="worring_mail" >{this.state.message.email}</div>
-                </div>
-
-                <div className="input_box pass hide_use">
-                  <label htmlFor="password_log" className="password_1">密碼：</label>
-                  <input  type="password"  id="password_log" name="password" className="password_2" placeholder="請輸入您的密碼" value={this.state.password_log} onChange={this.handleChange} onBlur={this.validate} />
-                </div>
-                <div className="warning_box hide_use">
-                    <div className="worring_l" id="worring_password">{this.state.message.password}</div>
+                <div className="warning_box">
+                    <div>{this.state.message.email_login}</div>
                 </div>
 
-                <div className="btn mouse hide_use" id="login-btn" onClick={this.loginSubmit}>登入</div>
+                <div className="input_box">
+                  <label htmlFor="password_login" className="">密碼：</label>
+                  <input  type="password"  id="password_login" name="password_login" className="" placeholder="請輸入您的密碼" onChange={this.handleChange3} onBlur={this.handleChange3} />
+                </div>
+                <div className="warning_box" id="password_login_warning">
+                    <div>{this.state.message.password}</div>
+                </div>
+
+                <div className="btn mouse" id="login-btn" onClick={this.loginSubmit}>登入</div>
 
                 <div className="btn_group">
-                  <div className="btn_switch sign_up mouse" onClick={this.flipToReg}>註冊</div>
-                  <div className="btn_switch forget_p mouse" onClick={this.fliptoForget}>忘記密碼</div>
+                  <div className="btn_switch mouse" onClick={this.flipToReg}>註冊</div>
+                  <div className="btn_switch mouse" onClick={this.fliptoForget}>忘記密碼</div>
                 </div>
             </form>
 
@@ -346,44 +365,45 @@ registerSubmit(evt) {
             <form className="inner back reg" id="register">
               <div className="title">會 員 註 冊</div>
               <div className="input_box">
-                <label htmlFor="email_reg" className="account_r">帳號：</label>
-                <input  type="text" id="email_reg" name="account" className="account_r_2" placeholder="請輸入您的email帳號"  onBlur={this.validate} value={this.state.email_reg} onChange={this.handleChange} />
+                <label htmlFor="email_reg" className="">帳號：</label>
+                <input type="text" id="email_reg" name="email_reg" className="" placeholder="請輸入您的email帳號"  onBlur={this.validate} value={this.state.email_reg} onChange={this.handleChange} />
               </div>
               <div className="warning_box">
-                <div className="worring_r">{this.state.message.account}</div>
+                <div>{this.state.message.email_reg}</div>
                </div>
               <div className="input_box">
-                <label htmlFor="nickname_reg">暱稱：</label>
+                <label htmlFor="nickname">暱稱：</label>
                 <input
                   type="text"
                   id="nickname"
                   placeholder="請輸入您的暱稱"
                   name="nickname" value={this.state.nickname} onChange={this.handleChange} onBlur={this.validate}
                 />
-
+              </div>
+              <div className="warning_box">
+                <div>{this.state.message.nickname}</div>
               </div> 
-              <div className="password_box_r">
-                <div className="password_r_1"  htmlFor="password_reg"><label>密碼：</label></div>
-                <input  type="password"  id="password_log" name="password" className="password_2" placeholder="請輸入您的密碼" value={this.state.password_log} onChange={this.handleChange} onBlur={this.validate} />
+              <div className="input_box">
+                <label className=""  htmlFor="password_reg">密碼：</label>
+                <input  type="password"  id="password_reg" name="password_reg" className="password_2" placeholder="請輸入您的密碼" value={this.state.password_reg} onChange={this.handleChange} onBlur={this.validate} />
               </div>
-              <div className="worring_box_r">
-                <div className="worring_r">{this.state.message.password}</div>
-              </div>
+              <div className="warning_box">
+                <div>{this.state.message.password_reg}</div>
+              </div> 
 
-              <div className="password_box_r">
-                <div  className="password_r_1 password_mo" htmlFor="password_check"><label>密碼確認：</label></div>
-                <input  type="password"  id="password_check" name="password_acc_ag" className="password_r_2" placeholder="請再次輸入您的密碼"  onChange={this.handleChange2} onBlur={this.handleChange2} />
+              <div className="input_box">
+                <label  className="" htmlFor="password_agian">密碼確認：</label>
+                <input  type="password"  id="password_agian" name="password_again" className="" placeholder="請再次輸入您的密碼"  onChange={this.handleChange2} onBlur={this.handleChange2} />
               </div>
-              <div className="worring_box_r">
-                 <div className="worring_r" id="password_acc_ag">{this.state.message.password_acc_ag}</div>
-
-              </div>
+              <div className="warning_box">
+                <div id="password_again_warning" className="">{this.state.message.password_again}</div>
+              </div> 
 
               <div className="btn mouse" onClick={this.registerSubmit}>註冊</div>
 
               <div className="already_register">已有帳號?</div>
               <div className="btn_group">
-                  <div className="btn_switch sign_up_r mouse" onClick={this.flipToReg}><div>登入</div></div>            
+                  <div className="btn_switch mouse" onClick={this.flipToReg}><div>登入</div></div>            
               </div>
             </form>
             {/* </div> */}

@@ -39,6 +39,8 @@ class HomePage extends Component {
     })
     }
 
+    console.log(this.props.location.pathname);
+
   }
 
   

@@ -16,6 +16,7 @@ class Home01Text extends Component {
 
   render() {
       return <Link to="/films" className="carousel_cell transition text-box">
+      <div className="text-box-inner">
           <div className="year">{this.props.home01Slide.year}</div>
           <div className="name">{this.props.home01Slide.name}</div>
           <div className="award">{ this.props.home01Slide.award }</div >
@@ -25,6 +26,7 @@ class Home01Text extends Component {
             </div>
               <div className="time">{this.props.home01Slide.time}</div>
           </div>
+        </div>
         </Link>;
   }
 }
