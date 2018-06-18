@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from './header';
 import Footer from './footer';
-import FastTicket from './fast-ticket';
+// import FastTicket from './fast-ticket';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import './myfilm/my-film.scss';
 import Tab1 from './myfilm/tab1';
@@ -66,7 +66,7 @@ class MyFilmPage extends Component {
     return (
         <div style={{position:'relative'}}>
         <Header collectionNum={this.state.collectionNum} loginStatus={this.state.loginStatus} login={this.state.login} />
-            <FastTicket />
+            {/* <FastTicket /> */}
               <div className="myfilmPage">
                 <div className="progressBar">
               <NavLink activeClassName="active" to={`/my-film/1`}>              

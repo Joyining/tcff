@@ -11,7 +11,10 @@ class Films extends Component {
         this.pickBook = this.pickBook.bind(this);        
         this.handleSort = this.handleSort.bind(this);        
         this.handleMove = this.handleMove.bind(this);
-        this.handleCollect = this.handleCollect.bind(this); 
+        this.handleCollect = this.handleCollect.bind(this);
+        this.touchStart = this.touchStart.bind(this);
+        this.touchMove = this.touchMove.bind(this);
+        this.touchEnd = this.touchEnd.bind(this); 
 
         this.state = {
             books:false,
@@ -23,6 +26,14 @@ class Films extends Component {
         this.sideWidth = 0;
         this.bookWidth = 0;
         this.containerWidth = 0;
+        this.bookIndex = 0;
+
+        this.startX = 0;
+        this.startY = 0;
+        this.displacementX = 0;
+        this.displacementY = 0;
+        this.swipeDirection = "";
+
         this.firstUpdate = false;
     }    
     handleCollect(evt){//收藏
@@ -253,6 +264,7 @@ class Films extends Component {
         this.containerWidth = containerwidth;
         this.sideMaxBooks = sideminimun;
         index = index === undefined ? middle : index; //點到翻開的書，初始值為最中間的那本
+        this.bookIndex = index;
 
         //點到頭側的書
         if (index < sideminimun) {
@@ -318,7 +330,8 @@ class Films extends Component {
         let books = Array.from(document.querySelectorAll(".book"));
 
         let index = (i === undefined) ? books.indexOf(evt.currentTarget.parentElement) : i;
-
+        this.bookIndex = index;
+        
         //位移
         this.positioning(index);
 
@@ -484,8 +497,6 @@ class Films extends Component {
     componentDidUpdate(){//書本初始狀態(位移、淡入、調整書背書面角度)
         console.log("films Did Update")
         if(!this.firstUpdate){
-            let allBook = document.querySelectorAll('.book');
-            let book = Array.from(allBook);
             let allFront = document.querySelectorAll('.front');
             let front = Array.from(allFront);
             front.forEach((f) => f.style.transform = 'rotateY(90deg)');
@@ -493,33 +504,73 @@ class Films extends Component {
             this.positioning();
             this.fadeIn();
             this.firstUpdate = true;
+
+            let books = document.querySelector("#books");
+
+            books.addEventListener("touchstart", this.touchStart, false);
+            books.addEventListener("touchmove", this.touchMove, false);
+            books.addEventListener("touchend", this.touchEnd, false);
         }
     }
-    render() {
-        console.log('render', this.state)        
+    touchStart(evt){
+        console.log("start")
+        evt.preventDefault();
+
+        let touch = evt.touches[0];
+        this.startX = touch.pageX;
+        this.startY = touch.pageY;
+        this.displacementX = 0;
+        this.displacementY = 0;
+    }
+    touchMove(evt) {
+        evt.preventDefault();
+
+        console.log("move")
+        let touch = evt.touches[0];
+        let displacementX = this.startX - touch.pageX;
+        let displacementY = this.startY - touch.pageY;
+        let scrollY = window.scrollY + displacementY;
+        console.log("dp",displacementX)
+        this.displacementX = displacementX;
+        this.displacementY = displacementY;
+        
+
+        //上下滑動時移動視窗
+        window.scrollTo(0, scrollY);
+    }
+    touchEnd(evt){
+        evt.preventDefault();
+        console.log(this.swipeDirection);
+        let displacementX = this.displacementX;
+        //位移太小不算
+        if (Math.abs(displacementX) < 50) this.swipeDirection = "";
+        //右滑
+        else if (displacementX > 0) this.swipeDirection = "right";
+        //左滑
+        else if (displacementX < 0) this.swipeDirection = "left";
+
+        //滑動太少不移動書
+        if(this.swipeDirection.length !== 0){
+            let index = this.swipeDirection === "right" ? this.bookIndex + 1 : this.bookIndex - 1;
+            this.bookIndex = index;
+            
+            this.positioning(index);
+            this.pickBook(evt, index);
+        }
+    }
+    render() {     
         return (
             <div id="container">
                 <div id="filmsPage">
-                    <div className="buttons">
-                        <select name="" id="selType" onChange={this.handleChange}>{this.state.types.map((type, idx) => <option key={idx} value={type}>{type}</option>)}</select>
-                        <select name="" id="selYear" onChange={this.handleChange}>
-                            <option value="1960">1960</option>
-                            <option value="1970">1970</option>
-                            <option value="1980">1980</option>
-                            <option value="1990">1990</option>
-                            <option value="2000">2000</option>
-                        </select>
-                    </div>
                     {this.state.books && (
                         <div className="sortBy">
                             
                                 <input type="radio" name="sortBy" id="sortByYear" checked={this.state.sortBy === "year" ? true : false} />
-                                <label className="optionYear" htmlFor="sortByYear" onClick={this.handleSort}>年代</label>
-                            
-                            
+                                <label className="optionYear" htmlFor="sortByYear" onClick={this.handleSort}>年代</label>                       
                                 
                                 <input type="radio" name="sortBy" id="sortByTheme" checked={this.state.sortBy === "theme" ? true : false} />
                                 <label className="optionTheme" htmlFor="sortByTheme" onClick={this.handleSort}>類型</label>
+
                                 <div className="sortDetailYear">
                                     <input type="radio" name="sortDetail" id="to1960s" />
                                     <label className="detailYear" htmlFor="to1960s" onClick={this.handleMove}>1960s</label>
@@ -532,6 +583,7 @@ class Films extends Component {
                                     <input type="radio" name="sortDetail" id="to2000s" />
                                     <label className="detailYear" htmlFor="to2000s" onClick={this.handleMove}>2000s</label>
                                 </div>
+
                                 <div className="sortDetailTheme">
                                     {this.state.types.map((type, idx) => 
                                         (<div key={idx}>
