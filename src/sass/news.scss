@@ -54,7 +54,8 @@
 
 		.box_pic{
 			background-color: #ff8040 ;
-			width: 100%;				
+			width: 100%;			
+			// height: 100%;	
 			object-fit: cover ;
 			@include breakpoint("tablet"){
 				padding: 0 20% ;
@@ -65,9 +66,6 @@
 				padding: 0 ;
 			}
 
-			.box_pic_in{
-
-			}
 
 		}
 		.box_text{

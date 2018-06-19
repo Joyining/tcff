@@ -17,30 +17,31 @@ class MemberPage2 extends Component{
         };
       }
 
-    // 加到每個page.js
+ 
     componentWillMount() {
-        let collection = JSON.parse(sessionStorage.getItem("collection"));
-        console.log(collection)
-        if (collection !== null) {
+            // 加到每個page.js
+            let collection = JSON.parse(sessionStorage.getItem("collection"));
+            if (collection !== null) {
             let collectionNum = collection.films.length + collection.cffilms.length;
             this.setState({
                 collectionNum: collectionNum
             })
-        }
+            }
 
-        if (sessionStorage.getItem("user") !== null) {
-            console.log(typeof (sessionStorage.getItem('user')));
-            console.log(JSON.parse(sessionStorage.getItem('user')));
+            // 加到每個page.js
+            if(sessionStorage.getItem("user")!==null){;
             this.setState({
                 loginStatus: true,
                 login: JSON.parse(sessionStorage.getItem("user"))["username"],
             });
-        } else {
+            }else{
             this.setState({
                 loginStatus: false,
                 login: "",
             })
-        }
+            }
+
+            console.log(this.props.location.pathname);
     }
 
   // 加到每個page.js
@@ -51,7 +52,9 @@ class MemberPage2 extends Component{
     render(){
         return(
             <div style={{position:'relative'}}>
-                <Header collectionNum={this.state.collectionNum} loginStatus={this.state.loginStatus} login={this.state.login} />
+                {/* 加到每個page.js */}
+                <Header collectionNum={this.state.collectionNum} loginStatus={this.state.loginStatus} login={this.state.login}/>
+               
                 <FastTicket />
                 <Member2 />
                 <Footer />

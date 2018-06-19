@@ -51,7 +51,9 @@ class MemberCenterPage extends Component{
     render(){
         return(
             <div style={{position:'relative'}}>
-                <Header collectionNum={this.state.collectionNum} />
+                 {/* 加到每個page.js */}
+                <Header collectionNum={this.state.collectionNum} loginStatus={this.state.loginStatus} login={this.state.login}/>
+                
                 <FastTicket />
                 <MemberCenter />
                 <Footer />

@@ -5,7 +5,8 @@ import { width } from 'window-size';
 
 import newsPicLogo from "../images/logo.svg";
 import newsPicChair from "../images/CHEAR.svg";
-import newsPicTicket from "../images/ticket2.svg";
+import newsPicTicket from "../images/info_ticket.svg";
+import newsPicTicketQa from "../images/info_ticket_qa.svg";
 
 import placePicSpot from "../images/spot_photo.jpg";
 import placePicEslite from "../images/eslite_photo.jpg";
@@ -47,25 +48,25 @@ class Info extends Component {
                 <figure className="up_in_pic up_in_pic_info" width="1000%">
                    <a href="#about_tcff"><img src={newsPicLogo}/></a>
                 </figure>
-                <span className="tcff_btns">關於影展</span>
+                 <a href="#about_tcff"><span className="tcff_btns">關於影展</span></a>
               </li>
               <li className="up_pic">
                 <figure className="up_in_pic">
-                   <a href="#place_tcff"><img src={newsPicChair}/></a>                   
+                   <a href="#place_tcff"><img src={newsPicChair}  width="95%"/></a>                   
                 </figure>
-                <span className="tcff_btns">場地資訊</span>
-              </li>
-              <li className="up_pic">
-                <figure className="up_in_pi ">
-                   <a href="#ticket_tcff"><img src={newsPicTicket}/></a>
-                </figure>
-                <span className="tcff_btns">售票資訊</span>
+                <a href="#place_tcff"><span className="tcff_btns">場地資訊</span></a>
               </li>
               <li className="up_pic">
                 <figure className="up_in_pic">
-                   <a href="#ticket_qa_tcff"><img src={newsPicChair}/></a>
+                   <a href="#ticket_tcff"><img src={newsPicTicket} width="95%"/> </a>
                 </figure>
-                <span className="tcff_btns">售票Q&A</span>
+                <a href="#ticket_tcff"><span className="tcff_btns">售票資訊</span> </a>
+              </li>
+              <li className="up_pic">
+                <figure className="up_in_pic">
+                   <a href="#ticket_qa_tcff"><img src={newsPicTicketQa} width="95%"/></a>
+                </figure>
+                <a href="#ticket_qa_tcff"><span className="tcff_btns">售票QA</span> </a>
               </li>
             </ul>
 
@@ -202,44 +203,44 @@ class Info extends Component {
 
               <div className="tcff_ticket_qa down_box" id="ticket_qa_tcff">
                   <div className="info_title" id="ticket_title">售票Q&A</div>
-                  <ul className="tcff_ticket_qa_up">
+                  {/* <ul className="tcff_ticket_qa_up">
                     <a href="#ticket_buy"  className="ticket_qa_btn"><li >購票</li></a>
                     <a href="#ticket_receive"  className="ticket_qa_btn" ><li>取票</li></a>
                     <a href="#ticket_change"  className="ticket_qa_btn" ><li>退換票</li></a>
                     <a href="#ticket_other"  className="ticket_qa_btn"><li>其他</li></a>
-                  </ul>
+                  </ul> */}
 
                   <ul>
                     <div className="ticket_title">購票</div>
                     <li id="ticket_buy">
                           
-                          <span>Q如何加入會員？</span>
+                          <span className="ticket_qa_title">Q如何加入會員？</span>
                           <p>購票須使用金馬影展會員帳號登入，尚無會員帳號之觀眾，請先免費註冊成為金馬影展會員。</p>
                           <p>為確保購票順利，請務必於開賣前自行確認會員帳號有效，且能正常登入，否則無法於網站購票。</p>
                           <br/>
-                          <span>Q可以用手機購票嗎？</span>
+                          <span className="ticket_qa_title">Q可以用手機購票嗎？</span>
                           <p>售票系統支援行動裝置，消費者可用手機購票。</p>
                           <br/>
-                          <span>Q如何付款？</span>
+                          <span className="ticket_qa_title">Q如何付款？</span>
                           <p>付款方式依各活動規畫而定，請參考各活動售票資訊。</p>
                           <br/>
-                          <span>Q選到座位後，會因為別人比我先完成付款而搶不到座位嗎？</span>
+                          <span className="ticket_qa_title">Q選到座位後，會因為別人比我先完成付款而搶不到座位嗎？</span>
                           <p>如同時與其他人選到同一個座位，系統將以優先確認座位者為先。</p>
                           <p>一個座位只會分配到一筆訂單內，確認座位後在期限內完成付款即可。</p>
                           <br/>
-                          <span>Q一筆訂單最多可買幾張票？</span>
+                          <span className="ticket_qa_title">Q一筆訂單最多可買幾張票？</span>
                           <p>每筆訂單最多購買10張。</p>
                           <br/>
-                          <span>Q如果購買狀態顯示為已售完，我還可以在現場購買嗎？</span>
+                          <span className="ticket_qa_title">Q如果購買狀態顯示為已售完，我還可以在現場購買嗎？</span>
                           <p>每場次座位有限，售完為止。現場無保留票券，請提早購買。</p>
                           <br/>
-                          <span>Q選到座位還沒付款，但突然不想買了，該怎麼辦？</span>
+                          <span className="ticket_qa_title">Q選到座位還沒付款，但突然不想買了，該怎麼辦？</span>
                           <p>請點選「取消訂單」，系統會清除沒結帳的訂單。訂單一旦取消即無法復原。</p>
                           <br/>
-                          <span>Q線上刷卡可以使用的卡別有哪些？</span>
+                          <span className="ticket_qa_title">Q線上刷卡可以使用的卡別有哪些？</span>
                           <p>刷卡僅限VISA、MasterCard、JCB，無法使用的卡別為AE、大來、銀聯卡。</p>
                           <br/>
-                          <span>Q ATM虛擬帳號轉帳的帳戶姓名需要和會員姓名一樣嗎？</span>
+                          <span className="ticket_qa_title">Q ATM虛擬帳號轉帳的帳戶姓名需要和會員姓名一樣嗎？</span>
                           <p>不用。可用不同姓名的帳戶轉帳。</p>
                          
                     </li>
@@ -247,10 +248,10 @@ class Info extends Component {
                     <div className="ticket_title">取票</div>
                     <li id="ticket_receive">                     
 
-                        <span>Q訂票後如何取票？</span>
+                        <span className="ticket_qa_title">Q訂票後如何取票？</span>
                         <p>取票方式依各活動規畫而定，請參考各活動售票資訊。</p>
                         <br/>
-                        <span>Q可以請朋友協助取票嗎？</span>
+                        <span className="ticket_qa_title">Q可以請朋友協助取票嗎？</span>
                         <p>可以。只要有該筆訂單的「QR code」或「取票序號+取票號碼」，即可以進行取票。</p>
                         <p>提醒您，票券為唯一入場憑證，請妥善保存。</p>
 
@@ -259,14 +260,14 @@ class Info extends Component {
                     <li id="ticket_change">
                         
                    
-                        <span>Q可以退票嗎？</span>
+                        <span className="ticket_qa_title">Q可以退票嗎？</span>
                         <p>退票最遲須於該場次放映３天前完成退票手續，逾時恕不受理。例：4.13映演的場次，最遲須於4.10完成退票手續。</p>
                         <p>退票每張需酌收10%手續費。</p>
                         <br/>
-                        <span>Q可以換票嗎？</span>
+                        <span className="ticket_qa_title">Q可以換票嗎？</span>
                         <p>「換票」視同「退票」，請將原先購買的票券依退票方式辦理退票後，再另行購買。</p>
                         <br/>
-                        <span>Q要在哪裡辦理退票？</span>
+                        <span className="ticket_qa_title">Q要在哪裡辦理退票？</span>
                         <p>退票地點依各活動規畫而定，請參考各活動售票資訊。</p>
                        
 
@@ -275,10 +276,10 @@ class Info extends Component {
                     <div className="ticket_title">其他</div>
                     <li  id="ticket_other">                   
                        
-                        <span>Q票券遺失可以補發嗎？</span>
+                        <span className="ticket_qa_title">Q票券遺失可以補發嗎？</span>
                         <p>票券視同有價證券，且為唯一入場憑證，如有遺失、破損、燒毀或無法辨識等情形，請自行負責，恕無法重新開票，請務必妥善保管票券。</p>
                         <br/>
-                        <span>Q購票可以開立發票嗎？</span>
+                        <span className="ticket_qa_title">Q購票可以開立發票嗎？</span>
                         <p>票券已內含代徵娛樂稅，免開立發票。</p>
 
                     </li>
