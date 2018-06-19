@@ -19,7 +19,9 @@ header{
     box-sizing: border-box;
     z-index: 5;
     @include breakpoint('mobileonly'){
-        height: $headerHeight*.8;
+        height: $headerHeight*.2;
+        // display: none;
+        background-color: transparent;
     }
     .logo{
         opacity: 1;
@@ -41,6 +43,7 @@ header{
         @include breakpoint('mobileonly'){
             width: 30vw;
             height: 30vw;
+            display: none;
         }
         img{
             display: block;
