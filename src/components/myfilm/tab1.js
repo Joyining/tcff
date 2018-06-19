@@ -163,7 +163,7 @@ class Tab1 extends Component {
     this.setState({isCollectionEmpty: empty});
   }
   cancelOverlay(event){//選完加入影片按 確定 /取消
-    let target = event.target;
+    let target = event.currentTarget;
     let overlay = document.getElementsByClassName('overlay')[0];
 
     if (target.value === "確定") {
@@ -858,18 +858,18 @@ class Tab1 extends Component {
                             <div className="col">
                               <img className="" src={`${process.env.PUBLIC_URL}/images/${film.release_year}_${film.name_en.split(' ').join('_').replace(':', '_')}.jpg`} /> 
                               </div>
-                              <Link className="col" to={`/films-detail-page?id=${film.id_movie}`}>
+                              <Link className="col" data-title="片名" to={`/films-detail-page?id=${film.id_movie}`}>
                                 <span className="film_name">{film.name_zhtw}</span>
                                 <span className="film_name">{film.name_en}</span>
                               </Link>
-                            < div className = "col" >
+                            < div className = "col" data-title="時間" >
                               <span className="film_date">{film.date.split("-").join("/")}</span>
                               <span className="film_date">{film.time.slice(0,-3)}</span>
                               </div>
-                            < div className = "col" >
+                            < div className = "col" data-title="地點" >
                               <span className="film_auditorium">{film.auditorium}</span>                          
                             </div>
-                            <div className="col">
+                            <div className="col" data-title="座位">
                               <span className={`film_bookable ${film.bookable_seats_count < 20 ? "danger" : ""}`}>{film.bookable_seats_count}</span>
                               </div>
                           </div>
@@ -921,11 +921,11 @@ class Tab1 extends Component {
                             <div className="col">
                               <img className="" src={`${process.env.PUBLIC_URL}/images/${film.release_year}_${film.name_en.split(' ').join('_').replace(':', '_')}.jpg`} />
                             </div>
-                            <Link className="col" to={`/cf-films-detail-page?id=${film.id_movie}&cf=true`}>
+                            <Link className="col" data-title="片名" to={`/cf-films-detail-page?id=${film.id_movie}&cf=true`}>
                               <span className="film_name">{film.name_zhtw}</span>
                               <span className="film_name">{film.name_en}</span>
                             </Link>
-                            < div className = "col" >
+                            < div className = "col" data-title="進度" >
                               <span className="film_name">{Math.round(film.cf_progress * 100) + '%'}</span>
                             </div>
                               

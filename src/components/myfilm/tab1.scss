@@ -48,17 +48,27 @@
                 color: $colorLight;
                 font-weight: 500;
                 min-height: 120px;
-                &:hover{
-                    background-color: $colorLight;
-                    color: $colorDark;
-                    a.col:active, a.col:visited, a.col, span{
+                @include breakpoint("tablet") {
+                    flex-flow: row wrap;               
+                    justify-content: center;
+                }
+
+                @include breakpoint("desktop") {
+                    &:hover {
+                        background-color: $colorLight;
                         color: $colorDark;
-                    }
-                    label span{
-                        // background-color: $colorDark;
-                        border-color: $colorMedium;
-                        color: $colorDark;
-                    }
+                        a.col:active,
+                        a.col:visited,
+                        a.col,
+                        span {
+                            color: $colorDark;
+                        }
+                        label span {
+                            // background-color: $colorDark;
+                            border-color: $colorMedium;
+                            color: $colorDark;
+                        }
+                    }                    
                 }
                 &.colTitle{
                     height: 50px;
@@ -79,6 +89,13 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    @include breakpoint("tablet") {
+                        flex-basis: 50%;
+                        padding: 20px 0;
+                        background-color: $colorMedium;
+                        margin-top: 10px;
+                        border-radius: 5px 0 0 5px;
+                    }
                 }
                 .delCol{
                     flex-basis: 50px;
@@ -97,6 +114,13 @@
                     justify-content: center;
                     align-items: center;
                     font-size: 24px;
+                    @include breakpoint("tablet") {
+                        flex-basis: 50%;
+                        padding: 20px 0;
+                        background-color: $colorLight;
+                        border-radius: 0 5px 5px 0;
+                        margin-top: 10px;
+                    }
                     svg{
                         display: block;
                     }
@@ -107,7 +131,11 @@
                     flex: 1;
                     align-items: center;
                     @include breakpoint("tablet"){                        
-                        flex-flow: row wrap;                        
+                        flex-flow: column nowrap;   
+                        align-items: stretch;
+                        order: -1; 
+                        flex: 1 1 100%;
+                        // height: 250px;                 
                     }
                     a.col:hover{
                         transition: all .2s;
@@ -125,12 +153,16 @@
                         text-align: center;
                         text-decoration-color: $colorLight;
                         color: $colorLight;
-
+                        min-height: 50px;
+                        // border: 1px solid black;
+                        @include breakpoint("tablet") {
+                            justify-content: flex-start;
+                            // flex-flow: column wrap;
+                        }
                         &:visited, &:active{
                             color: $colorLight;
                         }                        
                         
-                        height: 120px;
                         img{
                             width: 100%;
                             height: 100%;
@@ -140,20 +172,54 @@
                             transition: all .5s;
                             &:hover{
                                 transform: scale(2);
+                                @include breakpoint("tablet") {
+                                    transform: scale(1);
+                                }
                             }
                         }
                         @include breakpoint("tablet") {
                             &:first-child, &:nth-child(2){
-                                flex: 50%;
+                                // flex: 50%;
+                            }
+                            &::before{
+                                content: attr(data-title)"|";  
+                                font-size: 24px;
+                                display: inline;
+                                color: $colorDarker;
+                                font-weight: 700;
+                                // width: 35%;
+                                text-align: right;
+                                margin-right: 10px;
+                                // flex: 1;
+                                height: 100%;
+                                margin: 10px 0;
+                                
+                            }
+                            &:first-child {
+                                flex: 100%;
+                                &::before{
+                                    display: none;
+                                }
                             }
                         }
                         span, h4{
-                            width: 100%;
+                            
+                            // border: 1px solid black;
                             padding: 5px 0;
+                            @include breakpoint("destop") {
+                                width: 100%;
+                            }
+                            @include breakpoint("tablet") {
+                                font-size: 24px;
+                                flex: 100%;
+                                &:nth-child(2) {
+                                    // flex: 100%;
+                                }
+                            }
                             &.film_bookable {
-                                color: rgb(34, 109, 34);
+                                color: #db8f00;
                                 font-weight: 900;
-                                font-size: 20px;
+                                font-size: 22px;
                                 &.danger {
                                     color: rgb(105, 26, 26);
                                 }
@@ -424,7 +490,7 @@
                             .items{
                                 display: flex;
                                 flex-flow: row wrap;
-                                justify-content: center;
+                                justify-content: flex-end;
                                 align-content: flex-start;
                                 // justify-content: flex-start;
                                 // align-items: flex-start;               
@@ -438,7 +504,7 @@
                                 // height: 100%;
                                 // overflow: auto;
                                 .item {
-                                    margin: 5px 8px;
+                                    margin: 10px 10px;
                                     padding: 10px 20px;
                                     text-align: center;
                                     border: 1px solid rgba(126, 46, 59, 0.8);
@@ -520,6 +586,7 @@
         }
         @include breakpoint("mobileonly") {
             flex-wrap: wrap;
+            justify-content: center;
         }
         a,
         button {
@@ -532,7 +599,8 @@
             flex-basis: 25%;
             border: none;
             @include breakpoint("mobileonly") {
-                width: 80%;
+                max-width: 45%;
+                margin: 10px;
             }
             display: flex;
             justify-content: center;
