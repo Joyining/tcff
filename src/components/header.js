@@ -33,13 +33,124 @@ class Header extends Component {
         this.closeMember = this.closeMember.bind(this);
         this.logout = this.logout.bind(this);
         this.toggleMember = this.toggleMember.bind(this);
-        }
+        this.scrollDetection = this.scrollDetection.bind(this);
+        this.menuClick = this.menuClick.bind(this);
+        // this.menuDetect = this.menuDetect.bind(this);
+        // this.menuDetectRemove = this.menuDetectRemove.bind(this);
+    
+    
+    }
 
-    // updatecollectionNum() {
-    //     this.setState({ 
-    //         collectionNum: localStorage.getItem("collectionsNum") });
+    // header size
+    scrollDetection(){
+        let lastScrollTop = 0;
+        window.addEventListener("scroll", function () {
+            let scrollTop = document.documentElement.scrollTop;
+            const header = document.querySelector('header');
+            const logoImg = document.querySelector('#logo').children;
+
+            if (scrollTop > lastScrollTop) {
+                header.classList.add('small-header');
+                logoImg[0].setAttribute('src', logo2);
+            } else {
+                header.classList.remove('small-header');
+                logoImg[0].setAttribute('src', logo1);
+            }
+            lastScrollTop = scrollTop;
+        })  
+    };
+
+    // menu icon open and close
+    menuClick(){
+        const menuIcons = document.querySelectorAll(".menu-icon");
+        // console.log(menuIcons);
+        const menuWrap = document.querySelector(".menu-wrap");
+        const body = document.querySelector("body");
+        menuWrap.classList.toggle('active');
+        body.classList.toggle('overflow-hidden');
+        Array.from(menuIcons).forEach(menuIcon => {
+            menuIcon.classList.toggle("active");
+        })
+    }
+
+    // menu background animation
+    // menuDetect(){
+    //     const menuBtn = document.querySelector('.menu-btn').children;
+    //     let lastPosition = -1;
+    //     const menuBgRow1 = document.querySelector('.menu-bg-row1');
+    //     const menuBgRow2 = document.querySelector('.menu-bg-row2');
+    //     const menuBgRow3 = document.querySelector('.menu-bg-row3');
+
+    //     const slideWidth = 900;
+
+    //     let initLeftRow1 = parseInt(window
+    //         .getComputedStyle(menuBgRow1, null)
+    //         .getPropertyValue("left")
+    //         .replace("px", ""));
+    //     let initTopRow1 = parseInt(window
+    //         .getComputedStyle(menuBgRow1, null)
+    //         .getPropertyValue("top")
+    //         .replace("px", ""));
+
+    //     let initLeftRow2 = parseInt(window
+    //         .getComputedStyle(menuBgRow2, null)
+    //         .getPropertyValue("left")
+    //         .replace("px", ""));
+    //     let initTopRow2 = parseInt(window
+    //         .getComputedStyle(menuBgRow2, null)
+    //         .getPropertyValue("top")
+    //         .replace("px", ""));
+
+    //     let initLeftRow3 = parseInt(window
+    //         .getComputedStyle(menuBgRow3, null)
+    //         .getPropertyValue("left")
+    //         .replace("px", ""));
+
+    //     let initTopRow3 = parseInt(window
+    //         .getComputedStyle(menuBgRow3, null)
+    //         .getPropertyValue("top")
+    //         .replace("px", ""));
+
+    //     // for (let i = 0; i < menuBtn.length; i++){
+    //         let i = menuBtn;
+    //         let positionDiff = lastPosition - i;
+    //         lastPosition = i;
+
+    //         let newLeftRow1 = initLeftRow1 - positionDiff * slideWidth;
+    //         let newLeftRow2 = initLeftRow2 + positionDiff * slideWidth;
+    //         let newLeftRow3 = initLeftRow3 - positionDiff * slideWidth;
+
+    //         menuBgRow2.style.left = `${newLeftRow2}px`;
+    //         initLeftRow2 = newLeftRow2;
+
+    //         menuBgRow1.style.left = `${newLeftRow1}px`;
+    //         initLeftRow1 = newLeftRow1;
+
+    //         menuBgRow3.style.left = `${newLeftRow3}px`;
+    //         initLeftRow3 = newLeftRow3;
+
+    //         let menuSiblings = menuBtn[i].parentNode.children;
+            // for (let i = 0; i < menuSiblings.length; i++) {
+            //     menuSiblings[i].classList.remove('active');
+            //     menuSiblings[i].lastChild.classList.remove("active");
+            // }
+            // menuBtn[i].classList.add('active');
+            // menuBtn[i].lastChild.classList.add('active');
+            // console.log(this.children);
+        // }
     // }
 
+    // menuDetectRemove(){
+    //     const menuBtn = document.querySelector('.menu-btn').children;
+    //     for (let i = 0; i < menuBtn.length; i++){
+    //         let menuSiblings = menuBtn[i].parentNode.children;
+    //         for (let i = 0; i < menuSiblings.length; i++) {
+    //             menuSiblings[i].classList.remove("active");
+    //             menuSiblings[i].lastChild.classList.remove("active");
+    //         }
+    //     }
+    // }
+    
     menuClose(){
         const menuWrap = document.querySelector(".menu-wrap");
         const body = document.querySelector("body");
@@ -60,6 +171,7 @@ class Header extends Component {
         const memberPanel = document.querySelector('.member-panel');
         memberPanel.classList.remove('active');
     }
+    
     toggleMember() {
         const memberPanelMobile = document.querySelector('.member-panel-mobile');
         memberPanelMobile.classList.toggle("active");
@@ -79,7 +191,6 @@ class Header extends Component {
             let memberIconMobile = document.querySelector("#memberMobile");
             memberIconWeb.style.display = "none";
             memberIconMobile.style.display = "none";
-
         }else{
             console.log("login false");
             let nicknameWeb = document.querySelector("#nicknameWeb");
@@ -88,43 +199,7 @@ class Header extends Component {
             nicknameMobile.style.display = "none";
         }
 
-
-        document.addEventListener("DOMContentLoaded", function scrollDetection (event) {
-            let lastScrollTop = 0;
-            window.addEventListener("scroll", function () {
-                let scrollTop = document.documentElement.scrollTop;
-                const header = document.querySelector('header');
-                const logoImg = document.querySelector('#logo').children;
-                
-                if (scrollTop > lastScrollTop) {
-                    header.classList.add('small-header');
-                    logoImg[0].setAttribute('src', logo2);
-                } else {
-                    header.classList.remove('small-header');
-                    logoImg[0].setAttribute('src', logo1);
-                }
-                lastScrollTop = scrollTop;
-            })
-        });
-
-        let menuClick = ()=>{
-            const menuIcons = document.querySelectorAll(".menu-icon");
-            // console.log(menuIcons);
-            const menuWrap = document.querySelector(".menu-wrap");
-            const body = document.querySelector("body");
-            
-            Array.from(menuIcons).forEach(menuIcon => {
-                menuIcon.addEventListener("click", function(event) {
-                    // console.log(this);
-                    menuWrap.classList.toggle('active');
-                    body.classList.toggle('overflow-hidden');
-                    Array.from(menuIcons).forEach(menuIcon => {
-                        menuIcon.classList.toggle("active");
-                    });
-                });
-            });
-        }
-        menuClick();
+        window.addEventListener('scroll', this.scrollDetection, false);
 
         let menuDetect = () => {
             const menuBtn = document.querySelector('.menu-btn').children;
@@ -195,12 +270,6 @@ class Header extends Component {
                     this.lastChild.classList.remove("active");
                 })
             }
-
-            // for (let i = 0; i < menuBtn.length; i++) {
-            //     menuBtn[i].addEventListener('click', function () {
-            //         const menuWrap = document.querySelector(".menu-wrap");
-
-            //     })
         }
         menuDetect();
 
@@ -246,6 +315,10 @@ class Header extends Component {
         }
         navTextExpand();
     }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.scrollDetection, false);
+    }
     
     render() {
         return (
@@ -284,7 +357,7 @@ class Header extends Component {
                 </ul>
                 <Link to="/member" id="memberWeb" onClick={this.menuClose}><img  className="transition" src={member} alt="" /></Link>
 
-                <div className="menu-icon transition">
+                <div className="menu-icon transition" onClick={this.menuClick}>
                     <div className="line-1 no-animation transition"></div>
                     <div className="line-2 no-animation transition"></div>
                     <div className="line-3 no-animation transition"></div>
@@ -305,7 +378,7 @@ class Header extends Component {
                     </ul>
                     <Link to="/member" id="memberMobile" onClick={this.menuClose}><img className="transition" src={member} alt="" /></Link>
 
-                    <div className="menu-icon transition">
+                    <div className="menu-icon transition" onClick={this.menuClick}>
                         <div className="line-1 no-animation transition"></div>
                         <div className="line-2 no-animation transition"></div>
                         <div className="line-3 no-animation transition"></div>
@@ -384,7 +457,7 @@ class Header extends Component {
                 </div>
                 <div className="menu">
                     <ul className="menu-btn">
-                        <li className="active">
+                        <li className="active"  onMouseOver={this.menuDetect} onMouseOut={this.menuDetectRemove}>
                             <a className="transition">節目資訊</a>
                             <ul className="panel transition" data-device='tablet'>
                                 <li><Link to="/films" className="transition" onClick={this.menuClose}>確認放映</Link></li>
@@ -392,7 +465,7 @@ class Header extends Component {
                                 <li><Link to="/time" className="transition" onClick={this.menuClose}>場次表</Link></li>
                             </ul>
                         </li>
-                        <li>
+                        <li  onMouseOver={this.menuDetect} onMouseOut={this.menuDetectRemove}>
                             <a className="transition">影展資訊</a>
                             <ul className="panel transition" data-device='tablet'>
                                 <li><Link to="/info" className="transition" onClick={this.menuClose}>關於影展</Link></li>
@@ -401,11 +474,11 @@ class Header extends Component {
                                 <li><Link to="/info" className="transition" onClick={this.menuClose}>購票Q&A</Link></li>
                             </ul>
                         </li>
-                        <li>
+                        <li onMouseOver={this.menuDetect} onMouseOut={this.menuDetectRemove}>
                             <Link to="/news" className="transition" onClick={this.menuClose}>最新消息</Link>
 
                         </li>
-                        <li>
+                        <li onMouseOver={this.menuDetect} onMouseOut={this.menuDetectRemove}>
                             <Link to="/article" className="transition" onClick={this.menuClose}>電影賞析</Link>
                         </li>
                     </ul>

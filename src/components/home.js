@@ -59,8 +59,9 @@ class Home extends Component {
   constructor(props){
       super(props);
       this.scrollDetection = this.scrollDetection.bind(this);
-      this.eclipseSizing = this.eclipseSizing.bind(this); 
+      this.eclipseSizing = this.eclipseSizing.bind(this);
       this.rotateCarousel = this.rotateCarousel.bind(this); 
+      this.titleText = this.titleText.bind(this);
 
       this.state = {
         flagType: ['確認放映', '募資中'],
@@ -245,52 +246,50 @@ class Home extends Component {
 
   }
 
+  // home02 movie title and quote animation
+  titleText(){
+    const movies = [
+      { title: "2002 無間道", quote: '"我想做好人"' },
+      { title: "1967 畢業生", quote: '"羅賓遜夫人，你想勾引我？"' },
+      { title: "1975 計程車司機", quote: '"你在對我說話嗎"' },
+      { title: "1993 侏儸記公園", quote: '"生命自會找到出口"' },
+      { title: "1972 教父", quote: '"我會開出一個他無法拒絕的條件"' },
+      { title: "1982 E.T外星人", quote: '"E.T. phone home."' },
+      { title: "1961 第凡內早餐", quote: '"天空適合仰望，不適合居住"' },
+      { title: "1973 星際大戰", quote: '"願原力與你同在"' },
+      { title: "1985 回到未來", quote: '"路？我們要去的地方不需要路"' },
+      { title: "2008 黑暗騎士", quote: '"Why so serious？"' }
+    ];
+    const titleText = document.querySelector('.title');
+    titleText.innerHTML = `${movies[0].title}`;
+    const quoteText = document.querySelector(".quote");
+    quoteText.innerHTML = `${movies[0].quote}`;
+    const slideLength = movies.length;
+    let i = 1;
+    const inners = document.querySelectorAll('.inner');
+    setTimeout(() => {
+      titleText.innerHTML = `${movies[i % slideLength].title}`;
+      quoteText.innerHTML = `${movies[i % slideLength].quote}`;
+      i++;
+    }, 1500);
+    setTimeout(() => {
+      setInterval(function () {
+        titleText.innerHTML = `${movies[i % slideLength].title}`;
+        quoteText.innerHTML = `${movies[i % slideLength].quote}`;
+        i++;
+      }, 3000)
+    }, 1400);
+  }
+
   componentWillMount(){
-    // console.log(this.rotateCarousel);
-    // this.rotateCarousel;
+
   }
 
   componentDidMount(){
     window.addEventListener('scroll', this.scrollDetection, false);
     this.rotateCarousel();
     this.eclipseSizing();
-    this.scrollDetection();
-
-    let titleText = ()=>{
-      const movies = [
-        { title: "2002 無間道", quote: '"我想做好人"' },
-        { title: "1967 畢業生", quote: '"羅賓遜夫人，你想勾引我？"' },
-        { title: "1975 計程車司機", quote: '"你在對我說話嗎"'},
-        { title: "1993 侏儸記公園", quote: '"生命自會找到出口"' },
-        { title: "1972 教父", quote: '"我會開出一個他無法拒絕的條件"' },
-        { title: "1982 E.T外星人", quote: '"E.T. phone home."' },
-        { title: "1961 第凡內早餐", quote: '"天空適合仰望，不適合居住"' },
-        { title: "1973 星際大戰", quote: '"願原力與你同在"' },
-        { title: "1985 回到未來", quote: '"路？我們要去的地方不需要路"' },
-        { title: "2008 黑暗騎士", quote: '"Why so serious？"' }
-      ];
-      const titleText = document.querySelector('.title');
-      titleText.innerHTML = `${movies[0].title}`;
-      const quoteText = document.querySelector(".quote");
-      quoteText.innerHTML = `${movies[0].quote}`;
-      const slideLength = movies.length;
-      let i=1;
-      const inners = document.querySelectorAll('.inner');
-      setTimeout(() => {
-        titleText.innerHTML = `${movies[i % slideLength].title}`;
-        quoteText.innerHTML = `${movies[i % slideLength].quote}`;
-        i++;
-      }, 1500);
-      setTimeout(() => {
-        setInterval(function () {
-          titleText.innerHTML = `${movies[i % slideLength].title}`;
-          quoteText.innerHTML = `${movies[i % slideLength].quote}`;
-          i++;
-        }, 3000)
-      }, 1400);
-    }
-    titleText()
-
+    this.titleText();
     console.log(this.state);
   }
 
