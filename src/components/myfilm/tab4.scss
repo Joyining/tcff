@@ -1,6 +1,10 @@
+@import "../../sass/partials/basic";
+
 .tab4{
     .wrap{
-        background-color: #fff;
+        background-color: $colorLight;
+        color: $colorDarker;
+        font-weight: 700;
         height: 500px;
         display: flex;
         justify-content: center;
@@ -13,13 +17,34 @@
             height: fit-content;
         }
         a{
-            text-align: center;
+            color: $colorMedium;
+            font-size: 24px;
+            font-weight: 700;
             padding: 10px 20px;
-            background-color: darksalmon;
+            box-sizing: border-box;
+            margin: 20px auto;
             display: block;
+            // max-width: 40%;
+            border: none;
+            @include breakpoint("mobileonly") {
+                width: 80%;
+            }
+            background-color: $colorDarker;
+            text-align: center;
+            flex:1; 
+            cursor: pointer;
+            &:hover {
+                background-color: $colorMedium;
+                color: $colorDarker;
+            }
         }
-        a:visited{
-            color: black;
+
+        a:hover:visited {
+            color: $colorDarker;
+        }
+
+        a:visited {
+            color: $colorMedium;
         }
     }
 }

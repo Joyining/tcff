@@ -157,7 +157,7 @@ class Tab3 extends Component {
                             this.state.films.map((film, idx) => (
                                 <div className="row">
                                     <div className="col">{film.name_zhtw}</div>
-                                    {film.hasOwnProperty('seats') && (<div className="col"><span>{film.date.split("-0").join("/")} {film.time.slice(0, -3)}</span> <span>{film.auditorium}</span></div>)}
+                                    {film.hasOwnProperty('seats') && (<div className="col"><span>{film.date.split("-0").join("/").split("-").join("/")} {film.time.slice(0, -3)}</span> <span>{film.auditorium}</span></div>)}
                                     {!film.hasOwnProperty('seats') && (<div className="col"></div>)}
                                     <div className="col">{film.hasOwnProperty('seats') ? film.seats.join(',') : ''}</div>
                                     <div className="col">{film.quantity}</div>
@@ -174,32 +174,40 @@ class Tab3 extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="com">
-                    <thead>
-                        <tr>
-                            <th colSpan="5">
+                <div className="userInfo">
+                    <div className="head">
+                        <div className="row">
+                            <div className="col">
                                 確認訂購人資訊
-                                </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr align="center">
-                            <td>姓名<input type="text" /></td>                               
-                        </tr>
-                        <tr align="center">
-                            <td>電話<input type="text" /></td>
-                        </tr>
-                        <tr align="center">
-                            <td>電子郵件<input type="text" /></td>
-                        </tr>
-                        <tr align="center">
-                            <td>付款方式
-                                <select name="" id="">
+                                </div>
+                        </div>
+                    </div>
+                    <div className="body">
+                        <div className="row">
+                            <div className="col">
+                                <label htmlFor="infoName" className="infoName">姓名</label>
+                                <input type="text" id="infoName" />
+                            </div>                               
+                        </div>
+                        <div className="row">
+                            < div className = "col" >
+                                <label htmlFor="infoPhone" className="infoName">電話</label>
+                            <input type="text" id="infoPhone" /></div>
+                        </div>
+                        <div className="row">
+                        < div className = "col" >
+                                <label htmlFor="infoMail" className="infoName">電子郵件</label>
+                            <input type="text" id="infoMail" /></div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
+                                <label htmlFor="infoPay" className="infoName">付款方式</label>
+                                <select name="" id="infoPay">
                                     <option value="">信用卡</option>
                                 </select>
-                            </td>
-                        </tr>
-                    </tbody>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div className="buttons">
                     <Link className="prevStep" to={`/my-film/2`} onClick={this.prevStep}>上一步</Link>

@@ -92,4 +92,33 @@
             }
         }
     }
+    .userInfo{
+        width: 100%;
+        border-radius: 5px;
+        background-color: $colorDarker;
+        .row{
+            .col {
+                padding: 10px 0;
+                text-align: center;
+                label{
+                    color: $colorLight;
+                    font-size: 20px;
+                    padding-right: 10px;
+                }
+                input{
+                    border: none;
+                    height: 20px;
+                }
+            }
+        }
+        .head{
+            font-size: 30px;
+            font-weight: 700;
+            color: $colorLight;
+            border-bottom: 2px solid $colorLight;
+        }
+        .body{
+
+        }
+    }
 }
