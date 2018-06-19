@@ -15,6 +15,7 @@ class Films extends Component {
         this.touchStart = this.touchStart.bind(this);
         this.touchMove = this.touchMove.bind(this);
         this.touchEnd = this.touchEnd.bind(this); 
+        this.click = this.click.bind(this); 
 
         this.state = {
             books:false,
@@ -506,15 +507,22 @@ class Films extends Component {
             this.firstUpdate = true;
 
             let books = document.querySelector("#books");
+            // let a = document.querySelectorAll(".btm a");
 
+            // Array.from(a).forEach(x => x.addEventListener("touchend", this.click, false));
             books.addEventListener("touchstart", this.touchStart, false);
             books.addEventListener("touchmove", this.touchMove, false);
             books.addEventListener("touchend", this.touchEnd, false);
         }
     }
+    click(evt){
+        // evt.preventDefault();
+        // console.log("click")
+        // return false;
+    }
     touchStart(evt){
         console.log("start")
-        evt.preventDefault();
+        // evt.preventDefault();
 
         let touch = evt.touches[0];
         this.startX = touch.pageX;
@@ -523,7 +531,7 @@ class Films extends Component {
         this.displacementY = 0;
     }
     touchMove(evt) {
-        evt.preventDefault();
+        // evt.preventDefault();
 
         console.log("move")
         let touch = evt.touches[0];
@@ -539,7 +547,7 @@ class Films extends Component {
         window.scrollTo(0, scrollY);
     }
     touchEnd(evt){
-        evt.preventDefault();
+        // evt.preventDefault();
         console.log(this.swipeDirection);
         let displacementX = this.displacementX;
         //位移太小不算

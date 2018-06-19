@@ -749,8 +749,8 @@ class Tab1 extends Component {
                   <div className="tabs">
                     <div className="films active">
                     <div className="search">
-                      <label>搜尋片名</label>
-                      <input type="text" onChange={this.search} value={this.state.searchText}/>
+                      <label htmlFor="searchFilms">搜尋片名</label>
+                      <input id="searchFilms" type="text" onChange={this.search} value={this.state.searchText}/>
                       </div>
                       <div className="items">
                         {
@@ -764,8 +764,8 @@ class Tab1 extends Component {
                     </div>
                     <div className="cffilms">
                     < div className = "search" >
-                      <label>搜尋片名</label>
-                      <input type="text" onChange={this.search} value={this.state.searchText}/>
+                      <label htmlFor="searchCffilms">搜尋片名</label>
+                      <input id="searchCffilms" type="text" onChange={this.search} value={this.state.searchText}/>
                       </div>
                       <div className="items">
                         {
@@ -921,12 +921,12 @@ class Tab1 extends Component {
                             <div className="col">
                               <img className="" src={`${process.env.PUBLIC_URL}/images/${film.release_year}_${film.name_en.split(' ').join('_').replace(':', '_')}.jpg`} />
                             </div>
-                            < div className = "col" >
+                            <Link className="col" to={`/cf-films-detail-page?id=${film.id_movie}&cf=true`}>
                               <span className="film_name">{film.name_zhtw}</span>
                               <span className="film_name">{film.name_en}</span>
-                              </div>
+                            </Link>
                             < div className = "col" >
-                              <span className="film_name">{(film.cf_progress * 100) + '%'}</span>
+                              <span className="film_name">{Math.round(film.cf_progress * 100) + '%'}</span>
                             </div>
                               
                           </div>

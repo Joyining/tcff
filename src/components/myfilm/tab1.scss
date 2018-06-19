@@ -35,7 +35,7 @@
                 transition: all .5s;
                 overflow: hidden;
                 &.show{
-                    max-height: 1000px;
+                    max-height: 10000px;
                 }
             }
             div.row{
@@ -47,20 +47,24 @@
                 border-bottom: 2px solid $colorLight;
                 color: $colorLight;
                 font-weight: 500;
-                height: 120px;
+                min-height: 120px;
                 &:hover{
                     background-color: $colorLight;
                     color: $colorDark;
-                    a.col:active, a.col:visited{
+                    a.col:active, a.col:visited, a.col, span{
                         color: $colorDark;
                     }
                     label span{
                         // background-color: $colorDark;
                         border-color: $colorMedium;
+                        color: $colorDark;
                     }
                 }
                 &.colTitle{
                     height: 50px;
+                    @include breakpoint("tablet"){
+                        display: none;
+                    }
                     &:hover{
                         background-color: transparent;
                         color: $colorLight;
@@ -102,8 +106,8 @@
                     justify-content: flex-start;
                     flex: 1;
                     align-items: center;
-                    @include breakpoint("mobileonly"){
-                        // flex-wrap: wrap;
+                    @include breakpoint("tablet"){                        
+                        flex-flow: row wrap;                        
                     }
                     a.col:hover{
                         transition: all .2s;
@@ -119,6 +123,8 @@
                         justify-content: center;
                         align-items: center;
                         text-align: center;
+                        text-decoration-color: $colorLight;
+                        color: $colorLight;
 
                         &:visited, &:active{
                             color: $colorLight;
@@ -136,8 +142,10 @@
                                 transform: scale(2);
                             }
                         }
-                        @include breakpoint("mobileonly") {
-                            // width: 50%;
+                        @include breakpoint("tablet") {
+                            &:first-child, &:nth-child(2){
+                                flex: 50%;
+                            }
                         }
                         span, h4{
                             width: 100%;
@@ -363,6 +371,7 @@
                             justify-content: flex-start;                            
                             align-items: center;
                             align-content: flex-start;
+                            overflow: auto;
                             .add{
                                 font-size: 24px;
                                 color: $colorLight;
@@ -380,14 +389,30 @@
                         .films, .cffilms {
                             // padding: 5% 5%;
                             box-sizing: border-box;
-                            justify-content: center;
+                            justify-content: flex-start;
                             overflow: auto;
-                            align-items: center;
-                            flex-flow: row wrap;
+                            align-items: stretch;
+                            flex-flow: column nowrap;
                             .search {
-                                width: 100%;
+                                // flex: 100%;
                                 // padding: 50px auto;
-                                margin: 50px;
+                                // margin: 50px;
+                                padding: 50px;
+                                box-sizing: border-box;
+                                display: flex;
+                                justify-content: flex-start;
+                                align-items: center;
+                                @include breakpoint("mobileonly"){
+                                    flex-wrap: wrap;
+                                }
+                                label{
+                                    color: $colorLight;
+                                    font-size: 24px;
+                                    padding-right: 10px;
+                                    @include breakpoint("mobileonly"){
+                                        margin: 10px 0;
+                                    }
+                                }
                                 input {
                                     width: 150px;
                                     height: 20px;
@@ -398,13 +423,20 @@
                             }
                             .items{
                                 display: flex;
-                                flex-direction: column;
-                                justify-content: flex-start;
+                                flex-flow: row wrap;
+                                justify-content: center;
                                 align-content: flex-start;
-                                width: 100%;
-                                height: 100%;
-                                flex-wrap: wrap-reverse;
-                                overflow: auto;
+                                // justify-content: flex-start;
+                                // align-items: flex-start;               
+                                @include breakpoint("mobileonly"){
+                                    flex-flow: column nowrap;
+                                    justify-content: flex-start;
+                                    align-items: stretch;                                    
+                                }
+
+                                // flex: 100%;
+                                // height: 100%;
+                                // overflow: auto;
                                 .item {
                                     margin: 5px 8px;
                                     padding: 10px 20px;
