@@ -1,7 +1,7 @@
 @import "partials/basic";
 
-.container-info1{
-    background-color: $colorMedium;
+.container-news{
+    // background-color: $colorMedium;
     margin: ($headerHeight * 2.2) auto;
 	// margin-bottom: ($headerHeight * 4);
 	padding: 100px;
@@ -15,10 +15,132 @@
 		width: 90vw;
 		padding: 30px;
     }
-    .title{
-    @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
+    .news_title{
+    	@include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
     }
     .about{
-    @include paragraph($colorDarker);
-    }
+   		 @include paragraph($colorDarker);
+	}
+
+	.flex_use{
+		display: flex ;
+		flex-direction: row ;
+		margin: 2% auto ;	
+
+		@include breakpoint("tablet"){
+			display: flex ;
+			flex-direction: column ;
+		}
+		
+		.in_flex_pic{
+			object-fit: cover ;
+			// object-position: 100% 100%;
+		}
+	}
+
+	.news_box{
+		// background-color: #008040 ;
+		padding: 25px 5% ;
+		width: 100% ;
+		margin: 0 auto ;
+		box-sizing: border-box ;
+		position: relative ;
+		@include breakpoint("mobileonly"){
+			width: 80%;		
+			padding: 2%  ;
+			overflow: hidden;
+			object-fit: cover ;
+		}
+
+		.box_pic{
+			background-color: #ff8040 ;
+			width: 100%;				
+			object-fit: cover ;
+			@include breakpoint("tablet"){
+				padding: 0 20% ;
+				box-sizing: border-box ;
+				overflow: hidden;
+			}
+			@include breakpoint("mobileonly"){
+				padding: 0 ;
+			}
+
+			.box_pic_in{
+
+			}
+
+		}
+		.box_text{
+			padding-top: 8% ;			
+			width: 100%;
+			font-size: 24px ;
+			text-align: center ;
+			background-color: $colorMedium ;
+			@include breakpoint("tablet"){
+				padding-top: 0 ;
+			}
+
+			@include breakpoint("mobileonly"){
+				width: 100%;
+			}
+
+			.box_bigtitle{
+				// background-color: #8080c0 ;
+				margin: 25% auto;
+				color: $colorDarker ;
+				font-weight: bold ;
+				
+				@include breakpoint("tablet"){
+					padding: 0 20% ;
+					box-sizing: border-box ;
+					font-size: 20px ;
+				}
+				@include breakpoint("mobileonly"){
+					padding: 0 ;
+				}
+			}
+		}
+
+			
+		.box_word{
+			// background-color: $colorMedium ;
+			width: 100%;
+			display: flex ;
+			flex-direction: column ;
+			
+
+			.box_wrod_in{
+				padding: 20px 0 ;	
+				background-color: $colorMedium ;
+				border-bottom: 10px solid $colorDark ;
+				color: $colorDarker ;
+				font-size: 20px ;
+				// font-weight: bold ;		
+			}
+
+			.in_span{
+				// background-color: $colorMedium ;
+			}
+		}		
+	} 
+
+	.page_box{
+		margin: 0 auto ;
+	}
+	.page{
+		display: flex ;
+		flex-direction: row ;
+		padding: 0 40% ;
+		// width: 100%;
+
+		.page_num{
+			width: 80% ;
+			// height: 80% ;
+			color: $colorDarker ;
+			font-size: 20px ;
+			text-align: center ;
+			background-color: $colorMedium ;
+			margin-right: 10px ;
+		}
+	}
 }

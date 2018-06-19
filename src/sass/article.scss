@@ -1,0 +1,157 @@
+@import "partials/basic";
+
+$headerHeight: 100px; 
+.container-article{
+	margin: ($headerHeight * 2.2) auto;
+	padding: 100px;
+	width: 80vw;
+    box-sizing: border-box;
+	@include breakpoint("tablet") {
+		width: 90vw;
+		padding: 50px;
+	}
+	@include breakpoint("mobileonly") {
+		width: 90vw;
+		padding: 30px;
+    }
+    .transition{
+        transition: all 1s;
+    }
+
+    .article{
+        .flag-outer-wrap{
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            height: 150px;
+            .flag-wrap{
+                width: 50%;
+                border-right: 8px solid $colorLight;
+                position: relative;
+                @include breakpoint ('mobileonly'){
+                    right: 0;
+                    width: 100%;
+                }
+                .circle{
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background-color: $colorLight;
+                    position: absolute;
+                    right: -13.5px;
+                    top: 63px;
+                }
+                .short-line{
+                    width: 30%;
+                    height: 6px;
+                    background-color:$colorLight;
+                    position: absolute;
+                    right: 0px;
+                    top: 69px;
+                }
+                .flag{
+                    width: 150px;
+                    height: 50px;
+                    background-color: $colorLight;
+                    color: $colorDarker;
+                    position: absolute;
+                    right: 30%;
+                    top: 45px;
+                    text-align: center;
+                    line-height: 50px;
+                    font-weight: bold;
+                    font-size: 1.4rem;
+                }
+            }
+            .flag-space{
+                width: 50%;
+                padding: 20px;
+                @include breakpoint ('mobileonly'){
+                    display: none;
+                }
+            }
+        }
+
+        .article-wrap{
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            height: 300px;
+            @include breakpoint ('mobileonly'){
+                display: block;
+                height: 450px;
+            }
+            .movie-img{
+                width: 0;
+                object-fit: cover;
+                border-right: 8px solid $colorLight;
+                @include breakpoint ('mobileonly'){
+                    width: 100%;
+                    box-sizing: border-box;
+                }
+                img{
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .movie-text{
+                opacity: 0;
+                width: 0;
+                padding: 20px;
+                background-color: $colorMedium;
+                color: $colorDarker;
+                overflow: hidden;
+                position: relative;
+                @include breakpoint ('mobileonly'){
+                    width: 100%;
+                    box-sizing: border-box;
+                    border-right: 8px solid $colorLight;
+                    max-height: 300px;
+                }
+                .title, .name{
+                    font-size: 1.6rem;
+                    font-weight: bold;
+                    padding-bottom: 10px; 
+                }
+                .title{
+                    font-size: 1.2rem;
+                }
+                .content{
+                    color: $colorDark;
+                    line-height: 1.5rem;
+                }
+                .read-more{
+                    display: block;
+                    width: 100%; 
+                    text-align: center; 
+                    margin: 0; padding: 30px 0; 
+                    background-image: linear-gradient(to bottom, transparent, $colorMedium);
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    &:link, &:visited{
+                        color: $colorDarker;
+                    }
+                }
+            }
+        }
+        &.animate{
+            .movie-img{
+                width: 50%;
+                @include breakpoint ('mobileonly'){
+                    width: 100%;
+                }
+            }
+            .movie-text{
+                width: 50%;
+                opacity: 1;
+                @include breakpoint ('mobileonly'){
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+}
