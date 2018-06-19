@@ -20,7 +20,7 @@ class News extends Component {
                 <ul className="flex_use">
                     <li className=" ">
                         <figure  className="box_pic">
-                             <img src={newsPic_01} className="box_pic_in"  weight="80%"/>
+                             <img src={newsPic_01} className="box_pic_in"  weight="80%" />
                         </figure>
                     </li>
 
@@ -33,7 +33,7 @@ class News extends Component {
                  <ul className="flex_use">
                     <li className=" ">
                         <figure  className="box_pic">
-                             <img src={newsPic_02} className="box_pic_in"  weight="80%"/>
+                             <img src={newsPic_02} className="box_pic_in"  weight="80%" />
                         </figure>
                     </li>
 

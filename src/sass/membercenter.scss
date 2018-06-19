@@ -3,20 +3,22 @@
 
 .container-membercenter{
     width: 80vw;
-    background-color:#80ffff ;
+    // background-color:#80ffff ;
     margin: 220px  auto;
     padding: 100px ;
     
     .banner_up{
-        width: 100%;
-        background-color: $colorMedium;
-        height: 100px ;
+        @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
+        // width: 100%;
+        // background-color: $colorMedium;
+        // height: 100px ;
     }
 
     .them{
         display: flex ;
         flex-direction: row ;
-        background-color: $colorLight;
+        background-color: $colorMedium;
+        margin-top: 2% ;
         @include breakpoint("mobileonly"){
             flex-direction: column ;
         }
@@ -74,13 +76,13 @@
         .box_unclick{
             cursor: pointer; 
             margin: 10px auto;        
-            @include text-rec(80% , 18px, $colorMedium, $colorDarker, transparent);    
+            @include text-rec(80% , 18px, $colorLight, $colorDarker, transparent);    
             height: 60px;
             line-height: 60px ;
             @include breakpoint("mobileonly"){
                 width: 80%;
                 height: 55px;
-                background-color: $colorMedium ;
+                background-color: $colorLight ;
                 color: $colorDarker;
                 margin: 2% auto;
             }
@@ -95,7 +97,7 @@
             @include breakpoint("mobileonly"){
                 // width: 80%;
                 // height: 55px;
-                background-color: $colorMedium ;
+                background-color: $colorLight ;
                 color: $colorDarker;
                 // margin: 2% auto;
             }
@@ -117,17 +119,20 @@
             line-height: 60px ;
         }
 
+    }
 
-
+    .menu_content{
+        background-color: aqua ;
     }
 
     
 
     .commit01{
         width:60% ;
-        height: 600px;
-        background-color: $colorLight;
+        height: 800px;
+        background-color: $colorMedium;
         border-top: 5px solid $colorDark ;
+        overflow: auto ;
 
         @include breakpoint("tablet"){
             height: 500px;
@@ -179,6 +184,12 @@
             .oders_post_box{
                 margin:5% auto ;
                 width: 100%;
+                overflow: auto ;
+
+                .oders_post_box_title {
+                    margin:0 auto ;
+                    @include text-rec(50% , 18px, transparent, $colorDarker, $colorDarker);
+                }
 
                 .oders_word{
                     text-align: center ;

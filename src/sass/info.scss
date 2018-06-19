@@ -14,6 +14,12 @@
         position: sticky;
         top:100px;
         z-index: 5;
+        border-bottom: 5px solid $colorDark ;
+        
+        @include breakpoint("mobileonly"){
+            border-top: 5px solid $colorDark ;
+        }
+
 
         .tcff_btns{
             margin: 0 35% ;
@@ -21,6 +27,14 @@
             background-color: $colorDark ;
             font-size: 20px ;
             color: $colorLight;
+
+            @include breakpoint("tablet"){
+                margin: 0 25% ;
+            }
+            @include breakpoint("mobileonly"){
+                margin: 0 8% ;
+            }
+
         }
     }
 
@@ -44,20 +58,20 @@
         margin: 0 auto ;
     }
 
-
     .up_in_pic{
         width: 80%;
         margin: 0 auto ;
     }
 
-    .up_in_pic_info{
-        padding: 10% 0 ;
-        width: 100%;
+    .up_pic .up_in_pic{
+        @include breakpoint("mobileonly"){
+            display: none;
+        }
     }
 
-
-    .down_box{
-        // height: 850px;
+    .up_in_pic_info{
+        padding: 10% 0 ;
+        width: 95%;
     }
 
     // 關於
@@ -76,7 +90,7 @@
             padding: 50px 20px;
             overflow: hidden;
             z-index: 1 ;
-            @include breakpoint("mobileonly"){
+            @include breakpoint("tablet"){
                 width: 100%;
                 padding: 0;
             }
@@ -95,12 +109,16 @@
             margin: 0 auto ;
             font-size: 18px ;
             line-height: 50px ;
+
+            @include breakpoint("tablet"){
+                padding-left: 10px ;
+            }
         }
 
         .place_map{
             width: 50%;
             // margin: 0 auto ;
-            @include breakpoint("mobileonly"){
+            @include breakpoint("tablet"){
                 padding: 0 10%;
             }
 
@@ -157,6 +175,10 @@
             width: 100% ;
             margin-right: 10px; 
             background-color: $colorDark;
+        }
+
+        .ticket_qa_title{
+            font-weight:bold ;
         }
 
         .ticket_title{

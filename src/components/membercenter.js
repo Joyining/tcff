@@ -195,6 +195,19 @@ class MemberCenter extends Component{
         })
         console.log("second: ", arr2);
         console.log("final state: ", this.state);
+
+
+        $('.oders_post_down_mobile').hide();
+        $('#change_color').click(function(){
+            if($(this).siblings('.oders_post_down_mobile').hasClass('on')){
+                $(this).siblings(".oders_post_down_mobile").slideUp(500).removeClass("on");  
+            } else{
+                $(this).parent().siblings('.oders_post_down_mobile').removeClass("on");
+                $(this).siblings(".oders_post_down_mobile").slideDown(500).addClass("on").parent().siblings().children("li").slideUp(500);
+            }
+        })   
+
+
     }
 
 
@@ -203,7 +216,7 @@ class MemberCenter extends Component{
         return(
             <section className="container container-membercenter">
 
-                    <div className="banner_up">122</div>
+                    <div className="banner_up">會員中心</div>
                     <div className="them">
                         
                         <div className="photo">
@@ -214,25 +227,33 @@ class MemberCenter extends Component{
 
                             <ul  className="btns">
                                 <li>
-                                    <ul className="box_click" id="change_color">
+                                    <div className="box_click" id="change_color">
                                         訂單查詢
-                                        <li className="oders_post_down_mobile oders_word ">1235</li>
-                                    </ul>
+                                        <ul className="menu_content">
+                                            <li className="oders_post_down_mobile">4</li>
+                                            <li className="oders_post_down_mobile">14</li>
+                                            <li className="oders_post_down_mobile">1111</li>
+                                        </ul>
+                                        {/* <li className="oders_post_down_mobile oders_word ">1235</li> */}
+                                    </div>
 
-                                    <ul className="box_unclick"  id="change_color">
+                                    <div className="box_unclick"  id="change_color">
                                         修改會員資料
-                                        <li className="oders_post_down_mobile oders_word ">1235</li>
-                                    </ul>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                        {/* <li className="oders_post_down_mobile oders_word ">1235</li> */}
+                                    </div>
 
-                                    <ul className="box_unclick"  id="change_color">
+                                    <div className="box_unclick"  id="change_color">
                                         修改密碼
-                                        <li className="oders_post_down_mobile oders_word ">1235</li>
-                                    </ul>
+                                        {/* <li className="oders_post_down_mobile oders_word ">1235</li> */}
+                                    </div>
                                     
-                                    <ul className="box_unclick"  id="change_color">
+                                    <div className="box_unclick"  id="change_color">
                                          客服中心
-                                        <li className="oders_post_down_mobile oders_word display">1235</li>
-                                    </ul>
+                                        {/* <li className="oders_post_down_mobile oders_word display">1235</li> */}
+                                    </div>
                                     
                                 </li>    
                             </ul>              
@@ -252,7 +273,7 @@ class MemberCenter extends Component{
                                <div className="oders_use">
                                
                                    <ul  className="oders_post_box">
-                                   <h1>確認放映</h1>
+                                   <div className="oders_post_box_title">確認放映</div>
                                    {this.state.films.map((film,id) =>(                           
                                         <li>
                                             <ul className="oders_post oders_word" id="oders_click">{film.order_date}</ul>
@@ -274,7 +295,7 @@ class MemberCenter extends Component{
                                         ))}
                                    </ul>
                                    <ul  className="oders_post_box">
-                                   <h1>募資中</h1>
+                                   <div className="oders_post_box_title">募資中</div>
                                    {this.state.cffilms.map((film,id) =>(                           
                                         <li>
                                             <ul className="oders_post oders_word" id="oders_click">{film.order_date}</ul>

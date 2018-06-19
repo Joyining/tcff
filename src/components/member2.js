@@ -38,28 +38,28 @@ class Member2 extends Component {
     this.registerSubmit = this.registerSubmit.bind(this);
   }
 
-handleChange(event){
+  handleChange(event){
     const state = this.state;
     state[event.target.id] = event.target.value;         
     this.setState(state);
   }
   handleChange2(event){
-    const state = this.state;
-    const pw = state.password_login;
-
-    console.log(state.password_login===event.target.value);
+    // const state = this.state;
+    const pw = document.querySelector("#password_reg").value;
+    // console.log(state.password_login===event.target.value);
     const password_again = document.querySelector('#password_again_warning');
 
-    if(state.password_login===event.target.value){
+    if(pw===event.target.value){
       password_again.innerHTML = '';
     } else {
       password_again.innerHTML = '請輸入註冊密碼';
     }
   }
   handleChange3(event) {
-    const state = this.state;
-    const pw = state.password_login;
+    // const state = this.state;
+    const pw = document.querySelector('#password_login').value;
     const password_login_warning = document.querySelector('#password_login_warning');
+    console.log(pw);
     if (pw.length>=6) {
       password_login_warning.innerHTML = '';
     } else {
@@ -347,7 +347,7 @@ registerSubmit(evt) {
 
                 <div className="input_box">
                   <label htmlFor="password_login" className="">密碼：</label>
-                  <input  type="password"  id="password_login" name="password_login" className="" placeholder="請輸入您的密碼" onChange={this.handleChange3} onBlur={this.handleChange3} />
+                  <input type="password" id="password_login" name="password_login" className="" placeholder="請輸入您的密碼" onBlur={this.handleChange3} />
                 </div>
                 <div className="warning_box" id="password_login_warning">
                     <div>{this.state.message.password}</div>
@@ -393,7 +393,7 @@ registerSubmit(evt) {
 
               <div className="input_box">
                 <label  className="" htmlFor="password_agian">密碼確認：</label>
-                <input  type="password"  id="password_agian" name="password_again" className="" placeholder="請再次輸入您的密碼"  onChange={this.handleChange2} onBlur={this.handleChange2} />
+                <input  type="password"  id="password_agian" name="password_again" className="" placeholder="請再次輸入您的密碼"  onBlur={this.handleChange2} />
               </div>
               <div className="warning_box">
                 <div id="password_again_warning" className="">{this.state.message.password_again}</div>
