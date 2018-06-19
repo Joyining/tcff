@@ -1,23 +1,22 @@
 @import "partials/basic";
-
-.container-filmsDetail{
+.container-filmsDetail {
     padding: 50px;
-	width: 80vw;
-	box-sizing: border-box;
-    margin: 10px auto ;
+    width: 80vw;
+    box-sizing: border-box;
+    margin: 10px auto;
     background-color: $colorMedium;
-    h2{
+    h2 {
         margin-bottom: 10px;
         color: #602926;
         padding: 10px;
         text-align: center;
     }
-    .title{
+    .title {
         @include text-rec(100%, 1.5rem, $colorLight, $colorDarker, transparent);
     }
-    .about{
+    .about {
         @include paragraph($colorDarker);
-        h2{
+        h2 {
             margin-bottom: 10px;
             background-color: #602926;
             color: white;
@@ -25,7 +24,7 @@
             text-align: center;
         }
     }
-    #progressbar{
+    #progressbar {
         margin: 0 auto;
         width: 80%;
         height: 25px;
@@ -34,18 +33,16 @@
         overflow: hidden;
         border: 1px solid #602926;
         box-shadow: 0 0 2px inset;
-        #bar{
+        #bar {
             width: 0;
             height: 100%;
-            background: linear-gradient(to top,rgba(92, 31, 31,1),rgba(255, 0, 0, 0));
+            background: linear-gradient(to top, rgba(92, 31, 31, 1), rgba(255, 0, 0, 0));
             box-shadow: 0 0 2px inset;
         }
     }
-    
 }
 
-
-.box3{
+.box3 {
     width: 80%;
     margin: 10px auto;
     flex-wrap: wrap;
@@ -53,32 +50,31 @@
     text-align: center;
     color: white;
     margin-top: 50px;
-    .big{
+    .big {
         width: 1000px;
         margin: 0 auto;
     }
-    .flex{
+    .flex {
         display: flex;
-    }
-    // 片名區
-    .myfilmname{
-        width:700px;
+    } // 片名區
+    .myfilmname {
+        width: 700px;
         display: flex;
         text-align: left;
         margin: 0 auto;
-        .l_pad{
+        .l_pad {
             width: 400px;
             line-height: 30px;
             padding: 20px;
         }
-        #h01{
+        #h01 {
             width: 300px;
             border-right: 5px solid white;
             padding: 20px;
             text-align: right;
         }
-    }    
-    .myfont{
+    }
+    .myfont {
         display: flex;
         width: 100%;
         margin: 0 auto;
@@ -86,26 +82,26 @@
         flex-wrap: wrap;
         margin-top: 50px;
     }
-    .fpg{
+    .fpg {
         display: flex;
         margin-top: 10px;
         text-align: center;
     }
-    .myfont a{
+    .myfont a {
         margin-top: 10px;
     }
-    .l_font{
+    .l_font {
         width: 130px;
         background-color: white;
         padding: 10px;
-        color: #8e5f59;    
-    }    
-    .r_font{
+        color: #8e5f59;
+    }
+    .r_font {
         width: 130px;
         border: 1px solid white;
         padding: 10px;
     }
-    .favorite{
+    .favorite {
         width: 130px;
         border: 1px solid white;
         padding: 10px;
@@ -115,37 +111,36 @@
         cursor: pointer;
         font-family: "\5FAE\8EDF\6B63\9ED1\9AD4";
     }
-    .bgc{
+    .bgc {
         color: white;
         background-color: #de912d;
     }
-    input{
+    input {
         display: none;
-        &:checked+label{
+        &:checked+label {
             color: white;
             background-color: #de912d;
-            svg{
+            svg {
                 display: none;
             }
         }
     }
-    
-    
 }
 
-.box{    
+.box {
     margin-top: 200px;
 }
+
 // 導演 演員表
-.box2{
+.box2 {
     width: 80vw;
     margin: 0 auto;
     background: $colorMedium;
-    .left{
+    .left {
         margin-left: 60px;
     }
     .mycontent .mycontent-overlay {
-        background: rgba(96, 41, 38,.6);
+        background: rgba(96, 41, 38, .6);
         position: absolute;
         height: 99%;
         width: 100%;
@@ -155,18 +150,15 @@
         right: 0;
         opacity: 0;
         transition: all 0.4s ease-in-out 0s;
-      }
-      
-      .mycontent:hover .mycontent-overlay{
+    }
+    .mycontent:hover .mycontent-overlay {
         opacity: 1;
-      }
-      
-      .mycontent-image{
+    }
+    .mycontent-image {
         width: 100%;
         height: 100%;
-      }
-      
-      .mycontent-details {
+    }
+    .mycontent-details {
         position: absolute;
         text-align: center;
         padding-left: 1em;
@@ -177,44 +169,37 @@
         opacity: 0;
         transform: translate(-50%, -50%);
         transition: all 0.3s ease-in-out 0s;
-        
-      }
-      
-      .mycontent:hover .mycontent-details{
+    }
+    .mycontent:hover .mycontent-details {
         top: 50%;
         left: 50%;
         opacity: 1;
-      }
-      
-      .mycontent-details h3{
+    }
+    .mycontent-details h3 {
         color: #fff;
         font-weight: 500;
         letter-spacing: 0.15em;
         margin-bottom: 0.5em;
         text-transform: uppercase;
-      }
-      
-      .mycontent-details h4{
-          color: #fff;
-          font-size: 1em;
-        }
-      .mycontent-details p{
+    }
+    .mycontent-details h4 {
+        color: #fff;
+        font-size: 1em;
+    }
+    .mycontent-details p {
         color: #fff;
         font-size: 0.8em;
-          line-height: 20px;  
-      }
-      
-      .fadeIn-bottom{
+        line-height: 20px;
+    }
+    .fadeIn-bottom {
         top: 80%;
-      }
-      p{
+    }
+    p {
         color: #8e5f59;
-      }
-    
-    .mycontain{
+    }
+    .mycontain {
         display: flex;
-        padding: 1em 0;
-        // float: left;
+        padding: 1em 0; // float: left;
         width: 90%;
         margin: 0 auto;
         justify-content: space-between;
@@ -222,16 +207,15 @@
         margin-bottom: 10px;
         flex-wrap: wrap;
     }
-    
-    .dir{
+    .dir {
         display: flex;
         margin-bottom: 10px;
     }
-    .act{
+    .act {
         display: flex;
         margin-bottom: 10px;
     }
-    .mycontain h2{
+    .mycontain h2 {
         width: 30px;
         background-color: #602926;
         color: white;
@@ -239,16 +223,15 @@
         height: 120px;
         text-align: center;
     }
-    
     .mycontent {
-      position: relative;
-      width: 50%;
-      max-width: 200px;
-      margin: 0 ;
-      overflow: hidden;
-      margin-left: 10px;
+        position: relative;
+        width: 50%;
+        max-width: 200px;
+        margin: 0;
+        overflow: hidden;
+        margin-left: 10px;
     }
-    .cover{
+    .cover {
         width: 400px;
         height: 260px;
         overflow: hidden;
@@ -256,44 +239,49 @@
     }
 }
 
-.flex{
-    display: flex;    
+.flex {
+    display: flex;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
 /* Slideshow container */
-ul,li{
+
+ul,
+li {
     margin: 0;
-    padding: 0;        
+    padding: 0;
 }
-li{
+
+li {
     list-style: none;
 }
-.slide_wrap{
+
+.slide_wrap {
     max-width: 950px;
     height: 500px;
     margin: 0 auto;
     overflow: hidden;
-    position: relative;        
+    position: relative;
 }
-.slide_wrap ul.slides{
+
+.slide_wrap ul.slides {
     height: 500px;
     display: flex;
     left: 0px;
     position: absolute;
     transition: all 1s;
 }
-.slide_wrap img{
+
+.slide_wrap img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    // object-fit: contain;
-}    
+    object-fit: cover; // object-fit: contain;
+}
 
-.pages{
+.pages {
     position: absolute;
     bottom: 20px;
     left: 0;
@@ -301,20 +289,23 @@ li{
     display: flex;
     justify-content: center;
 }
-.pages li{
+
+.pages li {
     width: 18px;
     height: 18px;
     border: 1px solid white;
     border-radius: 50%;
     margin: 0 4px;
 }
-.pages li:hover{
+
+.pages li:hover {
     background: white;
 }
-.arrow{
+
+.arrow {
     font-size: 32px;
     color: white;
-    position: absolute;     
+    position: absolute;
     z-index: 4;
     opacity: .6;
     width: 40px;
@@ -322,55 +313,60 @@ li{
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
-.arrow path{
+
+.arrow path {
     fill: white;
 }
-.arrow_left{
+
+.arrow_left {
     left: 0px;
 }
-.arrow_right{
+
+.arrow_right {
     right: 0px;
 }
-.arrow:hover{
+
+.arrow:hover {
     opacity: 1;
-    background: rgba(0,0,0,.5);
+    background: rgba(0, 0, 0, .5);
 }
-.play{
+
+.play {
     width: 60%;
     margin: 0 auto;
     border: 1px solid red;
     display: flex;
 }
 
-#trapezoid_left{
+#trapezoid_left {
     border-top: 80px solid #cbab9e;
     border-right: 50px solid transparent;
-	height: 0;
-	width: 450px;
+    height: 0;
+    width: 450px;
     margin: 0 auto;
     color: #602926;
     margin-top: 10px;
-    h3{
+    h3 {
         padding: 20px 60px;
         margin-top: -80px;
     }
 }
-#trapezoid_right{
+
+#trapezoid_right {
     border-bottom: 80px solid #cbab9e;
-	border-left: 50px solid transparent;
-	height: 0;
-	width: 500px;
+    border-left: 50px solid transparent;
+    height: 0;
+    width: 500px;
     margin: 0 auto;
     color: #602926;
     margin-top: 10px;
-    h3{
-        padding: 20px 60px;    
+    h3 {
+        padding: 20px 60px;
     }
 }
 
-.play_video{
+.play_video {
     width: 100px;
     height: 100px;
     position: absolute;
@@ -381,148 +377,143 @@ li{
     background-size: 100%;
     z-index: 1;
 }
-@media screen and (max-width: 1260px){
-    .box3{
-        .big{
+
+@media screen and (max-width: 1260px) {
+    .box3 {
+        .big {
             width: 800px;
         }
     }
-    #trapezoid_left{        
+    #trapezoid_left {
         width: 400px;
-       
     }
-    #trapezoid_right{
-        width:300px;
-        
+    #trapezoid_right {
+        width: 300px;
     }
 }
-@media screen and (max-width: 1030px){
-    .container-filmsDetail{
-        width: 90vw;        
-    }
-    .box2{
+
+@media screen and (max-width: 1030px) {
+    .container-filmsDetail {
         width: 90vw;
-        .dir{
+    }
+    .box2 {
+        width: 90vw;
+        .dir {
             margin: 0 auto;
             margin-bottom: 10px;
         }
-        .act{
-           margin: 0 auto;
-           margin-bottom: 10px;
-           display: initial;
+        .act {
+            margin: 0 auto;
+            margin-bottom: 10px;
+            display: initial;
         }
-        .left{
+        .left {
             margin-left: 60px;
         }
     }
-    .box3{
-        .big{
+    .box3 {
+        .big {
             width: 700px;
-            
         }
-        .myfilmname{
-            width:400px;
-        }           
+        .myfilmname {
+            width: 400px;
+        }
     }
-	
-    .myfont{
+    .myfont {
         width: 70%;
         margin: 0 auto;
     }
-    .slide_wrap{
+    .slide_wrap {
         max-width: 700px;
-        height: 400px;       
-    }
-    .slide_wrap ul.slides{
         height: 400px;
     }
-    .play_video{
+    .slide_wrap ul.slides {
+        height: 400px;
+    }
+    .play_video {
         background-size: 90%;
         left: 7.5%;
         top: 40%;
     }
-    
 }
-@media screen and (max-width: 840px){
-    .box3{
-        .flex{
+
+@media screen and (max-width: 840px) {
+    .box3 {
+        .flex {
             display: block;
         }
-        .big{
-            width: 600px;            
+        .big {
+            width: 600px;
         }
     }
-    #trapezoid_left{
+    #trapezoid_left {
         border-top: 80px solid #cbab9e;
         border-right: 0 solid transparent;
         width: 350px;
     }
-    #trapezoid_right{
+    #trapezoid_right {
         border-bottom: 80px solid #cbab9e;
         border-left: 0 solid transparent;
         width: 350px;
     }
 }
-@media screen and (max-width: 690px){
-    .box3{
+
+@media screen and (max-width: 690px) {
+    .box3 {
         width: 100%;
-        .big{
+        .big {
             width: 100%;
         }
     }
 }
-     @media screen and (max-width: 550px){
-        .container-filmsDetail{
-            width: 90vw;
-            padding: 20px;
-            #progressbar{
-                width: 100%;
+
+@media screen and (max-width: 550px) {
+    .container-filmsDetail {
+        width: 90vw;
+        padding: 20px;
+        #progressbar {
+            width: 100%;
+        }
+    }
+    .box3 {
+        .myfilmname {
+            width: 300px;
+            margin-top: 100px;
+            #h01 {
+                width: 200px;
             }
         }
-        .box3{
-            
-            .myfilmname{
-                width:300px;
-                margin-top: 100px;
-                #h01{
-                    width: 200px;
-                }
-            }  
-            .myfont{
-                width: 80%;
-            }         
+        .myfont {
+            width: 80%;
         }
         
-        
-        .slide_wrap{
-            max-width: 375px;
-            height: 230px;
-            top: 40px;       
-        }
-        .slide_wrap ul.slides{
-            height: 230px;
-        }
-        #trapezoid_left{
-            border-top: 80px solid #cbab9e;
-            border-right: 0 solid transparent;
-           
-        }
-        #trapezoid_right{
-            border-bottom: 80px solid #cbab9e;
-            border-left: 0 solid transparent;
-            
-        }
-        #trapezoid_right h3{
-            padding: 20px 40px;    
-        }
-        #trapezoid_left h3{
-            padding: 20px 40px;
-            margin-top: -75px;
-        }
-        .play_video{
-            background-size: 70%;
-            left: 7%;
-            top: 35%;
-        }
-     }
-
+    }
+    .slide_wrap {
+        max-width: 375px;
+        height: 230px;
+        top: 40px;
+    }
+    .slide_wrap ul.slides {
+        height: 230px;
+    }
+    #trapezoid_left {
+        border-top: 80px solid #cbab9e;
+        border-right: 0 solid transparent;
+    }
+    #trapezoid_right {
+        border-bottom: 80px solid #cbab9e;
+        border-left: 0 solid transparent;
+    }
+    #trapezoid_right h3 {
+        padding: 20px 40px;
+    }
+    #trapezoid_left h3 {
+        padding: 20px 40px;
+        margin-top: -75px;
+    }
+    .play_video {
+        background-size: 70%;
+        left: 7%;
+        top: 35%;
+    }
+}
