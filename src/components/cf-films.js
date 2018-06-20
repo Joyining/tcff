@@ -255,7 +255,7 @@ class Cffilms extends Component {
                                 <label htmlFor={`id_${data.id_movie}`} className="favorite" onClick={this.handleCollect} data-id-movie={data.id_movie}>
                                     <i className="fas fa-plus-circle"></i>
                                     {
-                                        data.collect == true ? ' 已收藏' : ' 加入收藏'
+                                        data.collect == true ? ' 已加入' : ' 加入票夾'
                                     }
 
                                 </label>
