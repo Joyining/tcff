@@ -65,7 +65,7 @@
             border-right: none ;
         }
 
-        .menu_content{
+        .menu_content , .menu_content2{
             display: none ;
         }
 
@@ -126,7 +126,11 @@
             height: 40px;
             line-height: 40px ;
         }
-
+        .oders_post_down_mobile_in{
+            width: 80%;
+            margin: 2% auto;
+            background-color: rgba($color: #8e5f59, $alpha: 0.7);
+        }
     }
    
 

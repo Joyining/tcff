@@ -196,9 +196,12 @@ class MemberCenter extends Component{
         console.log("second: ", arr2);
         console.log("final state: ", this.state);
 
-
+// ==============================手機板訂單查詢
         var accordionHeader = $('.mobile_btn') ;
         var accordionContent = $('.menu_content') ;
+        var accordionHeader_in_1 = $('.mobile_btn_in_1') ;
+        var accordionContent_in = $('.menu_content2') ;
+        var accordionHeader_in_2 = $('.mobile_btn_in_2') ;
 
         $(accordionHeader).click(function () {
             if ($(this).hasClass('on2')){
@@ -217,6 +220,36 @@ class MemberCenter extends Component{
                 $(this).css('color','#e3e0d9');
             }
         });
+
+        $(accordionHeader_in_1).click(function () {
+            if ($(this).hasClass('on3')){
+                $(this).next(accordionContent_in).slideUp('slow');
+                $(this).removeClass('on3');
+            }
+            else {
+                // close other content
+                $(accordionHeader_in_1).not(this).next(accordionContent_in).slideUp('slow');
+                $(accordionHeader_in_1).not(this).removeClass('on3');
+                $(this).next(accordionContent_in).slideDown('slow');
+                $(this).addClass('on3');
+            }
+        });
+
+        $(accordionHeader_in_2).click(function () {
+            if ($(this).hasClass('on3')){
+                $(this).next(accordionContent_in).slideUp('slow');
+                $(this).removeClass('on3');
+            }
+            else {
+                // close other content
+                $(accordionHeader_in_2).not(this).next(accordionContent_in).slideUp('slow');
+                $(accordionHeader_in_2).not(this).removeClass('on3');
+                $(this).next(accordionContent_in).slideDown('slow');
+                $(this).addClass('on3');
+            }
+        });
+
+// ==============================
  
 
 
@@ -244,10 +277,18 @@ class MemberCenter extends Component{
                                     <div className="box_click_2">訂單查詢</div> 
                                     {/* ===== */}
 
-                                    <div className="box_click mobile_btn dispaly">訂單查詢</div>
+                                    <div className="box_click mobile_btn">訂單查詢</div>
                                     <ul className="menu_content">
-                                            <li className="oders_post_down_mobile">確認放映</li>
-                                            <li className="oders_post_down_mobile">募資中</li>
+                                            <li className="oders_post_down_mobile mobile_btn_in_1">確認放映</li>
+                                                <ul  className="menu_content2">
+                                                    <li className="oders_post_down_mobile_in">123</li>
+                                                </ul>
+                                                {/* <div className="oders_post_down_mobile_in">12354</div> */}
+                                            <li className="oders_post_down_mobile mobile_btn_in_2">募資中</li>
+                                                 <ul  className="menu_content2">
+                                                    <li className="oders_post_down_mobile_in">111123</li>
+                                                </ul>
+                                                 {/* <div className="oders_post_down_mobile_in">22212354</div> */}
                                     </ul> 
                                 </div>
 
