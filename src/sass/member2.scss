@@ -7,15 +7,11 @@ $headerHeight: 100px;
 	// padding: 100px;
 	width: 80vw;
     box-sizing: border-box;
-    // border: 2px solid orange;
 	@include breakpoint("tablet") {
 		width: 90vw;
-		// padding: 50px;
 	}
 	@include breakpoint("mobileonly") {
-        // margin: 0 auto;
 		width: 90vw;
-		// padding: 30px;
     }
 
     .transition{
@@ -36,7 +32,6 @@ $headerHeight: 100px;
         height: 600px;
         position: absolute;
         color: white;
-        // backface-visibility: hidden;
         transform-style:preserve-3d;
         @include breakpoint('mobileonly'){
             width: 90%;

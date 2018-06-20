@@ -8,6 +8,10 @@
             .head{
                 position: relative;
                 cursor: pointer;
+                .row{
+                    // max-height: 120px;
+                    
+                }
                 .title{
                     text-align: center;
                     padding: 13px;
@@ -48,6 +52,13 @@
                 color: $colorLight;
                 font-weight: 500;
                 min-height: 120px;
+                &:first-child.colTitle{
+                    height: 50px;
+                    min-height: 0;
+                    .col{
+                        height: 50px;
+                    }
+                }
                 @include breakpoint("tablet") {
                     flex-flow: row wrap;               
                     justify-content: center;

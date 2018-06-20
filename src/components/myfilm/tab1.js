@@ -234,6 +234,7 @@ class Tab1 extends Component {
             let cffilms = datas.filter(x => x.cf === '1');
 
             let collection = sessionStorage.getItem("collection");
+
             if (collection === null) {
               collection = {
                 films: films,
@@ -336,11 +337,12 @@ class Tab1 extends Component {
             if (data.message === "delete 1 data") {
               //刪Storage的collection
               let collection = JSON.parse(sessionStorage.getItem('collection'));
-              collection.films = collection.films.filter(x => x.id_movie !== id_movie);
-              sessionStorage.setItem("collection", JSON.stringify(collection));
-              this.checkIfEmpty();
+              
 
               if (cf === "0") {
+                collection.films = collection.films.filter(x => x.id_movie !== id_movie);
+                sessionStorage.setItem("collection", JSON.stringify(collection));
+                this.checkIfEmpty();
                 let ar = this.state.films;
                 //remove a film 
                 ar = ar.filter((obj) => {
@@ -357,6 +359,9 @@ class Tab1 extends Component {
                   all_films: all_films
                 });
               } else {
+                collection.cffilms = collection.cffilms.filter(x => x.id_movie !== id_movie);
+                sessionStorage.setItem("collection", JSON.stringify(collection));
+                this.checkIfEmpty();
                 let ar = this.state.cffilms;
                 //remove a film 
                 ar = ar.filter((obj) => {
@@ -424,7 +429,7 @@ class Tab1 extends Component {
             return x;
           })
           let collection = JSON.parse(sessionStorage.getItem("collection"));
-          collection.films = ar;
+          collection.cffilms = ar;
           sessionStorage.setItem("collection", JSON.stringify(collection));
           this.checkIfEmpty();
 
