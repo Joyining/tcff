@@ -826,7 +826,7 @@ class Tab1 extends Component {
                         </div>
                         <div className="title">
                           < div className="col" >
-                            <h4>海報</h4>
+                            <h4></h4>
                           </div>
                           < div className = "col" >
                             <h4>片名</h4>
@@ -858,18 +858,18 @@ class Tab1 extends Component {
                             <div className="col">
                               <img className="" src={`${process.env.PUBLIC_URL}/images/${film.release_year}_${film.name_en.split(' ').join('_').replace(':', '_')}.jpg`} /> 
                               </div>
-                              <Link className="col" data-title="片名" to={`/films-detail-page?id=${film.id_movie}`}>
+                              <Link className="col" data-title="" to={`/films-detail-page?id=${film.id_movie}`}>
                                 <span className="film_name">{film.name_zhtw}</span>
                                 <span className="film_name">{film.name_en}</span>
                               </Link>
-                            < div className = "col" data-title="時間" >
+                            < div className = "col" data-title="" >
                               <span className="film_date">{film.date.split("-").join("/")}</span>
                               <span className="film_date">{film.time.slice(0,-3)}</span>
                               </div>
-                            < div className = "col" data-title="地點" >
+                            < div className = "col" data-title="" >
                               <span className="film_auditorium">{film.auditorium}</span>                          
                             </div>
-                            <div className="col" data-title="座位">
+                            <div className="col" data-title="剩餘座位">
                               <span className={`film_bookable ${film.bookable_seats_count < 20 ? "danger" : ""}`}>{film.bookable_seats_count}</span>
                               </div>
                           </div>
@@ -895,7 +895,7 @@ class Tab1 extends Component {
                           </div>
                           <div className="title">
                             < div className="col" >
-                              <h4>海報</h4>
+                              <h4></h4>
                             </div>
                             < div className = "col" >
                               <h4>片名</h4>
@@ -921,12 +921,12 @@ class Tab1 extends Component {
                             <div className="col">
                               <img className="" src={`${process.env.PUBLIC_URL}/images/${film.release_year}_${film.name_en.split(' ').join('_').replace(':', '_')}.jpg`} />
                             </div>
-                            <Link className="col" data-title="片名" to={`/cf-films-detail-page?id=${film.id_movie}&cf=true`}>
+                            <Link className="col" data-title="" to={`/cf-films-detail-page?id=${film.id_movie}&cf=true`}>
                               <span className="film_name">{film.name_zhtw}</span>
                               <span className="film_name">{film.name_en}</span>
                             </Link>
-                            < div className = "col" data-title="進度" >
-                              <span className="film_name">{Math.round(film.cf_progress * 100) + '%'}</span>
+                        < div className="col" data-title="募資進度" >
+                            <span className="film_name">{Math.round(film.cf_progress * 100) + '%'}</span>
                             </div>
                               
                           </div>

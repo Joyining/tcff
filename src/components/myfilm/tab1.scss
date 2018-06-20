@@ -141,8 +141,9 @@
                     a.col:hover{
                         transition: all .2s;
                         &:hover {
-                            font-size: 18px;
-                            border-bottom: 2px solid $colorDark;
+                            font-weight: 700;
+                            // font-size: 18px;
+                            // border-bottom: 2px solid $colorDark;
                         }
                     }
                     .col{
@@ -163,9 +164,11 @@
 
                         // border: 1px solid black;
                         @include breakpoint("tablet") {
-                            justify-content: flex-start;
+                            height: auto;
+                            // justify-content: center;
+                            // align-items: stretch;
                             // flex-flow: column wrap;
-                            min-height: 150px;
+                            // min-height: 150px;
                         }
                         &:visited, &:active{
                             color: $colorLight;
@@ -190,24 +193,7 @@
                         @include breakpoint("tablet") {
                             &:first-child{
                                 height: 500px;
-                            }
-                            &::before{
-                                content: attr(data-title)"|";  
-                                font-size: 24px;
-                                // display: inline;
-                                position: absolute;
-                                left: 0;
-                                top: 0;
-
-                                color: $colorDarker;
-                                font-weight: 700;
-                                // width: 35%;
-                                text-align: right;
-                                // margin-right: 10px;
-                                // flex: 1;
-                                height: 100%;
-                                // margin: 10px 0;
-                                
+                                display: none;
                             }
                             &:first-child {
                                 flex: 100%;
@@ -215,21 +201,49 @@
                                     display: none;
                                 }
                             }
+                            &::before{
+                                content: attr(data-title);  
+                                font-size: 24px;
+                                // display: inline-block;
+                                // // position: absolute;
+                                // left: 0;
+                                // top: 0;
+
+                                color: $colorDarker;
+                                padding: 5px 0;
+                                font-weight: 700;
+                                // width: 35%;
+                                text-align: left;
+                                margin-right: 10px;
+                                // flex: 1;
+                                // height: 100%;
+                                // margin: 10px 0;
+                                
+                            }
+                            &:nth-child(5){
+                                span{
+                                    flex: 0;
+                                }
+                            }
+
                         }
                         span, h4{
                             
                             // border: 1px solid black;
                             padding: 5px 0;
-                            @include breakpoint("destop") {
-                                width: 100%;
+                            @include breakpoint("desktop") {
+                                flex: 100%;
                             }
                             @include breakpoint("tablet") {
                                 font-size: 24px;
                                 // margin: 0 10px;
                                 flex: 100%;
-                                &:nth-child(2) {
-                                    // flex: 100%;
+                                // max-width: 100%;
+                                &:nth-child(5) {
+                                    // flex: 30%;
                                 }
+                                
+                                
                             }
                             &.film_bookable {
                                 color: #db8f00;
@@ -244,6 +258,19 @@
                     &.forbid {
                         background-color: #333;
                         color: #eee;
+                    }
+                }
+            }
+            &.cffilms{
+                .body{
+                    .row{
+                        .col:nth-child(3){
+                            span{
+                                @include breakpoint("tablet"){ 
+                                    flex: 0;
+                                }
+                            }
+                        }
                     }
                 }
             }

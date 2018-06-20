@@ -3,13 +3,13 @@
 .myfilmPage{
     // filter: blur(5px);
     // overflow: auto;
-    margin: ($headerHeight * 2.2) auto 0;
+    margin: 180px auto 0;
     box-sizing: border-box;
     max-width: 1600px;
     padding: 5%;
     // height: 100%;
     .progressBar{
-        margin: 0 auto 50px;
+        margin: 50px auto;
         // background-color: #ccc;
         display: flex;
         @include breakpoint("mobileonly") {

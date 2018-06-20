@@ -316,13 +316,13 @@ class Tab2 extends Component {
                                     <div className="col">
                                         <img className="" src={`${process.env.PUBLIC_URL}/images/${film.release_year}_${film.name_en.split(' ').join('_').replace(':', '_')}.jpg`} />
                                     </div>
-                                    <div data-th="片名" className="col">{film.name_zhtw}</div>
-                                    <div data-th="場次" className="col">
+                                    <div data-th="" className="col">{film.name_zhtw}</div>
+                                    <div data-th="" className="col">
                                         <span>{film.date.split("-0").join("/").split("-").join("/")}</span>
                                         <span>{film.time.slice(0, -3)}</span>
                                         <span>{film.auditorium}</span>
                                     </div>
-                                    <div data-th="劃位" className="col"><input type="button" value="自行劃位" onClick={this.seatAssign} /></div>
+                                    <div data-th="" className="col"><input type="button" value="自行劃位" onClick={this.seatAssign} /></div>
                                     <div data-th="位號" className="col">{film.seats.join(",")}</div>
                                     <div data-th="數量" className="col"><input type="number" data-isfilm={true} value={film.quantity} onChange={this.changeTicketNum} /></div>
                                     <div data-th="小計" className="col">{this.price * film.quantity}</div>
@@ -353,9 +353,9 @@ class Tab2 extends Component {
                                     <div className="col">
                                         <img className="" src={`${process.env.PUBLIC_URL}/images/${film.release_year}_${film.name_en.split(' ').join('_').replace(':', '_')}.jpg`} />
                                     </div>
-                                    <div data-th="片名" className="col">{film.name_zhtw}</div>
-                                    <div data-th="數量" className="col"><input type="number" data-isfilm={false} value={film.quantity} min="1" max="10" onChange={this.changeTicketNum} /></div>
-                                    <div data-th="小計" className="col">{this.price * film.quantity}</div>
+                                    <div data-th="" className="col">{film.name_zhtw}</div>
+                                    <div data-th="" className="col"><input type="number" data-isfilm={false} value={film.quantity} min="1" max="10" onChange={this.changeTicketNum} /></div>
+                                    <div data-th="" className="col">{this.price * film.quantity}</div>
                                 </div>
                             ))
                         }

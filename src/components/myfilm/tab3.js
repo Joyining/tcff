@@ -197,7 +197,7 @@ class Tab3 extends Component {
                         <div className="row">
                         < div className = "col" >
                                 <label htmlFor="infoMail" className="infoName">電子郵件</label>
-                            <input type="text" id="infoMail" /></div>
+                            <input type="text" id="infoMail" value={JSON.parse(sessionStorage.getItem("user")).email} /></div>
                         </div>
                         <div className="row">
                             <div className="col">
