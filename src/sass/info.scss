@@ -3,7 +3,6 @@
 
 .container-info{
     width: 80vw;
-    // background-color:#80ffff ;
     margin: 220px  auto;
     padding: 100px ;
 
@@ -22,7 +21,7 @@
 
 
         .tcff_btns{
-            margin: 0 35% ;
+            margin: 0 32% ;
             width:  100% ;
             background-color: $colorDark ;
             font-size: 20px ;
@@ -32,9 +31,15 @@
                 margin: 0 25% ;
             }
             @include breakpoint("mobileonly"){
-                margin: 0 8% ;
+                margin: 0 auto;
+                padding-right: 2px ;
+                font-size: 16px ;
+                border-right: 2px solid $colorLight ;
             }
+        }
 
+        .tcff_btn_brd{
+            border-right: 2px solid transparent ;
         }
     }
 
@@ -71,18 +76,16 @@
 
     .up_in_pic_info{
         padding: 10% 0 ;
-        width: 95%;
+        width: 80%;
     }
 
     // 關於
     .tcff_about{
         position: relative ;
-        // background-color:#80ff00 ;
     }
     // 場地
     .tcff_place{
         position: relative;
-        // background-color:#bd94eb ;
 
         .place_pic{
             width: 50%;
@@ -117,7 +120,6 @@
 
         .place_map{
             width: 50%;
-            // margin: 0 auto ;
             @include breakpoint("tablet"){
                 padding: 0 10%;
             }
@@ -127,7 +129,6 @@
     // 售票
     .tcff_ticket{
         position: relative;
-        // background-color:#ff8080 ;
 
         .ticket_title{
             margin: 20px auto ;
@@ -158,8 +159,6 @@
     }
     // QA
     .tcff_ticket_qa{
-        // position: relative;      
-        // background-color:#0080ff ;
 
         .tcff_ticket_qa_up{
             display: flex ;
@@ -197,7 +196,6 @@
         width: 100%;
         padding: 20px 50px ;
         background-color:   $colorMedium ;
-        // overflow:auto;
         box-sizing: border-box ;
         @include paragraph($colorDarker);
     }

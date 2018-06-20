@@ -34,12 +34,10 @@
 		
 		.in_flex_pic{
 			object-fit: cover ;
-			// object-position: 100% 100%;
 		}
 	}
 
 	.news_box{
-		// background-color: #008040 ;
 		padding: 25px 5% ;
 		width: 100% ;
 		margin: 0 auto ;
@@ -55,7 +53,6 @@
 		.box_pic{
 			background-color: #ff8040 ;
 			width: 100%;			
-			// height: 100%;	
 			object-fit: cover ;
 			@include breakpoint("tablet"){
 				padding: 0 20% ;
@@ -83,7 +80,6 @@
 			}
 
 			.box_bigtitle{
-				// background-color: #8080c0 ;
 				margin: 25% auto;
 				color: $colorDarker ;
 				font-weight: bold ;
@@ -101,7 +97,6 @@
 
 			
 		.box_word{
-			// background-color: $colorMedium ;
 			width: 100%;
 			display: flex ;
 			flex-direction: column ;
@@ -112,13 +107,9 @@
 				background-color: $colorMedium ;
 				border-bottom: 10px solid $colorDark ;
 				color: $colorDarker ;
-				font-size: 20px ;
-				// font-weight: bold ;		
+				font-size: 20px ;	
 			}
 
-			.in_span{
-				// background-color: $colorMedium ;
-			}
 		}		
 	} 
 
@@ -129,11 +120,9 @@
 		display: flex ;
 		flex-direction: row ;
 		padding: 0 40% ;
-		// width: 100%;
 
 		.page_num{
 			width: 80% ;
-			// height: 80% ;
 			color: $colorDarker ;
 			font-size: 20px ;
 			text-align: center ;

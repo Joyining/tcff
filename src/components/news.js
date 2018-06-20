@@ -57,8 +57,8 @@ class News extends Component {
 
                <ul className="box_word">
                     <a href=""><li  className="box_wrod_in"><span className="in_span">◆ 伯爵年度優秀獎</span></li></a>
-                    <a href=""><li  className="box_wrod_in"><span>◆ 戡平、李壽全、何篤霖 現身經典電影展站台</span></li></a>
-                    <a href=""><li  className="box_wrod_in"><span>◆ 戡平、李壽全、何篤霖 現身經典電影展站台</span></li></a>
+                    <a href=""><li  className="box_wrod_in"><span>◆ 蘭蔻攜手女神陳庭妮、陳湘琪、周美玲　一同向電影工作者致敬 </span></li></a>
+                    <a href=""><li  className="box_wrod_in"><span>◆ 《E.T. 外星人》（E.T. the Extra-Terrestrial）經典回歸</span></li></a>
                </ul>
             </div>
 

@@ -42,31 +42,32 @@ class Info extends Component {
   render() {
     return (
         <section className="container container-info">
+        
             {/* 圖片位置 */}
             <ul className="pics_box" id="pic_up_place">
               <li className="up_pic info_border ">
-                <figure className="up_in_pic up_in_pic_info" width="1000%">
+                <figure className="up_in_pic up_in_pic_info" width="80%">
                    <a href="#about_tcff"><img src={newsPicLogo}/></a>
                 </figure>
                  <a href="#about_tcff"><span className="tcff_btns">關於影展</span></a>
               </li>
               <li className="up_pic">
                 <figure className="up_in_pic">
-                   <a href="#place_tcff"><img src={newsPicChair}  width="95%"/></a>                   
+                   <a href="#place_tcff"><img src={newsPicChair}  width="85%"/></a>                   
                 </figure>
                 <a href="#place_tcff"><span className="tcff_btns">場地資訊</span></a>
               </li>
               <li className="up_pic">
                 <figure className="up_in_pic">
-                   <a href="#ticket_tcff"><img src={newsPicTicket} width="95%"/> </a>
+                   <a href="#ticket_tcff"><img src={newsPicTicket} width="85%"/> </a>
                 </figure>
                 <a href="#ticket_tcff"><span className="tcff_btns">售票資訊</span> </a>
               </li>
               <li className="up_pic">
                 <figure className="up_in_pic">
-                   <a href="#ticket_qa_tcff"><img src={newsPicTicketQa} width="95%"/></a>
+                   <a href="#ticket_qa_tcff"><img src={newsPicTicketQa} width="85%"/></a>
                 </figure>
-                <a href="#ticket_qa_tcff"><span className="tcff_btns">售票QA</span> </a>
+                <a href="#ticket_qa_tcff"><span className="tcff_btns tcff_btn_brd">售票QA</span> </a>
               </li>
             </ul>
 
@@ -125,12 +126,12 @@ class Info extends Component {
                   </p>
                     <div className="ticket_title"> 票價</div>
                    <p className="tcff_ticket_word">
-                     <span className="tcff_ticket_bigword">【全票】每張220元</span>
+                     <span className="tcff_ticket_bigword">【全票】每250元</span>
                      <span> 銷售時間：6.01〈五〉 - 7.14〈六〉</span>
                    </p>
 
                   <p className="tcff_ticket_word">
-                     <span className="tcff_ticket_bigword">【募資票】每張220元</span>
+                     <span className="tcff_ticket_bigword">【募資票】每張250元</span>
                      <span> 銷售時間：6.01〈五〉 - 7.10〈日〉</span>
                    </p>
 
@@ -141,7 +142,7 @@ class Info extends Component {
                      <span>
                         <ol>
                           <li>1.預售期間僅提供網路購票。</li>
-                          <li>2.購票須登入金馬影展會員帳號（尚無會員帳號之觀眾，請先註冊）。為確保購票順利，請自行確認會員帳號有效，且能正常登入。</li>
+                          <li>2.購票須登入TCFF會員帳號（尚無會員帳號之觀眾，請先註冊）。為確保購票順利，請自行確認會員帳號有效，且能正常登入。</li>
                           <li>3.每筆訂單以8張為限。</li>
                           <li>4.進入購票流程後，10分鐘內須完成訂單確認，逾時未確認之訂單，系統將視為無效並取消，需再重新訂購。</li>
                           <li>5.各場次開演前2小時「線上售票系統」將停止販售，僅可於戲院現場之影展售票處購買。</li>
@@ -203,19 +204,12 @@ class Info extends Component {
 
               <div className="tcff_ticket_qa down_box" id="ticket_qa_tcff">
                   <div className="info_title" id="ticket_title">售票Q&A</div>
-                  {/* <ul className="tcff_ticket_qa_up">
-                    <a href="#ticket_buy"  className="ticket_qa_btn"><li >購票</li></a>
-                    <a href="#ticket_receive"  className="ticket_qa_btn" ><li>取票</li></a>
-                    <a href="#ticket_change"  className="ticket_qa_btn" ><li>退換票</li></a>
-                    <a href="#ticket_other"  className="ticket_qa_btn"><li>其他</li></a>
-                  </ul> */}
-
                   <ul>
                     <div className="ticket_title">購票</div>
                     <li id="ticket_buy">
                           
                           <span className="ticket_qa_title">Q如何加入會員？</span>
-                          <p>購票須使用金馬影展會員帳號登入，尚無會員帳號之觀眾，請先免費註冊成為金馬影展會員。</p>
+                          <p>購票須使用TCFF會員帳號登入，尚無會員帳號之觀眾，請先免費註冊成為TCFF影展會員。</p>
                           <p>為確保購票順利，請務必於開賣前自行確認會員帳號有效，且能正常登入，否則無法於網站購票。</p>
                           <br/>
                           <span className="ticket_qa_title">Q可以用手機購票嗎？</span>
@@ -252,7 +246,7 @@ class Info extends Component {
                         <p>取票方式依各活動規畫而定，請參考各活動售票資訊。</p>
                         <br/>
                         <span className="ticket_qa_title">Q可以請朋友協助取票嗎？</span>
-                        <p>可以。只要有該筆訂單的「QR code」或「取票序號+取票號碼」，即可以進行取票。</p>
+                        <p>可以。只要有該筆訂單的「取票序號+取票號碼」，即可以進行取票。</p>
                         <p>提醒您，票券為唯一入場憑證，請妥善保存。</p>
 
                     </li>
@@ -261,7 +255,7 @@ class Info extends Component {
                         
                    
                         <span className="ticket_qa_title">Q可以退票嗎？</span>
-                        <p>退票最遲須於該場次放映３天前完成退票手續，逾時恕不受理。例：4.13映演的場次，最遲須於4.10完成退票手續。</p>
+                        <p>退票最遲須於該場次放映３天前完成退票手續，逾時恕不受理。例：7.13映演的場次，最遲須於7.10完成退票手續。</p>
                         <p>退票每張需酌收10%手續費。</p>
                         <br/>
                         <span className="ticket_qa_title">Q可以換票嗎？</span>
