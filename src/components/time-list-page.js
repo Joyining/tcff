@@ -26,6 +26,7 @@ class TimeListPage extends Component {
         membercenter: ['首頁', '會員中心'],
         info: ['首頁', '關於影展'],
         news: ['首頁', '最新消息'],
+        member: ['首頁', '登入註冊'],
       },
       breadcrumbPath: {
         films: ['/', '/films'],
@@ -38,6 +39,7 @@ class TimeListPage extends Component {
         membercenter: ['/', '/membercenter'],
         info: ['/', '/info'],
         news: ['/', '/news'],
+        member: ['/', '/member'],
       },
       currentBreadcrumbName: [],
       currentBreadcrumbPath: [],

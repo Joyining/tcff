@@ -51,12 +51,12 @@ class News extends Component {
                     </li>
 
                     <li className="box_text">
-                         <a href=""><span className="box_bigtitle">戡平、李壽全、何篤霖 現身經典電影展站台</span></a>
+                         <a href=""><span className="box_bigtitle">柏格曼大師紀念展</span></a>
                     </li>
                 </ul>
 
                <ul className="box_word">
-                    <a href=""><li  className="box_wrod_in"><span className="in_span">◆ 戡平、李壽全、何篤霖 現身經典電影展站台</span></li></a>
+                    <a href=""><li  className="box_wrod_in"><span className="in_span">◆ 伯爵年度優秀獎</span></li></a>
                     <a href=""><li  className="box_wrod_in"><span>◆ 戡平、李壽全、何篤霖 現身經典電影展站台</span></li></a>
                     <a href=""><li  className="box_wrod_in"><span>◆ 戡平、李壽全、何篤霖 現身經典電影展站台</span></li></a>
                </ul>
