@@ -65,8 +65,8 @@ class Tab2 extends Component {
     }
     changeTicketNum(event){//控制input
         //張數限制在1-10
-        let value = (event.target.value < 1) ? 1 : event.target.value;
-        value = (event.target.value > 10) ? 10 : value;
+        let value = (event.target.value < 0) ? 0 : event.target.value;
+        value = (event.target.value > 20) ? 20 : value;
         let isFilms = event.target.getAttribute("data-isfilm") === "true";
         let id = event.target.closest(".row").getAttribute('data-id-movie');
 
@@ -318,13 +318,13 @@ class Tab2 extends Component {
                                     </div>
                                     <div data-th="片名" className="col">{film.name_zhtw}</div>
                                     <div data-th="場次" className="col">
-                                        <span>{film.date.split("-0").join("/")}</span>
+                                        <span>{film.date.split("-0").join("/").split("-").join("/")}</span>
                                         <span>{film.time.slice(0, -3)}</span>
                                         <span>{film.auditorium}</span>
                                     </div>
                                     <div data-th="劃位" className="col"><input type="button" value="自行劃位" onClick={this.seatAssign} /></div>
                                     <div data-th="位號" className="col">{film.seats.join(",")}</div>
-                                    <div data-th="數量" className="col"><input type="number" data-isfilm={true} value={film.quantity} min="1" max="10" onChange={this.changeTicketNum} /></div>
+                                    <div data-th="數量" className="col"><input type="number" data-isfilm={true} value={film.quantity} onChange={this.changeTicketNum} /></div>
                                     <div data-th="小計" className="col">{this.price * film.quantity}</div>
                                 </div>
                             ))

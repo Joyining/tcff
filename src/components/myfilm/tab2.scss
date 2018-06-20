@@ -7,6 +7,9 @@
         .head{
             position: relative;
             cursor: pointer;
+            @include breakpoint("tablet"){
+                display: none;
+            }
             .row{
                 display: flex;
                 flex-wrap: nowrap;
@@ -42,6 +45,11 @@
                 color: $colorLight;
                 font-weight: 500;
                 min-height: 120px;
+                @include breakpoint("tablet"){
+                    flex-flow: column wrap;
+                    align-items: stretch;
+                    justify-content: flex-start;
+                }
                 &:hover{
                     background-color: $colorLight;
                     color: $colorDark;
@@ -57,7 +65,7 @@
                     justify-content: center;
                     align-items: center;
                     text-align: center;
-                    
+                    position: relative;
                     height: 120px;
                     font-size: 20px;
                     img{
@@ -68,11 +76,28 @@
                         transform-origin: 50% 80%;
                         transition: all .5s;
                         &:hover{
-                            transform: scale(2);
+                            // transform: scale(2);
                         }
                     }
-                    @include breakpoint("mobileonly") {
-                        // width: 50%;
+                    @include breakpoint("tablet") {
+                        
+                        font-size: 24px;
+                        flex: 100%;
+                        // align-items: flex-start;
+                        // justify-content: center;   
+                        &:first-child{
+                            height: 500px;
+                        } 
+                        &::before{
+                            content: attr(data-th);
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            color: $colorDarker;
+                            font-weight: 700;
+                            text-align: right;
+                            height: 100%;
+                        }
                     }
                     span{
                         width: 100%;
@@ -106,15 +131,15 @@
             &:nth-child(2){
                 @include breakpoint("tablet") {
                     .row{
-                        flex-flow: row wrap;
-                        justify-content: flex-start;
-                        align-items: center;
+                        // flex-flow: row wrap;
+                        // justify-content: flex-start;
+                        // align-items: center;
                         .col:nth-child(1), .col:nth-child(2), .col:nth-child(3){ 
-                            flex: 33%;                            
+                            // flex: 33%;                            
                         }
                         @include breakpoint("tablet") {
                             .col:nth-child(4), .col:nth-child(5){ 
-                                flex: 50%;                            
+                                // flex: 50%;                            
                             }
                         }
                     }
