@@ -197,15 +197,27 @@ class MemberCenter extends Component{
         console.log("final state: ", this.state);
 
 
-        $('.oders_post_down_mobile').hide();
-        $('#change_color').click(function(){
-            if($(this).siblings('.oders_post_down_mobile').hasClass('on')){
-                $(this).siblings(".oders_post_down_mobile").slideUp(500).removeClass("on");  
-            } else{
-                $(this).parent().siblings('.oders_post_down_mobile').removeClass("on");
-                $(this).siblings(".oders_post_down_mobile").slideDown(500).addClass("on").parent().siblings().children("li").slideUp(500);
+        var accordionHeader = $('.mobile_btn') ;
+        var accordionContent = $('.menu_content') ;
+
+        $(accordionHeader).click(function () {
+            if ($(this).hasClass('on2')){
+                $(this).next(accordionContent).slideUp('slow');
+                $(this).removeClass('on2');
+                $(this).css('background-color','#e3e0d9');
+                $(this).css('color','#641a1d');
             }
-        })   
+            else {
+                // close other content
+                $(accordionHeader).not(this).next(accordionContent).slideUp('slow');
+                $(accordionHeader).not(this).removeClass('on2');
+                $(this).next(accordionContent).slideDown('slow');
+                $(this).addClass('on2');
+                $(this).css('background-color','#641a1d');
+                $(this).css('color','#e3e0d9');
+            }
+        });
+ 
 
 
     }
@@ -224,45 +236,26 @@ class MemberCenter extends Component{
                                 <img src={memberCenterPic}/>
                                 <button className="pic_change">更換照片</button>
                             </figure>              
+                                      
+                            <div className="btns">
 
-                            <ul  className="btns">
-                                <li>
-                                    <div className="box_click" id="change_color">
-                                        訂單查詢
-                                        <ul className="menu_content">
-                                            <li className="oders_post_down_mobile">4</li>
-                                            <li className="oders_post_down_mobile">14</li>
-                                            <li className="oders_post_down_mobile">1111</li>
-                                        </ul>
-                                        {/* <li className="oders_post_down_mobile oders_word ">1235</li> */}
-                                    </div>
+                                <div>
+                                    {/* 電腦版 */}
+                                    <div className="box_click_2">訂單查詢</div> 
+                                    {/* ===== */}
 
-                                    <div className="box_unclick"  id="change_color">
-                                        修改會員資料
-                                        <ul>
-                                            <li></li>
-                                        </ul>
-                                        {/* <li className="oders_post_down_mobile oders_word ">1235</li> */}
-                                    </div>
+                                    <div className="box_click mobile_btn dispaly">訂單查詢</div>
+                                    <ul className="menu_content">
+                                            <li className="oders_post_down_mobile">確認放映</li>
+                                            <li className="oders_post_down_mobile">募資中</li>
+                                    </ul> 
+                                </div>
 
-                                    <div className="box_unclick"  id="change_color">
-                                        修改密碼
-                                        {/* <li className="oders_post_down_mobile oders_word ">1235</li> */}
-                                    </div>
-                                    
-                                    <div className="box_unclick"  id="change_color">
-                                         客服中心
-                                        {/* <li className="oders_post_down_mobile oders_word display">1235</li> */}
-                                    </div>
-                                    
-                                </li>    
-                            </ul>              
-                            {/* <div className="btns">
-                                <div className="box_click">訂單查詢</div>
                                 <div className="box_unclick">修改會員資料</div>
                                 <div className="box_unclick">修改密碼</div>
                                 <div className="box_unclick">客服中心</div>
-                            </div> */}
+                            </div>
+
                         </div>
 
                         <div className="commit01">
