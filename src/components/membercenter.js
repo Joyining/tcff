@@ -280,14 +280,26 @@ class MemberCenter extends Component{
                                     <div className="box_click mobile_btn">訂單查詢</div>
                                     <ul className="menu_content">
                                             <li className="oders_post_down_mobile mobile_btn_in_1">確認放映</li>
+                                            {this.state.films.map((film,id) =>( 
                                                 <ul  className="menu_content2">
-                                                    <li className="oders_post_down_mobile_in">123</li>
+                                                {
+                                                film.orders.map(x => (
+                                                    <li className="oders_post_down_mobile_in">{`${x.date}${' '}${'/'}${' '}${x.name_zhtw}${' '}${'/'}${' '}${x.quantity}${'張'}${' '}${'/'}${' '}${x.auditorium} `}</li>
+                                                    ))
+                                                }
                                                 </ul>
+                                            ))}
                                                 {/* <div className="oders_post_down_mobile_in">12354</div> */}
                                             <li className="oders_post_down_mobile mobile_btn_in_2">募資中</li>
+                                            {this.state.cffilms.map((film,id) =>( 
                                                  <ul  className="menu_content2">
-                                                    <li className="oders_post_down_mobile_in">111123</li>
+                                                 {
+                                                    film.orders.map(x => (
+                                                        <li className="oders_post_down_mobile_in">{` ${x.name_zhtw}${' '}${'/'}${' '}${x.quantity}${'票'} `}</li>
+                                                    ))
+                                                }
                                                 </ul>
+                                            ))}
                                                  {/* <div className="oders_post_down_mobile_in">22212354</div> */}
                                     </ul> 
                                 </div>
