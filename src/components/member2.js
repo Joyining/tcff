@@ -147,6 +147,17 @@ flipToReg() {
     console.log("flip to reg");
     let card1 = document.querySelector("#card1");
     card1.classList.toggle("active");
+    const inputs = document.querySelectorAll('input');
+    Array.from(inputs).forEach(input=>{
+      input.value='';
+    })
+    // const warnings = document.querySelectorAll('.warning_box');
+    // Array.from(warnings).forEach(warning=>{
+    //   console.log(warning.childNodes);
+    //   Array.from(warning.childNodes).forEach(el=>{
+    //     el.innerHTML = '';
+    //   });
+    // })
   }
 fliptoForget(){
       console.log("flip to forget");
