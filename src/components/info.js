@@ -35,6 +35,22 @@ class Info extends Component {
           });  
         });
 
+    let scrollDetection = () => {
+      let lastScrollTop = 0;
+      let picsBox = document.querySelector('#pic_up_place');
+      window.addEventListener("scroll", function () {
+        let scrollTop = window.scrollY;
+          if (scrollTop > lastScrollTop) {
+            picsBox.style.top='60px';
+            // console.log(picsBox);
+
+          } else {
+            picsBox.style.top = '100px';
+          }
+          lastScrollTop = scrollTop;
+        })
+      };
+    scrollDetection();
   }
 
 
