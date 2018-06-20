@@ -19,9 +19,9 @@ header{
     box-sizing: border-box;
     z-index: 5;
     @include breakpoint('mobileonly'){
-        height: $headerHeight*.2;
+        height: $headerHeight*.5;
         // display: none;
-        background-color: transparent;
+        // background-color: transparent;
     }
     .logo{
         opacity: 1;
@@ -42,14 +42,16 @@ header{
         }
         @include breakpoint('mobileonly'){
             width: 30vw;
-            height: 30vw;
-            display: none;
+            height: 5vw;
+            border-radius: initial;
+            background-color: transparent;
+            // display: none;
         }
         img{
             display: block;
             margin: 2.5vw auto; 
             @include breakpoint('mobileonly'){
-                margin: 5vw auto; 
+                margin: .5vw auto; 
             }
         }
     }
@@ -369,6 +371,9 @@ header{
 
     &.small-header{
         height: $headerHeight*.6;
+        @include breakpoint('mobileonly'){
+            height: 0;
+        }
         .nav-text{
             // opacity: 0;
             display: none;
@@ -395,12 +400,11 @@ header{
                 height: 90%;
                 margin: 2.5% auto; 
             }
+            @include breakpoint('mobileonly'){
+                height: 0;
+            }
         }
         .nav-icon.web a{
-            // height: $headerHeight*.6;
-
-            // width: $headerHeight * .4;
-            // padding: $headerHeight * .1;
             height: $headerHeight * .3;
             margin: $headerHeight * .15 0;
             display: block;    

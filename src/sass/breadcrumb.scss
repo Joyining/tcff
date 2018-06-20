@@ -1,5 +1,11 @@
 @import "partials/basic";
 
+#filmsPage{
+    .breadcrumb-wrap{
+        top: initial;
+    }
+}
+
 .breadcrumb-wrap{
     display: flex;
     position: absolute;

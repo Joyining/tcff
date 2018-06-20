@@ -33,32 +33,11 @@ class Header extends Component {
         this.closeMember = this.closeMember.bind(this);
         this.logout = this.logout.bind(this);
         this.toggleMember = this.toggleMember.bind(this);
-        this.scrollDetection = this.scrollDetection.bind(this);
+        // this.scrollDetection = this.scrollDetection.bind(this);
         this.menuClick = this.menuClick.bind(this);
         // this.menuDetect = this.menuDetect.bind(this);
         // this.menuDetectRemove = this.menuDetectRemove.bind(this);
-    
-    
     }
-
-    // header size
-    scrollDetection(){
-        let lastScrollTop = 0;
-        window.addEventListener("scroll", function () {
-            let scrollTop = document.documentElement.scrollTop;
-            const header = document.querySelector('header');
-            const logoImg = document.querySelector('#logo').children;
-
-            if (scrollTop > lastScrollTop) {
-                header.classList.add('small-header');
-                logoImg[0].setAttribute('src', logo2);
-            } else {
-                header.classList.remove('small-header');
-                logoImg[0].setAttribute('src', logo1);
-            }
-            lastScrollTop = scrollTop;
-        })  
-    };
 
     // menu icon open and close
     menuClick(){
@@ -199,7 +178,40 @@ class Header extends Component {
             nicknameMobile.style.display = "none";
         }
 
-        window.addEventListener('scroll', this.scrollDetection, false);
+        // window.addEventListener('scroll', this.scrollDetection, false);
+        if (/Android|webOS|iPhone|iPad|BlackBerry|Windows Phone|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent)){
+            const logoImg = document.querySelector("#logo").children;
+            logoImg[0].setAttribute("src", logo2);
+        }
+
+        let scrollDetection = ()=>{
+            let lastScrollTop = 0;
+            window.addEventListener("scroll", function () {
+                // let scrollTop = document.documentElement.scrollTop;
+                let scrollTop = window.scrollY;
+                const header = document.querySelector('header');
+                const logoImg = document.querySelector('#logo').children;
+                if (!/Android|webOS|iPhone|iPad|BlackBerry|Windows Phone|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent)){
+                    if (scrollTop > lastScrollTop) {
+                        header.classList.add('small-header');
+                        logoImg[0].setAttribute('src', logo2);
+
+                    } else {
+                        header.classList.remove('small-header');
+                        logoImg[0].setAttribute('src', logo1);
+                    }
+                    lastScrollTop = scrollTop;
+                }else{
+                    if (scrollTop > lastScrollTop) {
+                        header.classList.add('small-header');
+                    } else {
+                        header.classList.remove('small-header');
+                    }
+                    lastScrollTop = scrollTop;
+                }
+            })
+        };
+        scrollDetection();
 
         let menuDetect = () => {
             const menuBtn = document.querySelector('.menu-btn').children;
@@ -317,7 +329,7 @@ class Header extends Component {
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.scrollDetection, false);
+        // window.removeEventListener('scroll', this.scrollDetection, false);
     }
     
     render() {
